@@ -47,6 +47,7 @@
 		7A99881F1E24EE3E006175CC /* TCServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988111E24EE3E006175CC /* TCServices.m */; };
 		7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988131E24EE3E006175CC /* TCServiceWrapper.m */; };
 		7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988231E24EE4B006175CC /* TCUploadInfo.m */; };
+		7A9988271E24EFE6006175CC /* TCUserPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988261E24EFE6006175CC /* TCUserPhoneInfo.m */; };
 		E71BB80DAB52591718DA7767 /* libPods-store.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00C8004B261DE1B413018A3 /* libPods-store.a */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +151,8 @@
 		7A9988131E24EE3E006175CC /* TCServiceWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceWrapper.m; sourceTree = "<group>"; };
 		7A9988221E24EE4B006175CC /* TCUploadInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUploadInfo.h; sourceTree = "<group>"; };
 		7A9988231E24EE4B006175CC /* TCUploadInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUploadInfo.m; sourceTree = "<group>"; };
+		7A9988251E24EFE6006175CC /* TCUserPhoneInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUserPhoneInfo.h; sourceTree = "<group>"; };
+		7A9988261E24EFE6006175CC /* TCUserPhoneInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUserPhoneInfo.m; sourceTree = "<group>"; };
 		AF80221D1AF577A91976C738 /* Pods-store.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.debug.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.debug.xcconfig"; sourceTree = "<group>"; };
 		B00C8004B261DE1B413018A3 /* libPods-store.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-store.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54209AED3B5DC0C7B24D243 /* Pods-store.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.release.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.release.xcconfig"; sourceTree = "<group>"; };
@@ -416,6 +419,8 @@
 			children = (
 				7A9987EE1E24E958006175CC /* TCUserSession.h */,
 				7A9987EF1E24E958006175CC /* TCUserSession.m */,
+				7A9988251E24EFE6006175CC /* TCUserPhoneInfo.h */,
+				7A9988261E24EFE6006175CC /* TCUserPhoneInfo.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -692,6 +697,7 @@
 				7A9987CF1E24C9FA006175CC /* TCClientRequest.m in Sources */,
 				7A99881E1E24EE3E006175CC /* TCServiceDetail.m in Sources */,
 				7A9987D41E24E371006175CC /* TCClient.m in Sources */,
+				7A9988271E24EFE6006175CC /* TCUserPhoneInfo.m in Sources */,
 				7A99881D1E24EE3E006175CC /* TCMarkStore.m in Sources */,
 				7A9988171E24EE3E006175CC /* TCGoodsWrapper.m in Sources */,
 				7A99876E1E24C820006175CC /* TCArchiveService.m in Sources */,
