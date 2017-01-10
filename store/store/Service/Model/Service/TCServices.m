@@ -1,0 +1,19 @@
+//
+//  TCService.m
+//  individual
+//
+//  Created by WYH on 16/11/29.
+//  Copyright © 2016年 杭州部落公社科技有限公司. All rights reserved.
+//
+
+#import "TCServices.h"
+
+@implementation TCServices
+
++ (NSDictionary *)objectClassInDictionary {
+    return @{
+             @"store":[TCListStore class]
+             };
+}
+
+@end

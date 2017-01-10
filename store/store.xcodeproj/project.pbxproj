@@ -36,6 +36,17 @@
 		7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987EA1E24E7DF006175CC /* TCBuluoApi.m */; };
 		7A9987F01E24E958006175CC /* TCUserSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987EF1E24E958006175CC /* TCUserSession.m */; };
 		7A9987F61E24EAF0006175CC /* TCModelImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987F51E24EAF0006175CC /* TCModelImport.m */; };
+		7A9988141E24EE3E006175CC /* TCGoodDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987F91E24EE3E006175CC /* TCGoodDetail.m */; };
+		7A9988151E24EE3E006175CC /* TCGoods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987FB1E24EE3E006175CC /* TCGoods.m */; };
+		7A9988161E24EE3E006175CC /* TCGoodStandards.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987FD1E24EE3E006175CC /* TCGoodStandards.m */; };
+		7A9988171E24EE3E006175CC /* TCGoodsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987FF1E24EE3E006175CC /* TCGoodsWrapper.m */; };
+		7A99881B1E24EE3E006175CC /* TCDetailStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988091E24EE3E006175CC /* TCDetailStore.m */; };
+		7A99881C1E24EE3E006175CC /* TCListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A99880B1E24EE3E006175CC /* TCListStore.m */; };
+		7A99881D1E24EE3E006175CC /* TCMarkStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A99880D1E24EE3E006175CC /* TCMarkStore.m */; };
+		7A99881E1E24EE3E006175CC /* TCServiceDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A99880F1E24EE3E006175CC /* TCServiceDetail.m */; };
+		7A99881F1E24EE3E006175CC /* TCServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988111E24EE3E006175CC /* TCServices.m */; };
+		7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988131E24EE3E006175CC /* TCServiceWrapper.m */; };
+		7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988231E24EE4B006175CC /* TCUploadInfo.m */; };
 		E71BB80DAB52591718DA7767 /* libPods-store.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00C8004B261DE1B413018A3 /* libPods-store.a */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +128,28 @@
 		7A9987EF1E24E958006175CC /* TCUserSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUserSession.m; sourceTree = "<group>"; };
 		7A9987F41E24EAF0006175CC /* TCModelImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCModelImport.h; sourceTree = "<group>"; };
 		7A9987F51E24EAF0006175CC /* TCModelImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCModelImport.m; sourceTree = "<group>"; };
+		7A9987F81E24EE3E006175CC /* TCGoodDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodDetail.h; sourceTree = "<group>"; };
+		7A9987F91E24EE3E006175CC /* TCGoodDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodDetail.m; sourceTree = "<group>"; };
+		7A9987FA1E24EE3E006175CC /* TCGoods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoods.h; sourceTree = "<group>"; };
+		7A9987FB1E24EE3E006175CC /* TCGoods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoods.m; sourceTree = "<group>"; };
+		7A9987FC1E24EE3E006175CC /* TCGoodStandards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodStandards.h; sourceTree = "<group>"; };
+		7A9987FD1E24EE3E006175CC /* TCGoodStandards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodStandards.m; sourceTree = "<group>"; };
+		7A9987FE1E24EE3E006175CC /* TCGoodsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsWrapper.h; sourceTree = "<group>"; };
+		7A9987FF1E24EE3E006175CC /* TCGoodsWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsWrapper.m; sourceTree = "<group>"; };
+		7A9988081E24EE3E006175CC /* TCDetailStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCDetailStore.h; sourceTree = "<group>"; };
+		7A9988091E24EE3E006175CC /* TCDetailStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCDetailStore.m; sourceTree = "<group>"; };
+		7A99880A1E24EE3E006175CC /* TCListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCListStore.h; sourceTree = "<group>"; };
+		7A99880B1E24EE3E006175CC /* TCListStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCListStore.m; sourceTree = "<group>"; };
+		7A99880C1E24EE3E006175CC /* TCMarkStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCMarkStore.h; sourceTree = "<group>"; };
+		7A99880D1E24EE3E006175CC /* TCMarkStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMarkStore.m; sourceTree = "<group>"; };
+		7A99880E1E24EE3E006175CC /* TCServiceDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceDetail.h; sourceTree = "<group>"; };
+		7A99880F1E24EE3E006175CC /* TCServiceDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceDetail.m; sourceTree = "<group>"; };
+		7A9988101E24EE3E006175CC /* TCServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServices.h; sourceTree = "<group>"; };
+		7A9988111E24EE3E006175CC /* TCServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServices.m; sourceTree = "<group>"; };
+		7A9988121E24EE3E006175CC /* TCServiceWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceWrapper.h; sourceTree = "<group>"; };
+		7A9988131E24EE3E006175CC /* TCServiceWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceWrapper.m; sourceTree = "<group>"; };
+		7A9988221E24EE4B006175CC /* TCUploadInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUploadInfo.h; sourceTree = "<group>"; };
+		7A9988231E24EE4B006175CC /* TCUploadInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUploadInfo.m; sourceTree = "<group>"; };
 		AF80221D1AF577A91976C738 /* Pods-store.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.debug.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.debug.xcconfig"; sourceTree = "<group>"; };
 		B00C8004B261DE1B413018A3 /* libPods-store.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-store.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54209AED3B5DC0C7B24D243 /* Pods-store.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.release.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.release.xcconfig"; sourceTree = "<group>"; };
@@ -370,6 +403,9 @@
 			children = (
 				7A9987F41E24EAF0006175CC /* TCModelImport.h */,
 				7A9987F51E24EAF0006175CC /* TCModelImport.m */,
+				7A9988211E24EE4B006175CC /* Upload */,
+				7A9987F71E24EE3E006175CC /* Goods */,
+				7A9988071E24EE3E006175CC /* Service */,
 				7A9987ED1E24E92A006175CC /* User */,
 			);
 			path = Model;
@@ -382,6 +418,49 @@
 				7A9987EF1E24E958006175CC /* TCUserSession.m */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		7A9987F71E24EE3E006175CC /* Goods */ = {
+			isa = PBXGroup;
+			children = (
+				7A9987F81E24EE3E006175CC /* TCGoodDetail.h */,
+				7A9987F91E24EE3E006175CC /* TCGoodDetail.m */,
+				7A9987FA1E24EE3E006175CC /* TCGoods.h */,
+				7A9987FB1E24EE3E006175CC /* TCGoods.m */,
+				7A9987FC1E24EE3E006175CC /* TCGoodStandards.h */,
+				7A9987FD1E24EE3E006175CC /* TCGoodStandards.m */,
+				7A9987FE1E24EE3E006175CC /* TCGoodsWrapper.h */,
+				7A9987FF1E24EE3E006175CC /* TCGoodsWrapper.m */,
+			);
+			path = Goods;
+			sourceTree = "<group>";
+		};
+		7A9988071E24EE3E006175CC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				7A9988081E24EE3E006175CC /* TCDetailStore.h */,
+				7A9988091E24EE3E006175CC /* TCDetailStore.m */,
+				7A99880A1E24EE3E006175CC /* TCListStore.h */,
+				7A99880B1E24EE3E006175CC /* TCListStore.m */,
+				7A99880C1E24EE3E006175CC /* TCMarkStore.h */,
+				7A99880D1E24EE3E006175CC /* TCMarkStore.m */,
+				7A99880E1E24EE3E006175CC /* TCServiceDetail.h */,
+				7A99880F1E24EE3E006175CC /* TCServiceDetail.m */,
+				7A9988101E24EE3E006175CC /* TCServices.h */,
+				7A9988111E24EE3E006175CC /* TCServices.m */,
+				7A9988121E24EE3E006175CC /* TCServiceWrapper.h */,
+				7A9988131E24EE3E006175CC /* TCServiceWrapper.m */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		7A9988211E24EE4B006175CC /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				7A9988221E24EE4B006175CC /* TCUploadInfo.h */,
+				7A9988231E24EE4B006175CC /* TCUploadInfo.m */,
+			);
+			path = Upload;
 			sourceTree = "<group>";
 		};
 		A20F3A5039DCEF23EF313FFC /* Pods */ = {
@@ -590,26 +669,37 @@
 			files = (
 				7A9987611E2497D5006175CC /* TCTabBar.m in Sources */,
 				7A9987E51E24E42B006175CC /* UIView+Category.m in Sources */,
+				7A9988141E24EE3E006175CC /* TCGoodDetail.m in Sources */,
+				7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */,
 				7A9987711E24C820006175CC /* TCPhotoPicker.m in Sources */,
 				7A9987D11E24C9FA006175CC /* TCClientResponse.m in Sources */,
 				7A9987F01E24E958006175CC /* TCUserSession.m in Sources */,
 				7A9987CE1E24C9FA006175CC /* TCClientConfig.m in Sources */,
+				7A99881B1E24EE3E006175CC /* TCDetailStore.m in Sources */,
 				7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */,
 				7A9987241E24959F006175CC /* AppDelegate.m in Sources */,
 				7A9987E81E24E472006175CC /* TCExtendButton.m in Sources */,
 				7A9987D01E24C9FA006175CC /* TCClientRequestError.m in Sources */,
 				7A9987E21E24E42B006175CC /* NSObject+TCModel.m in Sources */,
 				7A99875F1E2497D5006175CC /* TCNavigationController.m in Sources */,
+				7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */,
 				7A9987E31E24E42B006175CC /* NSObject+TCNomal.m in Sources */,
 				7A9987601E2497D5006175CC /* TCTabBarController.m in Sources */,
 				7A9987721E24C820006175CC /* TCScanner.m in Sources */,
 				7A9987F61E24EAF0006175CC /* TCModelImport.m in Sources */,
+				7A99881C1E24EE3E006175CC /* TCListStore.m in Sources */,
 				7A9987211E24959F006175CC /* main.m in Sources */,
 				7A9987CF1E24C9FA006175CC /* TCClientRequest.m in Sources */,
+				7A99881E1E24EE3E006175CC /* TCServiceDetail.m in Sources */,
 				7A9987D41E24E371006175CC /* TCClient.m in Sources */,
+				7A99881D1E24EE3E006175CC /* TCMarkStore.m in Sources */,
+				7A9988171E24EE3E006175CC /* TCGoodsWrapper.m in Sources */,
 				7A99876E1E24C820006175CC /* TCArchiveService.m in Sources */,
 				7A99876F1E24C820006175CC /* TCFunctions.m in Sources */,
+				7A9988151E24EE3E006175CC /* TCGoods.m in Sources */,
 				7A9987701E24C820006175CC /* TCImageURLSynthesizer.m in Sources */,
+				7A99881F1E24EE3E006175CC /* TCServices.m in Sources */,
+				7A9988161E24EE3E006175CC /* TCGoodStandards.m in Sources */,
 				7A9987D91E24E41B006175CC /* MBProgressHUD+Category.m in Sources */,
 				7A9987AE1E24C84B006175CC /* TCBaseViewController.m in Sources */,
 				7A9987E41E24E42B006175CC /* UIImage+Category.m in Sources */,

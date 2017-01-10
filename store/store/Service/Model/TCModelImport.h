@@ -9,12 +9,24 @@
 #import <Foundation/Foundation.h>
 
 /********** 用户相关 **********/
-
 #import "TCUserSession.h"
 
+/********** 商品相关 **********/
+#import "TCGoods.h"
+#import "TCGoodsWrapper.h"
+#import "TCGoodDetail.h"
+#import "TCGoodStandards.h"
 
+/********** 服务相关 **********/
+#import "TCServiceWrapper.h"
+#import "TCServices.h"
+#import "TCServiceDetail.h"
+#import "TCMarkStore.h"
+#import "TCListStore.h"
+#import "TCDetailStore.h"
 
-
+/********** OSS上传相关 **********/
+#import "TCUploadInfo.h"
 
 
 
