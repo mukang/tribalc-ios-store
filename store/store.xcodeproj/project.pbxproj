@@ -33,6 +33,9 @@
 		7A9987E41E24E42B006175CC /* UIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987DF1E24E42B006175CC /* UIImage+Category.m */; };
 		7A9987E51E24E42B006175CC /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987E11E24E42B006175CC /* UIView+Category.m */; };
 		7A9987E81E24E472006175CC /* TCExtendButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987E71E24E472006175CC /* TCExtendButton.m */; };
+		7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987EA1E24E7DF006175CC /* TCBuluoApi.m */; };
+		7A9987F01E24E958006175CC /* TCUserSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987EF1E24E958006175CC /* TCUserSession.m */; };
+		7A9987F61E24EAF0006175CC /* TCModelImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987F51E24EAF0006175CC /* TCModelImport.m */; };
 		E71BB80DAB52591718DA7767 /* libPods-store.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00C8004B261DE1B413018A3 /* libPods-store.a */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +111,12 @@
 		7A9987E11E24E42B006175CC /* UIView+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Category.m"; sourceTree = "<group>"; };
 		7A9987E61E24E472006175CC /* TCExtendButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCExtendButton.h; sourceTree = "<group>"; };
 		7A9987E71E24E472006175CC /* TCExtendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCExtendButton.m; sourceTree = "<group>"; };
+		7A9987E91E24E7DF006175CC /* TCBuluoApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBuluoApi.h; sourceTree = "<group>"; };
+		7A9987EA1E24E7DF006175CC /* TCBuluoApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBuluoApi.m; sourceTree = "<group>"; };
+		7A9987EE1E24E958006175CC /* TCUserSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUserSession.h; sourceTree = "<group>"; };
+		7A9987EF1E24E958006175CC /* TCUserSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUserSession.m; sourceTree = "<group>"; };
+		7A9987F41E24EAF0006175CC /* TCModelImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCModelImport.h; sourceTree = "<group>"; };
+		7A9987F51E24EAF0006175CC /* TCModelImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCModelImport.m; sourceTree = "<group>"; };
 		AF80221D1AF577A91976C738 /* Pods-store.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.debug.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.debug.xcconfig"; sourceTree = "<group>"; };
 		B00C8004B261DE1B413018A3 /* libPods-store.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-store.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54209AED3B5DC0C7B24D243 /* Pods-store.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.release.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.release.xcconfig"; sourceTree = "<group>"; };
@@ -223,7 +232,10 @@
 		7A9987541E24979B006175CC /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				7A9987E91E24E7DF006175CC /* TCBuluoApi.h */,
+				7A9987EA1E24E7DF006175CC /* TCBuluoApi.m */,
 				7A9987C01E24C9FA006175CC /* WebService */,
+				7A9987EC1E24E90D006175CC /* Model */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -351,6 +363,25 @@
 				7A9987E71E24E472006175CC /* TCExtendButton.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		7A9987EC1E24E90D006175CC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7A9987F41E24EAF0006175CC /* TCModelImport.h */,
+				7A9987F51E24EAF0006175CC /* TCModelImport.m */,
+				7A9987ED1E24E92A006175CC /* User */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7A9987ED1E24E92A006175CC /* User */ = {
+			isa = PBXGroup;
+			children = (
+				7A9987EE1E24E958006175CC /* TCUserSession.h */,
+				7A9987EF1E24E958006175CC /* TCUserSession.m */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		A20F3A5039DCEF23EF313FFC /* Pods */ = {
@@ -561,7 +592,9 @@
 				7A9987E51E24E42B006175CC /* UIView+Category.m in Sources */,
 				7A9987711E24C820006175CC /* TCPhotoPicker.m in Sources */,
 				7A9987D11E24C9FA006175CC /* TCClientResponse.m in Sources */,
+				7A9987F01E24E958006175CC /* TCUserSession.m in Sources */,
 				7A9987CE1E24C9FA006175CC /* TCClientConfig.m in Sources */,
+				7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */,
 				7A9987241E24959F006175CC /* AppDelegate.m in Sources */,
 				7A9987E81E24E472006175CC /* TCExtendButton.m in Sources */,
 				7A9987D01E24C9FA006175CC /* TCClientRequestError.m in Sources */,
@@ -570,6 +603,7 @@
 				7A9987E31E24E42B006175CC /* NSObject+TCNomal.m in Sources */,
 				7A9987601E2497D5006175CC /* TCTabBarController.m in Sources */,
 				7A9987721E24C820006175CC /* TCScanner.m in Sources */,
+				7A9987F61E24EAF0006175CC /* TCModelImport.m in Sources */,
 				7A9987211E24959F006175CC /* main.m in Sources */,
 				7A9987CF1E24C9FA006175CC /* TCClientRequest.m in Sources */,
 				7A9987D41E24E371006175CC /* TCClient.m in Sources */,
