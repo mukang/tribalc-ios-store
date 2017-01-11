@@ -8,13 +8,11 @@
 
 #import "TCTabBarController.h"
 #import "TCNavigationController.h"
-//#import "TCProfileViewController.h"
-//#import "TCVicinityViewController.h"
-//#import "TCHomeViewController.h"
-//#import "TCCommunitiesViewController.h"
-//#import "TCToolsViewController.h"
+#import "TCHomeViewController.h"
+#import "TCGoodsViewController.h"
+#import "TCOrderViewController.h"
+#import "TCProfileViewController.h"
 
-#import "TCTabBar.h"
 //#import "TCFunctions.h"
 //#import <EAIntroView/EAIntroView.h>
 
@@ -25,7 +23,7 @@ static NSString *const kAppVersion = @"kAppVersion";
 @end
 
 @implementation TCTabBarController
-/*
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -33,19 +31,12 @@ static NSString *const kAppVersion = @"kAppVersion";
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self addChildController:[[TCHomeViewController alloc] init] title:@"首页" image:@"tabBar_home_normal" selectedImage:@"tabBar_home_selected"];
-    [self addChildController:[[TCCommunitiesViewController alloc] init] title:@"社区" image:@"tabBar_discover_normal" selectedImage:@"tabBar_discover_selected"];
-    [self addChildController:[[TCToolsViewController alloc] init] title:@"常用" image:@"tabBar_common_normal" selectedImage:@"tabBar_common_selected"];
+    [self addChildController:[[TCGoodsViewController alloc] init] title:@"商品" image:@"tabBar_goods_normal" selectedImage:@"tabBar_goods_selected"];
+    [self addChildController:[[TCOrderViewController alloc] init] title:@"订单" image:@"tabBar_order_normal" selectedImage:@"tabBar_order_selected"];
     [self addChildController:[[TCProfileViewController alloc] init] title:@"我的" image:@"tabBar_profile_normal" selectedImage:@"tabBar_profile_selected"];
     
-    [self setValue:[[TCTabBar alloc] init] forKey:@"tabBar"];
     
-    [self registerNotifications];
-    
-    [self handleShowIntroView];
-}
-
-- (void)dealloc {
-    [self removeNotifications];
+//    [self handleShowIntroView];
 }
 
 - (void)addChildController:(UIViewController *)childController title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selecteImage {
@@ -71,25 +62,6 @@ static NSString *const kAppVersion = @"kAppVersion";
     [self addChildViewController:nav];
 }
 
-#pragma mark - notification
-
-- (void)registerNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleClickVicinityButton:) name:TCVicinityButtonDidClickNotification object:nil];
-}
-
-- (void)removeNotifications {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark - actions
-
-- (void)handleClickVicinityButton:(NSNotification *)noti {
-    TCVicinityViewController *vicinityVC = [[TCVicinityViewController alloc] init];
-    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vicinityVC];
-    nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:nav animated:YES completion:nil];
-}
- */
 
 #pragma mark - Intro View
 
