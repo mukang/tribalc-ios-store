@@ -41,20 +41,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.view.backgroundColor = [UIColor whiteColor];
+    
     if (mScrollView == nil) {
         [self createEntiretyScrollView];
     }
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     weakSelf = self;
-
+    self.hideOriginalNavBar = YES;
     [self loadGoodDetailInfoWithGoodId:mGoodId];
 }
 
@@ -159,7 +156,7 @@
     backBtn.layer.cornerRadius = TCRealValue(27.5 / 2);
     backBtn.backgroundColor = [UIColor colorWithRed:57/255.0 green:57/255.0 blue:57/255.0 alpha:1];
     
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"back"]];
+    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]];
     [imgView sizeToFit];
     [imgView setFrame:CGRectMake(backBtn.width / 2 - imgView.width * 1.1 / 2 - 1.4, backBtn.height / 2 - imgView.height * 1.1 / 2, imgView.width * 1.1, imgView.height * 1.1)];
     [backBtn addSubview:imgView];
@@ -458,17 +455,6 @@
 
 - (void)touchCollectionBtn:(id)sender {
     
-}
-
-
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-
-    self.navigationController.navigationBarHidden = NO;
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-
 }
 
 

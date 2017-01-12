@@ -153,6 +153,7 @@
     standardScrollView.height = _goodStandard.descriptions.allKeys.count == 1 ? TCRealValue(390 / 2) : TCRealValue(390 / 2 + 84 + 49);
     
     UIView *bottomView = [self getBottomViewWithFrame:CGRectMake(0, standardScrollView.height - TCRealValue(49), TCScreenWidth, TCRealValue(49))];
+    bottomView.hidden = YES;
     [standardScrollView addSubview:bottomView];
     
     if (!(goodStandard.descriptions == nil || goodStandard.descriptions.allKeys.count == 0)) {
