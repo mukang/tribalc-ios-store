@@ -29,6 +29,7 @@ static NSString *const kAppVersion = @"kAppVersion";
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.tabBar.translucent = NO;
     
     [self addChildController:[[TCHomeViewController alloc] init] title:@"首页" image:@"tabBar_home_normal" selectedImage:@"tabBar_home_selected"];
     [self addChildController:[[TCGoodsViewController alloc] init] title:@"商品" image:@"tabBar_goods_normal" selectedImage:@"tabBar_goods_selected"];
@@ -55,9 +56,6 @@ static NSString *const kAppVersion = @"kAppVersion";
     nav.tabBarItem.title = title;
     nav.tabBarItem.image = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:selecteImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    if ([title isEqualToString:@"附近"]) {
-        nav.tabBarItem.imageInsets = UIEdgeInsetsMake(-10, 0, 10, 0);
-    }
     nav.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -2);
     [self addChildViewController:nav];
 }

@@ -20,24 +20,14 @@
 
 @implementation TCRecommendListViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    UIImageView *barImageView = self.navigationController.navigationBar.subviews.firstObject;
-    barImageView.backgroundColor = TCRGBColor(42, 42, 42);
-    barImageView.alpha = 1;
-    [self setupNavigationBar];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-
 
     collectionImgArr = [[NSMutableArray alloc] init];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self setupNavigationBar];
     [self createCollectionView];
-
     [self loadGoodsData];
 
 }
@@ -45,8 +35,8 @@
 
 # pragma mark - Navigation Bar
 - (void)setupNavigationBar {
-    
     self.navigationItem.title = @"精品推荐";
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self

@@ -368,10 +368,10 @@
 		7A9987531E249791006175CC /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				7ABCC0821E2622C800750E47 /* Home */,
 				7ABCC0F71E262B3C00750E47 /* Goods */,
 				7ABCC0FA1E262B3C00750E47 /* Order */,
 				7ABCC0FD1E262B3C00750E47 /* Profile */,
-				7ABCC0821E2622C800750E47 /* Home */,
 				7A9987561E2497D5006175CC /* Main */,
 			);
 			path = Feature;

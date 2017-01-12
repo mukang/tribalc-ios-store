@@ -7,24 +7,17 @@
 //
 
 #import "TCHomeViewController.h"
-#import "TCHomeCommodityTableViewCell.h"
-//#import "TCRepairsViewController.h"
-#import "TCGetNavigationItem.h"
-
-#import "TCGoodSelectView.h"
-
-
 //#import "TCLoginViewController.h"
-//#import "TCRepairsViewController.h"
-
-#import <MBProgressHUD.h>
 //#import "TCQRCodeViewController.h"
+#import "TCHomeCommodityTableViewCell.h"
+#import "TCGoodSelectView.h"
+#import "UIImage+Category.h"
+#import <MBProgressHUD.h>
 
 @interface TCHomeViewController () {
     NSDictionary *homeInfoDic;
     UIScrollView *titleScrollView;
     UIScrollView *homeScrollView;
-    UILabel *navigationTitleLab;
     NSTimer *titleScrollTimer;
 }
 
@@ -32,22 +25,13 @@
 
 @implementation TCHomeViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self setupNavigationBarColor];
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self setupNavigationBarColor];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.frame = [UIScreen mainScreen].bounds;
     
-    [self setupNavigationBar];
+    [self setupNavBar];
+    [self updateNavigationBarWithAlpha:0.0];
     
     [self forgeData];
     
@@ -70,20 +54,19 @@
     
 }
 
-- (void)setupNavigationBarColor {
-    [self.navigationController.navigationBar setTranslucent:YES];
-    CGFloat minAlphaOffset = 0;
-    CGFloat maxAlphaOffset = 270;
-    CGFloat offset = homeScrollView.contentOffset.y;
-    CGFloat alpha = (offset - minAlphaOffset) / (maxAlphaOffset - minAlphaOffset);
-    UIImageView *barImageView = self.navigationController.navigationBar.subviews.firstObject;
-    barImageView.backgroundColor = TCRGBColor(42, 42, 42);
-    barImageView.alpha = alpha;
-    navigationTitleLab.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:alpha];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateNavigationBar];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self restoreNavigationBar];
 }
 
 - (UIScrollView *)getHomeScrollViewWithFrame:(CGRect)frame {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
+//    scrollView.
     scrollView.backgroundColor = TCRGBColor(242, 242, 242);
     scrollView.delegate = self;
     
@@ -216,20 +199,12 @@
 }
 
 
-- (void)setupNavigationBar {
-    
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, [UIFont systemFontOfSize:TCRealValue(16)],NSFontAttributeName,nil]];
-
-    navigationTitleLab = [TCGetNavigationItem getTitleItemWithText:@"首页"];
-    self.navigationItem.titleView = navigationTitleLab;
-    self.view.backgroundColor = [UIColor whiteColor];
+- (void)setupNavBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController.navigationBar setTranslucent:YES];
-    UIImageView *barImageView = self.navigationController.navigationBar.subviews.firstObject;
-    barImageView.backgroundColor = TCRGBColor(42, 42, 42);
-    barImageView.alpha = 0;
-    navigationTitleLab.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0];
+    self.extendedLayoutIncludesOpaqueBars = YES;
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"TransparentPixel"]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    self.navigationItem.title = @"首页";
 }
 
 
@@ -318,13 +293,6 @@
     }
 }
 
-- (void)setNavigationBarBlack {
-    [self.navigationController.navigationBar setTranslucent:NO];
-    UIImageView *barImageView = self.navigationController.navigationBar.subviews.firstObject;
-    barImageView.backgroundColor = TCRGBColor(42, 42, 42);
-    barImageView.alpha = 1;
-}
-
 
 
 - (void)getRGBComponents:(CGFloat [3])components forColor:(UIColor *)color {
@@ -362,6 +330,43 @@
     return NO;
     else
     return YES;
+}
+
+#pragma mark - Navigation Bar
+
+- (void)restoreNavigationBar {
+    [self updateNavigationBarWithAlpha:1.0];
+}
+
+- (void)updateNavigationBar {
+    CGFloat maxOffsetY = 270;
+    CGFloat offsetY = homeScrollView.contentOffset.y;
+    CGFloat alpha = offsetY / maxOffsetY;
+    if (alpha > 1.0) alpha = 1.0;
+    if (alpha < 0.0) alpha = 0.0;
+    [self updateNavigationBarWithAlpha:alpha];
+}
+
+- (void)updateNavigationBarWithAlpha:(CGFloat)alpha {
+    if (alpha < 1.0) {
+        self.navigationController.navigationBar.translucent = YES;
+    } else {
+        self.navigationController.navigationBar.translucent = NO;
+    }
+    
+    UIColor *titleColor = nil;
+    if (alpha > 0.7) {
+        titleColor = [UIColor whiteColor];
+    } else {
+        titleColor = [UIColor clearColor];
+    }
+    self.navigationController.navigationBar.titleTextAttributes = @{
+                                                                    NSFontAttributeName : [UIFont systemFontOfSize:16],
+                                                                    NSForegroundColorAttributeName : titleColor
+                                                                    };
+    
+    UIImage *bgImage = [UIImage imageWithColor:TCARGBColor(42, 42, 42, alpha)];
+    [self.navigationController.navigationBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
 }
 
 
@@ -444,20 +449,10 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:homeScrollView]) {
-        CGFloat minAlphaOffset = 0;
-        CGFloat maxAlphaOffset = 270;
-        CGFloat offset = scrollView.contentOffset.y;
-        CGFloat alpha = (offset - minAlphaOffset) / (maxAlphaOffset - minAlphaOffset);
-        
-        UIImageView *barImageView = self.navigationController.navigationBar.subviews.firstObject;
-        barImageView.backgroundColor = TCRGBColor(42, 42, 42);
-        barImageView.alpha = alpha;
-        
-        navigationTitleLab.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:alpha];
+        [self updateNavigationBar];
     }
     
     [self setNeedsStatusBarAppearanceUpdate];
-    
 }
 
 
@@ -504,14 +499,12 @@
 }
 
 - (void)touchShoppingBtn:(id)sender {
-    [self setNavigationBarBlack];
     TCRecommendListViewController *recommend = [[TCRecommendListViewController alloc]init];
     recommend.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:recommend animated:YES];
 }
 
 - (void)touchRestaurantBtn:(id)sender {
-    [self setNavigationBarBlack];
     TCRestaurantViewController *resaurant = [[TCRestaurantViewController alloc]init];
     resaurant.title = @"餐饮";
     resaurant.hidesBottomBarWhenPushed = YES;
@@ -519,7 +512,6 @@
 }
 
 - (void)touchEntertainmentBtn:(id)sender {
-    [self setNavigationBarBlack];
     TCRestaurantViewController *resaurant = [[TCRestaurantViewController alloc]init];
     resaurant.title = @"娱乐";
     resaurant.hidesBottomBarWhenPushed = YES;
@@ -540,14 +532,6 @@
         return UIStatusBarStyleLightContent;
     }
     
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setTranslucent:NO];
-    UIImageView *barImageView = self.navigationController.navigationBar.subviews.firstObject;
-    barImageView.backgroundColor = TCRGBColor(42, 42, 42);
-    barImageView.alpha = 1;
 }
 
 - (void)didReceiveMemoryWarning {

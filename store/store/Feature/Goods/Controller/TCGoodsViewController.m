@@ -12,11 +12,15 @@
 
 @end
 
-@implementation TCGoodsViewController
+@implementation TCGoodsViewController {
+    __weak TCGoodsViewController *weakSelf;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    weakSelf = self;
+    
 }
 
 - (void)didReceiveMemoryWarning {
