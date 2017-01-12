@@ -21,7 +21,7 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"TransparentPixel"]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:TCRGBColor(42, 42, 42)] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.titleTextAttributes = @{
-                                                                    NSFontAttributeName : [UIFont systemFontOfSize:17],
+                                                                    NSFontAttributeName : [UIFont systemFontOfSize:16],
                                                                     NSForegroundColorAttributeName : [UIColor whiteColor]
                                                                     };
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]

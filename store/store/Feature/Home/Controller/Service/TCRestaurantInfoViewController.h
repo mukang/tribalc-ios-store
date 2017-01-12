@@ -14,9 +14,10 @@
 #import "TCClientConfig.h"
 #import "TCBuluoApi.h"
 #import "UIImageView+WebCache.h"
+#import "TCBaseViewController.h"
 
 
-@interface TCRestaurantInfoViewController : UIViewController<UIScrollViewDelegate, SDWebImageManagerDelegate>
+@interface TCRestaurantInfoViewController : TCBaseViewController <UIScrollViewDelegate, SDWebImageManagerDelegate>
 {
     UIScrollView *mScrollView;
 }
