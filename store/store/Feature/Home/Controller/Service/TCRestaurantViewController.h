@@ -22,8 +22,9 @@
 #import "TCRecommendFooter.h"
 #import "TCRecommendHeader.h"
 #import "MJRefresh.h"
+#import "TCBaseViewController.h"
 
-@interface TCRestaurantViewController : UIViewController<UITableViewDelegate,UITableViewDataSource, SDWebImageManagerDelegate, CLLocationManagerDelegate, TCServiceFilterViewDelegate>{
+@interface TCRestaurantViewController : TCBaseViewController <UITableViewDelegate,UITableViewDataSource, SDWebImageManagerDelegate, CLLocationManagerDelegate, TCServiceFilterViewDelegate>{
     UITableView *mResaurantTableView;
 }
 @end

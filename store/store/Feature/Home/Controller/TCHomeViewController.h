@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TCBaseViewController.h"
 #import "TCRecommendListViewController.h"
 #import "TCRestaurantViewController.h"
 
-@interface TCHomeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
+@interface TCHomeViewController : TCBaseViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
 @end

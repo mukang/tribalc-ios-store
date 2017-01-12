@@ -10,4 +10,6 @@
 
 @interface TCBaseViewController : UIViewController
 
+@property (nonatomic) BOOL hideOriginalNavBar;
+
 @end

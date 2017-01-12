@@ -7,6 +7,7 @@
 //
 
 #import "TCBaseViewController.h"
+#import "UIImage+Category.h"
 
 @interface TCBaseViewController ()
 
@@ -16,13 +17,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"TransparentPixel"]];
-    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:TCRGBColor(42, 42, 42)] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.titleTextAttributes = @{
+                                                                    NSFontAttributeName : [UIFont systemFontOfSize:17],
+                                                                    NSForegroundColorAttributeName : [UIColor whiteColor]
+                                                                    };
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(handleClickBackButton:)];
     self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (!self.hideOriginalNavBar) {
+        if (self.navigationController.navigationBarHidden) {
+            [self.navigationController setNavigationBarHidden:NO animated:animated];
+        }
+    } else {
+        if (!self.navigationController.navigationBarHidden) {
+            [self.navigationController setNavigationBarHidden:YES animated:animated];
+        }
+    }
 }
 
 - (void)handleClickBackButton:(UIBarButtonItem *)sender {

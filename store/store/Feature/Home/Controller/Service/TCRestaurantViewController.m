@@ -17,16 +17,10 @@
 
 @implementation TCRestaurantViewController
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self setupNavigationBar];
-
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupNavigationBar];
     
     [self loadRestaurantDataWithSortType:nil];
     
@@ -35,10 +29,6 @@
 
 #pragma mark - Navigation Bar
 - (void)setupNavigationBar {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(touchBackBtn:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"res_location"]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
@@ -249,9 +239,6 @@
 
 
 # pragma mark - Touch Action
-- (void)touchBackBtn:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)touchLocationBtn:(id)sender {
     TCLocationViewController *locationViewController = [[TCLocationViewController alloc] init];

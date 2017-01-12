@@ -36,11 +36,6 @@
 # pragma mark - Navigation Bar
 - (void)setupNavigationBar {
     self.navigationItem.title = @"精品推荐";
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(touchBackBtn:)];
 }
 
 
@@ -163,10 +158,6 @@
         imgView.image = image;
     }
 
-}
-
-- (void)touchBackBtn:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Status Bar
