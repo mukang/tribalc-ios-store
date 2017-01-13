@@ -143,10 +143,36 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)fetchServiceDetail:(NSString *)serviceID result:(void (^)(TCServiceDetail *serviceDetail, NSError *error))resultBlock;
 
+#pragma mark - 商铺资源
 
+/**
+ 创建店铺
 
+ @param storeDetailInfo TCStoreDetailInfo对象
+ @param resultBlock 结果回调，storeDetailInfo为nil时表示创建失败，失败原因见error的code和userInfo
+ */
+- (void)createStore:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(TCStoreDetailInfo *storeDetailInfo, NSError *error))resultBlock;
 
+/**
+ 获取店铺基本信息
 
+ @param resultBlock 结果回调，storeInfo为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchStoreInfo:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
+/**
+ 获取店铺详细信息
+
+ @param resultBlock 结果回调，storeDetailInfo为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchStoreDetailInfo:(void (^)(TCStoreDetailInfo *storeDetailInfo, NSError *error))resultBlock;
+
+/**
+ 修改店铺信息
+
+ @param storeDetailInfo TCStoreDetailInfo对象
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeStoreDetailInfo:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(BOOL success, NSError *error))resultBlock;
 
 @end

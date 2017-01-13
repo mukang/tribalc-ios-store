@@ -29,6 +29,10 @@
 /********** OSS上传相关 **********/
 #import "TCUploadInfo.h"
 
+/********** OSS上传相关 **********/
+#import "TCStoreInfo.h"
+#import "TCStoreDetailInfo.h"
+
 
 
 
