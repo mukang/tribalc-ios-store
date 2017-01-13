@@ -56,7 +56,7 @@
 /** 是否接受预定 */
 @property (nonatomic) BOOL reservable;
 /** 辅助设施 */
-@property (copy, nonatomic) NSArray *faclities;
+@property (copy, nonatomic) NSArray *facilities;
 /** 标签 */
 @property (copy, nonatomic) NSString *tags;
 /** 店铺创建状态 */
@@ -74,7 +74,7 @@
 /** 法人身份证照片 */
 @property (copy, nonatomic) NSArray *leagalPersonPicture;
 /** 行业许可证类型 */
-@property (copy, nonatomic) NSString *threadLicensetype;
+@property (copy, nonatomic) NSString *threadLicenseType;
 /** 许可证名称 */
 @property (copy, nonatomic) NSString *threadLicenseName;
 /** 经营范围 */
