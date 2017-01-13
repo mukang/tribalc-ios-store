@@ -7,6 +7,9 @@
 //
 
 #import "TCProfileViewController.h"
+#import "TCLoginViewController.h"
+#import "TCNavigationController.h"
+#import "TCBuluoApi.h"
 
 @interface TCProfileViewController ()
 
@@ -22,6 +25,25 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self checkUserNeedLogin];
+}
+
+#pragma mark - Show Login View Controller
+
+- (BOOL)checkUserNeedLogin {
+    if ([[TCBuluoApi api] needLogin]) {
+        [self showLoginViewController];
+    }
+    return [[TCBuluoApi api] needLogin];
+}
+
+- (void)showLoginViewController {
+    TCLoginViewController *vc = [[TCLoginViewController alloc] initWithNibName:@"TCLoginViewController" bundle:[NSBundle mainBundle]];
+    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 /*

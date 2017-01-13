@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A55F4201E287F5B0018FED3 /* TCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F4181E287F5B0018FED3 /* TCLoginViewController.m */; };
+		7A55F4211E287F5B0018FED3 /* TCLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A55F4191E287F5B0018FED3 /* TCLoginViewController.xib */; };
+		7A55F4221E287F5B0018FED3 /* TCUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F41B1E287F5B0018FED3 /* TCUserAgreementViewController.m */; };
+		7A55F4231E287F5B0018FED3 /* TCGetPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F41E1E287F5B0018FED3 /* TCGetPasswordView.m */; };
+		7A55F4241E287F5B0018FED3 /* TCGetPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A55F41F1E287F5B0018FED3 /* TCGetPasswordView.xib */; };
 		7A9987211E24959F006175CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987201E24959F006175CC /* main.m */; };
 		7A9987241E24959F006175CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987231E24959F006175CC /* AppDelegate.m */; };
 		7A99872C1E24959F006175CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A99872B1E24959F006175CC /* Assets.xcassets */; };
@@ -105,6 +110,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A55F4171E287F5B0018FED3 /* TCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCLoginViewController.h; sourceTree = "<group>"; };
+		7A55F4181E287F5B0018FED3 /* TCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCLoginViewController.m; sourceTree = "<group>"; };
+		7A55F4191E287F5B0018FED3 /* TCLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCLoginViewController.xib; sourceTree = "<group>"; };
+		7A55F41A1E287F5B0018FED3 /* TCUserAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUserAgreementViewController.h; sourceTree = "<group>"; };
+		7A55F41B1E287F5B0018FED3 /* TCUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUserAgreementViewController.m; sourceTree = "<group>"; };
+		7A55F41D1E287F5B0018FED3 /* TCGetPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGetPasswordView.h; sourceTree = "<group>"; };
+		7A55F41E1E287F5B0018FED3 /* TCGetPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGetPasswordView.m; sourceTree = "<group>"; };
+		7A55F41F1E287F5B0018FED3 /* TCGetPasswordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCGetPasswordView.xib; sourceTree = "<group>"; };
 		7A99871C1E24959F006175CC /* store.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = store.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A9987201E24959F006175CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7A9987221E24959F006175CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -292,6 +305,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A55F4151E287F5B0018FED3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7A55F4161E287F5B0018FED3 /* Controller */,
+				7A55F41C1E287F5B0018FED3 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		7A55F4161E287F5B0018FED3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7A55F4171E287F5B0018FED3 /* TCLoginViewController.h */,
+				7A55F4181E287F5B0018FED3 /* TCLoginViewController.m */,
+				7A55F4191E287F5B0018FED3 /* TCLoginViewController.xib */,
+				7A55F41A1E287F5B0018FED3 /* TCUserAgreementViewController.h */,
+				7A55F41B1E287F5B0018FED3 /* TCUserAgreementViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7A55F41C1E287F5B0018FED3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7A55F41D1E287F5B0018FED3 /* TCGetPasswordView.h */,
+				7A55F41E1E287F5B0018FED3 /* TCGetPasswordView.m */,
+				7A55F41F1E287F5B0018FED3 /* TCGetPasswordView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		7A9987131E24959F006175CC = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +412,7 @@
 		7A9987531E249791006175CC /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				7A55F4151E287F5B0018FED3 /* Login */,
 				7ABCC0821E2622C800750E47 /* Home */,
 				7ABCC0F71E262B3C00750E47 /* Goods */,
 				7ABCC0FA1E262B3C00750E47 /* Order */,
@@ -954,6 +999,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ABCC0D91E2622C800750E47 /* TCHomeViewController.xib in Resources */,
+				7A55F4241E287F5B0018FED3 /* TCGetPasswordView.xib in Resources */,
+				7A55F4211E287F5B0018FED3 /* TCLoginViewController.xib in Resources */,
 				7A99872F1E24959F006175CC /* LaunchScreen.storyboard in Resources */,
 				7A99872C1E24959F006175CC /* Assets.xcassets in Resources */,
 			);
@@ -1029,6 +1076,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ABCC1021E262B7A00750E47 /* TCGoodsViewController.m in Sources */,
+				7A55F4231E287F5B0018FED3 /* TCGetPasswordView.m in Sources */,
 				7ABCC0E11E2622C800750E47 /* TCRecommendFooter.m in Sources */,
 				7ABCC0D71E2622C800750E47 /* TCRestaurantViewController.m in Sources */,
 				7ABCC0E41E2622C800750E47 /* TCGoodSelectView.m in Sources */,
@@ -1083,8 +1131,10 @@
 				7A99876E1E24C820006175CC /* TCArchiveService.m in Sources */,
 				7A99876F1E24C820006175CC /* TCFunctions.m in Sources */,
 				7ABCC0D11E2622C800750E47 /* TCLocationViewController.m in Sources */,
+				7A55F4221E287F5B0018FED3 /* TCUserAgreementViewController.m in Sources */,
 				7A9988151E24EE3E006175CC /* TCGoods.m in Sources */,
 				7A9987701E24C820006175CC /* TCImageURLSynthesizer.m in Sources */,
+				7A55F4201E287F5B0018FED3 /* TCLoginViewController.m in Sources */,
 				7ABCC0DF1E2622C800750E47 /* TCUserLocationAnnotation.m in Sources */,
 				7ABCC0E91E2622C800750E47 /* TCGoodTitleView.m in Sources */,
 				7ABCC0E31E2622C800750E47 /* TCGoodSelectTitleView.m in Sources */,
