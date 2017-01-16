@@ -27,6 +27,10 @@
 @property (strong,nonatomic)AVCaptureVideoPreviewLayer * preview;
 
 @property (strong, nonatomic) TCPhotoPicker *photoPicker;
+
+@property (weak, nonatomic) UINavigationBar *navBar;
+@property (weak, nonatomic) UINavigationItem *navItem;
+
 @end
 
 @implementation TCQRCodeViewController
@@ -41,11 +45,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"扫一扫";
-
-    self.navigationController.navigationBar.translucent = YES;
-    UIImage *bgImage = [UIImage imageWithColor:TCARGBColor(255, 255, 255, 0.01)];
-    [self.navigationController.navigationBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
     
     [self prepareNav];
     
@@ -64,6 +63,29 @@
 
 
 - (void)prepareNav {
+    self.hideOriginalNavBar = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
+    navBar.titleTextAttributes = @{
+                                   NSFontAttributeName : [UIFont systemFontOfSize:16],
+                                   NSForegroundColorAttributeName : [UIColor whiteColor]
+                                   };
+    UIImage *image = [UIImage imageNamed:@"TransparentPixel"];
+    [navBar setShadowImage:image];
+    [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    [self.view addSubview:navBar];
+    
+    UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@"扫一扫"];
+    [navBar setItems:@[navItem]];
+    
+    self.navBar = navBar;
+    self.navItem = navItem;
+    
+    navItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"nav_back_item"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(handleClickBackButton:)];
     
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0,0,115,30)];
     
@@ -88,7 +110,7 @@
     moreBtn.frame = CGRectMake(85, 0, 30, 30);
     [rightView addSubview:moreBtn];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
 }
 
@@ -194,7 +216,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.translucent = NO;
 
     [scannerBorder stopScannerAnimating];
     [scanner stopScan];
@@ -245,6 +266,10 @@
     
     TCScannerMaskView *maskView = [TCScannerMaskView maskViewWithFrame:self.view.bounds cropRect:scannerBorder.frame];
     [self.view insertSubview:maskView atIndex:0];
+}
+
+- (void)handleClickBackButton:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
