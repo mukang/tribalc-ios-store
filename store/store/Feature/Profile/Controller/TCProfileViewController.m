@@ -9,8 +9,8 @@
 #import "TCProfileViewController.h"
 #import "TCLoginViewController.h"
 #import "TCNavigationController.h"
-//#import "TCQRCodeViewController.h"
-//#import "TCSettingViewController.h"
+#import "TCQRCodeViewController.h"
+#import "TCSettingViewController.h"
 
 #import "TCProfileHeaderView.h"
 #import "TCProfileViewCell.h"
@@ -376,17 +376,17 @@ TCPhotoModeViewDelegate>
 - (void)handleClickQRCodeButton:(UIBarButtonItem *)sender {
     TCLog(@"点击了扫码按钮");
     if ([self checkUserNeedLogin]) return;
-//    TCQRCodeViewController *qrVc = [[TCQRCodeViewController alloc] init];
-//    qrVc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:qrVc animated:YES];
+    TCQRCodeViewController *qrVc = [[TCQRCodeViewController alloc] init];
+    qrVc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:qrVc animated:YES];
 }
 
 - (void)handleClickSettingButton:(UIBarButtonItem *)sender {
     if ([self checkUserNeedLogin]) return;
     
-//    TCSettingViewController *vc = [[TCSettingViewController alloc] init];
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
+    TCSettingViewController *vc = [[TCSettingViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)handleUserDidLogin:(id)sender {

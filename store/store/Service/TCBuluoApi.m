@@ -98,6 +98,17 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
     }
 }
 
+- (void)fetchStoreInfoWithID:(NSString *)ID {
+    [self fetchStoreInfo:^(TCStoreInfo *storeInfo, NSError *error) {
+        if (storeInfo) {
+            TCUserSession *userSession = self.currentUserSession;
+            userSession.storeInfo = storeInfo;
+            [self setUserSession:userSession];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserInfoDidUpdate object:nil];
+        }
+    }];
+}
+
 #pragma mark - 用户资源
 
 - (void)login:(TCUserPhoneInfo *)phoneInfo result:(void (^)(TCUserSession *, NSError *))resultBlock {
@@ -115,6 +126,8 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
         } else {
             userSession = [[TCUserSession alloc] initWithObjectDictionary:response.data];
             [self setUserSession:userSession];
+            [self fetchStoreInfoWithID:userSession.assigned];
+            
             TC_CALL_ASYNC_MQ({
                 [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserDidLogin object:nil];
             });
@@ -403,7 +416,7 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
 
 - (void)changeStoreDetailInfo:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@propNames", self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/propNames", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
         request.token = self.currentUserSession.token;
         NSDictionary *dic = [storeDetailInfo toObjectDictionary];
@@ -431,7 +444,7 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
 
 - (void)changeStoreLogo:(NSString *)logo result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@propNames", self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/logo", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
         request.token = self.currentUserSession.token;
         [request setValue:logo forKey:@"logo"];
@@ -459,7 +472,7 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
 
 - (void)changeStoreCover:(NSString *)cover result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@propNames", self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/cover", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
         request.token = self.currentUserSession.token;
         [request setValue:cover forKey:@"cover"];
