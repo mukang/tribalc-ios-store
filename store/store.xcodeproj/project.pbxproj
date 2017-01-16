@@ -14,6 +14,10 @@
 		7A55F4241E287F5B0018FED3 /* TCGetPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A55F41F1E287F5B0018FED3 /* TCGetPasswordView.xib */; };
 		7A55F4281E288B0B0018FED3 /* TCStoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F4271E288B0B0018FED3 /* TCStoreInfo.m */; };
 		7A55F42B1E288B1F0018FED3 /* TCStoreDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F42A1E288B1F0018FED3 /* TCStoreDetailInfo.m */; };
+		7A55F4311E28E91E0018FED3 /* TCProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F42D1E28E91E0018FED3 /* TCProfileHeaderView.m */; };
+		7A55F4321E28E91E0018FED3 /* TCProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A55F42E1E28E91E0018FED3 /* TCProfileHeaderView.xib */; };
+		7A55F4331E28E91E0018FED3 /* TCProfileViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F4301E28E91E0018FED3 /* TCProfileViewCell.m */; };
+		7A55F4351E28E96A0018FED3 /* TCProfileViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A55F4341E28E96A0018FED3 /* TCProfileViewCell.xib */; };
 		7A9987211E24959F006175CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987201E24959F006175CC /* main.m */; };
 		7A9987241E24959F006175CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9987231E24959F006175CC /* AppDelegate.m */; };
 		7A99872C1E24959F006175CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A99872B1E24959F006175CC /* Assets.xcassets */; };
@@ -91,6 +95,7 @@
 		7ABCC1021E262B7A00750E47 /* TCGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC1011E262B7A00750E47 /* TCGoodsViewController.m */; };
 		7ABCC1051E262B8F00750E47 /* TCOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC1041E262B8F00750E47 /* TCOrderViewController.m */; };
 		7ABCC1081E262BA000750E47 /* TCProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC1071E262BA000750E47 /* TCProfileViewController.m */; };
+		7AE92B6B1E2C79970012B11E /* TCPhotoModeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B6A1E2C79970012B11E /* TCPhotoModeView.m */; };
 		E71BB80DAB52591718DA7767 /* libPods-store.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00C8004B261DE1B413018A3 /* libPods-store.a */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +129,12 @@
 		7A55F4271E288B0B0018FED3 /* TCStoreInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreInfo.m; sourceTree = "<group>"; };
 		7A55F4291E288B1F0018FED3 /* TCStoreDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreDetailInfo.h; sourceTree = "<group>"; };
 		7A55F42A1E288B1F0018FED3 /* TCStoreDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreDetailInfo.m; sourceTree = "<group>"; };
+		7A55F42C1E28E91E0018FED3 /* TCProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProfileHeaderView.h; sourceTree = "<group>"; };
+		7A55F42D1E28E91E0018FED3 /* TCProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProfileHeaderView.m; sourceTree = "<group>"; };
+		7A55F42E1E28E91E0018FED3 /* TCProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCProfileHeaderView.xib; sourceTree = "<group>"; };
+		7A55F42F1E28E91E0018FED3 /* TCProfileViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProfileViewCell.h; sourceTree = "<group>"; };
+		7A55F4301E28E91E0018FED3 /* TCProfileViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProfileViewCell.m; sourceTree = "<group>"; };
+		7A55F4341E28E96A0018FED3 /* TCProfileViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCProfileViewCell.xib; sourceTree = "<group>"; };
 		7A99871C1E24959F006175CC /* store.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = store.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A9987201E24959F006175CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7A9987221E24959F006175CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -280,6 +291,8 @@
 		7ABCC1061E262BA000750E47 /* TCProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProfileViewController.h; sourceTree = "<group>"; };
 		7ABCC1071E262BA000750E47 /* TCProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProfileViewController.m; sourceTree = "<group>"; };
 		7ABCC10F1E26337100750E47 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		7AE92B691E2C79970012B11E /* TCPhotoModeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPhotoModeView.h; sourceTree = "<group>"; };
+		7AE92B6A1E2C79970012B11E /* TCPhotoModeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPhotoModeView.m; sourceTree = "<group>"; };
 		AF80221D1AF577A91976C738 /* Pods-store.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.debug.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.debug.xcconfig"; sourceTree = "<group>"; };
 		B00C8004B261DE1B413018A3 /* libPods-store.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-store.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54209AED3B5DC0C7B24D243 /* Pods-store.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.release.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.release.xcconfig"; sourceTree = "<group>"; };
@@ -569,6 +582,8 @@
 			children = (
 				7A9987E61E24E472006175CC /* TCExtendButton.h */,
 				7A9987E71E24E472006175CC /* TCExtendButton.m */,
+				7AE92B691E2C79970012B11E /* TCPhotoModeView.h */,
+				7AE92B6A1E2C79970012B11E /* TCPhotoModeView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -882,6 +897,12 @@
 		7ABCC0FF1E262B3C00750E47 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7A55F42C1E28E91E0018FED3 /* TCProfileHeaderView.h */,
+				7A55F42D1E28E91E0018FED3 /* TCProfileHeaderView.m */,
+				7A55F42E1E28E91E0018FED3 /* TCProfileHeaderView.xib */,
+				7A55F42F1E28E91E0018FED3 /* TCProfileViewCell.h */,
+				7A55F4301E28E91E0018FED3 /* TCProfileViewCell.m */,
+				7A55F4341E28E96A0018FED3 /* TCProfileViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1016,10 +1037,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A55F4351E28E96A0018FED3 /* TCProfileViewCell.xib in Resources */,
 				7ABCC0D91E2622C800750E47 /* TCHomeViewController.xib in Resources */,
 				7A55F4241E287F5B0018FED3 /* TCGetPasswordView.xib in Resources */,
 				7A55F4211E287F5B0018FED3 /* TCLoginViewController.xib in Resources */,
 				7A99872F1E24959F006175CC /* LaunchScreen.storyboard in Resources */,
+				7A55F4321E28E91E0018FED3 /* TCProfileHeaderView.xib in Resources */,
 				7A99872C1E24959F006175CC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1105,6 +1128,8 @@
 				7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */,
 				7A9987711E24C820006175CC /* TCPhotoPicker.m in Sources */,
 				7A9987D11E24C9FA006175CC /* TCClientResponse.m in Sources */,
+				7A55F4311E28E91E0018FED3 /* TCProfileHeaderView.m in Sources */,
+				7AE92B6B1E2C79970012B11E /* TCPhotoModeView.m in Sources */,
 				7A9987F01E24E958006175CC /* TCUserSession.m in Sources */,
 				7ABCC0DC1E2622C800750E47 /* TCCalloutAnnotationView.m in Sources */,
 				7ABCC0F01E2622C800750E47 /* TCServiceSelectBtn.m in Sources */,
@@ -1125,6 +1150,7 @@
 				7A99875F1E2497D5006175CC /* TCNavigationController.m in Sources */,
 				7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */,
 				7ABCC0DE1E2622C800750E47 /* TCDetailAnnotationView.m in Sources */,
+				7A55F4331E28E91E0018FED3 /* TCProfileViewCell.m in Sources */,
 				7A9987E31E24E42B006175CC /* NSObject+TCNomal.m in Sources */,
 				7ABCC0EF1E2622C800750E47 /* TCServiceFilterView.m in Sources */,
 				7ABCC0EE1E2622C800750E47 /* TCSelectSortButton.m in Sources */,

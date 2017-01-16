@@ -8,7 +8,14 @@
 
 #import "TCUserSession.h"
 #import "NSObject+TCModel.h"
+#import "TCStoreInfo.h"
 
 @implementation TCUserSession
+
++ (NSDictionary *)objectClassInDictionary {
+    return @{
+             @"store":[TCStoreInfo class]
+             };
+}
 
 @end

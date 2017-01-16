@@ -168,11 +168,27 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
 - (void)fetchStoreDetailInfo:(void (^)(TCStoreDetailInfo *storeDetailInfo, NSError *error))resultBlock;
 
 /**
- 修改店铺信息
-
+ 修改店铺信息（不包括：logo/）
+ 
  @param storeDetailInfo TCStoreDetailInfo对象
  @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
  */
 - (void)changeStoreDetailInfo:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(BOOL success, NSError *error))resultBlock;
+
+/**
+ 修改店铺logo
+
+ @param logo 店铺logo
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeStoreLogo:(NSString *)logo result:(void (^)(BOOL success, NSError *error))resultBlock;
+
+/**
+ 修改店铺壁纸
+ 
+ @param cover 店铺壁纸
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeStoreCover:(NSString *)cover result:(void (^)(BOOL success, NSError *error))resultBlock;
 
 @end

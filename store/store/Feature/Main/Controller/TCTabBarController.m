@@ -34,7 +34,7 @@ static NSString *const kAppVersion = @"kAppVersion";
     [self addChildController:[[TCHomeViewController alloc] init] title:@"首页" image:@"tabBar_home_normal" selectedImage:@"tabBar_home_selected"];
     [self addChildController:[[TCGoodsViewController alloc] init] title:@"商品" image:@"tabBar_goods_normal" selectedImage:@"tabBar_goods_selected"];
     [self addChildController:[[TCOrderViewController alloc] init] title:@"订单" image:@"tabBar_order_normal" selectedImage:@"tabBar_order_selected"];
-    [self addChildController:[[TCProfileViewController alloc] init] title:@"我的" image:@"tabBar_profile_normal" selectedImage:@"tabBar_profile_selected"];
+    [self addChildController:[[TCProfileViewController alloc] init] title:@"店铺" image:@"tabBar_profile_normal" selectedImage:@"tabBar_profile_selected"];
     
     
 //    [self handleShowIntroView];

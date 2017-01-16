@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class TCStoreInfo;
 
 /** 已登录用户的session */
 @interface TCUserSession : NSObject 
@@ -17,5 +18,7 @@
 @property (copy, nonatomic) NSString *token;
 /** TOKEN有效截止时间(毫秒) */
 @property (nonatomic) NSInteger expired;
+
+@property (strong, nonatomic) TCStoreInfo *storeInfo;
 
 @end

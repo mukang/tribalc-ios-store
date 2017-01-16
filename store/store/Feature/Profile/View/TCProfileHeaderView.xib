@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="r1i-KW-N4G" customClass="TCProfileHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LWp-6G-WXp">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+                </imageView>
+                <view alpha="0.46999999999999997" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifh-kR-Be8">
+                    <rect key="frame" x="0.0" y="206" width="320" height="34"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxj-Nc-7Qr">
+                            <rect key="frame" x="0.0" y="0.0" width="106" height="34"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="名片" image="profile_header_card_button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="handleClickCardButton:" destination="r1i-KW-N4G" eventType="touchUpInside" id="DOK-SB-EhA"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrR-LE-16E">
+                            <rect key="frame" x="214" y="0.0" width="106" height="34"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="等级" image="profile_header_grade_button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="handleClickGradeButton:" destination="r1i-KW-N4G" eventType="touchUpInside" id="ryD-bW-KBk"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPX-hi-i7C">
+                            <rect key="frame" x="107" y="0.0" width="106" height="34"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="收藏" image="profile_header_collect_button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="handleClickCollectButton:" destination="r1i-KW-N4G" eventType="touchUpInside" id="qbt-x5-raM"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dpr-FN-gtW">
+                            <rect key="frame" x="213" y="10" width="1" height="15"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="X7U-gT-dPo"/>
+                                <constraint firstAttribute="width" constant="0.5" id="ajm-2H-P0u"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygm-kG-o4m">
+                            <rect key="frame" x="106" y="9" width="1" height="15"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="Zkw-7O-Eck"/>
+                                <constraint firstAttribute="width" constant="0.5" id="h8U-ak-Bum"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="MrR-LE-16E" secondAttribute="trailing" id="0LI-5R-WAF"/>
+                        <constraint firstItem="MrR-LE-16E" firstAttribute="leading" secondItem="fPX-hi-i7C" secondAttribute="trailing" constant="1" id="3O6-XM-dmQ"/>
+                        <constraint firstItem="Dpr-FN-gtW" firstAttribute="centerY" secondItem="Ifh-kR-Be8" secondAttribute="centerY" id="MYX-2B-qsP"/>
+                        <constraint firstItem="kxj-Nc-7Qr" firstAttribute="leading" secondItem="Ifh-kR-Be8" secondAttribute="leading" id="U6h-Ua-Y9C"/>
+                        <constraint firstItem="fPX-hi-i7C" firstAttribute="top" secondItem="Ifh-kR-Be8" secondAttribute="top" id="Wt0-7h-Sdm"/>
+                        <constraint firstItem="kxj-Nc-7Qr" firstAttribute="top" secondItem="Ifh-kR-Be8" secondAttribute="top" id="a0X-98-jak"/>
+                        <constraint firstItem="fPX-hi-i7C" firstAttribute="leading" secondItem="kxj-Nc-7Qr" secondAttribute="trailing" constant="1" id="a16-lQ-t8d"/>
+                        <constraint firstItem="fPX-hi-i7C" firstAttribute="width" secondItem="kxj-Nc-7Qr" secondAttribute="width" id="dMt-xu-DG6"/>
+                        <constraint firstItem="Dpr-FN-gtW" firstAttribute="leading" secondItem="fPX-hi-i7C" secondAttribute="trailing" id="ddc-CY-SEf"/>
+                        <constraint firstItem="MrR-LE-16E" firstAttribute="top" secondItem="Ifh-kR-Be8" secondAttribute="top" id="fgb-bQ-rEr"/>
+                        <constraint firstAttribute="bottom" secondItem="fPX-hi-i7C" secondAttribute="bottom" id="ikf-05-xx5"/>
+                        <constraint firstAttribute="height" constant="34" id="kDd-H6-W68"/>
+                        <constraint firstAttribute="bottom" secondItem="kxj-Nc-7Qr" secondAttribute="bottom" id="moC-Yy-4Sr"/>
+                        <constraint firstItem="ygm-kG-o4m" firstAttribute="leading" secondItem="kxj-Nc-7Qr" secondAttribute="trailing" id="n2z-E5-lLI"/>
+                        <constraint firstItem="MrR-LE-16E" firstAttribute="width" secondItem="kxj-Nc-7Qr" secondAttribute="width" id="omP-Ud-1Ji"/>
+                        <constraint firstItem="ygm-kG-o4m" firstAttribute="centerY" secondItem="Ifh-kR-Be8" secondAttribute="centerY" id="uCu-7c-W1e"/>
+                        <constraint firstAttribute="bottom" secondItem="MrR-LE-16E" secondAttribute="bottom" id="yGH-qH-3Ie"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lpS-qd-2HU">
+                    <rect key="frame" x="20" y="93" width="64" height="64"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JDr-W1-eaj">
+                            <rect key="frame" x="3" y="3" width="59" height="59"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="59" id="eBk-gU-h2h"/>
+                                <constraint firstAttribute="width" constant="59" id="zdb-zV-7Lb"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.18830265410958905" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="JDr-W1-eaj" firstAttribute="centerY" secondItem="lpS-qd-2HU" secondAttribute="centerY" id="8eg-WV-svJ"/>
+                        <constraint firstAttribute="height" constant="64" id="bV1-Kp-cmT"/>
+                        <constraint firstAttribute="width" constant="64" id="kpf-9A-eJs"/>
+                        <constraint firstItem="JDr-W1-eaj" firstAttribute="centerX" secondItem="lpS-qd-2HU" secondAttribute="centerX" id="xyB-LA-Fyf"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile_header_arrow_icon" translatesAutoresizingMaskIntoConstraints="NO" id="oxw-S1-5ch">
+                    <rect key="frame" x="289" y="118" width="11" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="IMN-da-jba"/>
+                        <constraint firstAttribute="width" constant="11" id="L2h-Ao-S0H"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册 | 登录" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jY-mw-uaj">
+                    <rect key="frame" x="98" y="115" width="122" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="qMn-oX-gcS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGM-6B-pes">
+                    <rect key="frame" x="98" y="93" width="183" height="64"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVM-0n-1jK">
+                            <rect key="frame" x="0.0" y="10" width="183" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="18" id="bsO-2x-P1Y"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9f5-bU-Yy2">
+                            <rect key="frame" x="0.0" y="34" width="99" height="15"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.68000000000000005" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="bpK-rl-yHe"/>
+                                <constraint firstAttribute="width" constant="99" id="v3r-XP-Mun"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="我要申请升级" image="profile_header_grade_icon">
+                                <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="handleClickGradeButton:" destination="r1i-KW-N4G" eventType="touchUpInside" id="mKr-2W-UH1"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="Dqb-Dg-04o"/>
+                        <constraint firstItem="JVM-0n-1jK" firstAttribute="leading" secondItem="CGM-6B-pes" secondAttribute="leading" id="JiS-RK-QTL"/>
+                        <constraint firstItem="9f5-bU-Yy2" firstAttribute="leading" secondItem="CGM-6B-pes" secondAttribute="leading" id="KhP-4b-hik"/>
+                        <constraint firstItem="9f5-bU-Yy2" firstAttribute="top" secondItem="JVM-0n-1jK" secondAttribute="bottom" constant="6" id="Lrz-dq-maG"/>
+                        <constraint firstAttribute="trailing" secondItem="JVM-0n-1jK" secondAttribute="trailing" id="pTz-Ge-eG3"/>
+                        <constraint firstItem="JVM-0n-1jK" firstAttribute="top" secondItem="CGM-6B-pes" secondAttribute="top" constant="10" id="ytd-hR-JhC"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQa-zS-8W0">
+                    <rect key="frame" x="280" y="176.5" width="20" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="bWs-nO-0Re"/>
+                        <constraint firstAttribute="height" constant="22" id="l1g-T9-eni"/>
+                    </constraints>
+                    <state key="normal" image="profile_header_photograph_button"/>
+                    <connections>
+                        <action selector="handleClickPhotographButton:" destination="r1i-KW-N4G" eventType="touchUpInside" id="UnJ-dY-2mU"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="oxw-S1-5ch" firstAttribute="leading" secondItem="3jY-mw-uaj" secondAttribute="trailing" constant="69" id="3H8-UI-J4u"/>
+                <constraint firstItem="Ifh-kR-Be8" firstAttribute="leading" secondItem="r1i-KW-N4G" secondAttribute="leading" id="7Q9-cC-SGh"/>
+                <constraint firstItem="3jY-mw-uaj" firstAttribute="leading" secondItem="lpS-qd-2HU" secondAttribute="trailing" constant="14" id="86Y-pr-NSn"/>
+                <constraint firstAttribute="trailing" secondItem="Ifh-kR-Be8" secondAttribute="trailing" id="A8c-MN-AMc"/>
+                <constraint firstItem="lpS-qd-2HU" firstAttribute="top" secondItem="r1i-KW-N4G" secondAttribute="top" constant="93" id="Ba0-m3-YO6"/>
+                <constraint firstAttribute="trailing" secondItem="IQa-zS-8W0" secondAttribute="trailing" constant="20" id="EA9-8j-arU"/>
+                <constraint firstItem="LWp-6G-WXp" firstAttribute="leading" secondItem="r1i-KW-N4G" secondAttribute="leading" id="FzW-fc-Tz9"/>
+                <constraint firstItem="3jY-mw-uaj" firstAttribute="centerY" secondItem="lpS-qd-2HU" secondAttribute="centerY" id="KLj-f3-pSB"/>
+                <constraint firstAttribute="bottom" secondItem="Ifh-kR-Be8" secondAttribute="bottom" id="TLK-Ok-kq5"/>
+                <constraint firstItem="LWp-6G-WXp" firstAttribute="top" secondItem="r1i-KW-N4G" secondAttribute="top" id="cpQ-3c-auz"/>
+                <constraint firstItem="oxw-S1-5ch" firstAttribute="centerY" secondItem="lpS-qd-2HU" secondAttribute="centerY" id="f8I-oa-xff"/>
+                <constraint firstItem="Ifh-kR-Be8" firstAttribute="top" secondItem="IQa-zS-8W0" secondAttribute="bottom" constant="7.5" id="gpa-VW-e7A"/>
+                <constraint firstItem="oxw-S1-5ch" firstAttribute="leading" secondItem="CGM-6B-pes" secondAttribute="trailing" constant="8" id="kKP-hd-k2E"/>
+                <constraint firstItem="CGM-6B-pes" firstAttribute="centerY" secondItem="lpS-qd-2HU" secondAttribute="centerY" id="lcl-gg-Ayb"/>
+                <constraint firstItem="lpS-qd-2HU" firstAttribute="leading" secondItem="r1i-KW-N4G" secondAttribute="leading" constant="20" id="oFk-bx-7Fh"/>
+                <constraint firstAttribute="bottom" secondItem="LWp-6G-WXp" secondAttribute="bottom" id="raI-u2-Ijh"/>
+                <constraint firstItem="CGM-6B-pes" firstAttribute="leading" secondItem="lpS-qd-2HU" secondAttribute="trailing" constant="14" id="u8M-1U-3zr"/>
+                <constraint firstAttribute="trailing" secondItem="oxw-S1-5ch" secondAttribute="trailing" constant="20" id="w5a-8a-uua"/>
+                <constraint firstAttribute="trailing" secondItem="LWp-6G-WXp" secondAttribute="trailing" id="x7T-91-7D0"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="avatarBgView" destination="lpS-qd-2HU" id="veQ-Il-qYY"/>
+                <outlet property="avatarImageView" destination="JDr-W1-eaj" id="UMz-2M-s9l"/>
+                <outlet property="bgImageView" destination="LWp-6G-WXp" id="7RB-cL-hFu"/>
+                <outlet property="loginButton" destination="3jY-mw-uaj" id="u1y-OA-qKy"/>
+                <outlet property="nickBgView" destination="CGM-6B-pes" id="sse-9I-I13"/>
+                <outlet property="nickLabel" destination="JVM-0n-1jK" id="b6P-VQ-gy9"/>
+                <outlet property="photographButton" destination="IQa-zS-8W0" id="wsI-Re-OeO"/>
+                <outlet property="wantGradeButton" destination="9f5-bU-Yy2" id="Lmz-ds-kzZ"/>
+            </connections>
+            <point key="canvasLocation" x="-151" y="-41"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="profile_header_arrow_icon" width="11" height="15"/>
+        <image name="profile_header_card_button" width="14" height="14"/>
+        <image name="profile_header_collect_button" width="14" height="14"/>
+        <image name="profile_header_grade_button" width="14" height="14"/>
+        <image name="profile_header_grade_icon" width="15" height="15"/>
+        <image name="profile_header_photograph_button" width="20" height="20"/>
+    </resources>
+</document>
