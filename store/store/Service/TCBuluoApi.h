@@ -191,4 +191,8 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)changeStoreCover:(NSString *)cover result:(void (^)(BOOL success, NSError *error))resultBlock;
 
+
+
+
+
 @end

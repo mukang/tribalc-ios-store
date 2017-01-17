@@ -1,22 +1,22 @@
 //
-//  TCSettingNotificationViewCell.m
-//  individual
+//  TCAppNotificationViewCell.m
+//  store
 //
-//  Created by 穆康 on 2016/12/14.
-//  Copyright © 2016年 杭州部落公社科技有限公司. All rights reserved.
+//  Created by 穆康 on 2017/1/17.
+//  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import "TCSettingNotificationViewCell.h"
+#import "TCAppNotificationViewCell.h"
 #import <Masonry.h>
 
-@interface TCSettingNotificationViewCell ()
+@interface TCAppNotificationViewCell ()
 
 @property (weak, nonatomic) UILabel *titleLabel;
 @property (weak, nonatomic) UISwitch *switchButton;
 
 @end
 
-@implementation TCSettingNotificationViewCell
+@implementation TCAppNotificationViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -62,6 +62,12 @@
 - (void)handleChangeSwitchButton:(UISwitch *)sender {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"消息通知" message:@"如果你要关闭或开启部落公社的新消息通知，请在设备的“设置”-“通知中心”功能中，找到应用程序“部落公社”进行修改。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
     [alertView show];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
 }
 
 @end

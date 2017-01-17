@@ -1,22 +1,22 @@
 //
-//  TCSettingCacheViewCell.m
-//  individual
+//  TCAppCacheViewCell.m
+//  store
 //
-//  Created by 穆康 on 2016/12/14.
-//  Copyright © 2016年 杭州部落公社科技有限公司. All rights reserved.
+//  Created by 穆康 on 2017/1/17.
+//  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import "TCSettingCacheViewCell.h"
+#import "TCAppCacheViewCell.h"
 #import <Masonry.h>
 #import <SDImageCache.h>
 
-@interface TCSettingCacheViewCell ()
+@interface TCAppCacheViewCell ()
 
 @property (weak, nonatomic) UILabel *titleLabel;
 
 @end
 
-@implementation TCSettingCacheViewCell
+@implementation TCAppCacheViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -69,6 +69,12 @@
         [MBProgressHUD showHUDWithMessage:@"缓存已清除"];
         self.subtitleLabel.text = @"0.00M";
     }];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
 }
 
 @end

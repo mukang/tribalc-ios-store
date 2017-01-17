@@ -1,30 +1,30 @@
 //
-//  TCSettingViewController.m
-//  individual
+//  TCAppSettingViewController.m
+//  store
 //
-//  Created by 穆康 on 2016/12/14.
-//  Copyright © 2016年 杭州部落公社科技有限公司. All rights reserved.
+//  Created by 穆康 on 2017/1/17.
+//  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import "TCSettingViewController.h"
+#import "TCAppSettingViewController.h"
 #import "TCSuggestionViewController.h"
+#import "TCAboutUSViewController.h"
 
 #import "TCCommonIndicatorViewCell.h"
-#import "TCSettingNotificationViewCell.h"
-#import "TCSettingCacheViewCell.h"
+#import "TCAppNotificationViewCell.h"
+#import "TCAppCacheViewCell.h"
 #import "TCCommonButton.h"
 
 #import "TCBuluoApi.h"
 #import <Masonry.h>
-#import "TCAboutUSViewController.h"
 #import <SDImageCache.h>
 
-@interface TCSettingViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TCAppSettingViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
-@implementation TCSettingViewController {
-    __weak TCSettingViewController *weakSelf;
+@implementation TCAppSettingViewController {
+    __weak TCAppSettingViewController *weakSelf;
 }
 
 - (void)viewDidLoad {
@@ -52,8 +52,8 @@
     tableView.rowHeight = 54;
     tableView.dataSource = self;
     tableView.delegate = self;
-    [tableView registerClass:[TCSettingNotificationViewCell class] forCellReuseIdentifier:@"TCSettingNotificationViewCell"];
-    [tableView registerClass:[TCSettingCacheViewCell class] forCellReuseIdentifier:@"TCSettingCacheViewCell"];
+    [tableView registerClass:[TCAppNotificationViewCell class] forCellReuseIdentifier:@"TCAppNotificationViewCell"];
+    [tableView registerClass:[TCAppCacheViewCell class] forCellReuseIdentifier:@"TCAppCacheViewCell"];
     [tableView registerClass:[TCCommonIndicatorViewCell class] forCellReuseIdentifier:@"TCCommonIndicatorViewCell"];
     [self.view addSubview:tableView];
     
@@ -94,11 +94,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        TCSettingNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCSettingNotificationViewCell" forIndexPath:indexPath];
+        TCAppNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppNotificationViewCell" forIndexPath:indexPath];
         return cell;
     } else {
         if (indexPath.row == 0) {
-            TCSettingCacheViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCSettingCacheViewCell" forIndexPath:indexPath];
+            TCAppCacheViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppCacheViewCell" forIndexPath:indexPath];
             return cell;
         } else {
             TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];

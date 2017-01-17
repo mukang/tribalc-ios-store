@@ -10,7 +10,7 @@
 #import "TCLoginViewController.h"
 #import "TCNavigationController.h"
 #import "TCQRCodeViewController.h"
-#import "TCSettingViewController.h"
+#import "TCAppSettingViewController.h"
 
 #import "TCProfileHeaderView.h"
 #import "TCProfileViewCell.h"
@@ -384,7 +384,7 @@ TCPhotoModeViewDelegate>
 - (void)handleClickSettingButton:(UIBarButtonItem *)sender {
     if ([self checkUserNeedLogin]) return;
     
-    TCSettingViewController *vc = [[TCSettingViewController alloc] init];
+    TCAppSettingViewController *vc = [[TCAppSettingViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

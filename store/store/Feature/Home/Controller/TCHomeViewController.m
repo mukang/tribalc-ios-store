@@ -7,8 +7,10 @@
 //
 
 #import "TCHomeViewController.h"
-//#import "TCLoginViewController.h"
-//#import "TCQRCodeViewController.h"
+#import "TCLoginViewController.h"
+#import "TCNavigationController.h"
+#import "TCQRCodeViewController.h"
+
 #import "TCHomeCommodityTableViewCell.h"
 #import "TCGoodSelectView.h"
 #import "UIImage+Category.h"
@@ -58,7 +60,6 @@
 
 - (UIScrollView *)getHomeScrollViewWithFrame:(CGRect)frame {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
-//    scrollView.
     scrollView.backgroundColor = TCRGBColor(242, 242, 242);
     scrollView.delegate = self;
     
@@ -250,8 +251,9 @@
 }
 
 - (void)showLoginViewController {
-//    TCLoginViewController *vc = [[TCLoginViewController alloc] initWithNibName:@"TCLoginViewController" bundle:[NSBundle mainBundle]];
-//    [self presentViewController:vc animated:YES completion:nil];
+    TCLoginViewController *vc = [[TCLoginViewController alloc] initWithNibName:@"TCLoginViewController" bundle:[NSBundle mainBundle]];
+    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (UIView *)getHeaderLineViewWithFrame:(CGRect)frame {

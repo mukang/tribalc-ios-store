@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */; };
+		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
+		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
 		7A55F4201E287F5B0018FED3 /* TCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F4181E287F5B0018FED3 /* TCLoginViewController.m */; };
 		7A55F4211E287F5B0018FED3 /* TCLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A55F4191E287F5B0018FED3 /* TCLoginViewController.xib */; };
 		7A55F4221E287F5B0018FED3 /* TCUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A55F41B1E287F5B0018FED3 /* TCUserAgreementViewController.m */; };
@@ -100,10 +103,7 @@
 		7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B711E2CB1280012B11E /* TCScannerMaskView.m */; };
 		7AE92B761E2CB1350012B11E /* TCQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B751E2CB1350012B11E /* TCQRCodeViewController.m */; };
 		7AE92B801E2CB2280012B11E /* TCAboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B791E2CB2280012B11E /* TCAboutUSViewController.m */; };
-		7AE92B811E2CB2280012B11E /* TCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B7B1E2CB2280012B11E /* TCSettingViewController.m */; };
 		7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B7D1E2CB2280012B11E /* TCSuggestionViewController.m */; };
-		7AE92B891E2CB2540012B11E /* TCSettingCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B861E2CB2540012B11E /* TCSettingCacheViewCell.m */; };
-		7AE92B8A1E2CB2540012B11E /* TCSettingNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B881E2CB2540012B11E /* TCSettingNotificationViewCell.m */; };
 		7AE92B8D1E2CB2C20012B11E /* TCCommonIndicatorViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B8C1E2CB2C20012B11E /* TCCommonIndicatorViewCell.m */; };
 		7AE92B901E2CB2D80012B11E /* TCCommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B8F1E2CB2D80012B11E /* TCCommonButton.m */; };
 		E71BB80DAB52591718DA7767 /* libPods-store.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00C8004B261DE1B413018A3 /* libPods-store.a */; };
@@ -127,6 +127,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppSettingViewController.h; sourceTree = "<group>"; };
+		7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppSettingViewController.m; sourceTree = "<group>"; };
+		7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppCacheViewCell.h; sourceTree = "<group>"; };
+		7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppCacheViewCell.m; sourceTree = "<group>"; };
+		7A0E00AB1E2E17F50028555D /* TCAppNotificationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppNotificationViewCell.h; sourceTree = "<group>"; };
+		7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppNotificationViewCell.m; sourceTree = "<group>"; };
 		7A55F4171E287F5B0018FED3 /* TCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCLoginViewController.h; sourceTree = "<group>"; };
 		7A55F4181E287F5B0018FED3 /* TCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCLoginViewController.m; sourceTree = "<group>"; };
 		7A55F4191E287F5B0018FED3 /* TCLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCLoginViewController.xib; sourceTree = "<group>"; };
@@ -311,14 +317,8 @@
 		7AE92B751E2CB1350012B11E /* TCQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCQRCodeViewController.m; sourceTree = "<group>"; };
 		7AE92B781E2CB2280012B11E /* TCAboutUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAboutUSViewController.h; sourceTree = "<group>"; };
 		7AE92B791E2CB2280012B11E /* TCAboutUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAboutUSViewController.m; sourceTree = "<group>"; };
-		7AE92B7A1E2CB2280012B11E /* TCSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSettingViewController.h; sourceTree = "<group>"; };
-		7AE92B7B1E2CB2280012B11E /* TCSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSettingViewController.m; sourceTree = "<group>"; };
 		7AE92B7C1E2CB2280012B11E /* TCSuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSuggestionViewController.h; sourceTree = "<group>"; };
 		7AE92B7D1E2CB2280012B11E /* TCSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSuggestionViewController.m; sourceTree = "<group>"; };
-		7AE92B851E2CB2540012B11E /* TCSettingCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSettingCacheViewCell.h; sourceTree = "<group>"; };
-		7AE92B861E2CB2540012B11E /* TCSettingCacheViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSettingCacheViewCell.m; sourceTree = "<group>"; };
-		7AE92B871E2CB2540012B11E /* TCSettingNotificationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSettingNotificationViewCell.h; sourceTree = "<group>"; };
-		7AE92B881E2CB2540012B11E /* TCSettingNotificationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSettingNotificationViewCell.m; sourceTree = "<group>"; };
 		7AE92B8B1E2CB2C20012B11E /* TCCommonIndicatorViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCommonIndicatorViewCell.h; sourceTree = "<group>"; };
 		7AE92B8C1E2CB2C20012B11E /* TCCommonIndicatorViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCommonIndicatorViewCell.m; sourceTree = "<group>"; };
 		7AE92B8E1E2CB2D80012B11E /* TCCommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCommonButton.h; sourceTree = "<group>"; };
@@ -970,10 +970,10 @@
 			children = (
 				7AE92B781E2CB2280012B11E /* TCAboutUSViewController.h */,
 				7AE92B791E2CB2280012B11E /* TCAboutUSViewController.m */,
-				7AE92B7A1E2CB2280012B11E /* TCSettingViewController.h */,
-				7AE92B7B1E2CB2280012B11E /* TCSettingViewController.m */,
 				7AE92B7C1E2CB2280012B11E /* TCSuggestionViewController.h */,
 				7AE92B7D1E2CB2280012B11E /* TCSuggestionViewController.m */,
+				7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */,
+				7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -981,10 +981,10 @@
 		7AE92B841E2CB2440012B11E /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				7AE92B851E2CB2540012B11E /* TCSettingCacheViewCell.h */,
-				7AE92B861E2CB2540012B11E /* TCSettingCacheViewCell.m */,
-				7AE92B871E2CB2540012B11E /* TCSettingNotificationViewCell.h */,
-				7AE92B881E2CB2540012B11E /* TCSettingNotificationViewCell.m */,
+				7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */,
+				7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */,
+				7A0E00AB1E2E17F50028555D /* TCAppNotificationViewCell.h */,
+				7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1207,6 +1207,7 @@
 				7ABCC0E41E2622C800750E47 /* TCGoodSelectView.m in Sources */,
 				7A9987E51E24E42B006175CC /* UIView+Category.m in Sources */,
 				7ABCC0D21E2622C800750E47 /* TCRecommendGoodCell.m in Sources */,
+				7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */,
 				7AE92B761E2CB1350012B11E /* TCQRCodeViewController.m in Sources */,
 				7A9988141E24EE3E006175CC /* TCGoodDetail.m in Sources */,
 				7AE92B721E2CB1280012B11E /* TCScannerBorder.m in Sources */,
@@ -1221,7 +1222,6 @@
 				7ABCC0E71E2622C800750E47 /* TCSelectSecondaryBtn.m in Sources */,
 				7ABCC0F61E2622DE00750E47 /* TCGetNavigationItem.m in Sources */,
 				7A9987CE1E24C9FA006175CC /* TCClientConfig.m in Sources */,
-				7AE92B811E2CB2280012B11E /* TCSettingViewController.m in Sources */,
 				7ABCC0E81E2622C800750E47 /* TCGoodShopView.m in Sources */,
 				7A99881B1E24EE3E006175CC /* TCDetailStore.m in Sources */,
 				7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */,
@@ -1253,13 +1253,13 @@
 				7ABCC0E21E2622C800750E47 /* TCRecommendHeader.m in Sources */,
 				7A9987CF1E24C9FA006175CC /* TCClientRequest.m in Sources */,
 				7ABCC1081E262BA000750E47 /* TCProfileViewController.m in Sources */,
-				7AE92B891E2CB2540012B11E /* TCSettingCacheViewCell.m in Sources */,
 				7ABCC0D81E2622C800750E47 /* TCHomeViewController.m in Sources */,
 				7A99881E1E24EE3E006175CC /* TCServiceDetail.m in Sources */,
 				7AE92B901E2CB2D80012B11E /* TCCommonButton.m in Sources */,
 				7A9987D41E24E371006175CC /* TCClient.m in Sources */,
 				7A9988271E24EFE6006175CC /* TCUserPhoneInfo.m in Sources */,
 				7ABCC0D41E2622C800750E47 /* TCRecommendListViewController.m in Sources */,
+				7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */,
 				7ABCC0E01E2622C800750E47 /* TCUserLocationAnnotationView.m in Sources */,
 				7A99881D1E24EE3E006175CC /* TCMarkStore.m in Sources */,
 				7A9988171E24EE3E006175CC /* TCGoodsWrapper.m in Sources */,
@@ -1276,6 +1276,7 @@
 				7ABCC0E91E2622C800750E47 /* TCGoodTitleView.m in Sources */,
 				7ABCC0E31E2622C800750E47 /* TCGoodSelectTitleView.m in Sources */,
 				7ABCC0D51E2622C800750E47 /* TCRestaurantInfoViewController.m in Sources */,
+				7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */,
 				7A99881F1E24EE3E006175CC /* TCServices.m in Sources */,
 				7ABCC0E61E2622C800750E47 /* TCSelectPrimaryBtn.m in Sources */,
 				7A9988161E24EE3E006175CC /* TCGoodStandards.m in Sources */,
@@ -1285,7 +1286,6 @@
 				7A9987D91E24E41B006175CC /* MBProgressHUD+Category.m in Sources */,
 				7A9987AE1E24C84B006175CC /* TCBaseViewController.m in Sources */,
 				7ABCC0D61E2622C800750E47 /* TCRestaurantTableViewCell.m in Sources */,
-				7AE92B8A1E2CB2540012B11E /* TCSettingNotificationViewCell.m in Sources */,
 				7ABCC0D31E2622C800750E47 /* TCRecommendInfoViewController.m in Sources */,
 				7A9987E41E24E42B006175CC /* UIImage+Category.m in Sources */,
 			);

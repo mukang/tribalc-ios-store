@@ -24,7 +24,6 @@
     [super viewDidLoad];
 
     collectionImgArr = [[NSMutableArray alloc] init];
-    self.view.backgroundColor = [UIColor whiteColor];
     
     [self setupNavigationBar];
     [self createCollectionView];
