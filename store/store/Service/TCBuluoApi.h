@@ -192,6 +192,14 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
 - (void)changeStoreLinkman:(NSString *)linkman result:(void (^)(BOOL success, NSError *error))resultBlock;
 
 /**
+ 修改手机号
+ 
+ @param phoneInfo TCUserPhoneInfo对象
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changePhone:(TCUserPhoneInfo *)phoneInfo result:(void (^)(BOOL success, NSError *error))resultBlock;
+
+/**
  修改店铺logo
 
  @param logo 店铺logo

@@ -8,6 +8,7 @@
 
 #import "TCInfoViewController.h"
 #import "TCInfoEditViewController.h"
+#import "TCBioEditPhoneViewController.h"
 
 #import "TCInfoViewCell.h"
 
@@ -117,6 +118,15 @@
             TCInfoEditViewController *vc = [[TCInfoEditViewController alloc] initWithEditType:TCInfoEditTypeLinkman];
             vc.linkman = storeInfo.linkman;
             vc.editBlock = ^() {
+                [weakSelf.tableView reloadData];
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            TCBioEditPhoneViewController *vc = [[TCBioEditPhoneViewController alloc] initWithNibName:@"TCBioEditPhoneViewController" bundle:[NSBundle mainBundle]];
+            vc.editPhoneBlock = ^(BOOL isEdit) {
                 [weakSelf.tableView reloadData];
             };
             [self.navigationController pushViewController:vc animated:YES];
