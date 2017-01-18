@@ -11,6 +11,7 @@
 #import "TCNavigationController.h"
 #import "TCQRCodeViewController.h"
 #import "TCAppSettingViewController.h"
+#import "TCInfoViewController.h"
 
 #import "TCProfileHeaderView.h"
 #import "TCProfileViewCell.h"
@@ -248,12 +249,9 @@ TCPhotoModeViewDelegate>
     if ([[TCBuluoApi api] needLogin]) {
         [self showLoginViewController];
     } else {
-//        TCBiographyViewController *vc = [[TCBiographyViewController alloc] init];
-//        vc.bioEditBlock = ^() {
-//            [weakSelf updateHeaderView];
-//        };
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
+        TCInfoViewController *vc = [[TCInfoViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
