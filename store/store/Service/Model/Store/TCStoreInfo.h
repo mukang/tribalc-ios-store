@@ -18,17 +18,13 @@
 @property (copy, nonatomic) NSString *cover;
 /** 店铺名称 */
 @property (copy, nonatomic) NSString *name;
+/** 联系人 */
+@property (copy, nonatomic) NSString *linkman;
 /** 店铺类型 - GOODS, SET_MEAL */
 @property (copy, nonatomic) NSString *storeType;
 /** 店铺管理人手机号码 */
 @property (copy, nonatomic) NSString *phone;
-/** 省 */
-@property (copy, nonatomic) NSString *province;
-/** 城市 */
-@property (copy, nonatomic) NSString *city;
-/** 区域 */
-@property (copy, nonatomic) NSString *district;
-/** 发货地址 */
-@property (copy, nonatomic) NSString *address;
+/** 店铺认证状态 - PROCESSING, FAILURE, SUCCEED */
+@property (copy, nonatomic) NSString *storeAuthenticationStatus;
 
 @end

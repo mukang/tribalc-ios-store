@@ -7,6 +7,7 @@
 //
 
 #import "TCInfoViewController.h"
+#import "TCInfoEditViewController.h"
 
 #import "TCInfoViewCell.h"
 
@@ -30,6 +31,11 @@
     self.navigationItem.title = @"店铺信息";
     
     [self setupSubviews];
+}
+
+- (void)dealloc {
+    self.tableView.dataSource = nil;
+    self.tableView.delegate = nil;
 }
 
 - (void)setupSubviews {
@@ -68,7 +74,7 @@
             break;
         case 1:
             cell.titleLabel.text = @"联系人姓名";
-            cell.subtitleLabel.text = storeInfo.name;
+            cell.subtitleLabel.text = storeInfo.linkman;
             break;
         case 2:
             cell.titleLabel.text = @"联系人手机";
@@ -94,6 +100,32 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    TCStoreInfo *storeInfo = [[TCBuluoApi api] currentUserSession].storeInfo;
+    switch (indexPath.row) {
+        case 0:
+        {
+            TCInfoEditViewController *vc = [[TCInfoEditViewController alloc] initWithEditType:TCInfoEditTypeName];
+            vc.name = storeInfo.name;
+            vc.editBlock = ^() {
+                [weakSelf.tableView reloadData];
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 1:
+        {
+            TCInfoEditViewController *vc = [[TCInfoEditViewController alloc] initWithEditType:TCInfoEditTypeLinkman];
+            vc.linkman = storeInfo.linkman;
+            vc.editBlock = ^() {
+                [weakSelf.tableView reloadData];
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

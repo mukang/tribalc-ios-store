@@ -442,6 +442,62 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
     }
 }
 
+- (void)changeStoreName:(NSString *)name result:(void (^)(BOOL, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/name", self.currentUserSession.assigned];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [request setValue:name forKey:@"name"];
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.statusCode == 200) {
+                TCUserSession *userSession = self.currentUserSession;
+                userSession.storeInfo.name = name;
+                [self setUserSession:userSession];
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
+- (void)changeStoreLinkman:(NSString *)linkman result:(void (^)(BOOL, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/linkman", self.currentUserSession.assigned];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [request setValue:linkman forKey:@"linkman"];
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.statusCode == 200) {
+                TCUserSession *userSession = self.currentUserSession;
+                userSession.storeInfo.linkman = linkman;
+                [self setUserSession:userSession];
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
 - (void)changeStoreLogo:(NSString *)logo result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"stores/%@/logo", self.currentUserSession.assigned];

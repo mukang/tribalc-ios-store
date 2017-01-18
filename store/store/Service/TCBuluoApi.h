@@ -176,6 +176,22 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
 - (void)changeStoreDetailInfo:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(BOOL success, NSError *error))resultBlock;
 
 /**
+ 修改店铺名称
+
+ @param name 店铺名称
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeStoreName:(NSString *)name result:(void (^)(BOOL success, NSError *error))resultBlock;
+
+/**
+ 修改店铺联系人
+
+ @param linkman 店铺联系人
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeStoreLinkman:(NSString *)linkman result:(void (^)(BOOL success, NSError *error))resultBlock;
+
+/**
  修改店铺logo
 
  @param logo 店铺logo
