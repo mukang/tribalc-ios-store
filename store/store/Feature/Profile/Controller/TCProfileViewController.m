@@ -234,6 +234,14 @@ TCPhotoModeViewDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([self checkUserNeedLogin]) return;
+    
+    if (indexPath.section == 1) {
+        if (indexPath.row == 1) {
+            
+        }else {
+        
+        }
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

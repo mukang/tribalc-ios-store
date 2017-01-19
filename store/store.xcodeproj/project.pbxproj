@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550318E61E3063AC004522C7 /* TCBusinessLicenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550318E51E3063AC004522C7 /* TCBusinessLicenceViewController.m */; };
 		7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */; };
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
@@ -127,6 +128,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		550318E41E3063AC004522C7 /* TCBusinessLicenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBusinessLicenceViewController.h; sourceTree = "<group>"; };
+		550318E51E3063AC004522C7 /* TCBusinessLicenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBusinessLicenceViewController.m; sourceTree = "<group>"; };
 		7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppSettingViewController.m; sourceTree = "<group>"; };
 		7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppCacheViewCell.h; sourceTree = "<group>"; };
@@ -354,6 +357,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		550318E31E30637B004522C7 /* BusinessCertify */ = {
+			isa = PBXGroup;
+			children = (
+				550318E41E3063AC004522C7 /* TCBusinessLicenceViewController.h */,
+				550318E51E3063AC004522C7 /* TCBusinessLicenceViewController.m */,
+			);
+			path = BusinessCertify;
+			sourceTree = "<group>";
+		};
 		7A55F4151E287F5B0018FED3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -924,6 +936,7 @@
 			children = (
 				7ABCC1061E262BA000750E47 /* TCProfileViewController.h */,
 				7ABCC1071E262BA000750E47 /* TCProfileViewController.m */,
+				550318E31E30637B004522C7 /* BusinessCertify */,
 				7AE92B771E2CB2280012B11E /* Setting */,
 				7AE92B6C1E2CB0F90012B11E /* QRCode */,
 			);
@@ -1226,6 +1239,7 @@
 				7A99881B1E24EE3E006175CC /* TCDetailStore.m in Sources */,
 				7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */,
 				7ABCC0DB1E2622C800750E47 /* TCAnnotation.m in Sources */,
+				550318E61E3063AC004522C7 /* TCBusinessLicenceViewController.m in Sources */,
 				7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */,
 				7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */,
 				7A9987241E24959F006175CC /* AppDelegate.m in Sources */,
