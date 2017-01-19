@@ -23,6 +23,7 @@
 #import "TCImageURLSynthesizer.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "TCBusinessLicenceViewController.h"
 
 @interface TCProfileViewController ()
 <UITableViewDelegate,
@@ -235,6 +236,15 @@ TCPhotoModeViewDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([self checkUserNeedLogin]) return;
+    
+    if (indexPath.section == 1) {
+        if (indexPath.row == 1) {
+            TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
+            businessVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:businessVC animated:YES];
+        }
+    }
+    
 }
 
 #pragma mark - UIScrollViewDelegate
