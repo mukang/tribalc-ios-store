@@ -12,6 +12,7 @@
 #import "TCQRCodeViewController.h"
 #import "TCAppSettingViewController.h"
 #import "TCInfoViewController.h"
+#import "TCStoreCategoryViewController.h"
 
 #import "TCProfileHeaderView.h"
 #import "TCProfileViewCell.h"
@@ -235,6 +236,16 @@ TCPhotoModeViewDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([self checkUserNeedLogin]) return;
+    
+    
+    
+    
+    
+    if (indexPath.section == 0) {
+        TCStoreCategoryViewController *vc = [[TCStoreCategoryViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
