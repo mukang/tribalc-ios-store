@@ -400,6 +400,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		550318E31E30637B004522C7 /* BusinessCertify */ = {
+			isa = PBXGroup;
+			children = (
+				550318E41E3063AC004522C7 /* TCBusinessLicenceViewController.h */,
+				550318E51E3063AC004522C7 /* TCBusinessLicenceViewController.m */,
+			);
+			path = BusinessCertify;
+            sourceTree = "<group>";
+        };
 		7A5344551E2F1C1D0053B527 /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1027,6 +1036,7 @@
 				7ABCC1061E262BA000750E47 /* TCProfileViewController.h */,
 				7ABCC1071E262BA000750E47 /* TCProfileViewController.m */,
 				7A7B60931E309FB6004971C9 /* Create */,
+				550318E31E30637B004522C7 /* BusinessCertify */,
 				7A5344551E2F1C1D0053B527 /* Info */,
 				7AE92B771E2CB2280012B11E /* Setting */,
 				7AE92B6C1E2CB0F90012B11E /* QRCode */,
@@ -1339,6 +1349,7 @@
 				7A99881B1E24EE3E006175CC /* TCDetailStore.m in Sources */,
 				7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */,
 				7ABCC0DB1E2622C800750E47 /* TCAnnotation.m in Sources */,
+				550318E61E3063AC004522C7 /* TCBusinessLicenceViewController.m in Sources */,
 				7A0E00B01E2E1C4A0028555D /* TCSettingViewController.m in Sources */,
 				7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */,
 				7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */,
