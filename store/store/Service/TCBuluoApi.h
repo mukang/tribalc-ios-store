@@ -223,6 +223,6 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  @param info 认证信息
  @param resultBlock 结果回调 success为NO时表示修改失败，失败原因见error的code
  */
-- (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(BOOL success, NSError *error))resultBlock;
+- (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
 @end
