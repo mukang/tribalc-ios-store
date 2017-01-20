@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550319151E30A360004522C7 /* TCBusinessLicenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319141E30A360004522C7 /* TCBusinessLicenceViewController.m */; };
+		550319181E30BC89004522C7 /* TCAuthCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319171E30BC89004522C7 /* TCAuthCertifyViewController.m */; };
+		5503191B1E30C7DF004522C7 /* TCIndustryPermitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503191A1E30C7DF004522C7 /* TCIndustryPermitViewController.m */; };
+		5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503191E1E30D2BE004522C7 /* TCAuthenticationInfo.m */; };
 		7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */; };
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
@@ -143,6 +147,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		550319131E30A360004522C7 /* TCBusinessLicenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCBusinessLicenceViewController.h; path = store/Feature/Profile/Controller/TCBusinessLicenceViewController.h; sourceTree = SOURCE_ROOT; };
+		550319141E30A360004522C7 /* TCBusinessLicenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCBusinessLicenceViewController.m; path = store/Feature/Profile/Controller/TCBusinessLicenceViewController.m; sourceTree = SOURCE_ROOT; };
+		550319161E30BC89004522C7 /* TCAuthCertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAuthCertifyViewController.h; path = store/Feature/Profile/Controller/TCAuthCertifyViewController.h; sourceTree = SOURCE_ROOT; };
+		550319171E30BC89004522C7 /* TCAuthCertifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAuthCertifyViewController.m; path = store/Feature/Profile/Controller/TCAuthCertifyViewController.m; sourceTree = SOURCE_ROOT; };
+		550319191E30C7DF004522C7 /* TCIndustryPermitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCIndustryPermitViewController.h; path = store/Feature/Profile/Controller/TCIndustryPermitViewController.h; sourceTree = SOURCE_ROOT; };
+		5503191A1E30C7DF004522C7 /* TCIndustryPermitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCIndustryPermitViewController.m; path = store/Feature/Profile/Controller/TCIndustryPermitViewController.m; sourceTree = SOURCE_ROOT; };
+		5503191D1E30D2BE004522C7 /* TCAuthenticationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAuthenticationInfo.h; sourceTree = "<group>"; };
+		5503191E1E30D2BE004522C7 /* TCAuthenticationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAuthenticationInfo.m; sourceTree = "<group>"; };
 		7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppSettingViewController.m; sourceTree = "<group>"; };
 		7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppCacheViewCell.h; sourceTree = "<group>"; };
@@ -403,12 +415,26 @@
 		550318E31E30637B004522C7 /* BusinessCertify */ = {
 			isa = PBXGroup;
 			children = (
-				550318E41E3063AC004522C7 /* TCBusinessLicenceViewController.h */,
-				550318E51E3063AC004522C7 /* TCBusinessLicenceViewController.m */,
+				550319131E30A360004522C7 /* TCBusinessLicenceViewController.h */,
+				550319141E30A360004522C7 /* TCBusinessLicenceViewController.m */,
+				550319161E30BC89004522C7 /* TCAuthCertifyViewController.h */,
+				550319171E30BC89004522C7 /* TCAuthCertifyViewController.m */,
+				550319191E30C7DF004522C7 /* TCIndustryPermitViewController.h */,
+				5503191A1E30C7DF004522C7 /* TCIndustryPermitViewController.m */,
 			);
 			path = BusinessCertify;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
+		5503191C1E30D29E004522C7 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				5503191D1E30D2BE004522C7 /* TCAuthenticationInfo.h */,
+				5503191E1E30D2BE004522C7 /* TCAuthenticationInfo.m */,
+			);
+			name = Authentication;
+			path = Model/Authentication;
+			sourceTree = "<group>";
+		};
 		7A5344551E2F1C1D0053B527 /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,6 +624,7 @@
 			children = (
 				7A9987E91E24E7DF006175CC /* TCBuluoApi.h */,
 				7A9987EA1E24E7DF006175CC /* TCBuluoApi.m */,
+				5503191C1E30D29E004522C7 /* Authentication */,
 				7A9987C01E24C9FA006175CC /* WebService */,
 				7A9987EC1E24E90D006175CC /* Model */,
 			);
@@ -1340,6 +1367,7 @@
 				7AE92B6B1E2C79970012B11E /* TCPhotoModeView.m in Sources */,
 				7A9987F01E24E958006175CC /* TCUserSession.m in Sources */,
 				7ABCC0DC1E2622C800750E47 /* TCCalloutAnnotationView.m in Sources */,
+				5503191B1E30C7DF004522C7 /* TCIndustryPermitViewController.m in Sources */,
 				7ABCC0F01E2622C800750E47 /* TCServiceSelectBtn.m in Sources */,
 				7ABCC0E71E2622C800750E47 /* TCSelectSecondaryBtn.m in Sources */,
 				7ABCC0F61E2622DE00750E47 /* TCGetNavigationItem.m in Sources */,
@@ -1349,7 +1377,6 @@
 				7A99881B1E24EE3E006175CC /* TCDetailStore.m in Sources */,
 				7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */,
 				7ABCC0DB1E2622C800750E47 /* TCAnnotation.m in Sources */,
-				550318E61E3063AC004522C7 /* TCBusinessLicenceViewController.m in Sources */,
 				7A0E00B01E2E1C4A0028555D /* TCSettingViewController.m in Sources */,
 				7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */,
 				7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */,
@@ -1365,6 +1392,7 @@
 				7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */,
 				7ABCC0DE1E2622C800750E47 /* TCDetailAnnotationView.m in Sources */,
 				7A53446C1E2F7B7C0053B527 /* TCBioEditPhoneViewController.m in Sources */,
+				550319181E30BC89004522C7 /* TCAuthCertifyViewController.m in Sources */,
 				7A55F4331E28E91E0018FED3 /* TCProfileViewCell.m in Sources */,
 				7A9987E31E24E42B006175CC /* NSObject+TCNomal.m in Sources */,
 				7ABCC0EF1E2622C800750E47 /* TCServiceFilterView.m in Sources */,
@@ -1386,6 +1414,7 @@
 				7A99881E1E24EE3E006175CC /* TCServiceDetail.m in Sources */,
 				7AE92B901E2CB2D80012B11E /* TCCommonButton.m in Sources */,
 				7A9987D41E24E371006175CC /* TCClient.m in Sources */,
+				550319151E30A360004522C7 /* TCBusinessLicenceViewController.m in Sources */,
 				7A5344651E2F6EC50053B527 /* TCInfoEditViewController.m in Sources */,
 				7A9988271E24EFE6006175CC /* TCUserPhoneInfo.m in Sources */,
 				7ABCC0D41E2622C800750E47 /* TCRecommendListViewController.m in Sources */,
@@ -1420,6 +1449,7 @@
 				7A9987D91E24E41B006175CC /* MBProgressHUD+Category.m in Sources */,
 				7A9987AE1E24C84B006175CC /* TCBaseViewController.m in Sources */,
 				7ABCC0D61E2622C800750E47 /* TCRestaurantTableViewCell.m in Sources */,
+				5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */,
 				7ABCC0D31E2622C800750E47 /* TCRecommendInfoViewController.m in Sources */,
 				7A7B60A91E30B4AF004971C9 /* TCStoreCategoryInfo.m in Sources */,
 				7A9987E41E24E42B006175CC /* UIImage+Category.m in Sources */,
@@ -1583,7 +1613,7 @@
 			baseConfigurationReference = D54209AED3B5DC0C7B24D243 /* Pods-store.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 452XNHBVYZ;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/store/PrefixHeader.pch";
@@ -1592,8 +1622,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.buluo-gs.store";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5f3e13e9-0db0-45fa-bb18-91d63d19d75c";
-				PROVISIONING_PROFILE_SPECIFIER = "Store Distribution";
+				PROVISIONING_PROFILE = "bb23ee3d-6952-44dc-aeeb-9c0f37ed824e";
+				PROVISIONING_PROFILE_SPECIFIER = "Store Development";
 			};
 			name = Release;
 		};

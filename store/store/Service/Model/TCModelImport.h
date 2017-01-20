@@ -33,6 +33,7 @@
 #import "TCStoreInfo.h"
 #import "TCStoreDetailInfo.h"
 
+#import "TCAuthenticationInfo.h"
 
 
 

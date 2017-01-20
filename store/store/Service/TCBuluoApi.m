@@ -585,4 +585,34 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
     }
 }
 
+- (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(BOOL success, NSError *error))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/authentication", self.currentUserSession.assigned];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
+        request.token = self.currentUserSession.token;
+        
+        NSDictionary *dic = [info toObjectDictionary];
+        for (NSString *key in dic.allKeys) {
+            [request setValue:dic[key] forKey:key];
+        }
+            
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.statusCode == 200) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
 @end
