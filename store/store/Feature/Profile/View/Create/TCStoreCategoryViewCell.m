@@ -9,7 +9,6 @@
 #import "TCStoreCategoryViewCell.h"
 #import "TCStoreCategoryInfo.h"
 #import "TCStoreCategoryIconViewCell.h"
-#import <Masonry.h>
 
 @interface TCStoreCategoryViewCell () <UICollectionViewDataSource, UICollectionViewDelegate>
 

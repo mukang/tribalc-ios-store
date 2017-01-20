@@ -11,7 +11,6 @@
 #import "TCInfoEditViewCell.h"
 
 #import "TCBuluoApi.h"
-#import <Masonry.h>
 
 @interface TCInfoEditViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 

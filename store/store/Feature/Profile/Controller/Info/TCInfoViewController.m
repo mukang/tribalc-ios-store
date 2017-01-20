@@ -12,7 +12,6 @@
 
 #import "TCInfoViewCell.h"
 
-#import <Masonry.h>
 #import "TCBuluoApi.h"
 
 @interface TCInfoViewController () <UITableViewDataSource, UITableViewDelegate>

@@ -9,7 +9,6 @@
 #import "TCStoreCategoryIconViewCell.h"
 #import "TCStoreCategoryIconView.h"
 #import "TCStoreCategoryInfo.h"
-#import <Masonry.h>
 
 @interface TCStoreCategoryIconViewCell ()
 

@@ -10,7 +10,6 @@
 #import "TCStoreCategoryViewCell.h"
 #import "TCStoreCategoryInfo.h"
 #import "NSObject+TCModel.h"
-#import <Masonry.h>
 
 @interface TCStoreCategoryViewController () <UITableViewDataSource, UITableViewDelegate, TCStoreCategoryViewCellDelegate>
 

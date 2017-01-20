@@ -7,7 +7,6 @@
 //
 
 #import "TCCommonIndicatorViewCell.h"
-#import <Masonry.h>
 
 @implementation TCCommonIndicatorViewCell
 
