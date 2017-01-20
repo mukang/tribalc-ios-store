@@ -82,7 +82,7 @@
     
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     
-    button.size = CGSizeMake(TCScreenWidth, 40);
+    button.size = CGSizeMake(TCScreenWidth, 49);
     
     return button;
 }

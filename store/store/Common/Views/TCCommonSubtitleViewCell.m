@@ -1,20 +1,20 @@
 //
-//  TCCommonIndicatorViewCell.m
-//  individual
+//  TCCommonSubtitleViewCell.m
+//  store
 //
-//  Created by 穆康 on 2016/12/14.
-//  Copyright © 2016年 杭州部落公社科技有限公司. All rights reserved.
+//  Created by 穆康 on 2017/1/20.
+//  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import "TCCommonIndicatorViewCell.h"
+#import "TCCommonSubtitleViewCell.h"
 
-@implementation TCCommonIndicatorViewCell
+@implementation TCCommonSubtitleViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.separatorInset = UIEdgeInsetsMake(0, 20, 0, 20);
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [self setupSubviews];
         [self setupConstraints];
     }
@@ -31,7 +31,7 @@
     
     UILabel *subtitleLabel = [[UILabel alloc] init];
     subtitleLabel.textAlignment = NSTextAlignmentLeft;
-    subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+    subtitleLabel.textColor = TCRGBColor(42, 42, 42);
     subtitleLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:subtitleLabel];
     self.subtitleLabel = subtitleLabel;
@@ -42,12 +42,12 @@
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contentView.mas_left).with.offset(20);
-        make.right.equalTo(weakSelf.contentView.mas_right);
+        make.right.equalTo(weakSelf.subtitleLabel.mas_left);
         make.top.bottom.equalTo(weakSelf.contentView);
     }];
     [self.subtitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contentView.mas_left).with.offset(100);
-        make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-30);
+        make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-20);
         make.top.bottom.equalTo(weakSelf.contentView);
     }];
 }

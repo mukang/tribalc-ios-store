@@ -7,6 +7,8 @@
 //
 
 #import "TCStoreCategoryViewController.h"
+#import "TCCreateGoodsStoreViewController.h"
+
 #import "TCStoreCategoryViewCell.h"
 #import "TCStoreCategoryInfo.h"
 #import "NSObject+TCModel.h"
@@ -102,6 +104,8 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath.section == 0) {
         TCLog(@"点击了商品种类");
+        TCCreateGoodsStoreViewController *vc = [[TCCreateGoodsStoreViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     } else {
         if ([categoryInfo.category isEqualToString:@"REPAST"]) {
             TCLog(@"点击了餐饮种类");
