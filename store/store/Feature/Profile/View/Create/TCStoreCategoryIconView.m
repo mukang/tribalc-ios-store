@@ -7,7 +7,6 @@
 //
 
 #import "TCStoreCategoryIconView.h"
-#import <Masonry.h>
 
 @implementation TCStoreCategoryIconView
 

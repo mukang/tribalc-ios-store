@@ -7,7 +7,6 @@
 //
 
 #import "TCSuggestionViewController.h"
-#import <Masonry.h>
 #import <YYText.h>
 
 @interface TCSuggestionViewController () <YYTextViewDelegate>

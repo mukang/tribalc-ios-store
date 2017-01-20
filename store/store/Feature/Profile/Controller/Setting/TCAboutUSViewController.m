@@ -7,7 +7,6 @@
 //
 
 #import "TCAboutUSViewController.h"
-#import <Masonry.h>
 
 @interface TCAboutUSViewController ()
 

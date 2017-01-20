@@ -8,7 +8,6 @@
 
 #import "TCPhotoModeView.h"
 #import "UIImage+Category.h"
-#import <Masonry.h>
 
 static CGFloat const duration = 0.25;
 

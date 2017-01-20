@@ -16,7 +16,6 @@
 #import "TCCommonButton.h"
 
 #import "TCBuluoApi.h"
-#import <Masonry.h>
 #import <SDImageCache.h>
 
 @interface TCAppSettingViewController () <UITableViewDataSource, UITableViewDelegate>

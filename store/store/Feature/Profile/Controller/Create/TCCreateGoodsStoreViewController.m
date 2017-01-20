@@ -10,13 +10,23 @@
 
 @interface TCCreateGoodsStoreViewController ()
 
+@property (weak, nonatomic) UITableView *tableView;
+
 @end
 
-@implementation TCCreateGoodsStoreViewController
+@implementation TCCreateGoodsStoreViewController {
+    __weak TCCreateGoodsStoreViewController *weakSelf;
+}
+
+#pragma mark - Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.weakSelf = self;
+    weakSelf = self;
+    self.navigationItem.title = @"创建商铺";
+    
+//    [self setupSubviews];
 }
 
 - (void)didReceiveMemoryWarning {

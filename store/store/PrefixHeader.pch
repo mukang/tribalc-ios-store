@@ -16,6 +16,7 @@
 #import "UIView+Category.h"
 #import "MBProgressHUD+Category.h"
 #import "NSObject+TCNomal.h"
+#import <Masonry.h>
 #endif
 
 

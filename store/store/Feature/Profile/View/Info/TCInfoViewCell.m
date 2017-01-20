@@ -7,7 +7,6 @@
 //
 
 #import "TCInfoViewCell.h"
-#import <Masonry.h>
 
 @implementation TCInfoViewCell
 
