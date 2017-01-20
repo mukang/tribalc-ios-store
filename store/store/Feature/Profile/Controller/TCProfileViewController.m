@@ -244,9 +244,14 @@ TCPhotoModeViewDelegate>
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.section == 1) {
         if (indexPath.row == 1) {
-            TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
-            businessVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:businessVC animated:YES];
+            
+            NSString *authStr = [[TCBuluoApi api] currentUserSession].storeInfo.storeAuthenticationStatus;
+            if ([authStr isEqualToString:@"NOT_START"] || [authStr isEqualToString:@"FAILURE"]) {
+                TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
+                businessVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:businessVC animated:YES];
+            }
+            
         }
     }
 }

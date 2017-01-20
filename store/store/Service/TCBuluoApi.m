@@ -585,7 +585,7 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
     }
 }
 
-- (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(BOOL success, NSError *error))resultBlock {
+- (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"stores/%@/authentication", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
@@ -599,18 +599,21 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
             if (response.statusCode == 200) {
                 if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                    
+                    TCStoreInfo *uploadInfo = [[TCStoreInfo alloc] initWithObjectDictionary:response.data];
+                    
+                    TC_CALL_ASYNC_MQ(resultBlock(uploadInfo, nil));
                 }
             } else {
                 if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
                 }
             }
         }];
     } else {
         TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
         if (resultBlock) {
-            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
         }
     }
 }
