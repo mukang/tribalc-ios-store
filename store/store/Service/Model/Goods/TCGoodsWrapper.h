@@ -22,5 +22,7 @@
 @property (nonatomic) BOOL hasMore;
 /** 商品列表，TCGoods对象数组 */
 @property (copy, nonatomic) NSArray *content;
+/** 是否已发布 */
+@property (assign, nonatomic) BOOL published;
 
 @end
