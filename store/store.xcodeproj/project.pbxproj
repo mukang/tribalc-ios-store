@@ -11,6 +11,9 @@
 		550319181E30BC89004522C7 /* TCAuthCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319171E30BC89004522C7 /* TCAuthCertifyViewController.m */; };
 		5503191B1E30C7DF004522C7 /* TCIndustryPermitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503191A1E30C7DF004522C7 /* TCIndustryPermitViewController.m */; };
 		5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503191E1E30D2BE004522C7 /* TCAuthenticationInfo.m */; };
+		550319231E31BE27004522C7 /* TCGoodsCategoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319221E31BE27004522C7 /* TCGoodsCategoryController.m */; };
+		550319261E31F68C004522C7 /* TCCreateGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319251E31F68C004522C7 /* TCCreateGoodsViewController.m */; };
+		550319291E3218D8004522C7 /* TCGoodsPriceAndRepertory.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319281E3218D8004522C7 /* TCGoodsPriceAndRepertory.m */; };
 		7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */; };
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
@@ -155,6 +158,12 @@
 		5503191A1E30C7DF004522C7 /* TCIndustryPermitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCIndustryPermitViewController.m; path = store/Feature/Profile/Controller/TCIndustryPermitViewController.m; sourceTree = SOURCE_ROOT; };
 		5503191D1E30D2BE004522C7 /* TCAuthenticationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAuthenticationInfo.h; sourceTree = "<group>"; };
 		5503191E1E30D2BE004522C7 /* TCAuthenticationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAuthenticationInfo.m; sourceTree = "<group>"; };
+		550319211E31BE27004522C7 /* TCGoodsCategoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsCategoryController.h; sourceTree = "<group>"; };
+		550319221E31BE27004522C7 /* TCGoodsCategoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsCategoryController.m; sourceTree = "<group>"; };
+		550319241E31F68C004522C7 /* TCCreateGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCreateGoodsViewController.h; sourceTree = "<group>"; };
+		550319251E31F68C004522C7 /* TCCreateGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCreateGoodsViewController.m; sourceTree = "<group>"; };
+		550319271E3218D8004522C7 /* TCGoodsPriceAndRepertory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsPriceAndRepertory.h; sourceTree = "<group>"; };
+		550319281E3218D8004522C7 /* TCGoodsPriceAndRepertory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsPriceAndRepertory.m; sourceTree = "<group>"; };
 		7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppSettingViewController.m; sourceTree = "<group>"; };
 		7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppCacheViewCell.h; sourceTree = "<group>"; };
@@ -433,6 +442,17 @@
 			);
 			name = Authentication;
 			path = Model/Authentication;
+			sourceTree = "<group>";
+		};
+		550319201E31BDC6004522C7 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				550319211E31BE27004522C7 /* TCGoodsCategoryController.h */,
+				550319221E31BE27004522C7 /* TCGoodsCategoryController.m */,
+				550319241E31F68C004522C7 /* TCCreateGoodsViewController.h */,
+				550319251E31F68C004522C7 /* TCCreateGoodsViewController.m */,
+			);
+			path = Create;
 			sourceTree = "<group>";
 		};
 		7A5344551E2F1C1D0053B527 /* Info */ = {
@@ -796,6 +816,8 @@
 				7A9987FD1E24EE3E006175CC /* TCGoodStandards.m */,
 				7A9987FE1E24EE3E006175CC /* TCGoodsWrapper.h */,
 				7A9987FF1E24EE3E006175CC /* TCGoodsWrapper.m */,
+				550319271E3218D8004522C7 /* TCGoodsPriceAndRepertory.h */,
+				550319281E3218D8004522C7 /* TCGoodsPriceAndRepertory.m */,
 			);
 			path = Goods;
 			sourceTree = "<group>";
@@ -1012,6 +1034,7 @@
 			children = (
 				7ABCC1001E262B7A00750E47 /* TCGoodsViewController.h */,
 				7ABCC1011E262B7A00750E47 /* TCGoodsViewController.m */,
+				550319201E31BDC6004522C7 /* Create */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1420,6 +1443,8 @@
 				7ABCC0D41E2622C800750E47 /* TCRecommendListViewController.m in Sources */,
 				7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */,
 				7ABCC0E01E2622C800750E47 /* TCUserLocationAnnotationView.m in Sources */,
+				550319231E31BE27004522C7 /* TCGoodsCategoryController.m in Sources */,
+				550319261E31F68C004522C7 /* TCCreateGoodsViewController.m in Sources */,
 				7A5344621E2F5C460053B527 /* TCInfoEditViewCell.m in Sources */,
 				7A99881D1E24EE3E006175CC /* TCMarkStore.m in Sources */,
 				7A53445C1E2F4E930053B527 /* TCInfoViewCell.m in Sources */,
@@ -1450,6 +1475,7 @@
 				7A9987AE1E24C84B006175CC /* TCBaseViewController.m in Sources */,
 				7ABCC0D61E2622C800750E47 /* TCRestaurantTableViewCell.m in Sources */,
 				5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */,
+				550319291E3218D8004522C7 /* TCGoodsPriceAndRepertory.m in Sources */,
 				7ABCC0D31E2622C800750E47 /* TCRecommendInfoViewController.m in Sources */,
 				7A7B60A91E30B4AF004971C9 /* TCStoreCategoryInfo.m in Sources */,
 				7A9987E41E24E42B006175CC /* UIImage+Category.m in Sources */,

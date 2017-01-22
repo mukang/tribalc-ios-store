@@ -225,4 +225,15 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
+
+/**
+ 商家获取产品列表
+
+ @param isPublished 是否上架
+ @param limitSize 获取数量
+ @param sort 排序
+ @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
+ @param resultBlock 结果回调
+ */
+- (void)fetchGoodsWrapper:(BOOL)isPublished limitSize:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsWrapper *, NSError *))resultBlock;
 @end
