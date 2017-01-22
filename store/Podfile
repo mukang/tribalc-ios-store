@@ -6,4 +6,7 @@ pod 'Masonry'
 pod 'SDWebImage'
 pod 'MJRefresh'
 pod 'YYText'
+pod 'AMap2DMap-NO-IDFA'
+pod 'AMapSearch-NO-IDFA'
+pod 'AMapLocation-NO-IDFA'
 end
