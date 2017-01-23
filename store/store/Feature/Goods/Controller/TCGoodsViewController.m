@@ -11,8 +11,12 @@
 #import "TCGoodsCategoryController.h"
 #import "TCGoodsWrapper.h"
 #import "TCGoods.h"
+#import "TCBuluoApi.h"
+#import "TCGoodsListCell.h"
+#import "TCRefreshHeader.h"
+#import "TCRefreshFooter.h"
 
-@interface TCGoodsViewController ()
+@interface TCGoodsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UIButton *onSaleBtn;
 
@@ -24,6 +28,8 @@
 
 @property (strong, nonatomic) NSArray *goods;
 
+@property (strong, nonatomic) UIButton *btn;
+
 @end
 
 @implementation TCGoodsViewController {
@@ -34,14 +40,49 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     weakSelf = self;
-    
+
     [self setUpTopViews];
+    
+    
 }
 
 - (void)loadDataIsMore:(BOOL)isMore {
     [MBProgressHUD showHUD:YES];
     
+    BOOL isPublish = YES;
     
+    if (_onSaleBtn.selected) {
+        isPublish = YES;
+    }else if (_storeBtn.selected) {
+        isPublish = NO;
+    }
+    
+    NSString *skip = nil;
+    
+    if (isMore) {
+        skip = self.goodsWrapper.nextSkip;
+    }
+    @WeakObj(self)
+    [[TCBuluoApi api] fetchGoodsWrapper:isPublish limitSize:20 sort:nil sortSkip:skip result:^(TCGoodsWrapper *goodsWrapper, NSError *error) {
+        @StrongObj(self)
+        if (goodsWrapper) {
+            [MBProgressHUD hideHUD:YES];
+            self.goodsWrapper = goodsWrapper;
+            
+            NSMutableArray *mutabelArr = [NSMutableArray arrayWithArray:self.goods];
+            [mutabelArr addObjectsFromArray:goodsWrapper.content];
+            self.goods = mutabelArr;
+            [self.tableView reloadData];
+            [self setCreatBtn];
+            [self.tableView.mj_footer endRefreshing];
+            if (!isMore) {
+                self.tableView.mj_footer.hidden = NO;
+            }
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"加载失败，%@", reason]];
+        }
+    }];
     
 }
 
@@ -64,13 +105,8 @@
     [_storeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_storeBtn addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     
-//    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-//    _tableView.sectionHeaderHeight = 5.0;
-//    _tableView.sectionFooterHeight = 0.0;
-//    [self.view addSubview:_tableView];
-    
     [_onSaleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(64);
+        make.top.equalTo(self.view);
         make.left.equalTo(@0);
         make.width.equalTo(@(TCScreenWidth/2.0));
         make.height.equalTo(@(TCRealValue(41)));
@@ -91,14 +127,98 @@
     [self onClick:_onSaleBtn];
 }
 
+- (void)setCreatBtn {
+    if (_btn == nil) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:@"创建商品" forState:UIControlStateNormal];
+        [btn setBackgroundColor:[UIColor greenColor]];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 25;
+        [btn addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.view).offset(-20);
+            make.bottom.equalTo(self.view).offset(-20);
+            make.width.height.equalTo(@50);
+        }];
+        self.btn = btn;
+    }
+    
+}
+
 - (void)onClick:(UIButton *)btn {
     if (btn.tag == 1111) {
+        _onSaleBtn.selected = YES;
+        _storeBtn.selected = NO;
         [_onSaleBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         [_storeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }else {
+        _storeBtn.selected = YES;
+        _onSaleBtn.selected = NO;
         [_onSaleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_storeBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     }
+    
+    [self loadDataIsMore:NO];
+}
+
+- (UITableView *)tableView {
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, CGFLOAT_MIN)];
+        _tableView.dataSource = self;
+        _tableView.sectionFooterHeight = 0.01;
+        _tableView.sectionHeaderHeight = 5.0;
+        _tableView.rowHeight = 150.0;
+        [self.view addSubview:_tableView];
+        [self setupTableViewRefreshView];
+        
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_storeBtn.mas_bottom);
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view);
+        }];
+    }
+    return _tableView;
+}
+
+- (void)setupTableViewRefreshView {
+    @WeakObj(self)
+    TCRefreshHeader *refreshHeader = [TCRefreshHeader headerWithRefreshingBlock:^(void) {
+        @StrongObj(self)
+        [self loadDataIsMore:NO];
+    }];
+    _tableView.mj_header = refreshHeader;
+    
+    TCRefreshFooter *refreshFooter = [TCRefreshFooter footerWithRefreshingBlock:^(void) {
+        @StrongObj(self)
+        if (self.goodsWrapper.hasMore) {
+            [self loadDataIsMore:YES];
+        }else {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        
+    }];
+    refreshFooter.hidden = YES;
+    _tableView.mj_footer = refreshFooter;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.goods.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TCGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsListCell"];
+    if (cell == nil) {
+        cell = [[TCGoodsListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCGoodsListCell"];
+        cell.good = self.goods[indexPath.section];
+    }
+    return cell;
 }
 
 - (void)next {

@@ -18,6 +18,11 @@
 #import "TCGoodDetail.h"
 #import "TCGoodStandards.h"
 
+#import "TCGoodsStandardMate.h"
+#import "TCGoodsStandardWrapper.h"
+#import "TCGoodsStandardDescriptions.h"
+#import "TCGoodsStandardDescriptionDetail.h"
+
 /********** 服务相关 **********/
 #import "TCServiceWrapper.h"
 #import "TCServices.h"
@@ -34,6 +39,7 @@
 #import "TCStoreDetailInfo.h"
 
 #import "TCAuthenticationInfo.h"
+
 
 
 

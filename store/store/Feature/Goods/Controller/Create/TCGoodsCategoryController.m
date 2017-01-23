@@ -11,6 +11,7 @@
 #import "TCStoreCategoryInfo.h"
 #import "NSObject+TCModel.h"
 #import "TCCreateGoodsViewController.h"
+#import "TCChoseSpecificationsController.h"
 
 @interface TCGoodsCategoryController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -110,8 +111,12 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    TCCreateGoodsViewController *createVC = [[TCCreateGoodsViewController alloc] init];
+    TCStoreCategoryInfo *storeInfo = _goodsCategoryInfoArray[indexPath.item];
+    NSString *category = storeInfo.category;
+    TCGoods *good = [[TCGoods alloc] init];
+    good.category = category;
+    TCChoseSpecificationsController *createVC = [[TCChoseSpecificationsController alloc] init];
+    createVC.good = good;
     [self.navigationController pushViewController:createVC animated:YES];
     
 //    if ([self.delegate respondsToSelector:@selector(storeCategoryViewCell:didSelectItemWithCategoryInfo:)]) {

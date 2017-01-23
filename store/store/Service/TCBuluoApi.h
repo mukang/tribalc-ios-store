@@ -236,4 +236,14 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  @param resultBlock 结果回调
  */
 - (void)fetchGoodsWrapper:(BOOL)isPublished limitSize:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsWrapper *, NSError *))resultBlock;
+
+
+/**
+ 获取商品规格组列表
+
+ @param limitSize 获取数量
+ @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
+ @param resultBlock 结果回调
+ */
+- (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock;
 @end
