@@ -14,9 +14,19 @@
 #import "TCCommonIndicatorViewCell.h"
 #import "TCGoodsStoreRecommendViewCell.h"
 
-@interface TCCreateGoodsStoreViewController () <UITableViewDataSource, UITableViewDelegate, TCCommonInputViewCellDelegate>
+#import "TCBuluoApi.h"
+#import "TCStoreCategoryInfo.h"
+
+@interface TCCreateGoodsStoreViewController ()
+<UITableViewDataSource,
+UITableViewDelegate,
+UIScrollViewDelegate,
+TCCommonInputViewCellDelegate,
+YYTextViewDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) TCStoreDetailInfo *storeDetailInfo;
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
 @end
 
@@ -33,6 +43,18 @@
     
     [self setupNavBar];
     [self setupSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self registerNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self removeNotifications];
 }
 
 - (void)dealloc {
@@ -116,12 +138,15 @@
                 TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"商家名称";
                 cell.placeholder = @"请输入商家名称";
+                cell.textField.text = self.storeDetailInfo.name;
+                cell.textField.keyboardType = UIKeyboardTypeDefault;
+                cell.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
                 cell.delegate = self;
                 return cell;
             } else {
                 TCCommonSubtitleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonSubtitleViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"经营品类";
-                cell.subtitleLabel.text = @"商品";
+                cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@", self.categoryInfo.name];
                 return cell;
             }
         }
@@ -129,19 +154,30 @@
         case 1:
         {
             if (indexPath.row == 0) {
-                TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
+                TCCommonSubtitleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonSubtitleViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"主要电话";
+                cell.subtitleLabel.text = self.storeDetailInfo.phone;
                 return cell;
             } else if (indexPath.row == 1) {
                 TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"其他电话";
                 cell.placeholder = @"请输入其他电话";
+                cell.textField.text = self.storeDetailInfo.otherPhone;
+                cell.textField.keyboardType = UIKeyboardTypeASCIICapable;
+                cell.textField.autocorrectionType = UITextAutocorrectionTypeNo;
                 cell.delegate = self;
                 return cell;
             } else {
                 TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"发货地址";
-                cell.subtitleLabel.text = @"请选择发货地址";
+                cell.subtitleLabel.textAlignment = NSTextAlignmentLeft;
+                if (self.storeDetailInfo.address) {
+                    cell.subtitleLabel.text = self.storeDetailInfo.address;
+                    cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+                } else {
+                    cell.subtitleLabel.text = @"请设置发货地址";
+                    cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+                }
                 return cell;
             }
         }
@@ -150,10 +186,17 @@
         {
             TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
+            cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
             if (indexPath.row == 0) {
                 cell.titleLabel.text = @"店铺LOGO";
+                cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
             } else {
                 cell.titleLabel.text = @"店铺环境图";
+                if (self.storeDetailInfo.pictures.count) {
+                    cell.subtitleLabel.text = [NSString stringWithFormat:@"%zd张", self.storeDetailInfo.pictures.count];
+                } else {
+                    cell.subtitleLabel.text = nil;
+                }
             }
             return cell;
         }
@@ -163,6 +206,9 @@
             TCGoodsStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsStoreRecommendViewCell" forIndexPath:indexPath];
             cell.titleLabel.text = @"推荐理由";
             cell.subtitleLabel.text = @"请输入商铺推荐理由：";
+            cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
+            cell.textView.text = self.storeDetailInfo.recommendedReason;
+            cell.textView.delegate = self;
             return cell;
         }
             break;
@@ -192,6 +238,74 @@
     return 0.01;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView endEditing:YES];
+    if (indexPath.section == 1 && indexPath.row == 2) {
+        
+    } else if (indexPath.section == 2) {
+        
+    }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [scrollView endEditing:YES];
+}
+
+#pragma mark - TCCommonInputViewCellDelegate
+
+- (void)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldDidEndEditing:(UITextField *)textField {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        self.storeDetailInfo.name = textField.text;
+    } else if (indexPath.section == 1 && indexPath.row == 1) {
+        self.storeDetailInfo.otherPhone = textField.text;
+    }
+}
+
+- (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldReturn:(UITextField *)textField {
+    if ([textField isFirstResponder]) {
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
+#pragma mark - YYTextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView {
+    self.currentIndexPath = [NSIndexPath indexPathForRow:0 inSection:3];
+    return YES;
+}
+
+- (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"/n"]) {
+        if ([textView isFirstResponder]) {
+            [textView resignFirstResponder];
+        }
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(YYTextView *)textView {
+    self.currentIndexPath = nil;
+    self.storeDetailInfo.recommendedReason = textView.text;
+}
+
+#pragma mark - Notifications
+
+- (void)registerNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)removeNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 #pragma mark - Actions
 
 - (void)handleClickManualItem:(UIBarButtonItem *)sender {
@@ -200,6 +314,48 @@
 
 - (void)handleClickCommitButton:(UIButton *)sender {
     
+}
+
+- (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
+    if (self.currentIndexPath.section != 3 || self.currentIndexPath.row != 0) return;
+    
+    NSDictionary *info = notification.userInfo;
+    
+    CGFloat height = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, height - 49, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, height - 49, 0);
+    
+    [UIView animateWithDuration:duration animations:^{
+        [weakSelf.tableView scrollToRowAtIndexPath:weakSelf.currentIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }];
+}
+
+- (void)handleKeyboardWillHideNotification:(NSNotification *)notification {
+    self.tableView.contentInset = UIEdgeInsetsZero;
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
+
+#pragma mark - Override Methods
+
+- (TCStoreDetailInfo *)storeDetailInfo {
+    if (_storeDetailInfo == nil) {
+        _storeDetailInfo = [[TCStoreDetailInfo alloc] init];
+        TCStoreInfo *storeInfo = [[TCBuluoApi api] currentUserSession].storeInfo;
+        _storeDetailInfo.ID = storeInfo.ID;
+        _storeDetailInfo.logo = storeInfo.logo;
+        _storeDetailInfo.name = storeInfo.name;
+        _storeDetailInfo.phone = storeInfo.phone;
+        _storeDetailInfo.storeType = @"GOODS";
+    }
+    return _storeDetailInfo;
+}
+
+- (void)setCategoryInfo:(TCStoreCategoryInfo *)categoryInfo {
+    _categoryInfo = categoryInfo;
+    
+    self.storeDetailInfo.category = categoryInfo.category;
 }
 
 - (void)didReceiveMemoryWarning {

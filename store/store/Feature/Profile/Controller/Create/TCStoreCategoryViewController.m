@@ -105,6 +105,7 @@
     if (indexPath.section == 0) {
         TCLog(@"点击了商品种类");
         TCCreateGoodsStoreViewController *vc = [[TCCreateGoodsStoreViewController alloc] init];
+        vc.categoryInfo = categoryInfo;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         if ([categoryInfo.category isEqualToString:@"REPAST"]) {

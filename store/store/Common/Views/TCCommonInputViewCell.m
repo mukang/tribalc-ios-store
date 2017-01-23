@@ -37,6 +37,7 @@
     textField.textAlignment = NSTextAlignmentLeft;
     textField.textColor = TCRGBColor(42, 42, 42);
     textField.font = [UIFont systemFontOfSize:14];
+    textField.returnKeyType = UIReturnKeyDone;
     textField.delegate = self;
     [self.contentView addSubview:textField];
     self.textField = textField;

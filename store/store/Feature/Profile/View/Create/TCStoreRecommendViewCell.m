@@ -41,6 +41,7 @@
     textView.font = [UIFont systemFontOfSize:14];
     textView.placeholderTextColor = TCRGBColor(154, 154, 154);
     textView.placeholderFont = [UIFont systemFontOfSize:14];
+    textView.returnKeyType = UIReturnKeyDone;
     textView.layer.cornerRadius = 2.5;
     textView.layer.borderColor = TCRGBColor(212, 212, 212).CGColor;
     textView.layer.borderWidth = 1;
