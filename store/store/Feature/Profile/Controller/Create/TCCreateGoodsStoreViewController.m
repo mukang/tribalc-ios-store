@@ -7,6 +7,7 @@
 //
 
 #import "TCCreateGoodsStoreViewController.h"
+#import "TCStoreAddressViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonInputViewCell.h"
@@ -172,7 +173,7 @@ YYTextViewDelegate>
                 cell.titleLabel.text = @"发货地址";
                 cell.subtitleLabel.textAlignment = NSTextAlignmentLeft;
                 if (self.storeDetailInfo.address) {
-                    cell.subtitleLabel.text = self.storeDetailInfo.address;
+                    cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.storeDetailInfo.province, self.storeDetailInfo.city, self.storeDetailInfo.district, self.storeDetailInfo.address];
                     cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
                 } else {
                     cell.subtitleLabel.text = @"请设置发货地址";
@@ -242,7 +243,21 @@ YYTextViewDelegate>
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView endEditing:YES];
     if (indexPath.section == 1 && indexPath.row == 2) {
-        
+        TCStoreAddressViewController *vc = [[TCStoreAddressViewController alloc] init];
+        TCStoreAddress *storeAddress = [[TCStoreAddress alloc] init];
+        storeAddress.province = self.storeDetailInfo.province;
+        storeAddress.city = self.storeDetailInfo.city;
+        storeAddress.district = self.storeDetailInfo.district;
+        storeAddress.address = self.storeDetailInfo.address;
+        vc.storeAddress = storeAddress;
+        vc.editAddressCompletion = ^(TCStoreAddress *storeAddress) {
+            weakSelf.storeDetailInfo.province = storeAddress.province;
+            weakSelf.storeDetailInfo.city = storeAddress.city;
+            weakSelf.storeDetailInfo.district = storeAddress.district;
+            weakSelf.storeDetailInfo.address = storeAddress.address;
+            [weakSelf.tableView reloadData];
+        };
+        [self.navigationController pushViewController:vc animated:YES];
     } else if (indexPath.section == 2) {
         
     }
