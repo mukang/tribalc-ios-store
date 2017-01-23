@@ -47,7 +47,7 @@
     }];
     [self.subtitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contentView.mas_left).with.offset(100);
-        make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-30);
+        make.right.equalTo(weakSelf.contentView.mas_right);
         make.top.bottom.equalTo(weakSelf.contentView);
     }];
 }

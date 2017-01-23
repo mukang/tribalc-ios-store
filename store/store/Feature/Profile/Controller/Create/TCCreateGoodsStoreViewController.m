@@ -8,6 +8,7 @@
 
 #import "TCCreateGoodsStoreViewController.h"
 #import "TCStoreAddressViewController.h"
+#import "TCStoreLogoUploadViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonInputViewCell.h"
@@ -243,23 +244,13 @@ YYTextViewDelegate>
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView endEditing:YES];
     if (indexPath.section == 1 && indexPath.row == 2) {
-        TCStoreAddressViewController *vc = [[TCStoreAddressViewController alloc] init];
-        TCStoreAddress *storeAddress = [[TCStoreAddress alloc] init];
-        storeAddress.province = self.storeDetailInfo.province;
-        storeAddress.city = self.storeDetailInfo.city;
-        storeAddress.district = self.storeDetailInfo.district;
-        storeAddress.address = self.storeDetailInfo.address;
-        vc.storeAddress = storeAddress;
-        vc.editAddressCompletion = ^(TCStoreAddress *storeAddress) {
-            weakSelf.storeDetailInfo.province = storeAddress.province;
-            weakSelf.storeDetailInfo.city = storeAddress.city;
-            weakSelf.storeDetailInfo.district = storeAddress.district;
-            weakSelf.storeDetailInfo.address = storeAddress.address;
-            [weakSelf.tableView reloadData];
-        };
-        [self.navigationController pushViewController:vc animated:YES];
+        [self handleSelectStoreAddressCell];
     } else if (indexPath.section == 2) {
-        
+        if (indexPath.row == 0) {
+            [self handleSelectStoreLogoCell];
+        } else {
+            [self handleSelectStoreSurroundingCell];
+        }
     }
 }
 
@@ -350,6 +341,38 @@ YYTextViewDelegate>
 - (void)handleKeyboardWillHideNotification:(NSNotification *)notification {
     self.tableView.contentInset = UIEdgeInsetsZero;
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
+
+- (void)handleSelectStoreAddressCell {
+    TCStoreAddressViewController *vc = [[TCStoreAddressViewController alloc] init];
+    TCStoreAddress *storeAddress = [[TCStoreAddress alloc] init];
+    storeAddress.province = self.storeDetailInfo.province;
+    storeAddress.city = self.storeDetailInfo.city;
+    storeAddress.district = self.storeDetailInfo.district;
+    storeAddress.address = self.storeDetailInfo.address;
+    vc.storeAddress = storeAddress;
+    vc.editAddressCompletion = ^(TCStoreAddress *storeAddress) {
+        weakSelf.storeDetailInfo.province = storeAddress.province;
+        weakSelf.storeDetailInfo.city = storeAddress.city;
+        weakSelf.storeDetailInfo.district = storeAddress.district;
+        weakSelf.storeDetailInfo.address = storeAddress.address;
+        [weakSelf.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectStoreLogoCell {
+    TCStoreLogoUploadViewController *vc = [[TCStoreLogoUploadViewController alloc] init];
+    vc.logo = self.storeDetailInfo.logo;
+    vc.uploadLogoCompletion = ^(NSString *logo) {
+        weakSelf.storeDetailInfo.logo = logo;
+        [weakSelf.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectStoreSurroundingCell {
+    
 }
 
 #pragma mark - Override Methods
