@@ -627,9 +627,9 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
         published = @"false";
     }
     
-    NSString *limitSizePart = [NSString stringWithFormat:@"limitSize=%zd", limitSize];
+    NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
     NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
-    NSString *sor = sort ? [NSString stringWithFormat:@"sort=%@",sort] : @"";
+    NSString *sor = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
     NSString *apiName = [NSString stringWithFormat:@"goods?me=%@&published=%@%@%@%@",[[TCBuluoApi api] currentUserSession].storeInfo.ID,published, limitSizePart, sortSkipPart,sor];
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
     request.token = self.currentUserSession.token;
@@ -642,6 +642,42 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
             TCGoodsWrapper *goodsWrapper = [[TCGoodsWrapper alloc] initWithObjectDictionary:response.data];
             if (resultBlock) {
                 TC_CALL_ASYNC_MQ(resultBlock(goodsWrapper, nil));
+            }
+        }
+    }];
+}
+
+- (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock {
+    NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
+    NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
+    NSString *sor = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
+    NSString *apiName = [NSString stringWithFormat:@"goods_standards?me=%@%@%@%@",[[TCBuluoApi api] currentUserSession].storeInfo.ID, limitSizePart, sortSkipPart,sor];
+    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+    request.token = self.currentUserSession.token;
+    [[TCClient client] send:request finish:^(TCClientResponse *response) {
+        if (response.error) {
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+            }
+        } else {
+            TCGoodsStandardWrapper *goodsStandardWarpper = [[TCGoodsStandardWrapper alloc] initWithObjectDictionary:response.data];
+            
+            NSArray *arr = goodsStandardWarpper.content;
+            for (int i = 0; i < arr.count; i++) {
+                TCGoodsStandardMate *goodsStandard = arr[i];
+                NSDictionary *dict = goodsStandard.priceAndRepertoryMap;
+                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dict];
+                for (int j = 0; j < mutableDic.allKeys.count; j++) {
+                    NSString *key = mutableDic.allKeys[j];
+                    NSDictionary *dic = mutableDic[key];
+                    TCGoodsPriceAndRepertory *priceAndRep = [[TCGoodsPriceAndRepertory alloc] initWithObjectDictionary:dic];
+                    mutableDic[key] = priceAndRep;
+                }
+                goodsStandard.priceAndRepertoryMap = mutableDic;
+            }
+            
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(goodsStandardWarpper, nil));
             }
         }
     }];
