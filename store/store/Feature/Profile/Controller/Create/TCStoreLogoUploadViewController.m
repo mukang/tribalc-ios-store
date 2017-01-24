@@ -7,6 +7,7 @@
 //
 
 #import "TCStoreLogoUploadViewController.h"
+#import "TCNavigationController.h"
 
 #import "TCCommonButton.h"
 
@@ -23,6 +24,8 @@
 
 @property (weak, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) TCPhotoPicker *photoPicker;
+
+@property (nonatomic) BOOL originalInteractivePopGestureEnabled;
 
 @end
 
@@ -41,6 +44,21 @@
     [self setupNavBar];
     [self setupSubviews];
     [self setupLogo];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    self.originalInteractivePopGestureEnabled = nav.enableInteractivePopGesture;
+    nav.enableInteractivePopGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    nav.enableInteractivePopGesture = self.originalInteractivePopGestureEnabled;
 }
 
 #pragma mark - Private Methods

@@ -10,6 +10,9 @@
 
 typedef void(^TCUploadLogoCompletion)(NSString *logo);
 
+/**
+ 店铺logo上传
+ */
 @interface TCStoreLogoUploadViewController : TCBaseViewController
 
 @property (copy, nonatomic) NSString *logo;

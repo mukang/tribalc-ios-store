@@ -9,6 +9,7 @@
 #import "TCCreateGoodsStoreViewController.h"
 #import "TCStoreAddressViewController.h"
 #import "TCStoreLogoUploadViewController.h"
+#import "TCStoreSurroundingViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonInputViewCell.h"
@@ -190,10 +191,10 @@ YYTextViewDelegate>
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
             cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
             if (indexPath.row == 0) {
-                cell.titleLabel.text = @"店铺LOGO";
+                cell.titleLabel.text = @"LOGO";
                 cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
             } else {
-                cell.titleLabel.text = @"店铺环境图";
+                cell.titleLabel.text = @"环境图";
                 if (self.storeDetailInfo.pictures.count) {
                     cell.subtitleLabel.text = [NSString stringWithFormat:@"%zd张", self.storeDetailInfo.pictures.count];
                 } else {
@@ -372,7 +373,12 @@ YYTextViewDelegate>
 }
 
 - (void)handleSelectStoreSurroundingCell {
-    
+    TCStoreSurroundingViewController *vc = [[TCStoreSurroundingViewController alloc] init];
+    vc.storeDetailInfo = self.storeDetailInfo;
+    vc.editSurroundingCompletion = ^() {
+        [weakSelf.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Override Methods
