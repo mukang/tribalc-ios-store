@@ -149,9 +149,9 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  创建店铺
 
  @param storeDetailInfo TCStoreDetailInfo对象
- @param resultBlock 结果回调，storeDetailInfo为nil时表示创建失败，失败原因见error的code和userInfo
+ @param resultBlock 结果回调，storeInfo为nil时表示创建失败，失败原因见error的code和userInfo
  */
-- (void)createStore:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(TCStoreDetailInfo *storeDetailInfo, NSError *error))resultBlock;
+- (void)createStore:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
 /**
  获取店铺基本信息

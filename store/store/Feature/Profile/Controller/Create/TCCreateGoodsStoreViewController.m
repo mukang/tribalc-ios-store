@@ -140,7 +140,7 @@ YYTextViewDelegate>
             if (indexPath.row == 0) {
                 TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"商家名称";
-                cell.placeholder = @"请输入商家名称";
+                cell.placeholder = @"请填写商家名称";
                 cell.textField.text = self.storeDetailInfo.name;
                 cell.textField.keyboardType = UIKeyboardTypeDefault;
                 cell.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
@@ -164,7 +164,7 @@ YYTextViewDelegate>
             } else if (indexPath.row == 1) {
                 TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"其他电话";
-                cell.placeholder = @"请输入其他电话";
+                cell.placeholder = @"请填写其他电话";
                 cell.textField.text = self.storeDetailInfo.otherPhone;
                 cell.textField.keyboardType = UIKeyboardTypeASCIICapable;
                 cell.textField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -287,7 +287,7 @@ YYTextViewDelegate>
 }
 
 - (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([text isEqualToString:@"/n"]) {
+    if ([text isEqualToString:@"\n"]) {
         if ([textView isFirstResponder]) {
             [textView resignFirstResponder];
         }
@@ -320,7 +320,29 @@ YYTextViewDelegate>
 }
 
 - (void)handleClickCommitButton:(UIButton *)sender {
+    if (self.storeDetailInfo.name.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写商家名称"];
+        return;
+    }
+    if (!self.storeDetailInfo.address) {
+        [MBProgressHUD showHUDWithMessage:@"请设置发货地址"];
+        return;
+    }
+    if (!self.storeDetailInfo.logo) {
+        [MBProgressHUD showHUDWithMessage:@"请上传logo"];
+        return;
+    }
     
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] createStore:self.storeDetailInfo result:^(TCStoreInfo *storeInfo, NSError *error) {
+        if (storeInfo) {
+            [MBProgressHUD hideHUD:YES];
+            TCLog(@"创建成功");
+        } else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"创建商铺失败，%@", reason]];
+        }
+    }];
 }
 
 - (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
