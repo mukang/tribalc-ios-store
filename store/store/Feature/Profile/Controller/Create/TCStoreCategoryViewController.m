@@ -7,6 +7,7 @@
 //
 
 #import "TCStoreCategoryViewController.h"
+#import "TCCreateStoreViewController.h"
 #import "TCCreateGoodsStoreViewController.h"
 
 #import "TCStoreCategoryViewCell.h"
@@ -108,11 +109,9 @@
         vc.categoryInfo = categoryInfo;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
-        if ([categoryInfo.category isEqualToString:@"REPAST"]) {
-            TCLog(@"点击了餐饮种类");
-        } else {
-            TCLog(@"点击了其他服务种类");
-        }
+        TCCreateStoreViewController *vc = [[TCCreateStoreViewController alloc] init];
+        vc.categoryInfo = categoryInfo;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
