@@ -213,11 +213,14 @@ TCPhotoModeViewDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TCProfileViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCProfileViewCell" forIndexPath:indexPath];
     if (indexPath.section == 0) {
+        cell.iconImageView.image = [UIImage imageNamed:@"profile_create"];
         cell.titleLabel.text = @"创建店铺";
     } else {
         if (indexPath.row == 0) {
+            cell.iconImageView.image = [UIImage imageNamed:@"profile_wallet"];
             cell.titleLabel.text = @"企业钱包";
         } else {
+            cell.iconImageView.image = [UIImage imageNamed:@"profile_authentication"];
             cell.titleLabel.text = @"商户认证";
         }
     }

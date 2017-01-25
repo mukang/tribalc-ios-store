@@ -41,7 +41,7 @@
 @property (copy, nonatomic) NSString *city;
 /** 区域 */
 @property (copy, nonatomic) NSString *district;
-/** 发货地址 */
+/** 详细地址 */
 @property (copy, nonatomic) NSString *address;
 /** 环境组图 */
 @property (copy, nonatomic) NSArray *pictures;

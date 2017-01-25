@@ -32,6 +32,14 @@
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
 		7A0E00B01E2E1C4A0028555D /* TCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AF1E2E1C4A0028555D /* TCSettingViewController.m */; };
+		7A1B03891E359EAB003258D0 /* TCCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03881E359EAB003258D0 /* TCCityPickerView.m */; };
+		7A1B038E1E35A9E5003258D0 /* citylist.data in Resources */ = {isa = PBXBuildFile; fileRef = 7A1B038C1E35A9E5003258D0 /* citylist.data */; };
+		7A1B03911E35B0DB003258D0 /* TCStoreAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03901E35B0DB003258D0 /* TCStoreAddress.m */; };
+		7A1B03941E35D9B6003258D0 /* TCStoreLogoUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03931E35D9B6003258D0 /* TCStoreLogoUploadViewController.m */; };
+		7A1B03971E35F53A003258D0 /* TCStoreSurroundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03961E35F53A003258D0 /* TCStoreSurroundingViewController.m */; };
+		7A1B039D1E36083D003258D0 /* TCStoreSurroundingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B039C1E36083D003258D0 /* TCStoreSurroundingViewCell.m */; };
+		7A3571E81E345B5C00E79C59 /* TCStoreAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3571E71E345B5C00E79C59 /* TCStoreAddressViewController.m */; };
+		7A3571EB1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3571EA1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m */; };
 		7A5344591E2F1C4E0053B527 /* TCInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5344581E2F1C4E0053B527 /* TCInfoViewController.m */; };
 		7A53445C1E2F4E930053B527 /* TCInfoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A53445B1E2F4E930053B527 /* TCInfoViewCell.m */; };
 		7A5344621E2F5C460053B527 /* TCInfoEditViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5344611E2F5C460053B527 /* TCInfoEditViewCell.m */; };
@@ -219,6 +227,21 @@
 		7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppNotificationViewCell.m; sourceTree = "<group>"; };
 		7A0E00AE1E2E1C4A0028555D /* TCSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00AF1E2E1C4A0028555D /* TCSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSettingViewController.m; sourceTree = "<group>"; };
+		7A1B03871E359EAB003258D0 /* TCCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCityPickerView.h; sourceTree = "<group>"; };
+		7A1B03881E359EAB003258D0 /* TCCityPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCityPickerView.m; sourceTree = "<group>"; };
+		7A1B038C1E35A9E5003258D0 /* citylist.data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = citylist.data; sourceTree = "<group>"; };
+		7A1B038F1E35B0DB003258D0 /* TCStoreAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreAddress.h; sourceTree = "<group>"; };
+		7A1B03901E35B0DB003258D0 /* TCStoreAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreAddress.m; sourceTree = "<group>"; };
+		7A1B03921E35D9B6003258D0 /* TCStoreLogoUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreLogoUploadViewController.h; sourceTree = "<group>"; };
+		7A1B03931E35D9B6003258D0 /* TCStoreLogoUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreLogoUploadViewController.m; sourceTree = "<group>"; };
+		7A1B03951E35F53A003258D0 /* TCStoreSurroundingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSurroundingViewController.h; sourceTree = "<group>"; };
+		7A1B03961E35F53A003258D0 /* TCStoreSurroundingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSurroundingViewController.m; sourceTree = "<group>"; };
+		7A1B039B1E36083D003258D0 /* TCStoreSurroundingViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSurroundingViewCell.h; sourceTree = "<group>"; };
+		7A1B039C1E36083D003258D0 /* TCStoreSurroundingViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSurroundingViewCell.m; sourceTree = "<group>"; };
+		7A3571E61E345B5C00E79C59 /* TCStoreAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreAddressViewController.h; sourceTree = "<group>"; };
+		7A3571E71E345B5C00E79C59 /* TCStoreAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreAddressViewController.m; sourceTree = "<group>"; };
+		7A3571E91E345E5000E79C59 /* TCStoreSearchAddressViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSearchAddressViewCell.h; sourceTree = "<group>"; };
+		7A3571EA1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSearchAddressViewCell.m; sourceTree = "<group>"; };
 		7A5344571E2F1C4E0053B527 /* TCInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCInfoViewController.h; sourceTree = "<group>"; };
 		7A5344581E2F1C4E0053B527 /* TCInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCInfoViewController.m; sourceTree = "<group>"; };
 		7A53445A1E2F4E930053B527 /* TCInfoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCInfoViewCell.h; sourceTree = "<group>"; };
@@ -515,6 +538,14 @@
 			path = Create;
 			sourceTree = "<group>";
 		};
+		7A1B038A1E35A9E5003258D0 /* BinaryFiles */ = {
+			isa = PBXGroup;
+			children = (
+				7A1B038C1E35A9E5003258D0 /* citylist.data */,
+			);
+			path = BinaryFiles;
+			sourceTree = "<group>";
+		};
 		7A5344551E2F1C1D0053B527 /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,6 +614,8 @@
 				7A55F42A1E288B1F0018FED3 /* TCStoreDetailInfo.m */,
 				7A7B60A71E30B4AF004971C9 /* TCStoreCategoryInfo.h */,
 				7A7B60A81E30B4AF004971C9 /* TCStoreCategoryInfo.m */,
+				7A1B038F1E35B0DB003258D0 /* TCStoreAddress.h */,
+				7A1B03901E35B0DB003258D0 /* TCStoreAddress.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -596,6 +629,12 @@
 				7A7B60961E30A0A3004971C9 /* TCCreateStoreViewController.m */,
 				7A7B60981E30A0B9004971C9 /* TCCreateGoodsStoreViewController.h */,
 				7A7B60991E30A0B9004971C9 /* TCCreateGoodsStoreViewController.m */,
+				7A3571E61E345B5C00E79C59 /* TCStoreAddressViewController.h */,
+				7A3571E71E345B5C00E79C59 /* TCStoreAddressViewController.m */,
+				7A1B03921E35D9B6003258D0 /* TCStoreLogoUploadViewController.h */,
+				7A1B03931E35D9B6003258D0 /* TCStoreLogoUploadViewController.m */,
+				7A1B03951E35F53A003258D0 /* TCStoreSurroundingViewController.h */,
+				7A1B03961E35F53A003258D0 /* TCStoreSurroundingViewController.m */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -615,6 +654,10 @@
 				7A661E671E31C49C0080D37D /* TCGoodsStoreRecommendViewCell.m */,
 				7A661E691E31EC250080D37D /* TCCreateStorePromptView.h */,
 				7A661E6A1E31EC250080D37D /* TCCreateStorePromptView.m */,
+				7A3571E91E345E5000E79C59 /* TCStoreSearchAddressViewCell.h */,
+				7A3571EA1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m */,
+				7A1B039B1E36083D003258D0 /* TCStoreSurroundingViewCell.h */,
+				7A1B039C1E36083D003258D0 /* TCStoreSurroundingViewCell.m */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -688,6 +731,7 @@
 		7A9987521E249788006175CC /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				7A1B038A1E35A9E5003258D0 /* BinaryFiles */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -849,6 +893,8 @@
 				7A9987E71E24E472006175CC /* TCExtendButton.m */,
 				7AE92B691E2C79970012B11E /* TCPhotoModeView.h */,
 				7AE92B6A1E2C79970012B11E /* TCPhotoModeView.m */,
+				7A1B03871E359EAB003258D0 /* TCCityPickerView.h */,
+				7A1B03881E359EAB003258D0 /* TCCityPickerView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1389,6 +1435,7 @@
 				7A53446F1E2F7B7C0053B527 /* TCBioEditSMSViewController.xib in Resources */,
 				7A99872F1E24959F006175CC /* LaunchScreen.storyboard in Resources */,
 				7A55F4321E28E91E0018FED3 /* TCProfileHeaderView.xib in Resources */,
+				7A1B038E1E35A9E5003258D0 /* citylist.data in Resources */,
 				7A99872C1E24959F006175CC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1466,6 +1513,7 @@
 				7ABCC1021E262B7A00750E47 /* TCGoodsViewController.m in Sources */,
 				7A7B609A1E30A0B9004971C9 /* TCCreateGoodsStoreViewController.m in Sources */,
 				7A55F4231E287F5B0018FED3 /* TCGetPasswordView.m in Sources */,
+				7A1B03941E35D9B6003258D0 /* TCStoreLogoUploadViewController.m in Sources */,
 				7ABCC0E11E2622C800750E47 /* TCRecommendFooter.m in Sources */,
 				7A7B60A01E30A609004971C9 /* TCStoreCategoryViewController.m in Sources */,
 				7AE92B8D1E2CB2C20012B11E /* TCCommonIndicatorViewCell.m in Sources */,
@@ -1490,6 +1538,7 @@
 				7A9987F01E24E958006175CC /* TCUserSession.m in Sources */,
 				7ABCC0DC1E2622C800750E47 /* TCCalloutAnnotationView.m in Sources */,
 				5503191B1E30C7DF004522C7 /* TCIndustryPermitViewController.m in Sources */,
+				7A1B039D1E36083D003258D0 /* TCStoreSurroundingViewCell.m in Sources */,
 				7ABCC0F01E2622C800750E47 /* TCServiceSelectBtn.m in Sources */,
 				550319441E34D86B004522C7 /* TCRefreshHeader.m in Sources */,
 				7ABCC0E71E2622C800750E47 /* TCSelectSecondaryBtn.m in Sources */,
@@ -1503,6 +1552,7 @@
 				7A0E00B01E2E1C4A0028555D /* TCSettingViewController.m in Sources */,
 				7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */,
 				7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */,
+				7A3571EB1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m in Sources */,
 				7A9987241E24959F006175CC /* AppDelegate.m in Sources */,
 				7ABCC0D01E2622C800750E47 /* TCHomeCommodityTableViewCell.m in Sources */,
 				7ABCC0E51E2622C800750E47 /* TCSelectButton.m in Sources */,
@@ -1521,6 +1571,7 @@
 				5503192F1E34926C004522C7 /* TCChoseSpecificationsController.m in Sources */,
 				550319351E349779004522C7 /* TCGoodsStandardMate.m in Sources */,
 				7A661E621E31BC680080D37D /* TCStoreRecommendViewCell.m in Sources */,
+				7A3571E81E345B5C00E79C59 /* TCStoreAddressViewController.m in Sources */,
 				7A55F4331E28E91E0018FED3 /* TCProfileViewCell.m in Sources */,
 				7A9987E31E24E42B006175CC /* NSObject+TCNomal.m in Sources */,
 				7ABCC0EF1E2622C800750E47 /* TCServiceFilterView.m in Sources */,
@@ -1529,7 +1580,9 @@
 				7ABCC0EA1E2622C800750E47 /* TCImgPageControl.m in Sources */,
 				7A9987601E2497D5006175CC /* TCTabBarController.m in Sources */,
 				7ABCC0DD1E2622C800750E47 /* TCDetailAnnotation.m in Sources */,
+				7A1B03971E35F53A003258D0 /* TCStoreSurroundingViewController.m in Sources */,
 				7A9987721E24C820006175CC /* TCScanner.m in Sources */,
+				7A1B03911E35B0DB003258D0 /* TCStoreAddress.m in Sources */,
 				7A9987F61E24EAF0006175CC /* TCModelImport.m in Sources */,
 				7A5344591E2F1C4E0053B527 /* TCInfoViewController.m in Sources */,
 				7A99881C1E24EE3E006175CC /* TCListStore.m in Sources */,
@@ -1559,6 +1612,7 @@
 				7A53445C1E2F4E930053B527 /* TCInfoViewCell.m in Sources */,
 				7A7B60A61E30B168004971C9 /* TCStoreCategoryViewCell.m in Sources */,
 				7A9988171E24EE3E006175CC /* TCGoodsWrapper.m in Sources */,
+				7A1B03891E359EAB003258D0 /* TCCityPickerView.m in Sources */,
 				5503193B1E349838004522C7 /* TCGoodsStandardDescriptionDetail.m in Sources */,
 				7A99876E1E24C820006175CC /* TCArchiveService.m in Sources */,
 				7A7B60AC1E30BC2E004971C9 /* TCStoreCategoryIconViewCell.m in Sources */,

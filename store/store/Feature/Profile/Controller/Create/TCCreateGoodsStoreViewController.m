@@ -7,6 +7,9 @@
 //
 
 #import "TCCreateGoodsStoreViewController.h"
+#import "TCStoreAddressViewController.h"
+#import "TCStoreLogoUploadViewController.h"
+#import "TCStoreSurroundingViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonInputViewCell.h"
@@ -172,7 +175,7 @@ YYTextViewDelegate>
                 cell.titleLabel.text = @"发货地址";
                 cell.subtitleLabel.textAlignment = NSTextAlignmentLeft;
                 if (self.storeDetailInfo.address) {
-                    cell.subtitleLabel.text = self.storeDetailInfo.address;
+                    cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.storeDetailInfo.province, self.storeDetailInfo.city, self.storeDetailInfo.district, self.storeDetailInfo.address];
                     cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
                 } else {
                     cell.subtitleLabel.text = @"请设置发货地址";
@@ -188,10 +191,10 @@ YYTextViewDelegate>
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
             cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
             if (indexPath.row == 0) {
-                cell.titleLabel.text = @"店铺LOGO";
+                cell.titleLabel.text = @"LOGO";
                 cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
             } else {
-                cell.titleLabel.text = @"店铺环境图";
+                cell.titleLabel.text = @"环境图";
                 if (self.storeDetailInfo.pictures.count) {
                     cell.subtitleLabel.text = [NSString stringWithFormat:@"%zd张", self.storeDetailInfo.pictures.count];
                 } else {
@@ -242,9 +245,13 @@ YYTextViewDelegate>
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView endEditing:YES];
     if (indexPath.section == 1 && indexPath.row == 2) {
-        
+        [self handleSelectStoreAddressCell];
     } else if (indexPath.section == 2) {
-        
+        if (indexPath.row == 0) {
+            [self handleSelectStoreLogoCell];
+        } else {
+            [self handleSelectStoreSurroundingCell];
+        }
     }
 }
 
@@ -335,6 +342,43 @@ YYTextViewDelegate>
 - (void)handleKeyboardWillHideNotification:(NSNotification *)notification {
     self.tableView.contentInset = UIEdgeInsetsZero;
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
+
+- (void)handleSelectStoreAddressCell {
+    TCStoreAddressViewController *vc = [[TCStoreAddressViewController alloc] init];
+    TCStoreAddress *storeAddress = [[TCStoreAddress alloc] init];
+    storeAddress.province = self.storeDetailInfo.province;
+    storeAddress.city = self.storeDetailInfo.city;
+    storeAddress.district = self.storeDetailInfo.district;
+    storeAddress.address = self.storeDetailInfo.address;
+    vc.storeAddress = storeAddress;
+    vc.editAddressCompletion = ^(TCStoreAddress *storeAddress) {
+        weakSelf.storeDetailInfo.province = storeAddress.province;
+        weakSelf.storeDetailInfo.city = storeAddress.city;
+        weakSelf.storeDetailInfo.district = storeAddress.district;
+        weakSelf.storeDetailInfo.address = storeAddress.address;
+        [weakSelf.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectStoreLogoCell {
+    TCStoreLogoUploadViewController *vc = [[TCStoreLogoUploadViewController alloc] init];
+    vc.logo = self.storeDetailInfo.logo;
+    vc.uploadLogoCompletion = ^(NSString *logo) {
+        weakSelf.storeDetailInfo.logo = logo;
+        [weakSelf.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectStoreSurroundingCell {
+    TCStoreSurroundingViewController *vc = [[TCStoreSurroundingViewController alloc] init];
+    vc.storeDetailInfo = self.storeDetailInfo;
+    vc.editSurroundingCompletion = ^() {
+        [weakSelf.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Override Methods
