@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <YYText.h>
 
 @interface TCGoodsDetailTitleCell : UITableViewCell
+
+@property (strong, nonatomic) YYTextView *textView;
 
 @end

@@ -32,8 +32,8 @@
     textView.placeholderFont = [UIFont systemFontOfSize:12];
     textView.placeholderText = @"输入商品详情标题";
     textView.placeholderTextColor = TCRGBColor(186, 186, 186);
-    textView.delegate = self;
     [self.contentView addSubview:textView];
+    self.textView = textView;
     
     UILabel *l = [[UILabel alloc] init];
     l.textColor = TCRGBColor(186, 186, 186);

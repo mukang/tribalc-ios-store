@@ -12,12 +12,18 @@
 #import "TCCommonInputViewCell.h"
 #import "TCCommonSubtitleViewCell.h"
 #import "TCCommonIndicatorViewCell.h"
+#import <YYText.h>
+#import "TCCreateGoodsStandardController.h"
 
-@interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate>
+@interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 
 @property (strong, nonatomic) TCCommonButton *nextBtn;
+
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
+
+@property (strong, nonatomic) TCGoodsStandardMate *currentGoodsStandardMate;
 
 @end
 
@@ -29,6 +35,18 @@
     self.title = @"发布商品";
  
     [self setUpViews];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self registerNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self removeNotifications];
 }
 
 - (void)setUpViews {
@@ -49,7 +67,6 @@
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [headView addSubview:imageView];
-    
     
     _nextBtn = [TCCommonButton bottomButtonWithTitle:@"下一步" color:TCCommonButtonColorOrange target:self action:@selector(next)];
     [self.view addSubview:_nextBtn];
@@ -96,6 +113,9 @@
     if (section == 0) {
         return 3;
     }else if (section == 1) {
+        if (self.currentGoodsStandardMate) {
+            return 3;
+        }
         return 6;
     }else {
         return 1;
@@ -107,6 +127,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             TCGoodsDetailTitleCell *cell = [[TCGoodsDetailTitleCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCGoodsDetailTitleCell"];
+            cell.textView.delegate = self;
             return cell;
         }else {
             TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
@@ -163,15 +184,106 @@
         cell.delegate = self;
         return cell;
     }
-    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
-//        cell.textLabel.text = [NSString stringWithFormat:@"第%ld行",indexPath.row];
-//    }
-//    return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        if (indexPath.row == 2) {
+            TCCreateGoodsStandardController *createVc = [[TCCreateGoodsStandardController alloc] init];
+            @WeakObj(self)
+            createVc.myBlock = ^(TCGoodsStandardMate *goodsStandardMate){
+                @StrongObj(self)
+                self.currentGoodsStandardMate = goodsStandardMate;
+                [self.tableView reloadData];
+            };
+            [self.navigationController pushViewController:createVc animated:YES];
+        }
+    }
+}
+
+- (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldBeginEditing:(UITextField *)textField {
+
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    self.currentIndexPath = indexPath;
+    return YES;
+}
+
+- (void)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldDidEndEditing:(UITextField *)textField {
+    self.currentIndexPath = nil;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            self.goods.name = textField.text;
+        }else if (indexPath.row == 2) {
+            self.goods.note = textField.text;
+        }
+    }else if (indexPath.section == 1) {
+        if (indexPath.row == 1) {
+            self.goods.brand = textField.text;
+        }else if (indexPath.row == 3) {
+            
+        }
+    }else {
+        self.goods.originCountry = textField.text;
+    }
+}
+
+#pragma mark - YYTextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView {
+    self.currentIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    return YES;
+}
+
+- (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"/n"]) {
+        if ([textView isFirstResponder]) {
+            [textView resignFirstResponder];
+        }
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(YYTextView *)textView {
+    self.currentIndexPath = nil;
+    self.goods.title = textView.text;
+//    self.storeDetailInfo.recommendedReason = textView.text;
+}
+
+
+#pragma mark - Notifications
+
+- (void)registerNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)removeNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
+//    if (self.currentIndexPath.section != 3 || self.currentIndexPath.row != 0) return;
+    
+    NSDictionary *info = notification.userInfo;
+    
+    CGFloat height = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, height - 49, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, height - 49, 0);
+    
+    [UIView animateWithDuration:duration animations:^{
+        [self.tableView scrollToRowAtIndexPath:self.currentIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }];
+}
+
+- (void)handleKeyboardWillHideNotification:(NSNotification *)notification {
+    self.tableView.contentInset = UIEdgeInsetsZero;
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
 
 - (void)next {
     
