@@ -24,6 +24,10 @@
 		550319431E34D86B004522C7 /* TCRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319401E34D86B004522C7 /* TCRefreshFooter.m */; };
 		550319441E34D86B004522C7 /* TCRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319421E34D86B004522C7 /* TCRefreshHeader.m */; };
 		550319471E359EDC004522C7 /* TCGoodsDetailTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319461E359EDC004522C7 /* TCGoodsDetailTitleCell.m */; };
+		5503194A1E35DDEE004522C7 /* TCCreateGoodsStandardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319491E35DDEE004522C7 /* TCCreateGoodsStandardController.m */; };
+		5503194D1E35E1B6004522C7 /* TCCreateStandardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503194C1E35E1B6004522C7 /* TCCreateStandardCell.m */; };
+		550319501E370007004522C7 /* TCCreatePriceAndRepertoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503194F1E370007004522C7 /* TCCreatePriceAndRepertoryCell.m */; };
+		550319531E374D0D004522C7 /* TCBatchSetiingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319521E374D0D004522C7 /* TCBatchSetiingView.m */; };
 		7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */; };
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
@@ -199,6 +203,14 @@
 		550319421E34D86B004522C7 /* TCRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCRefreshHeader.m; sourceTree = "<group>"; };
 		550319451E359EDC004522C7 /* TCGoodsDetailTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCGoodsDetailTitleCell.h; path = store/Service/Model/Goods/TCGoodsDetailTitleCell.h; sourceTree = SOURCE_ROOT; };
 		550319461E359EDC004522C7 /* TCGoodsDetailTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCGoodsDetailTitleCell.m; path = store/Service/Model/Goods/TCGoodsDetailTitleCell.m; sourceTree = SOURCE_ROOT; };
+		550319481E35DDEE004522C7 /* TCCreateGoodsStandardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCreateGoodsStandardController.h; sourceTree = "<group>"; };
+		550319491E35DDEE004522C7 /* TCCreateGoodsStandardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCreateGoodsStandardController.m; sourceTree = "<group>"; };
+		5503194B1E35E1B6004522C7 /* TCCreateStandardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCCreateStandardCell.h; path = store/Feature/Goods/Controller/Create/TCCreateStandardCell.h; sourceTree = SOURCE_ROOT; };
+		5503194C1E35E1B6004522C7 /* TCCreateStandardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCCreateStandardCell.m; path = store/Feature/Goods/Controller/Create/TCCreateStandardCell.m; sourceTree = SOURCE_ROOT; };
+		5503194E1E370007004522C7 /* TCCreatePriceAndRepertoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCCreatePriceAndRepertoryCell.h; path = store/Feature/Goods/Controller/Create/TCCreatePriceAndRepertoryCell.h; sourceTree = SOURCE_ROOT; };
+		5503194F1E370007004522C7 /* TCCreatePriceAndRepertoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCCreatePriceAndRepertoryCell.m; path = store/Feature/Goods/Controller/Create/TCCreatePriceAndRepertoryCell.m; sourceTree = SOURCE_ROOT; };
+		550319511E374D0D004522C7 /* TCBatchSetiingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCBatchSetiingView.h; path = store/Feature/Goods/Controller/Create/TCBatchSetiingView.h; sourceTree = SOURCE_ROOT; };
+		550319521E374D0D004522C7 /* TCBatchSetiingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCBatchSetiingView.m; path = store/Feature/Goods/Controller/Create/TCBatchSetiingView.m; sourceTree = SOURCE_ROOT; };
 		7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppSettingViewController.m; sourceTree = "<group>"; };
 		7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppCacheViewCell.h; sourceTree = "<group>"; };
@@ -485,8 +497,7 @@
 				5503191D1E30D2BE004522C7 /* TCAuthenticationInfo.h */,
 				5503191E1E30D2BE004522C7 /* TCAuthenticationInfo.m */,
 			);
-			name = Authentication;
-			path = Model/Authentication;
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		550319201E31BDC6004522C7 /* Create */ = {
@@ -498,6 +509,8 @@
 				550319251E31F68C004522C7 /* TCCreateGoodsViewController.m */,
 				5503192D1E34926C004522C7 /* TCChoseSpecificationsController.h */,
 				5503192E1E34926C004522C7 /* TCChoseSpecificationsController.m */,
+				550319481E35DDEE004522C7 /* TCCreateGoodsStandardController.h */,
+				550319491E35DDEE004522C7 /* TCCreateGoodsStandardController.m */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -697,7 +710,6 @@
 			children = (
 				7A9987E91E24E7DF006175CC /* TCBuluoApi.h */,
 				7A9987EA1E24E7DF006175CC /* TCBuluoApi.m */,
-				5503191C1E30D29E004522C7 /* Authentication */,
 				7A9987C01E24C9FA006175CC /* WebService */,
 				7A9987EC1E24E90D006175CC /* Model */,
 			);
@@ -846,6 +858,7 @@
 			children = (
 				7A9987F41E24EAF0006175CC /* TCModelImport.h */,
 				7A9987F51E24EAF0006175CC /* TCModelImport.m */,
+				5503191C1E30D29E004522C7 /* Authentication */,
 				7A55F4251E2886BC0018FED3 /* Store */,
 				7A9988211E24EE4B006175CC /* Upload */,
 				7A9987F71E24EE3E006175CC /* Goods */,
@@ -1117,6 +1130,12 @@
 				5503193D1E34A3F1004522C7 /* TCGoodsStandardListCell.m */,
 				550319451E359EDC004522C7 /* TCGoodsDetailTitleCell.h */,
 				550319461E359EDC004522C7 /* TCGoodsDetailTitleCell.m */,
+				5503194B1E35E1B6004522C7 /* TCCreateStandardCell.h */,
+				5503194C1E35E1B6004522C7 /* TCCreateStandardCell.m */,
+				5503194E1E370007004522C7 /* TCCreatePriceAndRepertoryCell.h */,
+				5503194F1E370007004522C7 /* TCCreatePriceAndRepertoryCell.m */,
+				550319511E374D0D004522C7 /* TCBatchSetiingView.h */,
+				550319521E374D0D004522C7 /* TCBatchSetiingView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1460,8 +1479,10 @@
 				5503193E1E34A3F1004522C7 /* TCGoodsStandardListCell.m in Sources */,
 				7A9988141E24EE3E006175CC /* TCGoodDetail.m in Sources */,
 				7A661E5F1E31B4440080D37D /* TCCommonSubtitleViewCell.m in Sources */,
+				5503194A1E35DDEE004522C7 /* TCCreateGoodsStandardController.m in Sources */,
 				7AE92B721E2CB1280012B11E /* TCScannerBorder.m in Sources */,
 				7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */,
+				550319531E374D0D004522C7 /* TCBatchSetiingView.m in Sources */,
 				7A9987711E24C820006175CC /* TCPhotoPicker.m in Sources */,
 				7A9987D11E24C9FA006175CC /* TCClientResponse.m in Sources */,
 				7A55F4311E28E91E0018FED3 /* TCProfileHeaderView.m in Sources */,
@@ -1519,6 +1540,7 @@
 				7ABCC1081E262BA000750E47 /* TCProfileViewController.m in Sources */,
 				7ABCC0D81E2622C800750E47 /* TCHomeViewController.m in Sources */,
 				7A53446E1E2F7B7C0053B527 /* TCBioEditSMSViewController.m in Sources */,
+				5503194D1E35E1B6004522C7 /* TCCreateStandardCell.m in Sources */,
 				7A99881E1E24EE3E006175CC /* TCServiceDetail.m in Sources */,
 				7AE92B901E2CB2D80012B11E /* TCCommonButton.m in Sources */,
 				7A9987D41E24E371006175CC /* TCClient.m in Sources */,
@@ -1551,6 +1573,7 @@
 				7ABCC0DF1E2622C800750E47 /* TCUserLocationAnnotation.m in Sources */,
 				7ABCC0E91E2622C800750E47 /* TCGoodTitleView.m in Sources */,
 				7ABCC0E31E2622C800750E47 /* TCGoodSelectTitleView.m in Sources */,
+				550319501E370007004522C7 /* TCCreatePriceAndRepertoryCell.m in Sources */,
 				7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */,
 				7ABCC0D51E2622C800750E47 /* TCRestaurantInfoViewController.m in Sources */,
 				7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */,
