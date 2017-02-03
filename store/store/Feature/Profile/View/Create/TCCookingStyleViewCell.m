@@ -98,7 +98,15 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(cookingStyleViewCell:didSelectItemAtIndex:)]) {
+        [self.delegate cookingStyleViewCell:self didSelectItemAtIndex:indexPath.item];
+    }
+}
+
+- (void)setFeatures:(NSArray *)features {
+    _features = features;
     
+    [self.collectionView reloadData];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

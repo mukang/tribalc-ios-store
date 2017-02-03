@@ -54,12 +54,15 @@
 
 - (void)setFeature:(TCStoreFeature *)feature {
     self.titleLabel.text = feature.name;
-}
-
-- (void)setSelected:(BOOL)selected {
-    [super setSelected:selected];
-    
-    TCLog(@"-->%zd", selected);
+    if (feature.selected) {
+        self.titleLabel.textColor = [UIColor whiteColor];
+        self.bgView.backgroundColor = TCRGBColor(252, 108, 38);
+        self.bgView.layer.borderColor = TCRGBColor(252, 108, 38).CGColor;
+    } else {
+        self.titleLabel.textColor = TCRGBColor(42, 42, 42);
+        self.bgView.backgroundColor = [UIColor whiteColor];
+        self.bgView.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    }
 }
 
 @end

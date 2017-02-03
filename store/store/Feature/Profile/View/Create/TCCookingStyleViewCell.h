@@ -7,9 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol TCCookingStyleViewCellDelegate;
 
 @interface TCCookingStyleViewCell : UITableViewCell
 
 @property (copy, nonatomic) NSArray *features;
+@property (weak, nonatomic) id<TCCookingStyleViewCellDelegate> delegate;
+
+@end
+
+@protocol TCCookingStyleViewCellDelegate <NSObject>
+
+@optional
+- (void)cookingStyleViewCell:(TCCookingStyleViewCell *)cell didSelectItemAtIndex:(NSInteger)index;
 
 @end

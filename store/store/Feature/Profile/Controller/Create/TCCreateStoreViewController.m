@@ -25,7 +25,8 @@
 <UITableViewDataSource,
 UITableViewDelegate,
 UIScrollViewDelegate,
-TCCommonInputViewCellDelegate>
+TCCommonInputViewCellDelegate,
+TCCookingStyleViewCellDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) TCStoreDetailInfo *storeDetailInfo;
@@ -218,6 +219,7 @@ TCCommonInputViewCellDelegate>
     } else {
         TCCookingStyleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCookingStyleViewCell" forIndexPath:indexPath];
         cell.features = self.features;
+        cell.delegate = self;
         return cell;
     }
 }
@@ -250,6 +252,16 @@ TCCommonInputViewCellDelegate>
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [scrollView endEditing:YES];
+}
+
+#pragma mark - TCCookingStyleViewCellDelegate
+
+- (void)cookingStyleViewCell:(TCCookingStyleViewCell *)cell didSelectItemAtIndex:(NSInteger)index {
+    TCStoreFeature *storeFeature = self.features[index];
+    storeFeature.selected = !storeFeature.isSelected;
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - Actions
