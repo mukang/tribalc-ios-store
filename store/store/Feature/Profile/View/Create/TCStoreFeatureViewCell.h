@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) TCStoreFeature *feature;
 
++ (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath withFeature:(TCStoreFeature *)feature;
+
 @end

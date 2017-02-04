@@ -143,6 +143,14 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)fetchServiceDetail:(NSString *)serviceID result:(void (^)(TCServiceDetail *serviceDetail, NSError *error))resultBlock;
 
+/**
+ 创建服务
+
+ @param storeSetMealCreation TCStoreSetMealCreation对象
+ @param resultBlock 结果回调，success为NO时表示创建失败，失败原因见error的code和userInfo
+ */
+- (void)createStoreSetMeal:(TCStoreSetMealCreation *)storeSetMealCreation result:(void (^)(BOOL success, NSError *error))resultBlock;
+
 #pragma mark - 商铺资源
 
 /**

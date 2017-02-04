@@ -117,6 +117,9 @@
 		7AB568311E45714F0005814A /* TCBusinessHoursViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB568301E45714F0005814A /* TCBusinessHoursViewController.m */; };
 		7AB568341E4572C20005814A /* TCBusinessHoursViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB568331E4572C20005814A /* TCBusinessHoursViewCell.m */; };
 		7AB568371E45827D0005814A /* TCDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB568361E45827D0005814A /* TCDatePickerView.m */; };
+		7AB5683A1E45B69D0005814A /* TCCreateStoreNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB568391E45B69D0005814A /* TCCreateStoreNextViewController.m */; };
+		7AB5683D1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5683C1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m */; };
+		7AB568401E45D0210005814A /* TCStoreSetMealCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5683F1E45D0210005814A /* TCStoreSetMealCreation.m */; };
 		7ABCC0D01E2622C800750E47 /* TCHomeCommodityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0861E2622C800750E47 /* TCHomeCommodityTableViewCell.m */; };
 		7ABCC0D11E2622C800750E47 /* TCLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0881E2622C800750E47 /* TCLocationViewController.m */; };
 		7ABCC0D21E2622C800750E47 /* TCRecommendGoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC08B1E2622C800750E47 /* TCRecommendGoodCell.m */; };
@@ -398,6 +401,12 @@
 		7AB568331E4572C20005814A /* TCBusinessHoursViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBusinessHoursViewCell.m; sourceTree = "<group>"; };
 		7AB568351E45827D0005814A /* TCDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCDatePickerView.h; sourceTree = "<group>"; };
 		7AB568361E45827D0005814A /* TCDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCDatePickerView.m; sourceTree = "<group>"; };
+		7AB568381E45B69D0005814A /* TCCreateStoreNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCreateStoreNextViewController.h; sourceTree = "<group>"; };
+		7AB568391E45B69D0005814A /* TCCreateStoreNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCreateStoreNextViewController.m; sourceTree = "<group>"; };
+		7AB5683B1E45BA8A0005814A /* TCStoreFacilitiesViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreFacilitiesViewCell.h; sourceTree = "<group>"; };
+		7AB5683C1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreFacilitiesViewCell.m; sourceTree = "<group>"; };
+		7AB5683E1E45D0210005814A /* TCStoreSetMealCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSetMealCreation.h; sourceTree = "<group>"; };
+		7AB5683F1E45D0210005814A /* TCStoreSetMealCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSetMealCreation.m; sourceTree = "<group>"; };
 		7ABCC0851E2622C800750E47 /* TCHomeCommodityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeCommodityTableViewCell.h; sourceTree = "<group>"; };
 		7ABCC0861E2622C800750E47 /* TCHomeCommodityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeCommodityTableViewCell.m; sourceTree = "<group>"; };
 		7ABCC0871E2622C800750E47 /* TCLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCLocationViewController.h; sourceTree = "<group>"; };
@@ -647,6 +656,8 @@
 				7A7B609F1E30A609004971C9 /* TCStoreCategoryViewController.m */,
 				7A7B60951E30A0A3004971C9 /* TCCreateStoreViewController.h */,
 				7A7B60961E30A0A3004971C9 /* TCCreateStoreViewController.m */,
+				7AB568381E45B69D0005814A /* TCCreateStoreNextViewController.h */,
+				7AB568391E45B69D0005814A /* TCCreateStoreNextViewController.m */,
 				7A7B60981E30A0B9004971C9 /* TCCreateGoodsStoreViewController.h */,
 				7A7B60991E30A0B9004971C9 /* TCCreateGoodsStoreViewController.m */,
 				7A3571E61E345B5C00E79C59 /* TCStoreAddressViewController.h */,
@@ -686,6 +697,8 @@
 				7A8E42841E377445003A475B /* TCStoreFeatureViewCell.m */,
 				7AB568321E4572C20005814A /* TCBusinessHoursViewCell.h */,
 				7AB568331E4572C20005814A /* TCBusinessHoursViewCell.m */,
+				7AB5683B1E45BA8A0005814A /* TCStoreFacilitiesViewCell.h */,
+				7AB5683C1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -995,6 +1008,8 @@
 				7A9988111E24EE3E006175CC /* TCServices.m */,
 				7A9988121E24EE3E006175CC /* TCServiceWrapper.h */,
 				7A9988131E24EE3E006175CC /* TCServiceWrapper.m */,
+				7AB5683E1E45D0210005814A /* TCStoreSetMealCreation.h */,
+				7AB5683F1E45D0210005814A /* TCStoreSetMealCreation.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1600,6 +1615,7 @@
 				7ABCC0DE1E2622C800750E47 /* TCDetailAnnotationView.m in Sources */,
 				7A53446C1E2F7B7C0053B527 /* TCBioEditPhoneViewController.m in Sources */,
 				550319181E30BC89004522C7 /* TCAuthCertifyViewController.m in Sources */,
+				7AB568401E45D0210005814A /* TCStoreSetMealCreation.m in Sources */,
 				5503192F1E34926C004522C7 /* TCChoseSpecificationsController.m in Sources */,
 				550319351E349779004522C7 /* TCGoodsStandardMate.m in Sources */,
 				7AB568341E4572C20005814A /* TCBusinessHoursViewCell.m in Sources */,
@@ -1666,6 +1682,7 @@
 				550319501E370007004522C7 /* TCCreatePriceAndRepertoryCell.m in Sources */,
 				7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */,
 				7ABCC0D51E2622C800750E47 /* TCRestaurantInfoViewController.m in Sources */,
+				7AB5683D1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m in Sources */,
 				7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */,
 				7A99881F1E24EE3E006175CC /* TCServices.m in Sources */,
 				7ABCC0E61E2622C800750E47 /* TCSelectPrimaryBtn.m in Sources */,
@@ -1673,6 +1690,7 @@
 				7ABCC0F51E2622DE00750E47 /* TCComponent.m in Sources */,
 				7ABCC0EC1E2622C800750E47 /* TCRestaurantFilterView.m in Sources */,
 				7ABCC0ED1E2622C800750E47 /* TCRestaurantSortView.m in Sources */,
+				7AB5683A1E45B69D0005814A /* TCCreateStoreNextViewController.m in Sources */,
 				7A9987D91E24E41B006175CC /* MBProgressHUD+Category.m in Sources */,
 				7A9987AE1E24C84B006175CC /* TCBaseViewController.m in Sources */,
 				7ABCC0D61E2622C800750E47 /* TCRestaurantTableViewCell.m in Sources */,
