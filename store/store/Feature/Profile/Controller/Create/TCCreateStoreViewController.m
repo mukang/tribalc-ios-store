@@ -8,6 +8,7 @@
 
 #import "TCCreateStoreViewController.h"
 #import "TCStoreAddressViewController.h"
+#import "TCBusinessHoursViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonInputViewCell.h"
@@ -94,6 +95,8 @@ TCCookingStyleViewCellDelegate>
         make.left.bottom.right.equalTo(weakSelf.view);
     }];
 }
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if ([self.storeDetailInfo.category isEqualToString:@"REPAST"]) {
@@ -191,7 +194,7 @@ TCCookingStyleViewCellDelegate>
                     cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.storeDetailInfo.province, self.storeDetailInfo.city, self.storeDetailInfo.district, self.storeDetailInfo.address];
                     cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
                 } else {
-                    cell.subtitleLabel.text = @"请设置发货地址";
+                    cell.subtitleLabel.text = @"请设置门店地址";
                     cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
                 }
                 return cell;
@@ -246,12 +249,32 @@ TCCookingStyleViewCellDelegate>
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView endEditing:YES];
     
+    if (indexPath.section == 1) {
+        if (indexPath.row == 2) {
+            [self handleSelectStoreAddressCell];
+        } else if (indexPath.row == 3) {
+            [self handleSelectBusinessHoursCell];
+        }
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [scrollView endEditing:YES];
+}
+
+#pragma mark - TCCommonInputViewCellDelegate
+
+- (void)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldDidEndEditing:(UITextField *)textField {
+    
+}
+
+- (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldReturn:(UITextField *)textField {
+    if ([textField isFirstResponder]) {
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 #pragma mark - TCCookingStyleViewCellDelegate
@@ -272,6 +295,41 @@ TCCookingStyleViewCellDelegate>
 
 - (void)handleClickNextButton:(UIButton *)sender {
     
+}
+
+- (void)handleSelectStoreAddressCell {
+    TCStoreAddressViewController *vc = [[TCStoreAddressViewController alloc] init];
+    TCStoreAddress *storeAddress = [[TCStoreAddress alloc] init];
+    storeAddress.province = self.storeDetailInfo.province;
+    storeAddress.city = self.storeDetailInfo.city;
+    storeAddress.district = self.storeDetailInfo.district;
+    storeAddress.address = self.storeDetailInfo.address;
+    vc.storeAddress = storeAddress;
+    vc.editAddressCompletion = ^(TCStoreAddress *storeAddress) {
+        weakSelf.storeDetailInfo.province = storeAddress.province;
+        weakSelf.storeDetailInfo.city = storeAddress.city;
+        weakSelf.storeDetailInfo.district = storeAddress.district;
+        weakSelf.storeDetailInfo.address = storeAddress.address;
+        [weakSelf.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectBusinessHoursCell {
+    TCBusinessHoursViewController *vc = [[TCBusinessHoursViewController alloc] init];
+    if (self.storeDetailInfo.businessHours) {
+        NSArray *parts = [self.storeDetailInfo.businessHours componentsSeparatedByString:@"-"];
+        if (parts.count == 2) {
+            vc.openTime = [parts firstObject];
+            vc.closeTime = [parts lastObject];
+        }
+    }
+    vc.businessHoursBlock = ^(NSString *openTime, NSString *closeTime) {
+        self.storeDetailInfo.businessHours = [NSString stringWithFormat:@"%@-%@", openTime, closeTime];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:1];
+        [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Override Methods
