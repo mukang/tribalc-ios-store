@@ -58,10 +58,10 @@
     self.separatorView = separatorView;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.estimatedItemSize = CGSizeMake(floorf(TCRealValue(65)), floorf(TCRealValue(24)));
+//    layout.estimatedItemSize = CGSizeMake(floorf(TCRealValue(65)), floorf(TCRealValue(24)));
     layout.minimumLineSpacing = floorf(TCRealValue(10));
     layout.minimumInteritemSpacing = floorf(TCRealValue(20));
-    layout.sectionInset = UIEdgeInsetsMake(floorf(TCRealValue(20)), floorf(TCRealValue(27.5)), floorf(TCRealValue(30)), floorf(TCRealValue(27.5)));
+    layout.sectionInset = UIEdgeInsetsMake(floorf(TCRealValue(20)), floorf(TCRealValue(27.5)), floorf(TCRealValue(10)), floorf(TCRealValue(27.5)));
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     collectionView.backgroundColor = [UIColor whiteColor];
@@ -97,7 +97,8 @@
     }];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.separatorView.mas_bottom);
-        make.left.bottom.right.equalTo(weakSelf.contentView);
+        make.left.right.equalTo(weakSelf.contentView);
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom).with.offset(-40);
     }];
     [self.promptView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.collectionView.mas_bottom);
@@ -121,16 +122,18 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    if ([self.delegate respondsToSelector:@selector(cookingStyleViewCell:didSelectItemAtIndex:)]) {
-//        [self.delegate cookingStyleViewCell:self didSelectItemAtIndex:indexPath.item];
-//    }
+    if ([self.delegate respondsToSelector:@selector(storeFacilitiesViewCell:didSelectItemAtIndex:)]) {
+        [self.delegate storeFacilitiesViewCell:self didSelectItemAtIndex:indexPath.item];
+    }
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     TCStoreFeature *feature = self.features[indexPath.item];
-    return [TCStoreFeatureViewCell collectionView:collectionView sizeForItemAtIndexPath:indexPath withFeature:feature];
+    CGSize size = [TCStoreFeatureViewCell collectionView:collectionView sizeForItemAtIndexPath:indexPath withFeature:feature];
+    TCLog(@"--->%@", NSStringFromCGSize(size));
+    return size;
 }
 
 - (void)setFeatures:(NSArray *)features {

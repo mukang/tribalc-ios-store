@@ -14,8 +14,10 @@
 #import "TCStoreFacilitiesViewCell.h"
 
 #import "TCBuluoApi.h"
+#import "TCStoreFeature.h"
+#import "NSObject+TCModel.h"
 
-@interface TCCreateStoreNextViewController () <UITableViewDataSource, UITableViewDelegate, YYTextViewDelegate>
+@interface TCCreateStoreNextViewController () <UITableViewDataSource, UITableViewDelegate, YYTextViewDelegate, TCStoreFacilitiesViewCellDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
 @property (copy, nonatomic) NSArray *features;
@@ -67,7 +69,7 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
-    TCCommonButton *commitButton = [TCCommonButton bottomButtonWithTitle:@"提  价"
+    TCCommonButton *commitButton = [TCCommonButton bottomButtonWithTitle:@"提  交"
                                                                  color:TCCommonButtonColorOrange
                                                                 target:self
                                                                 action:@selector(handleClickCommitButton:)];
@@ -140,8 +142,54 @@
         }
         return cell;
     } else {
-        return nil;
+        TCStoreFacilitiesViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCStoreFacilitiesViewCell" forIndexPath:indexPath];
+        cell.features = self.features;
+        cell.delegate = self;
+        return cell;
     }
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 45;
+    } else if (indexPath.section == 1) {
+        return 162;
+    } else {
+        return TCRealValue(232) + 40.5;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 9;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView endEditing:YES];
+    
+    
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [scrollView endEditing:YES];
+}
+
+#pragma mark - TCStoreFacilitiesViewCellDelegate
+
+- (void)storeFacilitiesViewCell:(TCStoreFacilitiesViewCell *)cell didSelectItemAtIndex:(NSInteger)index {
+    TCStoreFeature *storeFeature = self.features[index];
+    storeFeature.selected = !storeFeature.isSelected;
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - Actions
@@ -164,6 +212,36 @@
         _storeSetMealCreation.recommendedReason = self.storeDetailInfo.recommendedReason;
     }
     return _storeSetMealCreation;
+}
+
+- (NSArray *)features {
+    if (_features == nil) {
+        NSArray *array = @[
+                           @{@"name": @"Wi-Fi"},
+                           @{@"name": @"停车场"},
+                           @{@"name": @"地铁"},
+                           @{@"name": @"近商圈"},
+                           @{@"name": @"宝宝椅"},
+                           @{@"name": @"商务宴请"},
+                           @{@"name": @"适合小聚"},
+                           @{@"name": @"残疾人设施"},
+                           @{@"name": @"有酒吧区域"},
+                           @{@"name": @"周末早午餐"},
+                           @{@"name": @"酒店内餐厅"},
+                           @{@"name": @"会员权益"},
+                           @{@"name": @"代客泊车"},
+                           @{@"name": @"有景观位"},
+                           @{@"name": @"有机食物"},
+                           @{@"name": @"可带宠物"}
+                           ];
+        NSMutableArray *tempArray = [NSMutableArray array];
+        for (NSDictionary *dic in array) {
+            TCStoreFeature *feature = [[TCStoreFeature alloc] initWithObjectDictionary:dic];
+            [tempArray addObject:feature];
+        }
+        _features = [NSArray arrayWithArray:tempArray];
+    }
+    return _features;
 }
 
 - (void)didReceiveMemoryWarning {

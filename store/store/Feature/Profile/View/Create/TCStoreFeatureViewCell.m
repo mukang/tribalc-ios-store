@@ -67,14 +67,18 @@
 
 + (CGSize)collectionView:(UICollectionView *)collectionView sizeForItemAtIndexPath:(NSIndexPath *)indexPath withFeature:(TCStoreFeature *)feature {
     CGFloat minWidth = TCRealValue(65);
+    CGFloat contentMinWidth = TCRealValue(55);
     CGFloat width = [feature.name boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 21)
                                                options:NSStringDrawingUsesLineFragmentOrigin
                                             attributes:@{
                                                          NSFontAttributeName: [UIFont systemFontOfSize:TCRealValue(12)]
                                                          }
                                                context:nil].size.width;
-    if (width < minWidth) {
+    TCLog(@"%f", width);
+    if (width < contentMinWidth) {
         width = minWidth;
+    } else {
+        width = width + TCRealValue(14);
     }
     return CGSizeMake(floorf(width), floorf(TCRealValue(24)));
 }

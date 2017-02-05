@@ -9,6 +9,7 @@
 #import "TCCreateStoreViewController.h"
 #import "TCStoreAddressViewController.h"
 #import "TCBusinessHoursViewController.h"
+#import "TCCreateStoreNextViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonInputViewCell.h"
@@ -294,7 +295,9 @@ TCCookingStyleViewCellDelegate>
 }
 
 - (void)handleClickNextButton:(UIButton *)sender {
-    
+    TCCreateStoreNextViewController *vc = [[TCCreateStoreNextViewController alloc] init];
+    vc.storeDetailInfo = self.storeDetailInfo;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)handleSelectStoreAddressCell {

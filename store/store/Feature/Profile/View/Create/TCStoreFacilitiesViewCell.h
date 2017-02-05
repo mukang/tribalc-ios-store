@@ -7,9 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol TCStoreFacilitiesViewCellDelegate;
 
 @interface TCStoreFacilitiesViewCell : UITableViewCell
 
 @property (copy, nonatomic) NSArray *features;
+@property (weak, nonatomic) id<TCStoreFacilitiesViewCellDelegate> delegate;
+
+@end
+
+@protocol TCStoreFacilitiesViewCellDelegate <NSObject>
+
+@optional
+- (void)storeFacilitiesViewCell:(TCStoreFacilitiesViewCell *)cell didSelectItemAtIndex:(NSInteger)index;
 
 @end
