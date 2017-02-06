@@ -14,6 +14,7 @@
 #import "TCCommonIndicatorViewCell.h"
 #import <YYText.h>
 #import "TCCreateGoodsStandardController.h"
+#import "TCGoodsIssueViewController.h"
 
 @interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate>
 
@@ -128,6 +129,9 @@
         if (indexPath.row == 0) {
             TCGoodsDetailTitleCell *cell = [[TCGoodsDetailTitleCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCGoodsDetailTitleCell"];
             cell.textView.delegate = self;
+            if ([self.goods.title isKindOfClass:[NSString class]]) {
+                cell.textView.text = self.goods.title;
+            }
             return cell;
         }else {
             TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
@@ -135,9 +139,15 @@
             if (indexPath.row == 1) {
                 cell.titleLabel.text = @"列表标题";
                 cell.placeholder = @"例：现货包邮MAC魅可VIVA GLAM限量版";
+                if ([self.goods.name isKindOfClass:[NSString class]]) {
+                    cell.textField.text = self.goods.name;
+                }
             }else if (indexPath.row == 2) {
                 cell.titleLabel.text = @"简短说明";
                 cell.placeholder = @"请用一句话概括商品";
+                if ([self.goods.note isKindOfClass:[NSString class]]) {
+                    cell.textField.text = self.goods.note;
+                }
             }
             return cell;
         }
@@ -152,29 +162,46 @@
             cell.titleLabel.text = @"品牌";
             cell.placeholder = @"请输入商品品牌";
             cell.delegate = self;
+            if ([self.goods.brand isKindOfClass:[NSString class]]) {
+                cell.textField.text = self.goods.brand;
+            }
             return cell;
         }else if (indexPath.row == 2) {
             TCCommonIndicatorViewCell *cell = [[TCCommonIndicatorViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
             cell.titleLabel.text = @"规格";
             cell.subtitleLabel.text = @"请输入商品规格";
+            if (self.currentGoodsStandardMate) {
+                cell.subtitleLabel.text = self.currentGoodsStandardMate.title;
+            }
             return cell;
         }else if (indexPath.row == 3) {
             TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
             cell.titleLabel.text = @"销售价格";
             cell.placeholder = @"请输入商品销售价格";
             cell.delegate = self;
+            
+            if (self.goods.goodsPriceAndRepertory.salePrice) {
+                cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.goodsPriceAndRepertory.salePrice];
+            }
+            
             return cell;
         }else if (indexPath.row == 4) {
             TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
             cell.titleLabel.text = @"原始价格";
             cell.placeholder = @"请输入商品原始价格";
             cell.delegate = self;
+            if (self.goods.goodsPriceAndRepertory.originPrice) {
+                cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.goodsPriceAndRepertory.originPrice];
+            }
             return cell;
         }else {
             TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
             cell.titleLabel.text = @"库存量";
             cell.placeholder = @"请输入商品库存量";
             cell.delegate = self;
+            if (self.goods.goodsPriceAndRepertory.repertory) {
+                cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.goodsPriceAndRepertory.repertory];
+            }
             return cell;
         }
     }else {
@@ -182,6 +209,9 @@
         cell.titleLabel.text = @"原产国";
         cell.placeholder = @"请输入商品原产国";
         cell.delegate = self;
+        if ([self.goods.originCountry isKindOfClass:[NSString class]]) {
+            cell.textField.text = self.goods.originCountry;
+        }
         return cell;
     }
 }
@@ -190,6 +220,9 @@
     if (indexPath.section == 1) {
         if (indexPath.row == 2) {
             TCCreateGoodsStandardController *createVc = [[TCCreateGoodsStandardController alloc] init];
+            if (self.currentGoodsStandardMate) {
+                createVc.goodsStandardMate = self.currentGoodsStandardMate;
+            }
             @WeakObj(self)
             createVc.myBlock = ^(TCGoodsStandardMate *goodsStandardMate){
                 @StrongObj(self)
@@ -197,6 +230,7 @@
                 [self.tableView reloadData];
             };
             [self.navigationController pushViewController:createVc animated:YES];
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
         }
     }
 }
@@ -221,7 +255,11 @@
         if (indexPath.row == 1) {
             self.goods.brand = textField.text;
         }else if (indexPath.row == 3) {
-            
+            self.goods.goodsPriceAndRepertory.salePrice = [textField.text floatValue];
+        }else if (indexPath.row == 4) {
+            self.goods.goodsPriceAndRepertory.originPrice = [textField.text floatValue];
+        }else if (indexPath.row == 5) {
+            self.goods.goodsPriceAndRepertory.repertory = [textField.text integerValue];
         }
     }else {
         self.goods.originCountry = textField.text;
@@ -286,7 +324,12 @@
 }
 
 - (void)next {
-    
+    TCGoodsIssueViewController *issueVC = [[TCGoodsIssueViewController alloc] init];
+    issueVC.goods = self.goods;
+    if (self.currentGoodsStandardMate) {
+        issueVC.goodsStandardMate = self.currentGoodsStandardMate;
+    }
+    [self.navigationController pushViewController:issueVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

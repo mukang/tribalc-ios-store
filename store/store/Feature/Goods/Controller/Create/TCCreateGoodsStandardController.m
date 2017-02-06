@@ -71,9 +71,7 @@
 - (void)setUpViews {
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
-//    _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, CGFLOAT_MIN)];
     _tableView.delegate = self;
-//    _tableView.sectionHeaderHeight = 9.0;
     _tableView.sectionFooterHeight = 0.0;
     [self.view addSubview:_tableView];
     
@@ -96,9 +94,9 @@
     [headerView addSubview:textField];
     self.goodsStandardTitleTextField = textField;
     
-//    UIView *grayView = [[UIView alloc] init];
-//    grayView.backgroundColor = [UIColor lightGrayColor];
-//    [headerView addSubview:grayView];
+    if (self.goodsStandardMate) {
+        textField.text = self.goodsStandardMate.title;
+    }
     
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headerView).offset(15);
@@ -228,12 +226,37 @@
     cell.delegate = self;
     _cellsArr = [NSArray arrayWithObject:cell];
     
+    if (self.goodsStandardMate) {
+        if (self.goodsStandardMate.descriptions) {
+            if (self.goodsStandardMate.descriptions.primary) {
+                cell.standardNameTextField.text = self.goodsStandardMate.descriptions.primary.label;
+                self.firstGradeStandardArr = self.goodsStandardMate.descriptions.primary.types;
+                cell.currentStandards = self.goodsStandardMate.descriptions.primary.types;
+            }
+        }
+    }
+    
+    if (self.goodsStandardMate.descriptions.secondary) {
+        [self addSecondaryStandardCell];
+    }
+    
 }
 
 - (void)addSecondaryStandardCell {
     TCCreateStandardCell *secondaryCell = [[TCCreateStandardCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCreateStandardCell"];
     secondaryCell.titleLabel.text = @"二级规格";
     secondaryCell.delegate = self;
+    if (self.goodsStandardMate) {
+        if (self.goodsStandardMate.descriptions) {
+            if (self.goodsStandardMate.descriptions.secondary) {
+                secondaryCell.standardNameTextField.text = self.goodsStandardMate.descriptions.secondary.label;
+                self.secondaryStandardArr = self.goodsStandardMate.descriptions.secondary.types;
+                secondaryCell.currentStandards = self.goodsStandardMate.descriptions.secondary.types;
+            }
+        }
+    }
+    
+    
 //    secondaryCell.isNeedAdd = NO;
     NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:_cellsArr];
     [mutableArr insertObject:secondaryCell atIndex:1];
@@ -334,6 +357,21 @@
         TCCreatePriceAndRepertoryCell *priceAndRepertyCell = [[TCCreatePriceAndRepertoryCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCreatePriceAndRepertoryCell"];
         priceAndRepertyCell.delegate = self;
         priceAndRepertyCell.titleLabel.text = self.allStandardArr[k];
+        
+        if (self.goodsStandardMate) {
+            if (self.goodsStandardMate.priceAndRepertoryMap) {
+                for (int l = 0; l < self.goodsStandardMate.priceAndRepertoryMap.allKeys.count; l++) {
+                    NSString *key = self.goodsStandardMate.priceAndRepertoryMap.allKeys[l];
+                    if ([key isEqualToString:priceAndRepertyCell.titleLabel.text]) {
+                        TCGoodsPriceAndRepertory *priceAndReperoty = self.goodsStandardMate.priceAndRepertoryMap[key];
+                        priceAndRepertyCell.orignPriceTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.originPrice];
+                        priceAndRepertyCell.salePriceTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.salePrice];
+                        priceAndRepertyCell.repertoryTextField.text = [NSString stringWithFormat:@"%ld",priceAndReperoty.repertory];
+                    }
+                }
+            }
+        }
+        
         [mutabelCellArr addObject:priceAndRepertyCell];
     }
     
