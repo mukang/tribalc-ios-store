@@ -10,6 +10,7 @@
 #import "TCCreateStorePromptView.h"
 #import "TCStoreFeatureViewCell.h"
 #import "TCStoreFeature.h"
+#import "TCStoreFacilitiesViewFlowLayout.h"
 
 @interface TCStoreFacilitiesViewCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -57,13 +58,7 @@
     [self.contentView addSubview:separatorView];
     self.separatorView = separatorView;
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//    layout.estimatedItemSize = CGSizeMake(floorf(TCRealValue(65)), floorf(TCRealValue(24)));
-    layout.minimumLineSpacing = floorf(TCRealValue(10));
-    layout.minimumInteritemSpacing = floorf(TCRealValue(20));
-    layout.sectionInset = UIEdgeInsetsMake(floorf(TCRealValue(20)), floorf(TCRealValue(27.5)), floorf(TCRealValue(10)), floorf(TCRealValue(27.5)));
-    
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[TCStoreFacilitiesViewFlowLayout alloc] init]];
     collectionView.backgroundColor = [UIColor whiteColor];
     collectionView.scrollEnabled = NO;
     collectionView.dataSource = self;
@@ -131,9 +126,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     TCStoreFeature *feature = self.features[indexPath.item];
-    CGSize size = [TCStoreFeatureViewCell collectionView:collectionView sizeForItemAtIndexPath:indexPath withFeature:feature];
-    TCLog(@"--->%@", NSStringFromCGSize(size));
-    return size;
+    return [TCStoreFeatureViewCell collectionView:collectionView sizeForItemAtIndexPath:indexPath withFeature:feature];
 }
 
 - (void)setFeatures:(NSArray *)features {

@@ -74,7 +74,7 @@
                                                          NSFontAttributeName: [UIFont systemFontOfSize:TCRealValue(12)]
                                                          }
                                                context:nil].size.width;
-    TCLog(@"%f", width);
+    
     if (width < contentMinWidth) {
         width = minWidth;
     } else {
