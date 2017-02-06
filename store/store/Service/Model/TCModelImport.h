@@ -30,6 +30,7 @@
 #import "TCMarkStore.h"
 #import "TCListStore.h"
 #import "TCDetailStore.h"
+#import "TCStoreSetMealMeta.h"
 
 /********** OSS上传相关 **********/
 #import "TCUploadInfo.h"

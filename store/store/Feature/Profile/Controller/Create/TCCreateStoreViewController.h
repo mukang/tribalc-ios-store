@@ -7,10 +7,13 @@
 //
 
 #import "TCBaseViewController.h"
+@class TCStoreCategoryInfo;
 
 /**
  创建服务类型店铺
  */
 @interface TCCreateStoreViewController : TCBaseViewController
+
+@property (strong, nonatomic) TCStoreCategoryInfo *categoryInfo;
 
 @end
