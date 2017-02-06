@@ -295,6 +295,32 @@ TCCookingStyleViewCellDelegate>
 }
 
 - (void)handleClickNextButton:(UIButton *)sender {
+    if (self.storeDetailInfo.name.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写商家名称"];
+        return;
+    }
+    if (self.storeDetailInfo.address.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请设置门店地址"];
+        return;
+    }
+    if (self.storeDetailInfo.businessHours.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请设置营业时间"];
+        return;
+    }
+    if ([self.storeDetailInfo.category isEqualToString:@"REPAST"]) {
+        NSMutableArray *tempArray = [NSMutableArray array];
+        for (TCStoreFeature *feature in self.features) {
+            if (feature.isSelected) {
+                [tempArray addObject:feature.name];
+            }
+        }
+        if (tempArray.count == 0) {
+            [MBProgressHUD showHUDWithMessage:@"请选择菜系类型"];
+            return;
+        }
+        self.storeDetailInfo.cookingStyle = [tempArray copy];
+    }
+    
     TCCreateStoreNextViewController *vc = [[TCCreateStoreNextViewController alloc] init];
     vc.storeDetailInfo = self.storeDetailInfo;
     [self.navigationController pushViewController:vc animated:YES];

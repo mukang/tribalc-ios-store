@@ -333,12 +333,12 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
     }];
 }
 
-- (void)createStoreSetMeal:(TCStoreSetMealCreation *)storeSetMealCreation result:(void (^)(BOOL, NSError *))resultBlock {
+- (void)createStoreSetMeal:(TCStoreSetMealMeta *)storeSetMealMeta result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"store_set_meals?me=%@", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
         request.token = self.currentUserSession.token;
-        NSDictionary *dic = [storeSetMealCreation toObjectDictionary];
+        NSDictionary *dic = [storeSetMealMeta toObjectDictionary];
         for (NSString *key in dic.allKeys) {
             [request setValue:dic[key] forKey:key];
         }
@@ -422,7 +422,7 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
 
 - (void)fetchStoreDetailInfo:(void (^)(TCStoreDetailInfo *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@/create_store", self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {

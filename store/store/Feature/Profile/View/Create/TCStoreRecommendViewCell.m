@@ -8,6 +8,10 @@
 
 #import "TCStoreRecommendViewCell.h"
 
+@interface TCStoreRecommendViewCell () <YYTextViewDelegate>
+
+@end
+
 @implementation TCStoreRecommendViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -46,6 +50,7 @@
     textView.layer.borderColor = TCRGBColor(212, 212, 212).CGColor;
     textView.layer.borderWidth = 1;
     textView.layer.masksToBounds = YES;
+    textView.delegate = self;
     [self.contentView addSubview:textView];
     self.textView = textView;
 }
@@ -69,6 +74,28 @@
         make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-20);
         make.height.mas_equalTo(99);
     }];
+}
+
+#pragma mark - YYTextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView {
+    if ([self.delegate respondsToSelector:@selector(storeRecommendViewCell:textViewShouldBeginEditing:)]) {
+        return [self.delegate storeRecommendViewCell:self textViewShouldBeginEditing:textView];
+    }
+    return YES;
+}
+
+- (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([self.delegate respondsToSelector:@selector(storeRecommendViewCell:textView:shouldChangeTextInRange:replacementText:)]) {
+        return [self.delegate storeRecommendViewCell:self textView:textView shouldChangeTextInRange:range replacementText:text];
+    }
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(YYTextView *)textView {
+    if ([self.delegate respondsToSelector:@selector(storeRecommendViewCell:textViewDidEndEditing:)]) {
+        [self.delegate storeRecommendViewCell:self textViewDidEndEditing:textView];
+    }
 }
 
 @end

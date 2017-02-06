@@ -7,6 +7,8 @@
 //
 
 #import "TCCreateStoreNextViewController.h"
+#import "TCStoreLogoUploadViewController.h"
+#import "TCStoreSurroundingViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonIndicatorViewCell.h"
@@ -17,11 +19,12 @@
 #import "TCStoreFeature.h"
 #import "NSObject+TCModel.h"
 
-@interface TCCreateStoreNextViewController () <UITableViewDataSource, UITableViewDelegate, YYTextViewDelegate, TCStoreFacilitiesViewCellDelegate>
+@interface TCCreateStoreNextViewController () <UITableViewDataSource, UITableViewDelegate, TCStoreRecommendViewCellDelegate, TCStoreFacilitiesViewCellDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
 @property (copy, nonatomic) NSArray *features;
-@property (strong, nonatomic) TCStoreSetMealCreation *storeSetMealCreation;
+@property (strong, nonatomic) TCStoreSetMealMeta *storeSetMealMeta;
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
 @end
 
@@ -38,6 +41,18 @@
     
     [self setupNavBar];
     [self setupSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self registerNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self removeNotifications];
 }
 
 - (void)dealloc {
@@ -128,7 +143,7 @@
         return cell;
     } else if (indexPath.section == 1) {
         TCStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCStoreRecommendViewCell" forIndexPath:indexPath];
-        cell.textView.delegate = self;
+        cell.delegate = self;
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"推荐理由";
             cell.subtitleLabel.text = @"请输入店铺推荐理由：";
@@ -138,7 +153,7 @@
             cell.titleLabel.text = @"推荐话题";
             cell.subtitleLabel.text = @"请输入店铺推荐话题：";
             cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
-            cell.textView.text = self.storeSetMealCreation.topics;
+            cell.textView.text = self.storeSetMealMeta.topics;
         }
         return cell;
     } else {
@@ -173,7 +188,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView endEditing:YES];
     
-    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            [self handleSelectStoreLogoCell];
+        } else {
+            [self handleSelectStoreSurroundingCell];
+        }
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -182,14 +203,52 @@
     [scrollView endEditing:YES];
 }
 
+#pragma mark - YYTextViewDelegate
+
+- (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewShouldBeginEditing:(YYTextView *)textView {
+    self.currentIndexPath = [self.tableView indexPathForCell:cell];
+    return YES;
+}
+
+- (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        if ([textView isFirstResponder]) {
+            [textView resignFirstResponder];
+        }
+        return NO;
+    }
+    return YES;
+}
+
+- (void)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewDidEndEditing:(YYTextView *)textView {
+    self.currentIndexPath = nil;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath.row == 0) {
+        self.storeDetailInfo.recommendedReason = textView.text;
+        self.storeSetMealMeta.recommendedReason = textView.text;
+    } else {
+        self.storeSetMealMeta.topics = textView.text;
+    }
+}
+
 #pragma mark - TCStoreFacilitiesViewCellDelegate
 
 - (void)storeFacilitiesViewCell:(TCStoreFacilitiesViewCell *)cell didSelectItemAtIndex:(NSInteger)index {
     TCStoreFeature *storeFeature = self.features[index];
     storeFeature.selected = !storeFeature.isSelected;
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    cell.features = self.features;
+}
+
+#pragma mark - Notifications
+
+- (void)registerNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)removeNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Actions
@@ -199,19 +258,109 @@
 }
 
 - (void)handleClickCommitButton:(UIButton *)sender {
+    if (self.storeDetailInfo.logo.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请上传店铺LOGO"];
+        return;
+    }
+    if (self.storeDetailInfo.pictures.count == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请上传店铺环境图"];
+        return;
+    }
+    if (self.storeDetailInfo.recommendedReason.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写推荐理由"];
+        return;
+    }
+    if (self.storeSetMealMeta.topics.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写推荐话题"];
+        return;
+    }
+    NSMutableArray *tempArray = [NSMutableArray array];
+    for (TCStoreFeature *feature in self.features) {
+        if (feature.isSelected) {
+            [tempArray addObject:feature.name];
+        }
+    }
+    if (tempArray.count > 0) {
+        self.storeDetailInfo.facilities = [tempArray copy];
+    }
     
+    
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] createStore:self.storeDetailInfo result:^(TCStoreInfo *storeInfo, NSError *error) {
+        if (storeInfo) {
+            [weakSelf handleCreateStoreSetMeal];
+        } else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"创建店铺失败，%@", reason]];
+        }
+    }];
+}
+
+- (void)handleCreateStoreSetMeal {
+    [[TCBuluoApi api] createStoreSetMeal:self.storeSetMealMeta result:^(BOOL success, NSError *error) {
+        if (success) {
+            [MBProgressHUD hideHUD:YES];
+            TCLog(@"创建成功");
+        } else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"创建店铺失败，%@", reason]];
+        }
+    }];
+}
+
+- (void)handleSelectStoreLogoCell {
+    TCStoreLogoUploadViewController *vc = [[TCStoreLogoUploadViewController alloc] init];
+    vc.logo = self.storeDetailInfo.logo;
+    vc.uploadLogoCompletion = ^(NSString *logo) {
+        weakSelf.storeDetailInfo.logo = logo;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectStoreSurroundingCell {
+    TCStoreSurroundingViewController *vc = [[TCStoreSurroundingViewController alloc] init];
+    vc.storeDetailInfo = self.storeDetailInfo;
+    vc.editSurroundingCompletion = ^() {
+        weakSelf.storeSetMealMeta.pictures = weakSelf.storeDetailInfo.pictures;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+        [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
+    if (self.currentIndexPath.section != 1 || self.currentIndexPath.row != 1) return;
+    
+    NSDictionary *info = notification.userInfo;
+    
+    CGFloat height = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, height - 49, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, height - 49, 0);
+    
+    [UIView animateWithDuration:duration animations:^{
+        [weakSelf.tableView scrollToRowAtIndexPath:weakSelf.currentIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }];
+}
+
+- (void)handleKeyboardWillHideNotification:(NSNotification *)notification {
+    self.tableView.contentInset = UIEdgeInsetsZero;
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
 }
 
 #pragma mark - Override Methods
 
-- (TCStoreSetMealCreation *)storeSetMealCreation {
-    if (_storeSetMealCreation == nil) {
-        _storeSetMealCreation = [[TCStoreSetMealCreation alloc] init];
-        _storeSetMealCreation.name = self.storeDetailInfo.name;
-        _storeSetMealCreation.pictures = self.storeDetailInfo.pictures;
-        _storeSetMealCreation.recommendedReason = self.storeDetailInfo.recommendedReason;
+- (TCStoreSetMealMeta *)storeSetMealMeta {
+    if (_storeSetMealMeta == nil) {
+        _storeSetMealMeta = [[TCStoreSetMealMeta alloc] init];
+        _storeSetMealMeta.name = self.storeDetailInfo.name;
+        _storeSetMealMeta.pictures = self.storeDetailInfo.pictures;
+        _storeSetMealMeta.recommendedReason = self.storeDetailInfo.recommendedReason;
     }
-    return _storeSetMealCreation;
+    return _storeSetMealMeta;
 }
 
 - (NSArray *)features {
@@ -239,6 +388,8 @@
             TCStoreFeature *feature = [[TCStoreFeature alloc] initWithObjectDictionary:dic];
             [tempArray addObject:feature];
         }
+        TCStoreFeature *wifiFeature = tempArray[0];
+        wifiFeature.selected = YES;
         _features = [NSArray arrayWithArray:tempArray];
     }
     return _features;

@@ -1,8 +1,8 @@
 //
-//  TCStoreSetMealCreation.h
+//  TCStoreSetMealMeta.h
 //  store
 //
-//  Created by 穆康 on 2017/2/4.
+//  Created by 穆康 on 2017/2/6.
 //  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 /**
  创建服务信息
  */
-@interface TCStoreSetMealCreation : NSObject
+@interface TCStoreSetMealMeta : NSObject
 
 /** 服务ID */
 @property (copy, nonatomic) NSString *ID;
