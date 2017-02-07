@@ -228,6 +228,33 @@
     return YES;
 }
 
+- (void)setCurrentStandards:(NSArray *)currentStandards {
+    if (_currentStandards != currentStandards) {
+        _currentStandards = currentStandards;
+        
+        if (currentStandards.count > 0) {
+            for (int i = 0; i < currentStandards.count; i++) {
+                UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+                [btn setTitle:currentStandards[i] forState:UIControlStateNormal];
+                [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+                btn.layer.cornerRadius = 3.0;
+                btn.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+                btn.layer.borderWidth = 0.5;
+                //            btn.clipsToBounds = YES;
+                [_labelsView addSubview:btn];
+                
+                UIButton *deleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                [deleBtn setImage:[UIImage imageNamed:@"libsDelete"] forState:UIControlStateNormal];
+                [btn addSubview:deleBtn];
+                [deleBtn addTarget:self action:@selector(deleteLibs:) forControlEvents:UIControlEventTouchUpInside];
+                deleBtn.frame = CGRectMake((TCScreenWidth - 30 - 2 * 28)/3 - 7, -7, 14, 14);
+            }
+        }
+        
+        [self reload];
+    }
+}
+
 - (void)addStandard {
     
     if (_standardContentTextField.text.length == 0) {
@@ -240,7 +267,7 @@
     
     NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.currentStandards];
     [mutableArr addObjectsFromArray:arr];
-    self.currentStandards = mutableArr;
+    _currentStandards = mutableArr;
     
     if (arr.count > 0) {
         for (int i = 0; i < arr.count; i++) {
