@@ -354,6 +354,14 @@ YYTextViewDelegate>
         [MBProgressHUD showHUDWithMessage:@"请上传logo"];
         return;
     }
+    if (self.storeDetailInfo.desc.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
+        return;
+    }
+    if (self.storeDetailInfo.recommendedReason.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写推荐理由"];
+        return;
+    }
     
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] createStore:self.storeDetailInfo result:^(TCStoreInfo *storeInfo, NSError *error) {
