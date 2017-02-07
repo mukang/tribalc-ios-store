@@ -9,9 +9,12 @@
 #import "TCCreateStoreNextViewController.h"
 #import "TCStoreLogoUploadViewController.h"
 #import "TCStoreSurroundingViewController.h"
+#import "TCStoreSettingViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonIndicatorViewCell.h"
+#import "TCCommonSwitchViewCell.h"
+#import "TCCommonInputViewCell.h"
 #import "TCStoreRecommendViewCell.h"
 #import "TCStoreFacilitiesViewCell.h"
 
@@ -19,7 +22,7 @@
 #import "TCStoreFeature.h"
 #import "NSObject+TCModel.h"
 
-@interface TCCreateStoreNextViewController () <UITableViewDataSource, UITableViewDelegate, TCStoreRecommendViewCellDelegate, TCStoreFacilitiesViewCellDelegate>
+@interface TCCreateStoreNextViewController () <UITableViewDataSource, UITableViewDelegate, TCCommonSwitchViewCellDelegate, TCCommonInputViewCellDelegate, TCStoreRecommendViewCellDelegate, TCStoreFacilitiesViewCellDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
 @property (copy, nonatomic) NSArray *features;
@@ -79,6 +82,8 @@
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerClass:[TCCommonIndicatorViewCell class] forCellReuseIdentifier:@"TCCommonIndicatorViewCell"];
+    [tableView registerClass:[TCCommonSwitchViewCell class] forCellReuseIdentifier:@"TCCommonSwitchViewCell"];
+    [tableView registerClass:[TCCommonInputViewCell class] forCellReuseIdentifier:@"TCCommonInputViewCell"];
     [tableView registerClass:[TCStoreRecommendViewCell class] forCellReuseIdentifier:@"TCStoreRecommendViewCell"];
     [tableView registerClass:[TCStoreFacilitiesViewCell class] forCellReuseIdentifier:@"TCStoreFacilitiesViewCell"];
     [self.view addSubview:tableView];
@@ -109,10 +114,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 2;
+            return 4;
             break;
         case 1:
-            return 2;
+            return 3;
             break;
         case 2:
             return 1;
@@ -126,25 +131,48 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
-        cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
-        cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
         if (indexPath.row == 0) {
+            TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
+            cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
+            cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
             cell.titleLabel.text = @"LOGO";
             cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
-        } else {
+            return cell;
+        } else if (indexPath.row == 1) {
+            TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
+            cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
+            cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
             cell.titleLabel.text = @"环境图";
             if (self.storeDetailInfo.pictures.count) {
                 cell.subtitleLabel.text = [NSString stringWithFormat:@"%zd张", self.storeDetailInfo.pictures.count];
             } else {
                 cell.subtitleLabel.text = nil;
             }
+            return cell;
+        } else if (indexPath.row == 2) {
+            TCCommonSwitchViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonSwitchViewCell" forIndexPath:indexPath];
+            cell.titleLabel.text = @"座位预定";
+            cell.switchControl.on = self.storeSetMealMeta.isReservable;
+            cell.delegate = self;
+            return cell;
+        } else {
+            TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+            cell.titleLabel.text = @"人均消费";
+            cell.placeholder = @"请填写人均消费";
+            cell.textField.text = self.storeSetMealMeta.personExpense ? [NSString stringWithFormat:@"%zd", self.storeSetMealMeta.personExpense] : nil;
+            cell.textField.keyboardType = UIKeyboardTypeNumberPad;
+            cell.delegate = self;
+            return cell;
         }
-        return cell;
     } else if (indexPath.section == 1) {
         TCStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCStoreRecommendViewCell" forIndexPath:indexPath];
         cell.delegate = self;
         if (indexPath.row == 0) {
+            cell.titleLabel.text = @"店铺介绍";
+            cell.subtitleLabel.text = @"请输入店铺介绍：";
+            cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
+            cell.textView.text = self.storeDetailInfo.desc;
+        } else if (indexPath.row == 1) {
             cell.titleLabel.text = @"推荐理由";
             cell.subtitleLabel.text = @"请输入店铺推荐理由：";
             cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
@@ -203,6 +231,18 @@
     [scrollView endEditing:YES];
 }
 
+#pragma mark - TCCommonSwitchViewCellDelegate
+
+- (void)commonSwitchViewCell:(TCCommonSwitchViewCell *)cell didChangeSwitchControlWithOn:(BOOL)isOn {
+    self.storeSetMealMeta.isReservable = isOn;
+}
+
+#pragma mark - TCCommonInputViewCellDelegate
+
+- (void)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldDidEndEditing:(UITextField *)textField {
+    self.storeSetMealMeta.personExpense = [textField.text integerValue];
+}
+
 #pragma mark - YYTextViewDelegate
 
 - (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewShouldBeginEditing:(YYTextView *)textView {
@@ -224,6 +264,8 @@
     self.currentIndexPath = nil;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath.row == 0) {
+        self.storeDetailInfo.desc = textView.text;
+    } else if (indexPath.row == 1) {
         self.storeDetailInfo.recommendedReason = textView.text;
         self.storeSetMealMeta.recommendedReason = textView.text;
     } else {
@@ -266,6 +308,10 @@
         [MBProgressHUD showHUDWithMessage:@"请上传店铺环境图"];
         return;
     }
+    if (self.storeDetailInfo.desc.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
+        return;
+    }
     if (self.storeDetailInfo.recommendedReason.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请填写推荐理由"];
         return;
@@ -300,7 +346,9 @@
     [[TCBuluoApi api] createStoreSetMeal:self.storeSetMealMeta result:^(BOOL success, NSError *error) {
         if (success) {
             [MBProgressHUD hideHUD:YES];
-            TCLog(@"创建成功");
+            TCStoreSettingViewController *vc = [[TCStoreSettingViewController alloc] init];
+            vc.navigationItem.title = @"店铺信息";
+            [weakSelf.navigationController pushViewController:vc animated:YES];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"创建店铺失败，%@", reason]];
@@ -331,7 +379,7 @@
 }
 
 - (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
-    if (self.currentIndexPath.section != 1 || self.currentIndexPath.row != 1) return;
+    if (self.currentIndexPath.section != 1) return;
     
     NSDictionary *info = notification.userInfo;
     
