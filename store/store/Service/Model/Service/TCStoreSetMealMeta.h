@@ -26,6 +26,6 @@
 /** 人均消费 */
 @property (nonatomic) NSInteger personExpense;
 /** 服务是否接受预定 */
-@property (nonatomic) BOOL isReservable;
+@property (nonatomic) BOOL reservable;
 
 @end

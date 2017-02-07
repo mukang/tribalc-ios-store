@@ -151,6 +151,21 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)createStoreSetMeal:(TCStoreSetMealMeta *)storeSetMealMeta result:(void (^)(BOOL success, NSError *error))resultBlock;
 
+/**
+ 商户查询自己的服务
+
+ @param resultBlock 结果回调，storeSetMeals为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchStoreSetMeals:(void (^)(NSArray *storeSetMeals, NSError *error))resultBlock;
+
+/**
+ 修改服务信息（修改全部）
+
+ @param storeSetMealMeta TCStoreSetMealMeta对象
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeStoreSetMeal:(TCStoreSetMealMeta *)storeSetMealMeta result:(void (^)(BOOL success, NSError *error))resultBlock;
+
 #pragma mark - 商铺资源
 
 /**
@@ -176,7 +191,7 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
 - (void)fetchStoreDetailInfo:(void (^)(TCStoreDetailInfo *storeDetailInfo, NSError *error))resultBlock;
 
 /**
- 修改店铺信息（不包括：logo/）
+ 修改店铺信息（修改全部）
  
  @param storeDetailInfo TCStoreDetailInfo对象
  @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo

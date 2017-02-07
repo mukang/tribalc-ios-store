@@ -127,7 +127,7 @@ YYTextViewDelegate>
             return 2;
             break;
         case 3:
-            return 2;
+            return 1;
             break;
             
         default:
@@ -209,23 +209,13 @@ YYTextViewDelegate>
             break;
         case 3:
         {
-            if (indexPath.row == 0) {
-                TCStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCStoreRecommendViewCell" forIndexPath:indexPath];
-                cell.titleLabel.text = @"店铺介绍";
-                cell.subtitleLabel.text = @"请输入店铺介绍：";
-                cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
-                cell.textView.text = self.storeDetailInfo.desc;
-                cell.delegate = self;
-                return cell;
-            } else {
-                TCGoodsStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsStoreRecommendViewCell" forIndexPath:indexPath];
-                cell.titleLabel.text = @"推荐理由";
-                cell.subtitleLabel.text = @"请输入商铺推荐理由：";
-                cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
-                cell.textView.text = self.storeDetailInfo.recommendedReason;
-                cell.delegate = self;
-                return cell;
-            }
+            TCGoodsStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsStoreRecommendViewCell" forIndexPath:indexPath];
+            cell.titleLabel.text = @"店铺介绍";
+            cell.subtitleLabel.text = @"请输入店铺介绍：";
+            cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
+            cell.textView.text = self.storeDetailInfo.desc;
+            cell.delegate = self;
+            return cell;
         }
             break;
             
@@ -239,12 +229,8 @@ YYTextViewDelegate>
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 3) {
-        if (indexPath.row == 0) {
-            return 162;
-        } else {
-            return 206;
-        }
+    if (indexPath.section == 3 && indexPath.row == 0) {
+        return 206;
     } else {
         return 45;
     }
@@ -315,12 +301,7 @@ YYTextViewDelegate>
 
 - (void)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewDidEndEditing:(YYTextView *)textView {
     self.currentIndexPath = nil;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    if (indexPath.row == 0) {
-        self.storeDetailInfo.desc = textView.text;
-    } else {
-        self.storeDetailInfo.recommendedReason = textView.text;
-    }
+    self.storeDetailInfo.desc = textView.text;
 }
 
 #pragma mark - Notifications
@@ -356,10 +337,6 @@ YYTextViewDelegate>
     }
     if (self.storeDetailInfo.desc.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
-        return;
-    }
-    if (self.storeDetailInfo.recommendedReason.length == 0) {
-        [MBProgressHUD showHUDWithMessage:@"请填写推荐理由"];
         return;
     }
     

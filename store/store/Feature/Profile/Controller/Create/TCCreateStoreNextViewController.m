@@ -152,7 +152,7 @@
         } else if (indexPath.row == 2) {
             TCCommonSwitchViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonSwitchViewCell" forIndexPath:indexPath];
             cell.titleLabel.text = @"座位预定";
-            cell.switchControl.on = self.storeSetMealMeta.isReservable;
+            cell.switchControl.on = self.storeSetMealMeta.reservable;
             cell.delegate = self;
             return cell;
         } else {
@@ -176,7 +176,7 @@
             cell.titleLabel.text = @"推荐理由";
             cell.subtitleLabel.text = @"请输入店铺推荐理由：";
             cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
-            cell.textView.text = self.storeDetailInfo.recommendedReason;
+            cell.textView.text = self.storeSetMealMeta.recommendedReason;
         } else {
             cell.titleLabel.text = @"推荐话题";
             cell.subtitleLabel.text = @"请输入店铺推荐话题：";
@@ -234,7 +234,7 @@
 #pragma mark - TCCommonSwitchViewCellDelegate
 
 - (void)commonSwitchViewCell:(TCCommonSwitchViewCell *)cell didChangeSwitchControlWithOn:(BOOL)isOn {
-    self.storeSetMealMeta.isReservable = isOn;
+    self.storeSetMealMeta.reservable = isOn;
 }
 
 #pragma mark - TCCommonInputViewCellDelegate
@@ -266,7 +266,6 @@
     if (indexPath.row == 0) {
         self.storeDetailInfo.desc = textView.text;
     } else if (indexPath.row == 1) {
-        self.storeDetailInfo.recommendedReason = textView.text;
         self.storeSetMealMeta.recommendedReason = textView.text;
     } else {
         self.storeSetMealMeta.topics = textView.text;
@@ -312,7 +311,7 @@
         [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
         return;
     }
-    if (self.storeDetailInfo.recommendedReason.length == 0) {
+    if (self.storeSetMealMeta.recommendedReason.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请填写推荐理由"];
         return;
     }
@@ -406,7 +405,6 @@
         _storeSetMealMeta = [[TCStoreSetMealMeta alloc] init];
         _storeSetMealMeta.name = self.storeDetailInfo.name;
         _storeSetMealMeta.pictures = self.storeDetailInfo.pictures;
-        _storeSetMealMeta.recommendedReason = self.storeDetailInfo.recommendedReason;
     }
     return _storeSetMealMeta;
 }
