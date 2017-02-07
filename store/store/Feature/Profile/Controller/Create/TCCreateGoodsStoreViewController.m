@@ -15,6 +15,7 @@
 #import "TCCommonInputViewCell.h"
 #import "TCCommonSubtitleViewCell.h"
 #import "TCCommonIndicatorViewCell.h"
+#import "TCStoreRecommendViewCell.h"
 #import "TCGoodsStoreRecommendViewCell.h"
 
 #import "TCBuluoApi.h"
@@ -25,6 +26,7 @@
 UITableViewDelegate,
 UIScrollViewDelegate,
 TCCommonInputViewCellDelegate,
+TCStoreRecommendViewCellDelegate,
 YYTextViewDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
@@ -86,6 +88,7 @@ YYTextViewDelegate>
     [tableView registerClass:[TCCommonInputViewCell class] forCellReuseIdentifier:@"TCCommonInputViewCell"];
     [tableView registerClass:[TCCommonSubtitleViewCell class] forCellReuseIdentifier:@"TCCommonSubtitleViewCell"];
     [tableView registerClass:[TCCommonIndicatorViewCell class] forCellReuseIdentifier:@"TCCommonIndicatorViewCell"];
+    [tableView registerClass:[TCStoreRecommendViewCell class] forCellReuseIdentifier:@"TCStoreRecommendViewCell"];
     [tableView registerClass:[TCGoodsStoreRecommendViewCell class] forCellReuseIdentifier:@"TCGoodsStoreRecommendViewCell"];
     [self.view addSubview:tableView];
     self.tableView = tableView;
@@ -124,7 +127,7 @@ YYTextViewDelegate>
             return 2;
             break;
         case 3:
-            return 1;
+            return 2;
             break;
             
         default:
@@ -206,13 +209,23 @@ YYTextViewDelegate>
             break;
         case 3:
         {
-            TCGoodsStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsStoreRecommendViewCell" forIndexPath:indexPath];
-            cell.titleLabel.text = @"推荐理由";
-            cell.subtitleLabel.text = @"请输入商铺推荐理由：";
-            cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
-            cell.textView.text = self.storeDetailInfo.recommendedReason;
-            cell.textView.delegate = self;
-            return cell;
+            if (indexPath.row == 0) {
+                TCStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCStoreRecommendViewCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"店铺介绍";
+                cell.subtitleLabel.text = @"请输入店铺介绍：";
+                cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
+                cell.textView.text = self.storeDetailInfo.desc;
+                cell.delegate = self;
+                return cell;
+            } else {
+                TCGoodsStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsStoreRecommendViewCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"推荐理由";
+                cell.subtitleLabel.text = @"请输入商铺推荐理由：";
+                cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
+                cell.textView.text = self.storeDetailInfo.recommendedReason;
+                cell.delegate = self;
+                return cell;
+            }
         }
             break;
             
@@ -227,7 +240,11 @@ YYTextViewDelegate>
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 3) {
-        return 206;
+        if (indexPath.row == 0) {
+            return 162;
+        } else {
+            return 206;
+        }
     } else {
         return 45;
     }
@@ -279,14 +296,14 @@ YYTextViewDelegate>
     return YES;
 }
 
-#pragma mark - YYTextViewDelegate
+#pragma mark - TCStoreRecommendViewCellDelegate
 
-- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView {
-    self.currentIndexPath = [NSIndexPath indexPathForRow:0 inSection:3];
+- (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewShouldBeginEditing:(YYTextView *)textView {
+    self.currentIndexPath = [self.tableView indexPathForCell:cell];
     return YES;
 }
 
-- (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+- (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         if ([textView isFirstResponder]) {
             [textView resignFirstResponder];
@@ -296,9 +313,14 @@ YYTextViewDelegate>
     return YES;
 }
 
-- (void)textViewDidEndEditing:(YYTextView *)textView {
+- (void)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewDidEndEditing:(YYTextView *)textView {
     self.currentIndexPath = nil;
-    self.storeDetailInfo.recommendedReason = textView.text;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath.row == 0) {
+        self.storeDetailInfo.desc = textView.text;
+    } else {
+        self.storeDetailInfo.recommendedReason = textView.text;
+    }
 }
 
 #pragma mark - Notifications
@@ -346,7 +368,7 @@ YYTextViewDelegate>
 }
 
 - (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
-    if (self.currentIndexPath.section != 3 || self.currentIndexPath.row != 0) return;
+    if (self.currentIndexPath.section != 3) return;
     
     NSDictionary *info = notification.userInfo;
     

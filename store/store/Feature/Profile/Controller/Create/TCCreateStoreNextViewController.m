@@ -243,7 +243,7 @@
     self.storeSetMealMeta.personExpense = [textField.text integerValue];
 }
 
-#pragma mark - YYTextViewDelegate
+#pragma mark - TCStoreRecommendViewCellDelegate
 
 - (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewShouldBeginEditing:(YYTextView *)textView {
     self.currentIndexPath = [self.tableView indexPathForCell:cell];
