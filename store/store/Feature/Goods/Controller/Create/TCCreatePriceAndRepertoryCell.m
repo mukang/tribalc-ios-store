@@ -8,7 +8,7 @@
 
 #import "TCCreatePriceAndRepertoryCell.h"
 
-@interface TCCreatePriceAndRepertoryCell ()
+@interface TCCreatePriceAndRepertoryCell ()<UITextFieldDelegate>
 
 
 
@@ -58,28 +58,34 @@
     _orignPriceTextField = [[UITextField alloc] init];
     _orignPriceTextField.font = [UIFont systemFontOfSize:14];
     _orignPriceTextField.layer.cornerRadius = 3.0;
+    _orignPriceTextField.delegate = self;
     _orignPriceTextField.clipsToBounds = YES;
     _orignPriceTextField.placeholder = @"输入原价";
     _orignPriceTextField.layer.borderWidth = 0.5;
     _orignPriceTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    _orignPriceTextField.tag = 1001;
     [self.contentView addSubview:_orignPriceTextField];
     
     _salePriceTextField = [[UITextField alloc] init];
     _salePriceTextField.font = [UIFont systemFontOfSize:14];
     _salePriceTextField.layer.cornerRadius = 3.0;
     _salePriceTextField.clipsToBounds = YES;
+    _salePriceTextField.delegate = self;
     _salePriceTextField.placeholder = @"输入现价";
     _salePriceTextField.layer.borderWidth = 0.5;
     _salePriceTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    _salePriceTextField.tag = 1002;
     [self.contentView addSubview:_salePriceTextField];
     
     _repertoryTextField = [[UITextField alloc] init];
     _repertoryTextField.font = [UIFont systemFontOfSize:14];
     _repertoryTextField.layer.cornerRadius = 3.0;
     _repertoryTextField.clipsToBounds = YES;
+    _repertoryTextField.delegate = self;
     _repertoryTextField.placeholder = @"输入库存";
     _repertoryTextField.layer.borderWidth = 0.5;
     _repertoryTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    _repertoryTextField.tag = 1003;
     [self.contentView addSubview:_repertoryTextField];
     
     [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -120,6 +126,34 @@
         make.left.equalTo(_salePriceTextField.mas_right).offset(20);
         make.top.height.width.equalTo(_salePriceTextField);
     }];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSInteger index = textField.tag;
+    
+    NSString *key = _titleLabel.text;
+    
+    NSString *subKey;
+    if (index == 1001) {
+        subKey = @"originPrice";
+    }else if (index == 1002) {
+        subKey = @"salePrice";
+    }else {
+        subKey = @"repertory";
+    }
+    
+    NSString *str = textField.text;
+    str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if (str.length) {
+        if (self.delegate) {
+            if ([self.delegate respondsToSelector:@selector(textFieldDidEndEditting:)]) {
+                NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithCapacity:0];
+                [mutableDict setObject:@{subKey:str} forKey:key];
+                [self.delegate textFieldDidEndEditting:mutableDict];
+            }
+        }
+    }
 }
 
 - (CGFloat)cellHeight {

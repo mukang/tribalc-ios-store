@@ -15,8 +15,13 @@
 #import <YYText.h>
 #import "TCCreateGoodsStandardController.h"
 #import "TCGoodsIssueViewController.h"
+#import "TCPhotoModeView.h"
+#import "TCPhotoPicker.h"
+#import "TCBuluoApi.h"
+#import "TCImageURLSynthesizer.h"
+#import "TCImagePlayerView.h"
 
-@interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate>
+@interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate,TCPhotoModeViewDelegate,TCPhotoPickerDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -24,7 +29,11 @@
 
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
-@property (strong, nonatomic) TCGoodsStandardMate *currentGoodsStandardMate;
+@property (strong, nonatomic) TCPhotoPicker *photoPicker;
+
+@property (strong, nonatomic) UIButton *chosePhotoBtn;
+
+@property (strong, nonatomic) TCImagePlayerView *imagePlayerView;
 
 @end
 
@@ -61,13 +70,22 @@
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, TCRealValue(250))];
     _tableView.tableHeaderView = headView;
     
+    TCImagePlayerView *imageView = [[TCImagePlayerView alloc] init];
+    [headView addSubview:imageView];
+    if (self.goods.pictures) {
+        [imageView setPictures:self.goods.pictures isLocal:NO];
+    }
+    self.imagePlayerView = imageView;
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setImage:[UIImage imageNamed:@"chosePhoto"] forState:UIControlStateNormal];
     [headView addSubview:btn];
+    [btn addTarget:self action:@selector(chosePhoto) forControlEvents:UIControlEventTouchUpInside];
+    self.chosePhotoBtn = btn;
     
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [headView addSubview:imageView];
+//    UIImageView *imageView = [[UIImageView alloc] init];
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    [headView addSubview:imageView];
     
     _nextBtn = [TCCommonButton bottomButtonWithTitle:@"下一步" color:TCCommonButtonColorOrange target:self action:@selector(next)];
     [self.view addSubview:_nextBtn];
@@ -77,15 +95,33 @@
         make.bottom.equalTo(self.view).offset(-TCRealValue(50));
     }];
     
-    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(headView);
-        make.width.equalTo(@(TCRealValue(62)));
-        make.height.equalTo(@(TCRealValue(54)));
-    }];
-    
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(headView);
     }];
+    if (self.goods.pictures) {
+        if (self.goods.pictures.count) {
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(headView).offset(20);
+                make.bottom.equalTo(headView).offset(-20);
+                make.width.equalTo(@(TCRealValue(62)));
+                make.height.equalTo(@(TCRealValue(54)));
+            }];
+        }else {
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.centerY.equalTo(headView);
+                make.width.equalTo(@(TCRealValue(62)));
+                make.height.equalTo(@(TCRealValue(54)));
+            }];
+        }
+        
+    }else {
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.centerY.equalTo(headView);
+            make.width.equalTo(@(TCRealValue(62)));
+            make.height.equalTo(@(TCRealValue(54)));
+        }];
+    }
+    
     
     [_nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
@@ -93,6 +129,80 @@
     }];
     
 }
+
+- (void)chosePhoto {
+    TCPhotoModeView *photoModeView = [[TCPhotoModeView alloc] initWithController:self];
+    photoModeView.delegate = self;
+    [photoModeView show];
+}
+
+#pragma mark - TCPhotoModeViewDelegate
+
+- (void)didClickCameraButtonInPhotoModeView:(TCPhotoModeView *)view {
+    [view dismiss];
+    TCPhotoPicker *photoPicker = [[TCPhotoPicker alloc] initWithSourceController:self];
+    photoPicker.delegate = self;
+    [photoPicker showPhotoPikerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+    self.photoPicker = photoPicker;
+}
+
+- (void)didClickAlbumButtonInPhotoModeView:(TCPhotoModeView *)view {
+    [view dismiss];
+    TCPhotoPicker *photoPicker = [[TCPhotoPicker alloc] initWithSourceController:self];
+    photoPicker.delegate = self;
+    [photoPicker showPhotoPikerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    self.photoPicker = photoPicker;
+}
+
+#pragma mark - TCPhotoPickerDelegate
+
+- (void)photoPicker:(TCPhotoPicker *)photoPicker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [photoPicker dismissPhotoPicker];
+    self.photoPicker = nil;
+    
+    UIImage *coverImage;
+    if (info[UIImagePickerControllerEditedImage]) {
+        coverImage = info[UIImagePickerControllerEditedImage];
+    } else {
+        coverImage = info[UIImagePickerControllerOriginalImage];
+    }
+    
+    @WeakObj(self)
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] uploadImage:coverImage progress:nil result:^(BOOL success, TCUploadInfo *uploadInfo, NSError *error) {
+        @StrongObj(self)
+        if (success) {
+            [MBProgressHUD hideHUD:YES];
+            NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.goods.pictures];
+            [mutableArr addObject:[TCImageURLSynthesizer synthesizeImagePathWithName:uploadInfo.objectKey source:kTCImageSourceOSS]];
+            self.goods.pictures = mutableArr;
+//            [self changeStoreCoverWithName:uploadInfo.objectKey];
+            [_imagePlayerView setPictures:mutableArr isLocal:NO];
+            if (_chosePhotoBtn.centerX == self.view.centerX) {
+                [_chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.tableView.tableHeaderView).offset(20);
+                    make.bottom.equalTo(self.tableView.tableHeaderView).offset(-20);
+                    make.width.equalTo(@(TCRealValue(62)));
+                    make.height.equalTo(@(TCRealValue(54)));
+                }];
+                [self.view setNeedsUpdateConstraints];
+                [self.view updateConstraintsIfNeeded];
+                [self.view layoutIfNeeded];
+            }
+            
+        } else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"保存失败，%@", reason]];
+        }
+    }];
+}
+
+- (void)photoPickerDidCancel:(TCPhotoPicker *)photoPicker {
+    [photoPicker dismissPhotoPicker];
+    self.photoPicker = nil;
+}
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
@@ -114,6 +224,15 @@
     if (section == 0) {
         return 3;
     }else if (section == 1) {
+        
+        if (self.goods.standardId && self.currentGoodsStandardMate) {
+            if (self.currentGoodsStandardMate.descriptions.primary && self.currentGoodsStandardMate.descriptions.secondary) {
+                return 7;
+            }else if (self.currentGoodsStandardMate.descriptions.primary) {
+                return 6;
+            }
+        }
+        
         if (self.currentGoodsStandardMate) {
             return 3;
         }
@@ -152,58 +271,162 @@
             return cell;
         }
     }else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            TCCommonSubtitleViewCell *cell = [[TCCommonSubtitleViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonSubtitleViewCell"];
-            cell.titleLabel.text = @"类别";
-            cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@",self.goods.category];
-            return cell;
-        }else if (indexPath.row == 1) {
-            TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
-            cell.titleLabel.text = @"品牌";
-            cell.placeholder = @"请输入商品品牌";
-            cell.delegate = self;
-            if ([self.goods.brand isKindOfClass:[NSString class]]) {
-                cell.textField.text = self.goods.brand;
+        
+        if (self.goods.standardId && self.currentGoodsStandardMate) {
+            if (indexPath.row == 0) {
+                TCCommonSubtitleViewCell *cell = [[TCCommonSubtitleViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonSubtitleViewCell"];
+                cell.titleLabel.text = @"类别";
+                cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@",self.goods.category];
+                return cell;
+            }else if (indexPath.row == 1) {
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                cell.titleLabel.text = @"品牌";
+                cell.placeholder = @"请输入商品品牌";
+                cell.delegate = self;
+                if ([self.goods.brand isKindOfClass:[NSString class]]) {
+                    cell.textField.text = self.goods.brand;
+                }
+                return cell;
+            }else if (indexPath.row == 2) {
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
+                cell.titleLabel.text = self.currentGoodsStandardMate.descriptions.primary.label;
+                cell.placeholder = @"请输入商品一级规格";
+                if (self.goods.standardKeys.count) {
+                    cell.textField.text = self.goods.standardKeys.firstObject;
+                }
+                return cell;
+            }else if (indexPath.row == 3) {
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
+                    cell.titleLabel.text = self.currentGoodsStandardMate.descriptions.secondary.label;
+                    cell.placeholder = @"请输入商品二级规格";
+                    if (self.goods.standardKeys.count == 2) {
+                        cell.textField.text = self.goods.standardKeys[1];
+                    }
+                    return cell;
+                }
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                cell.titleLabel.text = @"销售价格";
+                cell.placeholder = @"请输入商品销售价格";
+                cell.delegate = self;
+                
+                if (self.goods.priceAndRepertory.salePrice) {
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.salePrice];
+                }
+                
+                return cell;
+            }else if (indexPath.row == 4) {
+                
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                    cell.titleLabel.text = @"销售价格";
+                    cell.placeholder = @"请输入商品销售价格";
+                    cell.delegate = self;
+                    
+                    if (self.goods.priceAndRepertory.salePrice) {
+                        cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.salePrice];
+                    }
+                    return cell;
+                }
+                
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                cell.titleLabel.text = @"原始价格";
+                cell.placeholder = @"请输入商品原始价格";
+                cell.delegate = self;
+                if (self.goods.priceAndRepertory.originPrice) {
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
+                }
+                return cell;
+            }else if (indexPath.row == 5) {
+                
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                    cell.titleLabel.text = @"原始价格";
+                    cell.placeholder = @"请输入商品原始价格";
+                    cell.delegate = self;
+                    if (self.goods.priceAndRepertory.originPrice) {
+                        cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
+                    }
+                    return cell;
+                }
+                
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                cell.titleLabel.text = @"库存量";
+                cell.placeholder = @"请输入商品库存量";
+                cell.delegate = self;
+                if (self.goods.priceAndRepertory.repertory) {
+                    cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
+                }
+                return cell;
+            }else {
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                    cell.titleLabel.text = @"库存量";
+                    cell.placeholder = @"请输入商品库存量";
+                    cell.delegate = self;
+                    if (self.goods.priceAndRepertory.repertory) {
+                        cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
+                    }
+                    return cell;
+                }else {
+                    return nil;
+                }
             }
-            return cell;
-        }else if (indexPath.row == 2) {
-            TCCommonIndicatorViewCell *cell = [[TCCommonIndicatorViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
-            cell.titleLabel.text = @"规格";
-            cell.subtitleLabel.text = @"请输入商品规格";
-            if (self.currentGoodsStandardMate) {
-                cell.subtitleLabel.text = self.currentGoodsStandardMate.title;
-            }
-            return cell;
-        }else if (indexPath.row == 3) {
-            TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
-            cell.titleLabel.text = @"销售价格";
-            cell.placeholder = @"请输入商品销售价格";
-            cell.delegate = self;
-            
-            if (self.goods.goodsPriceAndRepertory.salePrice) {
-                cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.goodsPriceAndRepertory.salePrice];
-            }
-            
-            return cell;
-        }else if (indexPath.row == 4) {
-            TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
-            cell.titleLabel.text = @"原始价格";
-            cell.placeholder = @"请输入商品原始价格";
-            cell.delegate = self;
-            if (self.goods.goodsPriceAndRepertory.originPrice) {
-                cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.goodsPriceAndRepertory.originPrice];
-            }
-            return cell;
         }else {
-            TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
-            cell.titleLabel.text = @"库存量";
-            cell.placeholder = @"请输入商品库存量";
-            cell.delegate = self;
-            if (self.goods.goodsPriceAndRepertory.repertory) {
-                cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.goodsPriceAndRepertory.repertory];
+            if (indexPath.row == 0) {
+                TCCommonSubtitleViewCell *cell = [[TCCommonSubtitleViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonSubtitleViewCell"];
+                cell.titleLabel.text = @"类别";
+                cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@",self.goods.category];
+                return cell;
+            }else if (indexPath.row == 1) {
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                cell.titleLabel.text = @"品牌";
+                cell.placeholder = @"请输入商品品牌";
+                cell.delegate = self;
+                if ([self.goods.brand isKindOfClass:[NSString class]]) {
+                    cell.textField.text = self.goods.brand;
+                }
+                return cell;
+            }else if (indexPath.row == 2) {
+                TCCommonIndicatorViewCell *cell = [[TCCommonIndicatorViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
+                cell.titleLabel.text = @"规格";
+                cell.subtitleLabel.text = @"请输入商品规格";
+                if (self.currentGoodsStandardMate) {
+                    cell.subtitleLabel.text = self.currentGoodsStandardMate.title;
+                }
+                return cell;
+            }else if (indexPath.row == 3) {
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                cell.titleLabel.text = @"销售价格";
+                cell.placeholder = @"请输入商品销售价格";
+                cell.delegate = self;
+                
+                if (self.goods.priceAndRepertory.salePrice) {
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.salePrice];
+                }
+                
+                return cell;
+            }else if (indexPath.row == 4) {
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                cell.titleLabel.text = @"原始价格";
+                cell.placeholder = @"请输入商品原始价格";
+                cell.delegate = self;
+                if (self.goods.priceAndRepertory.originPrice) {
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
+                }
+                return cell;
+            }else {
+                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                cell.titleLabel.text = @"库存量";
+                cell.placeholder = @"请输入商品库存量";
+                cell.delegate = self;
+                if (self.goods.priceAndRepertory.repertory) {
+                    cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
+                }
+                return cell;
             }
-            return cell;
         }
+        
     }else {
         TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
         cell.titleLabel.text = @"原产国";
@@ -217,20 +440,23 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
-        if (indexPath.row == 2) {
-            TCCreateGoodsStandardController *createVc = [[TCCreateGoodsStandardController alloc] init];
-            if (self.currentGoodsStandardMate) {
-                createVc.goodsStandardMate = self.currentGoodsStandardMate;
+    
+    if (!self.goods.standardId) {
+        if (indexPath.section == 1) {
+            if (indexPath.row == 2) {
+                TCCreateGoodsStandardController *createVc = [[TCCreateGoodsStandardController alloc] init];
+                if (self.currentGoodsStandardMate) {
+                    createVc.goodsStandardMate = self.currentGoodsStandardMate;
+                }
+                @WeakObj(self)
+                createVc.myBlock = ^(TCGoodsStandardMate *goodsStandardMate){
+                    @StrongObj(self)
+                    self.currentGoodsStandardMate = goodsStandardMate;
+                    [self.tableView reloadData];
+                };
+                [self.navigationController pushViewController:createVc animated:YES];
+                [tableView deselectRowAtIndexPath:indexPath animated:NO];
             }
-            @WeakObj(self)
-            createVc.myBlock = ^(TCGoodsStandardMate *goodsStandardMate){
-                @StrongObj(self)
-                self.currentGoodsStandardMate = goodsStandardMate;
-                [self.tableView reloadData];
-            };
-            [self.navigationController pushViewController:createVc animated:YES];
-            [tableView deselectRowAtIndexPath:indexPath animated:NO];
         }
     }
 }
@@ -239,6 +465,7 @@
 
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     self.currentIndexPath = indexPath;
+    
     return YES;
 }
 
@@ -252,18 +479,105 @@
             self.goods.note = textField.text;
         }
     }else if (indexPath.section == 1) {
-        if (indexPath.row == 1) {
-            self.goods.brand = textField.text;
-        }else if (indexPath.row == 3) {
-            self.goods.goodsPriceAndRepertory.salePrice = [textField.text floatValue];
-        }else if (indexPath.row == 4) {
-            self.goods.goodsPriceAndRepertory.originPrice = [textField.text floatValue];
-        }else if (indexPath.row == 5) {
-            self.goods.goodsPriceAndRepertory.repertory = [textField.text integerValue];
+        
+        if (self.goods.standardId && self.currentGoodsStandardMate) {
+            if (indexPath.row == 1) {
+                self.goods.brand = textField.text;
+            }else if (indexPath.row == 2) {
+//                if (self.goods.standardKeys) {
+//                    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.goods.standardKeys];
+//                    
+//                    if (self.goods.standardKeys.count == 2) {
+//                        [mutableArr replaceObjectAtIndex:0 withObject:textField.text];
+//                        self.goods.standardKeys = mutableArr;
+//                    }else if (self.goods.standardKeys.count == 1) {
+//                        if (self.currentGoodsStandardMate.descriptions.secondary) {
+//                            [mutableArr insertObject:textField.text atIndex:0];
+//                        }else {
+//                            [mutableArr replaceObjectAtIndex:0 withObject:textField.text];
+//                        }
+//                        self.goods.standardKeys = mutableArr;
+//                    }else {
+//                        self.goods.standardKeys = @[textField.text];
+//                    }
+//                    
+//                }else {
+//                    self.goods.standardKeys = @[textField.text];
+//                }
+            }else if (indexPath.row == 3) {
+                
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+//                    if (self.goods.standardKeys) {
+//                        NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.goods.standardKeys];
+//                        if (self.goods.standardKeys.count == 2) {
+//                            [mutableArr replaceObjectAtIndex:1 withObject:textField.text];
+//                        }else if (self.goods.standardKeys.count == 1) {
+//                            [mutableArr insertObject:textField.text atIndex:1];
+//                        }else {
+//                            self.goods.standardKeys = @[textField.text];
+//                        }
+//                    }else {
+//                        self.goods.standardKeys = @[textField.text];
+//                    }
+                    
+                }else {
+                    [self setGoodsSalePrice:textField.text];
+                }
+                
+            }else if (indexPath.row == 4) {
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    [self setGoodsSalePrice:textField.text];
+                }else {
+                    [self setGoodsOriginPrice:textField.text];
+                }
+                
+            }else if (indexPath.row == 5) {
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    [self setGoodsOriginPrice:textField.text];
+                }else {
+                    [self setGoodsReperoty:textField.text];
+                }
+            }else {
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    [self setGoodsReperoty:textField.text];
+                }
+            }
+        }else {
+            if (indexPath.row == 1) {
+                self.goods.brand = textField.text;
+            }else if (indexPath.row == 3) {
+                [self setGoodsSalePrice:textField.text];
+            }else if (indexPath.row == 4) {
+                [self setGoodsOriginPrice:textField.text];
+            }else if (indexPath.row == 5) {
+                [self setGoodsReperoty:textField.text];
+            }
         }
+        
     }else {
         self.goods.originCountry = textField.text;
     }
+}
+
+- (void)setGoodsSalePrice:(NSString *)text {
+    if (self.goods.priceAndRepertory == nil) {
+        self.goods.priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+    }
+    self.goods.priceAndRepertory.salePrice = [text floatValue];
+}
+
+- (void)setGoodsOriginPrice:(NSString *)text {
+    if (self.goods.priceAndRepertory == nil) {
+        self.goods.priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+    }
+    self.goods.priceAndRepertory.originPrice = [text floatValue];
+}
+
+- (void)setGoodsReperoty:(NSString *)text {
+    if (self.goods.priceAndRepertory == nil) {
+        self.goods.priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+    }
+    self.goods.priceAndRepertory.repertory = [text integerValue];
 }
 
 #pragma mark - YYTextViewDelegate
@@ -324,6 +638,42 @@
 }
 
 - (void)next {
+    
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
+    if (self.goods.standardId && self.currentGoodsStandardMate) {
+        TCCommonInputViewCell *cell = (TCCommonInputViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
+        if (cell.textField.text.length > 0) {
+            [mutableArr addObject:cell.textField.text];
+        }else {
+            [MBProgressHUD showHUDWithMessage:@"请输入一级规格"];
+            return;
+        }
+        
+        
+        if (self.currentGoodsStandardMate.descriptions.secondary) {
+            TCCommonInputViewCell *sCell = (TCCommonInputViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:1]];
+            if (sCell.textField.text.length > 0) {
+                [mutableArr addObject:sCell.textField.text];
+            }else {
+                [MBProgressHUD showHUDWithMessage:@"请输入二级规格"];
+                return;
+            }
+        }
+        self.goods.standardKeys = mutableArr;
+        
+        if (!self.goods.priceAndRepertory) {
+            [MBProgressHUD showHUDWithMessage:@"请输入价格库存信息"];
+            return;
+        }
+    }
+    
+    if (!self.goods.standardId && !self.currentGoodsStandardMate) {
+        if (!self.goods.priceAndRepertory) {
+            [MBProgressHUD showHUDWithMessage:@"请输入价格库存信息"];
+            return;
+        }
+    }
+    
     TCGoodsIssueViewController *issueVC = [[TCGoodsIssueViewController alloc] init];
     issueVC.goods = self.goods;
     if (self.currentGoodsStandardMate) {

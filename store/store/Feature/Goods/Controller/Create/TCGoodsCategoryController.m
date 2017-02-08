@@ -113,7 +113,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     TCStoreCategoryInfo *storeInfo = _goodsCategoryInfoArray[indexPath.item];
     NSString *category = storeInfo.category;
-    TCGoods *good = [[TCGoods alloc] init];
+    TCGoodsMeta *good = [[TCGoodsMeta alloc] init];
     good.category = category;
     TCChoseSpecificationsController *createVC = [[TCChoseSpecificationsController alloc] init];
     createVC.good = good;

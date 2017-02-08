@@ -8,7 +8,8 @@
 
 #import "TCGoods.h"
 
-@implementation TCGoods
+#import "NSObject+TCModel.h"
 
+@implementation TCGoods
 
 @end

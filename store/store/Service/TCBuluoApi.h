@@ -254,4 +254,51 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  @param resultBlock 结果回调
  */
 - (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock;
+
+
+/**
+ 创建商品
+
+ @param goods 商品
+ @param goodsStandardMate 规格
+ @param resultBlock 回调
+ */
+- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock;
+
+
+/**
+ 修改商品发布状态
+
+ @param goodsId 商品id
+ @param published 是否上架
+ @param resultBlock 回调
+ */
+- (void)modifyGoodsState:(NSString *)goodsId published:(NSString *)published result:(void (^)(BOOL, NSError *))resultBlock;
+
+
+/**
+ 删除商品
+
+ @param goodsId 商品id
+ @param resultBlock 回调
+ */
+- (void)deleteGoods:(NSString *)goodsId result:(void (^)(BOOL, NSError *))resultBlock;
+
+
+/**
+ 获取商品规格组
+
+ @param standardId 规格组id
+ @param resultBlock 回调
+ */
+- (void)getGoodsStandard:(NSString *)standardId result:(void (^)(TCGoodsStandardMate *goodsStandardMate, NSError *error))resultBlock;
+
+
+/**
+ 修改商品
+
+ @param goods 商品
+ @param resultBlock 回调
+ */
+- (void)modifyGoods:(TCGoodsMeta *)goods result:(void (^)(BOOL success, NSError *error))resultBlock;
 @end

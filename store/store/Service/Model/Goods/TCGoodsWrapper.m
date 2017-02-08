@@ -7,12 +7,12 @@
 //
 
 #import "TCGoodsWrapper.h"
-#import "TCGoods.h"
+#import "TCGoodsMeta.h"
 
 @implementation TCGoodsWrapper
 
 + (NSDictionary *)objectClassInArray {
-    return @{@"content": [TCGoods class]};
+    return @{@"content": [TCGoodsMeta class]};
 }
 
 @end

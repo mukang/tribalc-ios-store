@@ -11,14 +11,17 @@
 #import "TCGoodsStandardListCell.h"
 #import "TCGoodsStandardMate.h"
 #import "TCCreateGoodsViewController.h"
+#import "TCCommonButton.h"
 
-@interface TCChoseSpecificationsController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TCChoseSpecificationsController ()<UITableViewDelegate,UITableViewDataSource,TCGoodsStandardListCellDelegate>
 
 @property (strong, nonatomic) UITableView *tabelView;
 
 @property (strong, nonatomic) TCGoodsStandardWrapper *goodsStandardwrapper;
 
 @property (copy, nonatomic) NSArray *currentArr;
+
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
 
@@ -27,16 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"选择商品规格";
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithTitle:@"创建商品" style:UIBarButtonItemStyleDone target:self action:@selector(createGoods)];
-    self.navigationItem.rightBarButtonItem = barItem;
-    
+    _selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self loadDataIsMore:NO];
 }
 
 - (void)createGoods {
-    TCCreateGoodsViewController *createVC = [[TCCreateGoodsViewController alloc] init];
-    createVC.goods = self.good;
-    [self.navigationController pushViewController:createVC animated:YES];
+    
 }
 
 - (void)loadDataIsMore:(BOOL)isMore {
@@ -65,8 +64,20 @@
     
 }
 
+- (void)didClick:(UITableViewCell *)cell selected:(BOOL)selected {
+    NSIndexPath *indexPath = [self.tabelView indexPathForCell:cell];
+    if (selected) {
+        self.selectedIndexPath = indexPath;
+    }else {
+        self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    }
+    
+    [self.tabelView reloadData];
+    
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.currentArr.count;
+    return self.currentArr.count+1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -77,15 +88,46 @@
     TCGoodsStandardListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsStandardListCell"];
     if (cell == nil) {
         cell = [[TCGoodsStandardListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCGoodsStandardListCell"];
-        cell.goodsStandardMate = self.currentArr[indexPath.section];
+        cell.delegate = self;
     }
+    if (indexPath.section == 0) {
+        TCGoodsStandardMate *goodsStandardMate = [[TCGoodsStandardMate alloc] init];
+        goodsStandardMate.title = @"创建新的规格组";
+        cell.goodsStandardMate = goodsStandardMate;
+        if (_selectedIndexPath.section == 0 && _selectedIndexPath.row == 0) {
+            cell.select = YES;
+        }else {
+            cell.select = NO;
+        }
+        
+    }else {
+        
+        if (_selectedIndexPath == indexPath) {
+            cell.select = YES;
+        }else {
+            cell.select = NO;
+        }
+        
+        cell.goodsStandardMate = self.currentArr[indexPath.section-1];
+    }
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TCGoodsStandardMate *goodsStandardMate = (TCGoodsStandardMate *)(self.currentArr[indexPath.section]);
+    
+    if (indexPath.section == 0) {
+        return 45;
+    }
+    
+    TCGoodsStandardMate *goodsStandardMate = (TCGoodsStandardMate *)(self.currentArr[indexPath.section-1]);
     NSString *str = goodsStandardMate.title;
     CGSize size = [str boundingRectWithSize:CGSizeMake(TCScreenWidth-115, 9999.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+    
+    if (indexPath == _selectedIndexPath && indexPath.section != 0) {
+        return size.height+28.0+118.0;
+    }
+    
     return size.height+28.0;
 }
 
@@ -99,11 +141,37 @@
         _tabelView.sectionFooterHeight = 0.0;
         _tabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_tabelView];
+        
+        TCCommonButton *bottomBtn = [TCCommonButton buttonWithTitle:@"下一步" color:TCCommonButtonColorOrange target:self action:@selector(next)];
+        [self.view addSubview:bottomBtn];
+        
         [_tabelView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+            make.left.right.top.equalTo(self.view);
+            make.bottom.equalTo(bottomBtn.mas_top);
+        }];
+        
+        [bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.bottom.right.equalTo(self.view);
+            make.top.equalTo(self.tabelView.mas_bottom);
+            make.height.equalTo(@50);
         }];
     }
     return _tabelView;
+}
+
+- (void)next {
+    
+    TCCreateGoodsViewController *createVC = [[TCCreateGoodsViewController alloc] init];
+    
+    if (self.selectedIndexPath.section != 0) {
+        TCGoodsStandardMate *goodsStandardMate = self.currentArr[self.selectedIndexPath.section-1];
+        self.good.standardId = goodsStandardMate.ID;
+        createVC.currentGoodsStandardMate = goodsStandardMate;
+    }
+    
+    createVC.goods = self.good;
+    [self.navigationController pushViewController:createVC animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {

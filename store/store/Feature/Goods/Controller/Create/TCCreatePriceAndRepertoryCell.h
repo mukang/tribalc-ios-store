@@ -13,6 +13,8 @@
 @optional
 - (void)deleteCurrentStandard:(UITableViewCell *)cell;
 
+- (void)textFieldDidEndEditting:(NSDictionary *)dict;
+
 @end
 
 @interface TCCreatePriceAndRepertoryCell : UITableViewCell

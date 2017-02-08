@@ -10,11 +10,12 @@
 #import <Masonry.h>
 #import "TCGoodsCategoryController.h"
 #import "TCGoodsWrapper.h"
-#import "TCGoods.h"
+#import "TCGoodsMeta.h"
 #import "TCBuluoApi.h"
 #import "TCGoodsListCell.h"
 #import "TCRefreshHeader.h"
 #import "TCRefreshFooter.h"
+#import "TCCreateGoodsViewController.h"
 
 @interface TCGoodsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -43,7 +44,15 @@
 
     [self setUpTopViews];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelf) name:@"KISSUEORMODIFYGOODS" object:nil];
+}
+
+- (void)updateSelf {
+    [self loadDataIsMore:NO];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)loadDataIsMore:(BOOL)isMore {
@@ -69,13 +78,19 @@
             [MBProgressHUD hideHUD:YES];
             self.goodsWrapper = goodsWrapper;
             
-            NSMutableArray *mutabelArr = [NSMutableArray arrayWithArray:self.goods];
-            [mutabelArr addObjectsFromArray:goodsWrapper.content];
-            self.goods = mutabelArr;
+            if (isMore) {
+                NSMutableArray *mutabelArr = [NSMutableArray arrayWithArray:self.goods];
+                [mutabelArr addObjectsFromArray:goodsWrapper.content];
+                self.goods = mutabelArr;
+            }else {
+                self.goods = goodsWrapper.content;
+            }
+            
             [self.tableView reloadData];
             [self setCreatBtn];
             [self.tableView.mj_footer endRefreshing];
             if (!isMore) {
+                [self.tableView.mj_header endRefreshing];
                 self.tableView.mj_footer.hidden = NO;
             }
         }else {
@@ -216,9 +231,100 @@
     TCGoodsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsListCell"];
     if (cell == nil) {
         cell = [[TCGoodsListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCGoodsListCell"];
-        cell.good = self.goods[indexPath.section];
     }
+    cell.good = self.goods[indexPath.section];
+    
+    NSString *upStr = @"修改";
+    NSString *downStr;
+    if (_onSaleBtn.selected) {
+        downStr = @"下架";
+    }else if (_storeBtn.selected) {
+        downStr = @"删除";
+    }
+    
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(0, 0, 95, 150);
+    
+    UIButton *topBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [topBtn setBackgroundColor:TCRGBColor(248, 160, 66)];
+    [topBtn setTitle:upStr forState:UIControlStateNormal];
+    [topBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    topBtn.frame = CGRectMake(0, 0, 95, 75);
+    [rightBtn addSubview:topBtn];
+    topBtn.tag = indexPath.section*100;
+    [topBtn addTarget:self action:@selector(modify:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 74.5, 95, 0.5)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    [topBtn addSubview:lineView];
+    
+    UIButton *downBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    downBtn.frame = CGRectMake(0, CGRectGetMaxY(topBtn.frame), 95, 75);
+    [downBtn setBackgroundColor:TCRGBColor(248, 160, 66)];
+    [downBtn setTitle:downStr forState:UIControlStateNormal];
+    [downBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rightBtn addSubview:downBtn];
+    downBtn.tag = indexPath.section*100;
+    [downBtn addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cell.rightButtons = @[rightBtn];
     return cell;
+}
+
+- (void)modify:(UIButton *)btn {
+    
+    NSInteger index = btn.tag/100;
+    TCGoodsMeta *good = self.goods[index];
+    @WeakObj(self)
+    [[TCBuluoApi api] getGoodsStandard:good.standardId result:^(TCGoodsStandardMate *goodsStandardMate, NSError *error) {
+        @StrongObj(self)
+        if (goodsStandardMate) {
+            TCCreateGoodsViewController *createVc = [[TCCreateGoodsViewController alloc] init];
+            createVc.goods = good;
+            createVc.currentGoodsStandardMate = goodsStandardMate;
+            createVc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:createVc animated:YES];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取规格组失败，%@", reason]];
+        }
+    }];
+    
+    
+    
+}
+
+- (void)delete:(UIButton *)btn {
+    NSInteger index = btn.tag/100;
+    TCGoods *good = self.goods[index];
+    NSString *goodsID = good.ID;
+    
+    if (_onSaleBtn.selected) {
+        [[TCBuluoApi api] modifyGoodsState:goodsID published:@"false" result:^(BOOL success, NSError *error) {
+            if (success) {
+                NSMutableArray *mutabeArr = [NSMutableArray arrayWithArray:self.goods];
+                [mutabeArr removeObject:good];
+                self.goods = mutabeArr;
+                [self.tableView reloadData];
+            }else {
+                NSString *reason = error.localizedDescription ?: @"请稍后再试";
+                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"下架失败，%@", reason]];
+            }
+        }];
+    }else {
+        [[TCBuluoApi api] deleteGoods:goodsID result:^(BOOL success, NSError *error) {
+            if (success) {
+                NSMutableArray *mutabeArr = [NSMutableArray arrayWithArray:self.goods];
+                [mutabeArr removeObject:good];
+                self.goods = mutabeArr;
+                [self.tableView reloadData];
+            }else {
+                NSString *reason = error.localizedDescription ?: @"请稍后再试";
+                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"删除失败，%@", reason]];
+            }
+        }];
+    }
 }
 
 - (void)next {

@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class TCGoodsStandardDescriptions;
+#import "TCGoodsStandardDescriptions.h"
 
 @interface TCGoodsStandardMate : NSObject
+
+@property (copy, nonatomic) NSString *ID;
 
 @property (copy, nonatomic) NSString *title;
 

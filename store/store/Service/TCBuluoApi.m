@@ -714,4 +714,189 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
     }];
 }
 
+- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock {
+    NSString *apiName = [NSString stringWithFormat:@"goods?me=%@",[[TCBuluoApi api] currentUserSession].storeInfo.ID];
+    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
+    request.token = self.currentUserSession.token;
+    NSDictionary *goodDic = [goods toObjectDictionary];
+    
+    
+    if (goodsStandardMate) {
+        
+        NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+        
+        NSDictionary *standardMateDic = [goodsStandardMate toObjectDictionary];
+        for (NSString *key in standardMateDic.allKeys) {
+            if ([standardMateDic[key] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dic = standardMateDic[key];
+                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
+                for (NSString *subKey in dic.allKeys) {
+                    if ([dic[subKey] isKindOfClass:[TCGoodsPriceAndRepertory class]]) {
+                        
+                        TCGoodsPriceAndRepertory *priceAndRepertory = dic[subKey];
+                        
+                        [mutableDic setValue:[priceAndRepertory toObjectDictionary]  forKey:subKey];
+                    }else {
+                        [mutableDic setValue:dic[subKey] forKey:subKey];
+                    }
+                }
+                [mutableDictionary setValue:mutableDic forKey:key];
+            }else {
+                [mutableDictionary setValue:standardMateDic[key] forKey:key];
+            }
+            
+        }
+        [request setValue:mutableDictionary forKey:@"standardMeta"];
+        
+        NSMutableDictionary *goodsMutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        for (NSString *key in goodDic.allKeys) {
+            if (![key isEqualToString:@"standardId"]) {
+                [goodsMutableDic setValue:goodDic[key] forKey:key];
+            }
+            
+        }
+        
+        [request setValue:goodsMutableDic forKey:@"goodsMeta"];
+    }else {
+//        NSMutableDictionary *goodsMutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
+        for (NSString *key in goodDic.allKeys) {
+            [request setValue:goodDic[key] forKey:key];
+        }
+        
+//        [request setValue:goodsMutableDic forKey:@"goodsMeta"];
+        
+    }
+    
+    [[TCClient client] send:request finish:^(TCClientResponse *response) {
+        if (response.error) {
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+            }
+        }else {
+            NSArray *arr = (NSArray *)response.data;
+            NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
+            for (int i = 0; i < arr.count; i++) {
+                NSDictionary *dic = arr[i];
+                TCGoodsMeta *good = [[TCGoodsMeta alloc] initWithObjectDictionary:dic];
+                [mutableArr addObject:good];
+            }
+            
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(mutableArr, nil));
+            }
+        }
+    }];
+}
+
+- (void)modifyGoodsState:(NSString *)goodsId published:(NSString *)published result:(void (^)(BOOL, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"%@/published", goodsId];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
+        request.token = self.currentUserSession.token;
+        
+        [request setValue:published forKey:@"value"];
+        
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.statusCode == 200) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
+- (void)deleteGoods:(NSString *)goodsId result:(void (^)(BOOL, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"%@", goodsId];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodDelete apiName:apiName];
+        request.token = self.currentUserSession.token;
+        
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.statusCode == 204) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
+- (void)getGoodsStandard:(NSString *)standardId result:(void (^)(TCGoodsStandardMate *goodsStandardMate, NSError *error))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"goods_standards/%@", standardId];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+        request.token = self.currentUserSession.token;
+        
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.statusCode == 200) {
+                if (resultBlock) {
+                    
+                    TCGoodsStandardMate *mate = [[TCGoodsStandardMate alloc] initWithObjectDictionary:response.data];
+                    
+                    TC_CALL_ASYNC_MQ(resultBlock(mate, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
+
+}
+
+- (void)modifyGoods:(TCGoodsMeta *)goods result:(void (^)(BOOL success, NSError *error))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"%@", goods.ID];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
+        request.token = self.currentUserSession.token;
+        
+        NSDictionary *dic = [goods toObjectDictionary];
+        for (NSString *key in dic.allKeys) {
+            [request setValue:dic[key] forKey:key];
+        }
+        
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.statusCode == 200) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
 @end

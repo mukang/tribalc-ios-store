@@ -118,8 +118,8 @@
         [self.imgView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
         
         _titleLabel.text = good.title;
-        _storeLabel.text = [NSString stringWithFormat:@"库存  %ld份",good.goodsPriceAndRepertory.repertory];
-        _priceLabel.text = [NSString stringWithFormat:@"单价  %.2f元",good.goodsPriceAndRepertory.salePrice];
+        _storeLabel.text = [NSString stringWithFormat:@"库存  %ld份",good.priceAndRepertory.repertory];
+        _priceLabel.text = [NSString stringWithFormat:@"单价  %.2f元",good.priceAndRepertory.salePrice];
         _salesLabel.text = [NSString stringWithFormat:@"销量  %ld",good.saleQuantity];
         _creatTimeLabel.text = @"创建时间  2016-09-09";
     }
