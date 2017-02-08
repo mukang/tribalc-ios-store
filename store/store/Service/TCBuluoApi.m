@@ -514,6 +514,10 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
             if (response.statusCode == 200) {
+                TCUserSession *userSession = self.currentUserSession;
+                userSession.storeInfo.name = storeDetailInfo.name;
+                userSession.storeInfo.logo = storeDetailInfo.logo;
+                [self setUserSession:userSession];
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
