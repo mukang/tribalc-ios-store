@@ -7,6 +7,7 @@
 //
 
 #import "TCGoodsOrderViewController.h"
+#import "TCTabView.h"
 
 @interface TCGoodsOrderViewController ()
 
@@ -30,6 +31,12 @@
 #pragma mark - Private Methods
 
 - (void)setupSubviews {
+    TCTabView *tabView = [[TCTabView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, 40) titleArr:@[@"全部", @"待付款", @"待发货", @"待收货", @"已完成"]];
+    tabView.tapBlock = ^(NSInteger index) {
+        
+    };
+    [self.view addSubview:tabView];
+    
     
 }
 
