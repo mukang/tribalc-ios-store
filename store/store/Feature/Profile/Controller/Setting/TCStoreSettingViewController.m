@@ -10,6 +10,9 @@
 #import "TCProfileViewController.h"
 #import "TCStoreLogoUploadViewController.h"
 #import "TCStoreSurroundingViewController.h"
+#import "TCNavigationController.h"
+#import "TCStoreAddressViewController.h"
+#import "TCBusinessHoursViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonInputViewCell.h"
@@ -46,6 +49,7 @@ TCStoreFacilitiesViewCellDelegate>
 @property (copy, nonatomic) NSArray *cookingStyles;
 
 @property (nonatomic, getter=isEditEnabled) BOOL editEnabled;
+@property (nonatomic) BOOL originInteractivePopGestureEnabled;
 
 @end
 
@@ -69,12 +73,19 @@ TCStoreFacilitiesViewCellDelegate>
     [super viewWillAppear:animated];
     
     [self registerNotifications];
+    
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    self.originInteractivePopGestureEnabled = nav.enableInteractivePopGesture;
+    nav.enableInteractivePopGesture = !self.isBackForbidden;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     [self removeNotifications];
+    
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    nav.enableInteractivePopGesture = self.originInteractivePopGestureEnabled;
 }
 
 - (void)dealloc {
@@ -446,11 +457,23 @@ TCStoreFacilitiesViewCellDelegate>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.isEditEnabled) return;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView endEditing:YES];
+    if (!self.isEditEnabled) return;
     
-    
+    if (indexPath.section == 1) {
+        if (indexPath.row == 2) {
+            [self handleSelectStoreAddressCell];
+        } else if (indexPath.row == 3) {
+            [self handleSelectBusinessHoursCell];
+        }
+    } else if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            [self handleSelectStoreLogoCell];
+        } else if (indexPath.row == 1) {
+            [self handleSelectStoreSurroundingCell];
+        }
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -575,7 +598,7 @@ TCStoreFacilitiesViewCellDelegate>
 }
 
 - (void)handleClickSaveItem:(UIBarButtonItem *)sender {
-    
+    [weakSelf.tableView endEditing:YES];
     [self handleChangeStoreDetailInfo];
 }
 
@@ -603,7 +626,6 @@ TCStoreFacilitiesViewCellDelegate>
                                                                   forState:UIControlStateNormal];
             
             weakSelf.editEnabled = NO;
-            [weakSelf.tableView endEditing:YES];
             [weakSelf.tableView reloadData];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
@@ -641,6 +663,64 @@ TCStoreFacilitiesViewCellDelegate>
 - (void)handleKeyboardWillHideNotification:(NSNotification *)notification {
     self.tableView.contentInset = UIEdgeInsetsZero;
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
+
+- (void)handleSelectStoreAddressCell {
+    TCStoreAddressViewController *vc = [[TCStoreAddressViewController alloc] init];
+    TCStoreAddress *storeAddress = [[TCStoreAddress alloc] init];
+    storeAddress.province = self.storeDetailInfo.province;
+    storeAddress.city = self.storeDetailInfo.city;
+    storeAddress.district = self.storeDetailInfo.district;
+    storeAddress.address = self.storeDetailInfo.address;
+    vc.storeAddress = storeAddress;
+    vc.editAddressCompletion = ^(TCStoreAddress *storeAddress) {
+        weakSelf.storeDetailInfo.province = storeAddress.province;
+        weakSelf.storeDetailInfo.city = storeAddress.city;
+        weakSelf.storeDetailInfo.district = storeAddress.district;
+        weakSelf.storeDetailInfo.address = storeAddress.address;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:1];
+        [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectBusinessHoursCell {
+    TCBusinessHoursViewController *vc = [[TCBusinessHoursViewController alloc] init];
+    if (self.storeDetailInfo.businessHours) {
+        NSArray *parts = [self.storeDetailInfo.businessHours componentsSeparatedByString:@"-"];
+        if (parts.count == 2) {
+            vc.openTime = [parts firstObject];
+            vc.closeTime = [parts lastObject];
+        }
+    }
+    vc.businessHoursBlock = ^(NSString *openTime, NSString *closeTime) {
+        self.storeDetailInfo.businessHours = [NSString stringWithFormat:@"%@-%@", openTime, closeTime];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:1];
+        [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectStoreLogoCell {
+    TCStoreLogoUploadViewController *vc = [[TCStoreLogoUploadViewController alloc] init];
+    vc.logo = self.storeDetailInfo.logo;
+    vc.uploadLogoCompletion = ^(NSString *logo) {
+        weakSelf.storeDetailInfo.logo = logo;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+        [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectStoreSurroundingCell {
+    TCStoreSurroundingViewController *vc = [[TCStoreSurroundingViewController alloc] init];
+    vc.storeDetailInfo = self.storeDetailInfo;
+    vc.editSurroundingCompletion = ^() {
+        weakSelf.storeSetMealMeta.pictures = weakSelf.storeDetailInfo.pictures;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:2];
+        [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Override Methods

@@ -347,6 +347,7 @@
             [MBProgressHUD hideHUD:YES];
             TCStoreSettingViewController *vc = [[TCStoreSettingViewController alloc] init];
             vc.navigationItem.title = @"店铺信息";
+            vc.backForbidden = YES;
             [weakSelf.navigationController pushViewController:vc animated:YES];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";

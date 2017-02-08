@@ -10,4 +10,7 @@
 
 @interface TCStoreSettingViewController : TCBaseViewController
 
+/** 从TCCreateStoreNextViewController跳转过来时应该禁止返回 */
+@property (nonatomic, getter=isBackForbidden) BOOL backForbidden;
+
 @end
