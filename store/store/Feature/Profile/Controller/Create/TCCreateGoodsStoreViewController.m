@@ -9,7 +9,6 @@
 #import "TCCreateGoodsStoreViewController.h"
 #import "TCStoreAddressViewController.h"
 #import "TCStoreLogoUploadViewController.h"
-#import "TCStoreSurroundingViewController.h"
 #import "TCGoodsStoreSettingViewController.h"
 
 #import "TCCommonButton.h"
@@ -125,7 +124,7 @@ YYTextViewDelegate>
             return 3;
             break;
         case 2:
-            return 2;
+            return 1;
             break;
         case 3:
             return 1;
@@ -194,17 +193,8 @@ YYTextViewDelegate>
             TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
             cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
-            if (indexPath.row == 0) {
-                cell.titleLabel.text = @"LOGO";
-                cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
-            } else {
-                cell.titleLabel.text = @"环境图";
-                if (self.storeDetailInfo.pictures.count) {
-                    cell.subtitleLabel.text = [NSString stringWithFormat:@"%zd张", self.storeDetailInfo.pictures.count];
-                } else {
-                    cell.subtitleLabel.text = nil;
-                }
-            }
+            cell.titleLabel.text = @"LOGO";
+            cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
             return cell;
         }
             break;
@@ -250,12 +240,8 @@ YYTextViewDelegate>
     [tableView endEditing:YES];
     if (indexPath.section == 1 && indexPath.row == 2) {
         [self handleSelectStoreAddressCell];
-    } else if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-            [self handleSelectStoreLogoCell];
-        } else {
-            [self handleSelectStoreSurroundingCell];
-        }
+    } else if (indexPath.section == 2 && indexPath.row == 0) {
+        [self handleSelectStoreLogoCell];
     }
 }
 
@@ -400,15 +386,6 @@ YYTextViewDelegate>
     vc.logo = self.storeDetailInfo.logo;
     vc.uploadLogoCompletion = ^(NSString *logo) {
         weakSelf.storeDetailInfo.logo = logo;
-        [weakSelf.tableView reloadData];
-    };
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)handleSelectStoreSurroundingCell {
-    TCStoreSurroundingViewController *vc = [[TCStoreSurroundingViewController alloc] init];
-    vc.storeDetailInfo = self.storeDetailInfo;
-    vc.editSurroundingCompletion = ^() {
         [weakSelf.tableView reloadData];
     };
     [self.navigationController pushViewController:vc animated:YES];
