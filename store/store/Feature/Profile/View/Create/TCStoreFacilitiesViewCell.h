@@ -11,6 +11,7 @@
 
 @interface TCStoreFacilitiesViewCell : UITableViewCell
 
+@property (nonatomic) BOOL hidePrompt;
 @property (copy, nonatomic) NSArray *features;
 @property (weak, nonatomic) id<TCStoreFacilitiesViewCellDelegate> delegate;
 

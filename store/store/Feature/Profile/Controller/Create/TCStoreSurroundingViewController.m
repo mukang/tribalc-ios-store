@@ -58,7 +58,7 @@ TCStoreSurroundingViewCellDelegate>
     weakSelf = self;
     self.view.backgroundColor = TCRGBColor(242, 242, 242);
     self.pictures = [NSMutableArray arrayWithArray:self.storeDetailInfo.pictures];
-    self.currentIndex = 10;
+    self.currentIndex = 100;
     self.totalCount = 9;
     
     [self setupNavBar];
@@ -299,7 +299,7 @@ TCStoreSurroundingViewCellDelegate>
             } else {
                 [weakSelf.pictures addObject:picture];
             }
-            weakSelf.currentIndex = 10;
+            weakSelf.currentIndex = 100;
             [weakSelf updateSubviews];
             [weakSelf.collectionView reloadData];
         } else {
@@ -334,6 +334,7 @@ TCStoreSurroundingViewCellDelegate>
         [MBProgressHUD showHUDWithMessage:@"已上传9张图片，不能继续上传"];
         return;
     }
+    self.currentIndex = 100;
     TCPhotoModeView *photoModeView = [[TCPhotoModeView alloc] initWithController:self];
     photoModeView.delegate = self;
     [photoModeView show];

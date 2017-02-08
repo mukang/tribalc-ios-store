@@ -9,12 +9,13 @@
 #import "TCCreateGoodsStoreViewController.h"
 #import "TCStoreAddressViewController.h"
 #import "TCStoreLogoUploadViewController.h"
-#import "TCStoreSurroundingViewController.h"
+#import "TCGoodsStoreSettingViewController.h"
 
 #import "TCCommonButton.h"
 #import "TCCommonInputViewCell.h"
 #import "TCCommonSubtitleViewCell.h"
 #import "TCCommonIndicatorViewCell.h"
+#import "TCStoreRecommendViewCell.h"
 #import "TCGoodsStoreRecommendViewCell.h"
 
 #import "TCBuluoApi.h"
@@ -25,6 +26,7 @@
 UITableViewDelegate,
 UIScrollViewDelegate,
 TCCommonInputViewCellDelegate,
+TCStoreRecommendViewCellDelegate,
 YYTextViewDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
@@ -86,6 +88,7 @@ YYTextViewDelegate>
     [tableView registerClass:[TCCommonInputViewCell class] forCellReuseIdentifier:@"TCCommonInputViewCell"];
     [tableView registerClass:[TCCommonSubtitleViewCell class] forCellReuseIdentifier:@"TCCommonSubtitleViewCell"];
     [tableView registerClass:[TCCommonIndicatorViewCell class] forCellReuseIdentifier:@"TCCommonIndicatorViewCell"];
+    [tableView registerClass:[TCStoreRecommendViewCell class] forCellReuseIdentifier:@"TCStoreRecommendViewCell"];
     [tableView registerClass:[TCGoodsStoreRecommendViewCell class] forCellReuseIdentifier:@"TCGoodsStoreRecommendViewCell"];
     [self.view addSubview:tableView];
     self.tableView = tableView;
@@ -121,7 +124,7 @@ YYTextViewDelegate>
             return 3;
             break;
         case 2:
-            return 2;
+            return 1;
             break;
         case 3:
             return 1;
@@ -190,28 +193,19 @@ YYTextViewDelegate>
             TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
             cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
-            if (indexPath.row == 0) {
-                cell.titleLabel.text = @"LOGO";
-                cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
-            } else {
-                cell.titleLabel.text = @"环境图";
-                if (self.storeDetailInfo.pictures.count) {
-                    cell.subtitleLabel.text = [NSString stringWithFormat:@"%zd张", self.storeDetailInfo.pictures.count];
-                } else {
-                    cell.subtitleLabel.text = nil;
-                }
-            }
+            cell.titleLabel.text = @"LOGO";
+            cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
             return cell;
         }
             break;
         case 3:
         {
             TCGoodsStoreRecommendViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsStoreRecommendViewCell" forIndexPath:indexPath];
-            cell.titleLabel.text = @"推荐理由";
-            cell.subtitleLabel.text = @"请输入商铺推荐理由：";
+            cell.titleLabel.text = @"店铺介绍";
+            cell.subtitleLabel.text = @"请输入店铺介绍：";
             cell.textView.placeholderText = @"例如：门前大桥下，游过一群鸭~";
-            cell.textView.text = self.storeDetailInfo.recommendedReason;
-            cell.textView.delegate = self;
+            cell.textView.text = self.storeDetailInfo.desc;
+            cell.delegate = self;
             return cell;
         }
             break;
@@ -226,7 +220,7 @@ YYTextViewDelegate>
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 3) {
+    if (indexPath.section == 3 && indexPath.row == 0) {
         return 206;
     } else {
         return 45;
@@ -246,12 +240,8 @@ YYTextViewDelegate>
     [tableView endEditing:YES];
     if (indexPath.section == 1 && indexPath.row == 2) {
         [self handleSelectStoreAddressCell];
-    } else if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-            [self handleSelectStoreLogoCell];
-        } else {
-            [self handleSelectStoreSurroundingCell];
-        }
+    } else if (indexPath.section == 2 && indexPath.row == 0) {
+        [self handleSelectStoreLogoCell];
     }
 }
 
@@ -279,14 +269,14 @@ YYTextViewDelegate>
     return YES;
 }
 
-#pragma mark - YYTextViewDelegate
+#pragma mark - TCStoreRecommendViewCellDelegate
 
-- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView {
-    self.currentIndexPath = [NSIndexPath indexPathForRow:0 inSection:3];
+- (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewShouldBeginEditing:(YYTextView *)textView {
+    self.currentIndexPath = [self.tableView indexPathForCell:cell];
     return YES;
 }
 
-- (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+- (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         if ([textView isFirstResponder]) {
             [textView resignFirstResponder];
@@ -296,9 +286,9 @@ YYTextViewDelegate>
     return YES;
 }
 
-- (void)textViewDidEndEditing:(YYTextView *)textView {
+- (void)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewDidEndEditing:(YYTextView *)textView {
     self.currentIndexPath = nil;
-    self.storeDetailInfo.recommendedReason = textView.text;
+    self.storeDetailInfo.desc = textView.text;
 }
 
 #pragma mark - Notifications
@@ -332,12 +322,19 @@ YYTextViewDelegate>
         [MBProgressHUD showHUDWithMessage:@"请上传logo"];
         return;
     }
+    if (self.storeDetailInfo.desc.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
+        return;
+    }
     
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] createStore:self.storeDetailInfo result:^(TCStoreInfo *storeInfo, NSError *error) {
         if (storeInfo) {
             [MBProgressHUD hideHUD:YES];
-            TCLog(@"创建成功");
+            TCGoodsStoreSettingViewController *vc = [[TCGoodsStoreSettingViewController alloc] init];
+            vc.navigationItem.title = @"店铺信息";
+            vc.backForbidden = YES;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"创建商铺失败，%@", reason]];
@@ -346,7 +343,7 @@ YYTextViewDelegate>
 }
 
 - (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
-    if (self.currentIndexPath.section != 3 || self.currentIndexPath.row != 0) return;
+    if (self.currentIndexPath.section != 3) return;
     
     NSDictionary *info = notification.userInfo;
     
@@ -389,15 +386,6 @@ YYTextViewDelegate>
     vc.logo = self.storeDetailInfo.logo;
     vc.uploadLogoCompletion = ^(NSString *logo) {
         weakSelf.storeDetailInfo.logo = logo;
-        [weakSelf.tableView reloadData];
-    };
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)handleSelectStoreSurroundingCell {
-    TCStoreSurroundingViewController *vc = [[TCStoreSurroundingViewController alloc] init];
-    vc.storeDetailInfo = self.storeDetailInfo;
-    vc.editSurroundingCompletion = ^() {
         [weakSelf.tableView reloadData];
     };
     [self.navigationController pushViewController:vc animated:YES];

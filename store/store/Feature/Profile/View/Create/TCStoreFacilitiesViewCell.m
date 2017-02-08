@@ -101,6 +101,22 @@
     }];
 }
 
+- (void)setHidePrompt:(BOOL)hidePrompt {
+    _hidePrompt = hidePrompt;
+    __weak typeof(self) weakSelf = self;
+    if (hidePrompt) {
+        self.promptView.hidden = YES;
+        [self.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(weakSelf.contentView.mas_bottom);
+        }];
+    } else {
+        self.promptView.hidden = NO;
+        [self.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(weakSelf.contentView.mas_bottom).with.offset(-40);
+        }];
+    }
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

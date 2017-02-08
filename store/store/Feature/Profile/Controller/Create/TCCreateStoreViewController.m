@@ -268,7 +268,14 @@ TCCookingStyleViewCellDelegate>
 #pragma mark - TCCommonInputViewCellDelegate
 
 - (void)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldDidEndEditing:(UITextField *)textField {
-    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        self.storeDetailInfo.name = textField.text;
+    } else if (indexPath.section == 0 && indexPath.row == 1) {
+        self.storeDetailInfo.subbranchName = textField.text;
+    } else if (indexPath.section == 1 && indexPath.row == 1) {
+        self.storeDetailInfo.otherPhone = textField.text;
+    }
 }
 
 - (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldReturn:(UITextField *)textField {

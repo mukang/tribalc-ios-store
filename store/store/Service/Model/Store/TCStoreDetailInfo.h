@@ -45,8 +45,6 @@
 @property (copy, nonatomic) NSString *address;
 /** 环境组图 */
 @property (copy, nonatomic) NSArray *pictures;
-/** 推荐理由 */
-@property (copy, nonatomic) NSString *recommendedReason;
 /** 辅助设施 */
 @property (copy, nonatomic) NSArray *facilities;
 /** 菜系类型 */
