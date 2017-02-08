@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MGSwipeTableCell.h"
 
-@class TCGoods;
+@class TCGoodsMeta;
 @interface TCGoodsListCell : MGSwipeTableCell
 
-@property (strong, nonatomic) TCGoods *good;
+@property (strong, nonatomic) TCGoodsMeta *good;
 
 @end

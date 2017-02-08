@@ -297,7 +297,7 @@
 
 - (void)delete:(UIButton *)btn {
     NSInteger index = btn.tag/100;
-    TCGoods *good = self.goods[index];
+    TCGoodsMeta *good = self.goods[index];
     NSString *goodsID = good.ID;
     
     if (_onSaleBtn.selected) {

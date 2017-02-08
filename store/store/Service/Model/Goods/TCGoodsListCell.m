@@ -9,7 +9,7 @@
 #import "TCGoodsListCell.h"
 #import "TCImageURLSynthesizer.h"
 #import "UIImage+Category.h"
-#import "TCGoods.h"
+#import "TCGoodsMeta.h"
 #import <UIImageView+WebCache.h>
 
 @interface TCGoodsListCell ()
@@ -109,7 +109,7 @@
     }];
 }
 
-- (void)setGood:(TCGoods *)good {
+- (void)setGood:(TCGoodsMeta *)good {
     if (_good != good) {
         _good = good;
         
@@ -120,7 +120,7 @@
         _titleLabel.text = good.title;
         _storeLabel.text = [NSString stringWithFormat:@"库存  %ld份",good.priceAndRepertory.repertory];
         _priceLabel.text = [NSString stringWithFormat:@"单价  %.2f元",good.priceAndRepertory.salePrice];
-        _salesLabel.text = [NSString stringWithFormat:@"销量  %ld",good.saleQuantity];
+//        _salesLabel.text = [NSString stringWithFormat:@"销量  %ld",good.saleQuantity];
         _creatTimeLabel.text = @"创建时间  2016-09-09";
     }
 }

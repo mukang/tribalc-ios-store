@@ -67,10 +67,10 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, TCRealValue(250))];
-    _tableView.tableHeaderView = headView;
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(250))];
     
-    TCImagePlayerView *imageView = [[TCImagePlayerView alloc] init];
+    TCImagePlayerView *imageView = [[TCImagePlayerView alloc] initWithFrame:headView.bounds];
+    imageView.backgroundColor = [UIColor redColor];
     [headView addSubview:imageView];
     if (self.goods.pictures) {
         [imageView setPictures:self.goods.pictures isLocal:NO];
@@ -83,10 +83,6 @@
     [btn addTarget:self action:@selector(chosePhoto) forControlEvents:UIControlEventTouchUpInside];
     self.chosePhotoBtn = btn;
     
-//    UIImageView *imageView = [[UIImageView alloc] init];
-//    imageView.contentMode = UIViewContentModeScaleAspectFill;
-//    [headView addSubview:imageView];
-    
     _nextBtn = [TCCommonButton bottomButtonWithTitle:@"下一步" color:TCCommonButtonColorOrange target:self action:@selector(next)];
     [self.view addSubview:_nextBtn];
     
@@ -95,9 +91,6 @@
         make.bottom.equalTo(self.view).offset(-TCRealValue(50));
     }];
     
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(headView);
-    }];
     if (self.goods.pictures) {
         if (self.goods.pictures.count) {
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -127,6 +120,8 @@
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(_tableView.mas_bottom);
     }];
+    
+    _tableView.tableHeaderView = headView;
     
 }
 
