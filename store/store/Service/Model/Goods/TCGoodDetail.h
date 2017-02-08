@@ -59,5 +59,6 @@
 @property (copy, nonatomic) NSString *dispatchPlace;
 
 
+@property (copy, nonatomic) NSString *number;
 
 @end

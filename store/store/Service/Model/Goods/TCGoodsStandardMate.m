@@ -8,6 +8,11 @@
 
 #import "TCGoodsStandardMate.h"
 
+
 @implementation TCGoodsStandardMate
+
++(NSDictionary *)objectClassInDictionary {
+    return @{@"descriptions":[TCGoodsStandardDescriptions class]};
+}
 
 @end

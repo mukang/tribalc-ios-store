@@ -7,10 +7,10 @@
 //
 
 #import "TCBaseViewController.h"
-#import "TCGoods.h"
+#import "TCGoodsMeta.h"
 
 @interface TCChoseSpecificationsController : TCBaseViewController
 
-@property (strong, nonatomic) TCGoods *good;
+@property (strong, nonatomic) TCGoodsMeta *good;
 
 @end

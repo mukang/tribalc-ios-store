@@ -7,10 +7,14 @@
 //
 
 #import "TCBaseViewController.h"
-#import "TCGoods.h"
+#import "TCGoodsMeta.h"
+#import "TCGoodsStandardMate.h"
 
+@class TCGoodsStandardMate;
 @interface TCCreateGoodsViewController : TCBaseViewController
 
-@property (strong, nonatomic) TCGoods *goods;
+@property (strong, nonatomic) TCGoodsMeta *goods;
+
+@property (strong, nonatomic) TCGoodsStandardMate *currentGoodsStandardMate;
 
 @end

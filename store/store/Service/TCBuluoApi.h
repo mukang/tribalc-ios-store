@@ -270,11 +270,57 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock;
 
+/**
+ 创建商品
+
+ @param goods 商品
+ @param goodsStandardMate 规格
+ @param resultBlock 回调
+ */
+- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock;
+
+
+/**
+ 修改商品发布状态
+
+ @param goodsId 商品id
+ @param published 是否上架
+ @param resultBlock 回调
+ */
+- (void)modifyGoodsState:(NSString *)goodsId published:(NSString *)published result:(void (^)(BOOL, NSError *))resultBlock;
+
+
+/**
+ 删除商品
+
+ @param goodsId 商品id
+ @param resultBlock 回调
+ */
+- (void)deleteGoods:(NSString *)goodsId result:(void (^)(BOOL, NSError *))resultBlock;
+
+
+/**
+ 获取商品规格组
+
+ @param standardId 规格组id
+ @param resultBlock 回调
+ */
+- (void)getGoodsStandard:(NSString *)standardId result:(void (^)(TCGoodsStandardMate *goodsStandardMate, NSError *error))resultBlock;
+
+
+/**
+ 修改商品
+
+ @param goods 商品
+ @param resultBlock 回调
+ */
+- (void)modifyGoods:(TCGoodsMeta *)goods result:(void (^)(BOOL success, NSError *error))resultBlock;
+
 #pragma mark - 订单资源
 
 /**
  商铺商品订单列表
-
+ 
  @param status 订单状态，传nil为查询全部，（NO_SETTLE, SETTLE, DELIVERY, RECEIVED）
  @param limitSize 获取数量，默认值 10
  @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
@@ -284,7 +330,7 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
 
 /**
  修改订单状态(发货)
-
+ 
  @param goodsOrderChangeInfo TCGoodsOrderChangeInfo对象
  @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
  */

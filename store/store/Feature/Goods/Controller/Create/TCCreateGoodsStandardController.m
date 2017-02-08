@@ -52,6 +52,105 @@
     _hasSecondary = NO;
     [self setUpViews];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tableViewReload) name:@"UITableViewReload" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCache:) name:@"KTCUPDATESTANDARDPRICEORREPEROTY" object:nil];
+}
+
+- (void)updateCache:(NSNotification *)noti {
+    NSDictionary *dic = noti.userInfo;
+    NSString *price = dic[@"price"];
+    NSString *repertory = dic[@"repertory"];
+    
+    if (!self.goodsStandardMate) {
+        self.goodsStandardMate = [[TCGoodsStandardMate alloc] init];
+    }
+    
+    if (!self.goodsStandardMate.priceAndRepertoryMap) {
+        self.goodsStandardMate.priceAndRepertoryMap = [NSDictionary dictionary];
+    }
+    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
+    for (int i = 0; i < self.allStandardArr.count; i++) {
+        NSString *standardStr = self.allStandardArr[i];
+        TCGoodsPriceAndRepertory *priceAndRepertory = self.goodsStandardMate.priceAndRepertoryMap[standardStr];
+        if (!priceAndRepertory) {
+            priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+        }
+        if ([price isKindOfClass:[NSString class]]) {
+            priceAndRepertory.salePrice = [price floatValue];
+        }
+        
+        if ([repertory isKindOfClass:[NSString class]]) {
+            priceAndRepertory.repertory = [repertory integerValue];
+        }
+        
+        [mutableDic setObject:priceAndRepertory forKey:standardStr];
+    }
+    
+    self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
+    
+    
+    
+//    if (self.goodsStandardMate) {
+//        if (self.goodsStandardMate.priceAndRepertoryMap) {
+//            for (int i = 0; i < self.allStandardArr.count; i++) {
+//                NSString *standardStr = self.allStandardArr[i];
+//                TCGoodsPriceAndRepertory *priceAndRepertory = self.goodsStandardMate.priceAndRepertoryMap[standardStr];
+//                if (!priceAndRepertory) {
+//                    priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+//                }
+//                if ([price isKindOfClass:[NSString class]]) {
+//                    priceAndRepertory.salePrice = [price floatValue];
+//                }
+//                
+//                if ([repertory isKindOfClass:[NSString class]]) {
+//                    priceAndRepertory.repertory = [repertory integerValue];
+//                }
+//                
+//                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
+//                [mutableDic setObject:priceAndRepertory forKey:standardStr];
+//            }
+//        }else {
+//            
+//            NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
+//            
+//            for (int i = 0; i < self.allStandardArr.count; i++) {
+//                NSString *standardStr = self.allStandardArr[i];
+//                TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+//                if ([price isKindOfClass:[NSString class]]) {
+//                    priceAndRepertory.salePrice = [price floatValue];
+//                }
+//                
+//                if ([repertory isKindOfClass:[NSString class]]) {
+//                    priceAndRepertory.repertory = [repertory integerValue];
+//                }
+//                
+////                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
+//                [mutableDic setObject:priceAndRepertory forKey:standardStr];
+//            }
+//            
+//            self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
+//        }
+//    }else {
+//        self.goodsStandardMate = [[TCGoodsStandardMate alloc] init];
+//        NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
+//        
+//        for (int i = 0; i < self.allStandardArr.count; i++) {
+//            NSString *standardStr = self.allStandardArr[i];
+//            TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+//            if ([price isKindOfClass:[NSString class]]) {
+//                priceAndRepertory.salePrice = [price floatValue];
+//            }
+//            
+//            if ([repertory isKindOfClass:[NSString class]]) {
+//                priceAndRepertory.repertory = [repertory integerValue];
+//            }
+//            
+//            //                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
+//            [mutableDic setObject:priceAndRepertory forKey:standardStr];
+//        }
+//        
+//        self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
+//    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -377,6 +476,44 @@
     
     self.cellsArr = mutabelCellArr;
     [self.tableView reloadData];
+}
+
+- (void)textFieldDidEndEditting:(NSDictionary *)dict {
+    if (!dict)
+        return;
+    
+    NSString *key = dict.allKeys[0];
+    
+    if (!self.goodsStandardMate) {
+        self.goodsStandardMate = [[TCGoodsStandardMate alloc] init];
+    }
+    
+    if (!self.goodsStandardMate.priceAndRepertoryMap) {
+        self.goodsStandardMate.priceAndRepertoryMap = [NSDictionary dictionary];
+    }
+    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
+    TCGoodsPriceAndRepertory *priceAndRepertory = self.goodsStandardMate.priceAndRepertoryMap[key];
+    if (!priceAndRepertory) {
+        priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+    }
+    
+    NSDictionary *dic = dict[key];
+    
+    if ([dic isKindOfClass:[NSDictionary class]]) {
+        NSString *subKey = dic.allKeys[0];
+        
+        if ([subKey isEqualToString:@"originPrice"]) {
+            priceAndRepertory.originPrice = [dic[subKey] floatValue];
+        }else if ([subKey isEqualToString:@"salePrice"]) {
+            priceAndRepertory.salePrice = [dic[subKey] floatValue];
+        }else {
+            priceAndRepertory.repertory = [dic[subKey] integerValue];
+        }
+    }
+    
+    [mutableDic setObject:priceAndRepertory forKey:key];
+    
+    self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
 }
 
 - (void)textFieldShouldEndEditting:(UITableViewCell *)cell {

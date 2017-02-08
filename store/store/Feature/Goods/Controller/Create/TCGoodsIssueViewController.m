@@ -11,6 +11,7 @@
 #import "TCCommonIndicatorViewCell.h"
 #import <Masonry.h>
 #import "TCGoodsTipsCell.h"
+#import "TCBuluoApi.h"
 
 @interface TCGoodsIssueViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,TCGoodsTipsCellDelegate>
 
@@ -57,14 +58,16 @@
     [putInStoreBtn setTitle:@"放入仓库" forState:UIControlStateNormal];
     [putInStoreBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:putInStoreBtn];
-    [putInStoreBtn addTarget:self action:@selector(putInStore) forControlEvents:UIControlEventTouchUpInside];
+    putInStoreBtn.tag = 123;
+    [putInStoreBtn addTarget:self action:@selector(issue:) forControlEvents:UIControlEventTouchUpInside];
     [putInStoreBtn setBackgroundColor:[UIColor orangeColor]];
     
     UIButton *issueBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [issueBtn setTitle:@"立即发布" forState:UIControlStateNormal];
     [issueBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:issueBtn];
-    [issueBtn addTarget:self action:@selector(issue) forControlEvents:UIControlEventTouchUpInside];
+    issueBtn.tag = 124;
+    [issueBtn addTarget:self action:@selector(issue:) forControlEvents:UIControlEventTouchUpInside];
     [issueBtn setBackgroundColor:[UIColor redColor]];
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -89,23 +92,63 @@
     _tipsCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (void)putInStore {
+- (void)issue:(UIButton *)btn {
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
+    if (self.currentLibsStr) {
+        if (self.currentLibsStr.length) {
+            NSArray *arr = [self.currentLibsStr componentsSeparatedByString:@"、"];
+            [mutableArr addObjectsFromArray:arr];
+        }
+    }
     
+    if (self.selectedLibsArr) {
+        [mutableArr addObjectsFromArray:self.selectedLibsArr];
+    }
     
-    
-}
-
-- (void)issue {
-    NSArray *arr = [self.currentLibsStr componentsSeparatedByString:@"、"];
-    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:arr];
-    [mutableArr addObjectsFromArray:self.selectedLibsArr];
     if (mutableArr.count > 3) {
         [MBProgressHUD showHUDWithMessage:@"选择标签和自定义标签总共最对三个"];
         return;
     }
-    self.goods.tags = mutableArr;
     
+    if (mutableArr.count) {
+        self.goods.tags = mutableArr;
+    }
     
+    if (btn.tag == 123) {
+        self.goods.published = @"false";
+    }else {
+        self.goods.published = @"true";
+    }
+    
+    TCGoodsStandardMate *goodStandMate = self.goodsStandardMate;
+    
+    if (self.goods.standardId || self.goods.priceAndRepertory) {
+        goodStandMate = nil;
+    }
+    
+    if (self.goods.ID) {
+        [[TCBuluoApi api] modifyGoods:self.goods result:^(BOOL success, NSError *error) {
+            if (success) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"KISSUEORMODIFYGOODS" object:nil];
+            }else {
+                NSString *reason = error.localizedDescription ?: @"请稍后再试";
+                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"加载失败，%@", reason]];
+            }
+        }];
+    }else {
+        [[TCBuluoApi api] createGoods:self.goods goodsStandardMate:goodStandMate result:^(NSArray *goodsArr, NSError *error) {
+            if (goodsArr) {
+                NSLog(@"%@",goodsArr);
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"KISSUEORMODIFYGOODS" object:nil];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }else {
+                NSString *reason = error.localizedDescription ?: @"请稍后再试";
+                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"加载失败，%@", reason]];
+            }
+            
+        }];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -137,8 +180,8 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.titleLabel.text = @"货号";
             cell.placeholder = @"请输入商品货号";
-            if (self.goods.expressType) {
-                cell.textField.text = self.goods.expressType;
+            if (self.goods.number) {
+                cell.textField.text = self.goods.number;
             }
             return cell;
         }else if (indexPath.row == 1) {
@@ -176,7 +219,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            self.goods.expressType = textField.text;
+            self.goods.number = textField.text;
         }else if (indexPath.row == 1) {
             self.goods.expressFee = [textField.text floatValue];
         }
