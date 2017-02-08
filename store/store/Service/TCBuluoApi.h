@@ -269,4 +269,25 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  @param resultBlock 结果回调
  */
 - (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock;
+
+#pragma mark - 订单资源
+
+/**
+ 商铺商品订单列表
+
+ @param status 订单状态，传nil为查询全部，（NO_SETTLE, SETTLE, DELIVERY, RECEIVED）
+ @param limitSize 获取数量，默认值 10
+ @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
+ @param resultBlock 结果回调，goodsOrderWrapper为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchGoodsOrderWrapper:(NSString *)status limitSize:(NSUInteger)limitSize sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsOrderWrapper *goodsOrderWrapper, NSError *error))resultBlock;
+
+/**
+ 修改订单状态(发货)
+
+ @param goodsOrderChangeInfo TCGoodsOrderChangeInfo对象
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeGoodsOrderStatus:(TCGoodsOrderChangeInfo *)goodsOrderChangeInfo result:(void (^)(BOOL success, NSError *error))resultBlock;
+
 @end

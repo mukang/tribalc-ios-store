@@ -34,6 +34,7 @@
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
 		7A0E00B01E2E1C4A0028555D /* TCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AF1E2E1C4A0028555D /* TCSettingViewController.m */; };
+		7A17EB9A1E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A17EB991E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m */; };
 		7A1B03891E359EAB003258D0 /* TCCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03881E359EAB003258D0 /* TCCityPickerView.m */; };
 		7A1B038E1E35A9E5003258D0 /* citylist.data in Resources */ = {isa = PBXBuildFile; fileRef = 7A1B038C1E35A9E5003258D0 /* citylist.data */; };
 		7A1B03911E35B0DB003258D0 /* TCStoreAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03901E35B0DB003258D0 /* TCStoreAddress.m */; };
@@ -48,6 +49,10 @@
 		7A48B41D1E486A6F00373BF4 /* TCStoreSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B41C1E486A6F00373BF4 /* TCStoreSettingViewController.m */; };
 		7A48B4201E4884EF00373BF4 /* TCCommonSwitchViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B41F1E4884EF00373BF4 /* TCCommonSwitchViewCell.m */; };
 		7A48B4231E49F23E00373BF4 /* TCGoodsStoreSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B4221E49F23E00373BF4 /* TCGoodsStoreSettingViewController.m */; };
+		7A48B4281E4B004F00373BF4 /* TCGoodsOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B4271E4B004F00373BF4 /* TCGoodsOrderViewController.m */; };
+		7A48B42C1E4B02DB00373BF4 /* TCGoodsOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B42B1E4B02DB00373BF4 /* TCGoodsOrder.m */; };
+		7A48B42F1E4B030700373BF4 /* TCGoodsOrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B42E1E4B030700373BF4 /* TCGoodsOrderItem.m */; };
+		7A48B4321E4B048100373BF4 /* TCGoodsOrderWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B4311E4B048100373BF4 /* TCGoodsOrderWrapper.m */; };
 		7A5344591E2F1C4E0053B527 /* TCInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5344581E2F1C4E0053B527 /* TCInfoViewController.m */; };
 		7A53445C1E2F4E930053B527 /* TCInfoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A53445B1E2F4E930053B527 /* TCInfoViewCell.m */; };
 		7A5344621E2F5C460053B527 /* TCInfoEditViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5344611E2F5C460053B527 /* TCInfoEditViewCell.m */; };
@@ -246,6 +251,8 @@
 		7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppNotificationViewCell.m; sourceTree = "<group>"; };
 		7A0E00AE1E2E1C4A0028555D /* TCSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00AF1E2E1C4A0028555D /* TCSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSettingViewController.m; sourceTree = "<group>"; };
+		7A17EB981E4B1D8F005D377C /* TCGoodsOrderChangeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderChangeInfo.h; sourceTree = "<group>"; };
+		7A17EB991E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderChangeInfo.m; sourceTree = "<group>"; };
 		7A1B03871E359EAB003258D0 /* TCCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCityPickerView.h; sourceTree = "<group>"; };
 		7A1B03881E359EAB003258D0 /* TCCityPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCityPickerView.m; sourceTree = "<group>"; };
 		7A1B038C1E35A9E5003258D0 /* citylist.data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = citylist.data; sourceTree = "<group>"; };
@@ -273,6 +280,14 @@
 		7A48B41F1E4884EF00373BF4 /* TCCommonSwitchViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCommonSwitchViewCell.m; sourceTree = "<group>"; };
 		7A48B4211E49F23E00373BF4 /* TCGoodsStoreSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsStoreSettingViewController.h; sourceTree = "<group>"; };
 		7A48B4221E49F23E00373BF4 /* TCGoodsStoreSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsStoreSettingViewController.m; sourceTree = "<group>"; };
+		7A48B4261E4B004F00373BF4 /* TCGoodsOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderViewController.h; sourceTree = "<group>"; };
+		7A48B4271E4B004F00373BF4 /* TCGoodsOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderViewController.m; sourceTree = "<group>"; };
+		7A48B42A1E4B02DB00373BF4 /* TCGoodsOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrder.h; sourceTree = "<group>"; };
+		7A48B42B1E4B02DB00373BF4 /* TCGoodsOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrder.m; sourceTree = "<group>"; };
+		7A48B42D1E4B030700373BF4 /* TCGoodsOrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderItem.h; sourceTree = "<group>"; };
+		7A48B42E1E4B030700373BF4 /* TCGoodsOrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderItem.m; sourceTree = "<group>"; };
+		7A48B4301E4B048100373BF4 /* TCGoodsOrderWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderWrapper.h; sourceTree = "<group>"; };
+		7A48B4311E4B048100373BF4 /* TCGoodsOrderWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderWrapper.m; sourceTree = "<group>"; };
 		7A5344571E2F1C4E0053B527 /* TCInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCInfoViewController.h; sourceTree = "<group>"; };
 		7A5344581E2F1C4E0053B527 /* TCInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCInfoViewController.m; sourceTree = "<group>"; };
 		7A53445A1E2F4E930053B527 /* TCInfoViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCInfoViewCell.h; sourceTree = "<group>"; };
@@ -591,6 +606,37 @@
 				7A1B038C1E35A9E5003258D0 /* citylist.data */,
 			);
 			path = BinaryFiles;
+			sourceTree = "<group>";
+		};
+		7A48B4241E4B000E00373BF4 /* Goods */ = {
+			isa = PBXGroup;
+			children = (
+				7A48B4261E4B004F00373BF4 /* TCGoodsOrderViewController.h */,
+				7A48B4271E4B004F00373BF4 /* TCGoodsOrderViewController.m */,
+			);
+			path = Goods;
+			sourceTree = "<group>";
+		};
+		7A48B4251E4B001700373BF4 /* Goods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Goods;
+			sourceTree = "<group>";
+		};
+		7A48B4291E4B02B000373BF4 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				7A48B4301E4B048100373BF4 /* TCGoodsOrderWrapper.h */,
+				7A48B4311E4B048100373BF4 /* TCGoodsOrderWrapper.m */,
+				7A48B42A1E4B02DB00373BF4 /* TCGoodsOrder.h */,
+				7A48B42B1E4B02DB00373BF4 /* TCGoodsOrder.m */,
+				7A48B42D1E4B030700373BF4 /* TCGoodsOrderItem.h */,
+				7A48B42E1E4B030700373BF4 /* TCGoodsOrderItem.m */,
+				7A17EB981E4B1D8F005D377C /* TCGoodsOrderChangeInfo.h */,
+				7A17EB991E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		7A5344551E2F1C1D0053B527 /* Info */ = {
@@ -971,6 +1017,7 @@
 			children = (
 				7A9987F41E24EAF0006175CC /* TCModelImport.h */,
 				7A9987F51E24EAF0006175CC /* TCModelImport.m */,
+				7A48B4291E4B02B000373BF4 /* Order */,
 				5503191C1E30D29E004522C7 /* Authentication */,
 				7A55F4251E2886BC0018FED3 /* Store */,
 				7A9988211E24EE4B006175CC /* Upload */,
@@ -1271,6 +1318,7 @@
 			children = (
 				7ABCC1031E262B8F00750E47 /* TCOrderViewController.h */,
 				7ABCC1041E262B8F00750E47 /* TCOrderViewController.m */,
+				7A48B4241E4B000E00373BF4 /* Goods */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1278,6 +1326,7 @@
 		7ABCC0FC1E262B3C00750E47 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7A48B4251E4B001700373BF4 /* Goods */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1617,6 +1666,8 @@
 				7ABCC0DC1E2622C800750E47 /* TCCalloutAnnotationView.m in Sources */,
 				5503191B1E30C7DF004522C7 /* TCIndustryPermitViewController.m in Sources */,
 				7A1B039D1E36083D003258D0 /* TCStoreSurroundingViewCell.m in Sources */,
+				7A48B4281E4B004F00373BF4 /* TCGoodsOrderViewController.m in Sources */,
+				7A48B42C1E4B02DB00373BF4 /* TCGoodsOrder.m in Sources */,
 				7ABCC0F01E2622C800750E47 /* TCServiceSelectBtn.m in Sources */,
 				550319441E34D86B004522C7 /* TCRefreshHeader.m in Sources */,
 				558F6DA41E48196400CB2F81 /* TCGoodsIssueViewController.m in Sources */,
@@ -1646,6 +1697,7 @@
 				7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */,
 				7ABCC0DE1E2622C800750E47 /* TCDetailAnnotationView.m in Sources */,
 				7A53446C1E2F7B7C0053B527 /* TCBioEditPhoneViewController.m in Sources */,
+				7A48B4321E4B048100373BF4 /* TCGoodsOrderWrapper.m in Sources */,
 				550319181E30BC89004522C7 /* TCAuthCertifyViewController.m in Sources */,
 				5503192F1E34926C004522C7 /* TCChoseSpecificationsController.m in Sources */,
 				550319351E349779004522C7 /* TCGoodsStandardMate.m in Sources */,
@@ -1658,6 +1710,7 @@
 				7A48B41A1E48247800373BF4 /* TCStoreSetMealMeta.m in Sources */,
 				7ABCC0EF1E2622C800750E47 /* TCServiceFilterView.m in Sources */,
 				7A48B41D1E486A6F00373BF4 /* TCStoreSettingViewController.m in Sources */,
+				7A48B42F1E4B030700373BF4 /* TCGoodsOrderItem.m in Sources */,
 				7ABCC0EE1E2622C800750E47 /* TCSelectSortButton.m in Sources */,
 				7ABCC0EB1E2622C800750E47 /* TCRestaurantLogoView.m in Sources */,
 				7ABCC0EA1E2622C800750E47 /* TCImgPageControl.m in Sources */,
@@ -1690,6 +1743,7 @@
 				7A9988271E24EFE6006175CC /* TCUserPhoneInfo.m in Sources */,
 				7ABCC0D41E2622C800750E47 /* TCRecommendListViewController.m in Sources */,
 				7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */,
+				7A17EB9A1E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m in Sources */,
 				7ABCC0E01E2622C800750E47 /* TCUserLocationAnnotationView.m in Sources */,
 				550319231E31BE27004522C7 /* TCGoodsCategoryController.m in Sources */,
 				550319261E31F68C004522C7 /* TCCreateGoodsViewController.m in Sources */,

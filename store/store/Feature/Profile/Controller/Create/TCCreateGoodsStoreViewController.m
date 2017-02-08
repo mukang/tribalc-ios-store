@@ -43,7 +43,7 @@ YYTextViewDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.weakSelf = self;
+    // Do any additional setup after loading the view.
     weakSelf = self;
     
     [self setupNavBar];
