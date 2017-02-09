@@ -7,6 +7,7 @@
 //
 
 #import "TCOrderViewController.h"
+#import "TCGoodsOrderViewController.h"
 
 @interface TCOrderViewController ()
 
@@ -18,6 +19,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    TCGoodsOrderViewController *vc = [[TCGoodsOrderViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

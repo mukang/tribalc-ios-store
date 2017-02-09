@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TCGoodsOrderItem;
 
 @interface TCGoodsOrderViewCell : UICollectionViewCell
+
+@property (strong, nonatomic) TCGoodsOrderItem *orderItem;
 
 @end

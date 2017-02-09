@@ -323,7 +323,7 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  
  @param status 订单状态，传nil为查询全部，（NO_SETTLE, SETTLE, DELIVERY, RECEIVED）
  @param limitSize 获取数量，默认值 10
- @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
+ @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔，首次获取数据和下拉刷新数据时该参数传nil，上拉获取更多数据时该参数传上一次从服务器获取到的TCGoodsOrderWrapper对象中属性nextSkip的值
  @param resultBlock 结果回调，goodsOrderWrapper为nil时表示获取失败，失败原因见error的code和userInfo
  */
 - (void)fetchGoodsOrderWrapper:(NSString *)status limitSize:(NSUInteger)limitSize sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsOrderWrapper *goodsOrderWrapper, NSError *error))resultBlock;

@@ -174,6 +174,8 @@
 		7ABCC1021E262B7A00750E47 /* TCGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC1011E262B7A00750E47 /* TCGoodsViewController.m */; };
 		7ABCC1051E262B8F00750E47 /* TCOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC1041E262B8F00750E47 /* TCOrderViewController.m */; };
 		7ABCC1081E262BA000750E47 /* TCProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC1071E262BA000750E47 /* TCProfileViewController.m */; };
+		7AD866441E4C189D00686AC2 /* TCGoodsOrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD866431E4C189D00686AC2 /* TCGoodsOrderHeaderView.m */; };
+		7AD866471E4C18C300686AC2 /* TCGoodsOrderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD866461E4C18C300686AC2 /* TCGoodsOrderFooterView.m */; };
 		7AE92B6B1E2C79970012B11E /* TCPhotoModeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B6A1E2C79970012B11E /* TCPhotoModeView.m */; };
 		7AE92B721E2CB1280012B11E /* TCScannerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B6F1E2CB1280012B11E /* TCScannerBorder.m */; };
 		7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B711E2CB1280012B11E /* TCScannerMaskView.m */; };
@@ -532,6 +534,10 @@
 		7ABCC1061E262BA000750E47 /* TCProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProfileViewController.h; sourceTree = "<group>"; };
 		7ABCC1071E262BA000750E47 /* TCProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProfileViewController.m; sourceTree = "<group>"; };
 		7ABCC10F1E26337100750E47 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		7AD866421E4C189D00686AC2 /* TCGoodsOrderHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderHeaderView.h; sourceTree = "<group>"; };
+		7AD866431E4C189D00686AC2 /* TCGoodsOrderHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderHeaderView.m; sourceTree = "<group>"; };
+		7AD866451E4C18C300686AC2 /* TCGoodsOrderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderFooterView.h; sourceTree = "<group>"; };
+		7AD866461E4C18C300686AC2 /* TCGoodsOrderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderFooterView.m; sourceTree = "<group>"; };
 		7AE92B691E2C79970012B11E /* TCPhotoModeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPhotoModeView.h; sourceTree = "<group>"; };
 		7AE92B6A1E2C79970012B11E /* TCPhotoModeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPhotoModeView.m; sourceTree = "<group>"; };
 		7AE92B6E1E2CB1280012B11E /* TCScannerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCScannerBorder.h; sourceTree = "<group>"; };
@@ -651,6 +657,10 @@
 			children = (
 				7A17EBDD1E4B32AC005D377C /* TCGoodsOrderViewCell.h */,
 				7A17EBDE1E4B32AC005D377C /* TCGoodsOrderViewCell.m */,
+				7AD866421E4C189D00686AC2 /* TCGoodsOrderHeaderView.h */,
+				7AD866431E4C189D00686AC2 /* TCGoodsOrderHeaderView.m */,
+				7AD866451E4C18C300686AC2 /* TCGoodsOrderFooterView.h */,
+				7AD866461E4C18C300686AC2 /* TCGoodsOrderFooterView.m */,
 			);
 			path = Goods;
 			sourceTree = "<group>";
@@ -1717,6 +1727,7 @@
 				7A7B60AF1E30BCD5004971C9 /* TCStoreCategoryIconView.m in Sources */,
 				7A99881B1E24EE3E006175CC /* TCDetailStore.m in Sources */,
 				7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */,
+				7AD866441E4C189D00686AC2 /* TCGoodsOrderHeaderView.m in Sources */,
 				7ABCC0DB1E2622C800750E47 /* TCAnnotation.m in Sources */,
 				7A0E00B01E2E1C4A0028555D /* TCSettingViewController.m in Sources */,
 				7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */,
@@ -1757,6 +1768,7 @@
 				7ABCC0EA1E2622C800750E47 /* TCImgPageControl.m in Sources */,
 				7A9987601E2497D5006175CC /* TCTabBarController.m in Sources */,
 				7ABCC0DD1E2622C800750E47 /* TCDetailAnnotation.m in Sources */,
+				7AD866471E4C18C300686AC2 /* TCGoodsOrderFooterView.m in Sources */,
 				7A1B03971E35F53A003258D0 /* TCStoreSurroundingViewController.m in Sources */,
 				7A9987721E24C820006175CC /* TCScanner.m in Sources */,
 				7A1B03911E35B0DB003258D0 /* TCStoreAddress.m in Sources */,
