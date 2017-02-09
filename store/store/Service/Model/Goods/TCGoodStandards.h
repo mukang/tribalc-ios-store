@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface TCGoodStandards : NSObject
 
 /** 商品规格ID */

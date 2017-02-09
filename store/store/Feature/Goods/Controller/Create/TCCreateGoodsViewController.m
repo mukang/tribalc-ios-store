@@ -21,7 +21,7 @@
 #import "TCImageURLSynthesizer.h"
 #import "TCImagePlayerView.h"
 
-@interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate,TCPhotoModeViewDelegate,TCPhotoPickerDelegate>
+@interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate,TCPhotoModeViewDelegate,TCPhotoPickerDelegate,TCGoodsDetailTitleCellDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -70,7 +70,6 @@
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(250))];
     
     TCImagePlayerView *imageView = [[TCImagePlayerView alloc] initWithFrame:headView.bounds];
-    imageView.backgroundColor = [UIColor redColor];
     [headView addSubview:imageView];
     if (self.goods.pictures) {
         [imageView setPictures:self.goods.pictures isLocal:NO];
@@ -242,9 +241,9 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             TCGoodsDetailTitleCell *cell = [[TCGoodsDetailTitleCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCGoodsDetailTitleCell"];
-            cell.textView.delegate = self;
+            cell.delegate = self;
             if ([self.goods.title isKindOfClass:[NSString class]]) {
-                cell.textView.text = self.goods.title;
+                [cell setTitle:self.goods.title];
             }
             return cell;
         }else {
@@ -575,27 +574,15 @@
     self.goods.priceAndRepertory.repertory = [text integerValue];
 }
 
-#pragma mark - YYTextViewDelegate
+#pragma mark - TCGoodsDetailTitleCellDelegate
 
-- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView {
+- (void)textViewShouldBeginEditting:(YYTextView *)textView {
     self.currentIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    return YES;
 }
 
-- (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([text isEqualToString:@"/n"]) {
-        if ([textView isFirstResponder]) {
-            [textView resignFirstResponder];
-        }
-        return NO;
-    }
-    return YES;
-}
-
-- (void)textViewDidEndEditing:(YYTextView *)textView {
+- (void)textViewDidEndEditting:(YYTextView *)textView {
     self.currentIndexPath = nil;
     self.goods.title = textView.text;
-//    self.storeDetailInfo.recommendedReason = textView.text;
 }
 
 

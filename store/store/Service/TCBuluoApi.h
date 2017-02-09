@@ -268,7 +268,7 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
  @param resultBlock 结果回调
  */
-- (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock;
+- (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize category:(NSString *)category sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock;
 
 
 /**

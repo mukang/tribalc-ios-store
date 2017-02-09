@@ -23,6 +23,8 @@
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
+@property (copy, nonatomic) NSDictionary *goodsStandardDic;
+
 @end
 
 @implementation TCChoseSpecificationsController
@@ -48,7 +50,7 @@
         sortSkip = nil;
     }
     
-    [[TCBuluoApi api] fetchGoodsStandardWarpper:20 sort:nil sortSkip:sortSkip result:^(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error) {
+    [[TCBuluoApi api] fetchGoodsStandardWarpper:20 category:self.good.category sort:nil sortSkip:sortSkip result:^(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error) {
         if (goodsStandardWrapper) {
             [MBProgressHUD hideHUD:YES];
             self.goodsStandardwrapper = goodsStandardWrapper;
@@ -68,6 +70,9 @@
     NSIndexPath *indexPath = [self.tabelView indexPathForCell:cell];
     if (selected) {
         self.selectedIndexPath = indexPath;
+        
+        [self getStandardGoods:cell indexPath:indexPath];
+        
     }else {
         self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     }
@@ -75,6 +80,40 @@
     [self.tabelView reloadData];
     
 }
+
+- (void)getStandardGoods:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexpath{
+    
+    if (indexpath.section == 0) {
+        return;
+    }
+    
+    TCGoodsStandardListCell *standardCell = (TCGoodsStandardListCell *)cell;
+    
+    TCGoodsStandardMate *standardMeta = self.currentArr[indexpath.section-1];
+    
+    if ([standardMeta isKindOfClass:[TCGoodsStandardMate class]]) {
+        if (self.goodsStandardDic) {
+            for (NSString *str in self.goodsStandardDic.allKeys) {
+                if ([str isEqualToString:standardMeta.ID]) {
+                    TCGoodStandards *standard = self.goodsStandardDic[str];
+                    if ([standard isKindOfClass:[TCGoodStandards class]]) {
+                        standardCell.goodsStandard = standard;
+                    }
+                }
+            }
+        }else {
+            [[TCBuluoApi api] fetchGoodStandards:standardMeta.ID result:^(TCGoodStandards *goodStandard, NSError *error) {
+                if (goodStandard) {
+                    standardCell.goodsStandard = goodStandard;
+                    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardDic];
+                    [mutableDic setObject:goodStandard forKey:standardMeta.ID];
+                    self.goodsStandardDic = mutableDic;
+                }
+            }];
+        }
+    }
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.currentArr.count+1;
@@ -125,7 +164,7 @@
     CGSize size = [str boundingRectWithSize:CGSizeMake(TCScreenWidth-115, 9999.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
     
     if (indexPath == _selectedIndexPath && indexPath.section != 0) {
-        return size.height+28.0+118.0;
+        return size.height+28.0+178.0;
     }
     
     return size.height+28.0;

@@ -44,7 +44,6 @@ static NSInteger const plusNum = 2;  // 需要加上的数
     scrollView.scrollsToTop = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.delegate = self;
-    scrollView.backgroundColor = [UIColor greenColor];
     [self addSubview:scrollView];
     self.scrollView = scrollView;
     

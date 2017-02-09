@@ -113,9 +113,16 @@
     if (_good != good) {
         _good = good;
         
-        NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:good.mainPicture];
-        UIImage *placeholderImage = [UIImage placeholderImageWithSize:_imgView.size];
-        [self.imgView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
+        if (good.pictures) {
+            if (good.pictures.count>0) {
+                NSString *str = good.pictures[0];
+                if ([str isKindOfClass:[NSString class]]) {
+                    NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:str];
+                    UIImage *placeholderImage = [UIImage placeholderImageWithSize:_imgView.size];
+                    [self.imgView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
+                }
+            }
+        }
         
         _titleLabel.text = good.title;
         _storeLabel.text = [NSString stringWithFormat:@"库存  %ld份",good.priceAndRepertory.repertory];
