@@ -24,5 +24,9 @@
 @property (copy, nonatomic) NSArray *content;
 /** 是否已发布 */
 @property (assign, nonatomic) BOOL published;
+/** 销售中的商品数量 */
+@property (assign, nonatomic) NSInteger publishedAmount;
+/** 仓库中的商品数量 */
+@property (assign, nonatomic) NSInteger unpublishedAmount;
 
 @end

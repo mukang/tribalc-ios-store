@@ -9,6 +9,7 @@
 #import "TCCreateStandardCell.h"
 #import <Masonry.h>
 #import "MBProgressHUD+Category.h"
+#import "TCGoodsStandardKeysBtn.h"
 
 @interface TCCreateStandardCell ()<UITextFieldDelegate>
 
@@ -232,9 +233,13 @@
     if (_currentStandards != currentStandards) {
         _currentStandards = currentStandards;
         
+        for (UIView *view in _labelsView.subviews) {
+            [view removeFromSuperview];
+        }
+        
         if (currentStandards.count > 0) {
             for (int i = 0; i < currentStandards.count; i++) {
-                UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+                TCGoodsStandardKeysBtn *btn = [TCGoodsStandardKeysBtn buttonWithType:UIButtonTypeCustom];
                 [btn setTitle:currentStandards[i] forState:UIControlStateNormal];
                 [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
                 btn.layer.cornerRadius = 3.0;
@@ -266,12 +271,26 @@
     NSArray *arr = [standardStr componentsSeparatedByString:@","];
     
     NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.currentStandards];
-    [mutableArr addObjectsFromArray:arr];
+    NSMutableArray *mutArr = [NSMutableArray arrayWithCapacity:0];
+    for (NSString *str in arr) {
+        if ([str isKindOfClass:[NSString class]]) {
+            NSString *newStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            if ([newStr isKindOfClass:[NSString class]]) {
+                if (newStr.length) {
+                    if (![mutableArr containsObject:newStr]) {
+                        [mutArr addObject:newStr];
+                    }
+                }
+            }
+        }
+    }
+    
+    [mutableArr addObjectsFromArray:mutArr];
     _currentStandards = mutableArr;
     
-    if (arr.count > 0) {
-        for (int i = 0; i < arr.count; i++) {
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    if (mutArr.count > 0) {
+        for (int i = 0; i < mutArr.count; i++) {
+            TCGoodsStandardKeysBtn *btn = [TCGoodsStandardKeysBtn buttonWithType:UIButtonTypeCustom];
             [btn setTitle:arr[i] forState:UIControlStateNormal];
             [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
             btn.layer.cornerRadius = 3.0;
@@ -334,8 +353,8 @@
     NSString *str = button.titleLabel.text;
     NSMutableArray *mutabelArr = [NSMutableArray arrayWithArray: self.currentStandards];
     [mutabelArr removeObject:str];
-    self.currentStandards = mutabelArr;
     [button removeFromSuperview];
+    self.currentStandards = mutabelArr;
     
     [self reload];
 }

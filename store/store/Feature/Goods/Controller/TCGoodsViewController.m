@@ -41,7 +41,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     weakSelf = self;
-
+    self.navigationItem.leftBarButtonItem = nil;
     [self setUpTopViews];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelf) name:@"KISSUEORMODIFYGOODS" object:nil];
@@ -82,17 +82,24 @@
                 NSMutableArray *mutabelArr = [NSMutableArray arrayWithArray:self.goods];
                 [mutabelArr addObjectsFromArray:goodsWrapper.content];
                 self.goods = mutabelArr;
+                
+                if (!goodsWrapper.hasMore) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else {
+                    [self.tableView.mj_footer endRefreshing];
+                }
+                
             }else {
                 self.goods = goodsWrapper.content;
+                [self.onSaleBtn setTitle:[NSString stringWithFormat:@"出售中(%ld)",goodsWrapper.publishedAmount] forState:UIControlStateNormal];
+                [self.storeBtn setTitle:[NSString stringWithFormat:@"仓库中(%ld)",goodsWrapper.unpublishedAmount] forState:UIControlStateNormal];
+                [self.tableView.mj_header endRefreshing];
+                self.tableView.mj_footer.hidden = NO;
             }
             
             [self.tableView reloadData];
             [self setCreatBtn];
-            [self.tableView.mj_footer endRefreshing];
-            if (!isMore) {
-                [self.tableView.mj_header endRefreshing];
-                self.tableView.mj_footer.hidden = NO;
-            }
+            
         }else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"加载失败，%@", reason]];
@@ -145,9 +152,9 @@
 - (void)setCreatBtn {
     if (_btn == nil) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:@"创建商品" forState:UIControlStateNormal];
-        [btn setBackgroundColor:[UIColor greenColor]];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [btn setTitle:@"创建商品" forState:UIControlStateNormal];
+        [btn setBackgroundColor:TCRGBColor(252, 108, 38)];
+//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         btn.layer.cornerRadius = 25;
         [btn addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
@@ -156,6 +163,19 @@
             make.bottom.equalTo(self.view).offset(-20);
             make.width.height.equalTo(@50);
         }];
+        
+        UIView *h = [[UIView alloc] init];
+        h.frame = CGRectMake(0, 0, 50, 3);
+        h.centerX = 25;
+        h.centerY = 25;
+        h.backgroundColor = [UIColor whiteColor];
+        [btn addSubview:h];
+        
+        UIView *l = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 50)];
+        l.centerY = 25;
+        l.centerX = 25;
+        l.backgroundColor = [UIColor whiteColor];
+        [btn addSubview:l];
         self.btn = btn;
     }
     
@@ -303,10 +323,11 @@
     if (_onSaleBtn.selected) {
         [[TCBuluoApi api] modifyGoodsState:goodsID published:@"false" result:^(BOOL success, NSError *error) {
             if (success) {
-                NSMutableArray *mutabeArr = [NSMutableArray arrayWithArray:self.goods];
-                [mutabeArr removeObject:good];
-                self.goods = mutabeArr;
-                [self.tableView reloadData];
+                [self loadDataIsMore:NO];
+//                NSMutableArray *mutabeArr = [NSMutableArray arrayWithArray:self.goods];
+//                [mutabeArr removeObject:good];
+//                self.goods = mutabeArr;
+//                [self.tableView reloadData];
             }else {
                 NSString *reason = error.localizedDescription ?: @"请稍后再试";
                 [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"下架失败，%@", reason]];
@@ -315,10 +336,11 @@
     }else {
         [[TCBuluoApi api] deleteGoods:goodsID result:^(BOOL success, NSError *error) {
             if (success) {
-                NSMutableArray *mutabeArr = [NSMutableArray arrayWithArray:self.goods];
-                [mutabeArr removeObject:good];
-                self.goods = mutabeArr;
-                [self.tableView reloadData];
+                [self loadDataIsMore:NO];
+//                NSMutableArray *mutabeArr = [NSMutableArray arrayWithArray:self.goods];
+//                [mutabeArr removeObject:good];
+//                self.goods = mutabeArr;
+//                [self.tableView reloadData];
             }else {
                 NSString *reason = error.localizedDescription ?: @"请稍后再试";
                 [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"删除失败，%@", reason]];
