@@ -42,7 +42,11 @@
 
 #import "TCAuthenticationInfo.h"
 
-
+/********** 订单相关 **********/
+#import "TCGoodsOrderItem.h"
+#import "TCGoodsOrder.h"
+#import "TCGoodsOrderWrapper.h"
+#import "TCGoodsOrderChangeInfo.h"
 
 
 
