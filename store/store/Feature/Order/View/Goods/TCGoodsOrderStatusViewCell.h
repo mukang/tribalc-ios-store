@@ -1,5 +1,5 @@
 //
-//  TCGoodsOrderNoteViewCell.h
+//  TCGoodsOrderStatusViewCell.h
 //  store
 //
 //  Created by 穆康 on 2017/2/9.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TCGoodsOrderNoteViewCell : UITableViewCell
+@interface TCGoodsOrderStatusViewCell : UITableViewCell
 
-@property (weak, nonatomic) UILabel *noteLabel;
+@property (copy, nonatomic) NSArray *infoArray;
 
 @end

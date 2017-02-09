@@ -48,6 +48,7 @@
 		7A1B03941E35D9B6003258D0 /* TCStoreLogoUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03931E35D9B6003258D0 /* TCStoreLogoUploadViewController.m */; };
 		7A1B03971E35F53A003258D0 /* TCStoreSurroundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03961E35F53A003258D0 /* TCStoreSurroundingViewController.m */; };
 		7A1B039D1E36083D003258D0 /* TCStoreSurroundingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B039C1E36083D003258D0 /* TCStoreSurroundingViewCell.m */; };
+		7A2BD12D1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BD12C1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m */; };
 		7A3571E81E345B5C00E79C59 /* TCStoreAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3571E71E345B5C00E79C59 /* TCStoreAddressViewController.m */; };
 		7A3571EB1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3571EA1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m */; };
 		7A40CE0B1E3851F20049A8EF /* TCStoreFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A40CE0A1E3851F20049A8EF /* TCStoreFeature.m */; };
@@ -292,6 +293,8 @@
 		7A1B03961E35F53A003258D0 /* TCStoreSurroundingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSurroundingViewController.m; sourceTree = "<group>"; };
 		7A1B039B1E36083D003258D0 /* TCStoreSurroundingViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSurroundingViewCell.h; sourceTree = "<group>"; };
 		7A1B039C1E36083D003258D0 /* TCStoreSurroundingViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSurroundingViewCell.m; sourceTree = "<group>"; };
+		7A2BD12B1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderStatusViewCell.h; sourceTree = "<group>"; };
+		7A2BD12C1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderStatusViewCell.m; sourceTree = "<group>"; };
 		7A3571E61E345B5C00E79C59 /* TCStoreAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreAddressViewController.h; sourceTree = "<group>"; };
 		7A3571E71E345B5C00E79C59 /* TCStoreAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreAddressViewController.m; sourceTree = "<group>"; };
 		7A3571E91E345E5000E79C59 /* TCStoreSearchAddressViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSearchAddressViewCell.h; sourceTree = "<group>"; };
@@ -712,6 +715,8 @@
 				7AD866521E4C828600686AC2 /* TCGoodsOrderGoodsViewCell.m */,
 				7AD866571E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.h */,
 				7AD866581E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m */,
+				7A2BD12B1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.h */,
+				7A2BD12C1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m */,
 			);
 			path = Goods;
 			sourceTree = "<group>";
@@ -1860,6 +1865,7 @@
 				7A55F4201E287F5B0018FED3 /* TCLoginViewController.m in Sources */,
 				7ABCC0DF1E2622C800750E47 /* TCUserLocationAnnotation.m in Sources */,
 				7ABCC0E91E2622C800750E47 /* TCGoodTitleView.m in Sources */,
+				7A2BD12D1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m in Sources */,
 				7ABCC0E31E2622C800750E47 /* TCGoodSelectTitleView.m in Sources */,
 				7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */,
 				7ABCC0D51E2622C800750E47 /* TCRestaurantInfoViewController.m in Sources */,

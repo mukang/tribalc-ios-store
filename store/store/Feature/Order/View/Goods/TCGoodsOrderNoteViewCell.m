@@ -8,6 +8,12 @@
 
 #import "TCGoodsOrderNoteViewCell.h"
 
+@interface TCGoodsOrderNoteViewCell ()
+
+@property (weak, nonatomic) UIView *containerView;
+
+@end
+
 @implementation TCGoodsOrderNoteViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -23,10 +29,33 @@
 
 - (void)setupSubviews {
     self.contentView.backgroundColor = [UIColor whiteColor];
+    
+    UIView *containerView = [[UIView alloc] init];
+    containerView.backgroundColor = TCRGBColor(242, 242, 242);
+    [self.contentView addSubview:containerView];
+    
+    UILabel *noteLabel = [[UILabel alloc] init];
+    noteLabel.textColor = TCRGBColor(154, 154, 154);
+    noteLabel.font = [UIFont systemFontOfSize:12];
+    [self.contentView addSubview:noteLabel];
+    
+    self.containerView = containerView;
+    self.noteLabel = noteLabel;
 }
 
 - (void)setupConstraints {
-    
+    __weak typeof(self) weakSelf = self;
+    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.contentView.mas_top).with.offset(5);
+        make.left.equalTo(weakSelf.contentView.mas_left).with.offset(20);
+        make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-20);
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom).with.offset(-20);
+    }];
+    [self.noteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.containerView.mas_left).with.offset(8);
+        make.right.equalTo(weakSelf.containerView.mas_right).with.offset(-8);
+        make.top.bottom.equalTo(weakSelf.containerView);
+    }];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
