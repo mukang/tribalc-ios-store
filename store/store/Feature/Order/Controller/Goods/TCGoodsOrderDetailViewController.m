@@ -257,7 +257,7 @@
     if (_dateFormatter == nil) {
         _dateFormatter = [[NSDateFormatter alloc] init];
         _dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
-        _dateFormatter.dateFormat = @"yyyy:MM:dd HH:mm:ss";
+        _dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     }
     return _dateFormatter;
 }
