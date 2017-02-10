@@ -336,4 +336,30 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)changeGoodsOrderStatus:(TCGoodsOrderChangeInfo *)goodsOrderChangeInfo result:(void (^)(BOOL success, NSError *error))resultBlock;
 
+/**
+ 服务预定列表
+
+ @param limitSize 获取数量，默认值 10
+ @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔，首次获取数据和下拉刷新数据时该参数传nil，上拉获取更多数据时该参数传上一次从服务器获取到的TCReservationWrapper对象中属性nextSkip的值
+ @param resultBlock 结果回调，reservationWrapper为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchReservationWrapper:(NSUInteger)limitSize sortSkip:(NSString *)sortSkip result:(void (^)(TCReservationWrapper *reservationWrapper, NSError *error))resultBlock;
+
+/**
+ 查询服务预定详细信息
+
+ @param reservationID 服务预定ID
+ @param resultBlock 结果回调，reservation为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchDetailReservation:(NSString *)reservationID result:(void (^)(TCReservation *reservation, NSError *error))resultBlock;
+
+/**
+ 修改预定状态
+
+ @param status 预定状态，只能传入（FAILURE、SUCCEED）
+ @param reservationID 服务预定ID
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeReservationStatus:(NSString *)status reservationID:(NSString *)reservationID result:(void (^)(BOOL success, NSError *error))resultBlock;
+
 @end
