@@ -35,6 +35,12 @@
 		55647F541E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F531E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.m */; };
 		55647F571E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F561E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m */; };
 		55647F5A1E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F591E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m */; };
+		55647F5C1E4DF5F700E4A0E9 /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55647F5B1E4DF5F700E4A0E9 /* libAFNetworking.a */; };
+		55647F5E1E4DF5FE00E4A0E9 /* libMasonry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55647F5D1E4DF5FE00E4A0E9 /* libMasonry.a */; };
+		55647F601E4DF60200E4A0E9 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55647F5F1E4DF60200E4A0E9 /* libMBProgressHUD.a */; };
+		55647F621E4DF60700E4A0E9 /* libMJRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55647F611E4DF60700E4A0E9 /* libMJRefresh.a */; };
+		55647F641E4DF60C00E4A0E9 /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55647F631E4DF60C00E4A0E9 /* libSDWebImage.a */; };
+		55647F661E4DF61000E4A0E9 /* libYYText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55647F651E4DF61000E4A0E9 /* libYYText.a */; };
 		558F6DA41E48196400CB2F81 /* TCGoodsIssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DA31E48196400CB2F81 /* TCGoodsIssueViewController.m */; };
 		558F6DCF1E48C70B00CB2F81 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DCC1E48C70B00CB2F81 /* MGSwipeButton.m */; };
 		558F6DD01E48C70B00CB2F81 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DCE1E48C70B00CB2F81 /* MGSwipeTableCell.m */; };
@@ -265,6 +271,12 @@
 		55647F561E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBussinessAuthSuccessController.m; sourceTree = "<group>"; };
 		55647F581E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreAuthSuccessCell.h; sourceTree = "<group>"; };
 		55647F591E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreAuthSuccessCell.m; sourceTree = "<group>"; };
+		55647F5B1E4DF5F700E4A0E9 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../../../Library/Developer/Xcode/DerivedData/store-ddfxvtgtchxhozdhegrfcahoflpi/Build/Products/Debug-iphoneos/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
+		55647F5D1E4DF5FE00E4A0E9 /* libMasonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMasonry.a; path = "../../../../Library/Developer/Xcode/DerivedData/store-ddfxvtgtchxhozdhegrfcahoflpi/Build/Products/Debug-iphoneos/Masonry/libMasonry.a"; sourceTree = "<group>"; };
+		55647F5F1E4DF60200E4A0E9 /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "../../../../Library/Developer/Xcode/DerivedData/store-ddfxvtgtchxhozdhegrfcahoflpi/Build/Products/Debug-iphoneos/MBProgressHUD/libMBProgressHUD.a"; sourceTree = "<group>"; };
+		55647F611E4DF60700E4A0E9 /* libMJRefresh.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMJRefresh.a; path = "../../../../Library/Developer/Xcode/DerivedData/store-ddfxvtgtchxhozdhegrfcahoflpi/Build/Products/Debug-iphoneos/MJRefresh/libMJRefresh.a"; sourceTree = "<group>"; };
+		55647F631E4DF60C00E4A0E9 /* libSDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDWebImage.a; path = "../../../../Library/Developer/Xcode/DerivedData/store-ddfxvtgtchxhozdhegrfcahoflpi/Build/Products/Debug-iphoneos/SDWebImage/libSDWebImage.a"; sourceTree = "<group>"; };
+		55647F651E4DF61000E4A0E9 /* libYYText.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libYYText.a; path = "../../../../Library/Developer/Xcode/DerivedData/store-ddfxvtgtchxhozdhegrfcahoflpi/Build/Products/Debug-iphoneos/YYText/libYYText.a"; sourceTree = "<group>"; };
 		558F6DA21E48196400CB2F81 /* TCGoodsIssueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsIssueViewController.h; sourceTree = "<group>"; };
 		558F6DA31E48196400CB2F81 /* TCGoodsIssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsIssueViewController.m; sourceTree = "<group>"; };
 		558F6DCB1E48C70B00CB2F81 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
@@ -576,6 +588,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55647F661E4DF61000E4A0E9 /* libYYText.a in Frameworks */,
+				55647F641E4DF60C00E4A0E9 /* libSDWebImage.a in Frameworks */,
+				55647F621E4DF60700E4A0E9 /* libMJRefresh.a in Frameworks */,
+				55647F601E4DF60200E4A0E9 /* libMBProgressHUD.a in Frameworks */,
+				55647F5E1E4DF5FE00E4A0E9 /* libMasonry.a in Frameworks */,
+				55647F5C1E4DF5F700E4A0E9 /* libAFNetworking.a in Frameworks */,
 				E71BB80DAB52591718DA7767 /* libPods-store.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1501,6 +1519,12 @@
 		B113031E1795EC31C30EC418 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55647F651E4DF61000E4A0E9 /* libYYText.a */,
+				55647F631E4DF60C00E4A0E9 /* libSDWebImage.a */,
+				55647F611E4DF60700E4A0E9 /* libMJRefresh.a */,
+				55647F5F1E4DF60200E4A0E9 /* libMBProgressHUD.a */,
+				55647F5D1E4DF5FE00E4A0E9 /* libMasonry.a */,
+				55647F5B1E4DF5F700E4A0E9 /* libAFNetworking.a */,
 				B00C8004B261DE1B413018A3 /* libPods-store.a */,
 			);
 			name = Frameworks;
@@ -2022,6 +2046,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bb23ee3d-6952-44dc-aeeb-9c0f37ed824e";
 				PROVISIONING_PROFILE_SPECIFIER = "Store Development";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Debug;
 		};
@@ -2041,6 +2066,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bb23ee3d-6952-44dc-aeeb-9c0f37ed824e";
 				PROVISIONING_PROFILE_SPECIFIER = "Store Development";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Release;
 		};
