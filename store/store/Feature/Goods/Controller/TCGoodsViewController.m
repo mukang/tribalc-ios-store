@@ -43,7 +43,7 @@
     weakSelf = self;
     self.navigationItem.leftBarButtonItem = nil;
     [self setUpTopViews];
-    
+    [self setCreatBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelf) name:@"KISSUEORMODIFYGOODS" object:nil];
 }
 
@@ -98,7 +98,6 @@
             }
             
             [self.tableView reloadData];
-            [self setCreatBtn];
             
         }else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
@@ -152,9 +151,7 @@
 - (void)setCreatBtn {
     if (_btn == nil) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [btn setTitle:@"创建商品" forState:UIControlStateNormal];
         [btn setBackgroundColor:TCRGBColor(252, 108, 38)];
-//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         btn.layer.cornerRadius = 25;
         [btn addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
@@ -165,13 +162,13 @@
         }];
         
         UIView *h = [[UIView alloc] init];
-        h.frame = CGRectMake(0, 0, 50, 3);
+        h.frame = CGRectMake(0, 0, 20, 3);
         h.centerX = 25;
         h.centerY = 25;
         h.backgroundColor = [UIColor whiteColor];
         [btn addSubview:h];
         
-        UIView *l = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 50)];
+        UIView *l = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 20)];
         l.centerY = 25;
         l.centerX = 25;
         l.backgroundColor = [UIColor whiteColor];
@@ -194,7 +191,15 @@
         [_storeBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     }
     
-    [self loadDataIsMore:NO];
+    
+    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.storeAuthenticationStatus;
+    if ([storeState isEqualToString:@"SUCCESS"]) {
+        [self loadDataIsMore:NO];
+    }else {
+        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
+    }
+    
+    
 }
 
 - (UITableView *)tableView {
@@ -208,7 +213,8 @@
         _tableView.rowHeight = 150.0;
         [self.view addSubview:_tableView];
         [self setupTableViewRefreshView];
-        
+
+        [self.view bringSubviewToFront:_btn];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_storeBtn.mas_bottom);
             make.left.right.equalTo(self.view);
@@ -324,10 +330,6 @@
         [[TCBuluoApi api] modifyGoodsState:goodsID published:@"false" result:^(BOOL success, NSError *error) {
             if (success) {
                 [self loadDataIsMore:NO];
-//                NSMutableArray *mutabeArr = [NSMutableArray arrayWithArray:self.goods];
-//                [mutabeArr removeObject:good];
-//                self.goods = mutabeArr;
-//                [self.tableView reloadData];
             }else {
                 NSString *reason = error.localizedDescription ?: @"请稍后再试";
                 [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"下架失败，%@", reason]];
@@ -337,10 +339,6 @@
         [[TCBuluoApi api] deleteGoods:goodsID result:^(BOOL success, NSError *error) {
             if (success) {
                 [self loadDataIsMore:NO];
-//                NSMutableArray *mutabeArr = [NSMutableArray arrayWithArray:self.goods];
-//                [mutabeArr removeObject:good];
-//                self.goods = mutabeArr;
-//                [self.tableView reloadData];
             }else {
                 NSString *reason = error.localizedDescription ?: @"请稍后再试";
                 [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"删除失败，%@", reason]];
@@ -350,9 +348,16 @@
 }
 
 - (void)next {
-    TCGoodsCategoryController *goodCVC = [[TCGoodsCategoryController alloc] init];
-    goodCVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:goodCVC animated:YES];
+    
+    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.storeAuthenticationStatus;
+    if ([storeState isEqualToString:@"SUCCESS"]) {
+        TCGoodsCategoryController *goodCVC = [[TCGoodsCategoryController alloc] init];
+        goodCVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:goodCVC animated:YES];
+    }else {
+        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {

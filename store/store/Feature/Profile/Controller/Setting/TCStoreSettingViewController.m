@@ -27,6 +27,7 @@
 #import "TCStoreFeature.h"
 #import "TCStoreCategoryInfo.h"
 #import "NSObject+TCModel.h"
+#import "TCBusinessLicenceViewController.h"
 
 @interface TCStoreSettingViewController ()
 <UITableViewDataSource,
@@ -635,7 +636,8 @@ TCStoreFacilitiesViewCellDelegate>
 }
 
 - (void)handleClickAuthenticationButton:(UIButton *)sender {
-    
+    TCBusinessLicenceViewController *bussVc = [[TCBusinessLicenceViewController alloc] init];
+    [self.navigationController pushViewController:bussVc animated:YES];
 }
 
 - (void)handleKeyboardWillShowNotification:(NSNotification *)notification {

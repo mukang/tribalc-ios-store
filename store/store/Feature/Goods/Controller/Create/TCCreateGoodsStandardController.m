@@ -75,7 +75,7 @@
             priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
         }
         if ([price isKindOfClass:[NSString class]]) {
-            priceAndRepertory.salePrice = [price floatValue];
+            priceAndRepertory.salePrice = [price doubleValue];
         }
         
         if ([repertory isKindOfClass:[NSString class]]) {
@@ -295,8 +295,8 @@
             if ([cell.titleLabel.text isEqualToString:str]) {
                 if (cell.orignPriceTextField.text.length && cell.salePriceTextField.text.length && cell.repertoryTextField.text.length) {
                     TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
-                    priceAndRepertory.originPrice = [cell.orignPriceTextField.text floatValue];
-                    priceAndRepertory.salePrice = [cell.salePriceTextField.text floatValue];
+                    priceAndRepertory.originPrice = [cell.orignPriceTextField.text doubleValue];
+                    priceAndRepertory.salePrice = [cell.salePriceTextField.text doubleValue];
                     priceAndRepertory.repertory = [cell.repertoryTextField.text integerValue];
                     [mutabelDict setObject:priceAndRepertory forKey:str];
                 }else {
@@ -503,9 +503,9 @@
         NSString *subKey = dic.allKeys[0];
         
         if ([subKey isEqualToString:@"originPrice"]) {
-            priceAndRepertory.originPrice = [dic[subKey] floatValue];
+            priceAndRepertory.originPrice = [dic[subKey] doubleValue];
         }else if ([subKey isEqualToString:@"salePrice"]) {
-            priceAndRepertory.salePrice = [dic[subKey] floatValue];
+            priceAndRepertory.salePrice = [dic[subKey] doubleValue];
         }else {
             priceAndRepertory.repertory = [dic[subKey] integerValue];
         }

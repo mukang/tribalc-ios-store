@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <YYText.h>
+//#import <YYText.h>
 
 @protocol TCGoodsDetailTitleCellDelegate <NSObject>
 
-- (void)textViewShouldBeginEditting:(YYTextView *)textView;
+- (void)textViewShouldBeginEditting:(UITextView *)textView;
 
-- (void)textViewDidEndEditting:(YYTextView *)textView;
+- (void)textViewDidEndEditting:(UITextView *)textView;
 
 @end
 

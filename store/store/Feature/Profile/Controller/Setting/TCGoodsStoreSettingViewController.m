@@ -21,6 +21,7 @@
 #import "TCBuluoApi.h"
 #import "TCStoreCategoryInfo.h"
 #import "NSObject+TCModel.h"
+#import "TCBusinessLicenceViewController.h"
 
 @interface TCGoodsStoreSettingViewController ()
 <UITableViewDataSource,
@@ -383,7 +384,8 @@ TCStoreRecommendViewCellDelegate>
 }
 
 - (void)handleClickAuthenticationButton:(UIButton *)sender {
-    
+    TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
+    [self.navigationController pushViewController:businessVC animated:YES];
 }
 
 - (void)handleSelectStoreAddressCell {

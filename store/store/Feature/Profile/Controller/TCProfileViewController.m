@@ -25,6 +25,8 @@
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TCBusinessLicenceViewController.h"
+#import "TCBussinessAuthSuccessController.h"
+#import "TCBussinessAuthFailureAndProcessController.h"
 
 @interface TCProfileViewController ()
 <UITableViewDelegate,
@@ -249,10 +251,18 @@ TCPhotoModeViewDelegate>
         if (indexPath.row == 1) {
             
             NSString *authStr = [[TCBuluoApi api] currentUserSession].storeInfo.storeAuthenticationStatus;
-            if ([authStr isEqualToString:@"NOT_START"] || [authStr isEqualToString:@"FAILURE"]) {
+            if ([authStr isEqualToString:@"NOT_START"]) {
                 TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
                 businessVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:businessVC animated:YES];
+            }else if ([authStr isEqualToString:@"FAILURE"] || [authStr isEqualToString:@"PROCESSING"]) {
+                TCBussinessAuthFailureAndProcessController *bussVc = [[TCBussinessAuthFailureAndProcessController alloc] initWithAuthStatus:authStr];
+                bussVc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:bussVc animated:YES];
+            }else {
+                TCBussinessAuthSuccessController *successVc = [[TCBussinessAuthSuccessController alloc] init];
+                successVc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:successVc animated:YES];
             }
             
         }
