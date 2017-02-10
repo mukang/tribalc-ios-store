@@ -16,10 +16,6 @@
 
 /** 产品数量 */
 @property (nonatomic) NSInteger amount;
-/** 账户 */
-@property (copy, nonatomic) NSString *user;
-/** 购买人 */
-@property (copy, nonatomic) NSString *nickName;
 /** 产品信息 */
 @property (strong, nonatomic) TCGoods *goods;
 

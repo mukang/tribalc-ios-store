@@ -49,7 +49,7 @@
         make.top.equalTo(weakSelf.contentView.mas_top).with.offset(5);
         make.left.equalTo(weakSelf.contentView.mas_left).with.offset(20);
         make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-20);
-        make.bottom.equalTo(weakSelf.contentView.mas_bottom).with.offset(-20);
+        make.height.mas_equalTo(31);
     }];
     [self.noteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.containerView.mas_left).with.offset(8);

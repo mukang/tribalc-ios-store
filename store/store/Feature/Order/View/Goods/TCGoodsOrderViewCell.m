@@ -113,6 +113,23 @@
     }];
 }
 
+- (void)setAccount:(NSString *)account {
+    _account = account;
+    
+    NSString *titleStr = @"账号：";
+    NSString *accountStr = [NSString stringWithFormat:@"%@%@", titleStr, account];
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:accountStr];
+    NSRange titleRange = [accountStr rangeOfString:titleStr];
+    [attStr addAttribute:NSForegroundColorAttributeName value:TCRGBColor(154, 154, 154) range:titleRange];
+    self.accountLabel.attributedText = attStr;
+}
+
+- (void)setPurchaser:(NSString *)purchaser {
+    _purchaser = purchaser;
+    
+    self.purchaserLabel.text = [NSString stringWithFormat:@"购买人：%@", purchaser];
+}
+
 - (void)setOrderItem:(TCGoodsOrderItem *)orderItem {
     _orderItem = orderItem;
     
@@ -125,15 +142,6 @@
     self.nameLabel.text = goods.name;
     
     self.brandLabel.text = goods.brand;
-    
-    NSString *titleStr = @"账号：";
-    NSString *accountStr = [NSString stringWithFormat:@"%@%@", titleStr, orderItem.user];
-    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:accountStr];
-    NSRange titleRange = [accountStr rangeOfString:titleStr];
-    [attStr addAttribute:NSForegroundColorAttributeName value:TCRGBColor(154, 154, 154) range:titleRange];
-    self.accountLabel.attributedText = attStr;
-    
-    self.purchaserLabel.text = [NSString stringWithFormat:@"购买人：%@", orderItem.nickName];
 }
 
 @end

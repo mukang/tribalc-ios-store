@@ -66,11 +66,16 @@
     amountLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:amountLabel];
     
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = TCRGBColor(221, 221, 221);
+    [self.contentView addSubview:lineView];
+    
     self.goodsImageView = goodsImageView;
     self.nameLabel = nameLabel;
     self.priceLabel = priceLabel;
     self.standardLabel = standardLabel;
     self.amountLabel = amountLabel;
+    self.lineView = lineView;
 }
 
 - (void)setupConstraints {
@@ -98,6 +103,12 @@
         make.height.mas_equalTo(14);
         make.bottom.equalTo(weakSelf.standardLabel.mas_bottom);
         make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-20);
+    }];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.contentView.mas_left).with.offset(20);
+        make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-20);
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom);
+        make.height.mas_equalTo(0.5);
     }];
 }
 

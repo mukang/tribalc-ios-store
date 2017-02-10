@@ -11,6 +11,8 @@
 
 @interface TCGoodsOrderViewCell : UICollectionViewCell
 
+@property (copy, nonatomic) NSString *account;
+@property (copy, nonatomic) NSString *purchaser;
 @property (strong, nonatomic) TCGoodsOrderItem *orderItem;
 
 @end

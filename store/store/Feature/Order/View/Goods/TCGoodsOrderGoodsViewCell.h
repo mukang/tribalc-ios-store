@@ -12,5 +12,6 @@
 @interface TCGoodsOrderGoodsViewCell : UITableViewCell
 
 @property (strong, nonatomic) TCGoodsOrderItem *orderItem;
+@property (weak, nonatomic) UIView *lineView;
 
 @end

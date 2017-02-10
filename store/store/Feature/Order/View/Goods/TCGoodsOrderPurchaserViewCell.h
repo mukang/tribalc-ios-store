@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) UIImageView *iconView;
 @property (weak, nonatomic) UILabel *nameLabel;
+@property (weak, nonatomic) UIView *lineView;
 
 @end

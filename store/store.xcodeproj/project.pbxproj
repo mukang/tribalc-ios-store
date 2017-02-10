@@ -183,6 +183,7 @@
 		7AD866501E4C7B8500686AC2 /* TCGoodsOrderPurchaserViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD8664F1E4C7B8500686AC2 /* TCGoodsOrderPurchaserViewCell.m */; };
 		7AD866531E4C828600686AC2 /* TCGoodsOrderGoodsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD866521E4C828600686AC2 /* TCGoodsOrderGoodsViewCell.m */; };
 		7AD866591E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD866581E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m */; };
+		7AD8665C1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD8665B1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m */; };
 		7AE92B6B1E2C79970012B11E /* TCPhotoModeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B6A1E2C79970012B11E /* TCPhotoModeView.m */; };
 		7AE92B721E2CB1280012B11E /* TCScannerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B6F1E2CB1280012B11E /* TCScannerBorder.m */; };
 		7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B711E2CB1280012B11E /* TCScannerMaskView.m */; };
@@ -559,6 +560,8 @@
 		7AD866521E4C828600686AC2 /* TCGoodsOrderGoodsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderGoodsViewCell.m; sourceTree = "<group>"; };
 		7AD866571E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderNoteViewCell.h; sourceTree = "<group>"; };
 		7AD866581E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderNoteViewCell.m; sourceTree = "<group>"; };
+		7AD8665A1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderPriceViewCell.h; sourceTree = "<group>"; };
+		7AD8665B1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderPriceViewCell.m; sourceTree = "<group>"; };
 		7AE92B691E2C79970012B11E /* TCPhotoModeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPhotoModeView.h; sourceTree = "<group>"; };
 		7AE92B6A1E2C79970012B11E /* TCPhotoModeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPhotoModeView.m; sourceTree = "<group>"; };
 		7AE92B6E1E2CB1280012B11E /* TCScannerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCScannerBorder.h; sourceTree = "<group>"; };
@@ -713,6 +716,8 @@
 				7AD8664F1E4C7B8500686AC2 /* TCGoodsOrderPurchaserViewCell.m */,
 				7AD866511E4C828600686AC2 /* TCGoodsOrderGoodsViewCell.h */,
 				7AD866521E4C828600686AC2 /* TCGoodsOrderGoodsViewCell.m */,
+				7AD8665A1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.h */,
+				7AD8665B1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m */,
 				7AD866571E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.h */,
 				7AD866581E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m */,
 				7A2BD12B1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.h */,
@@ -1868,6 +1873,7 @@
 				7A2BD12D1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m in Sources */,
 				7ABCC0E31E2622C800750E47 /* TCGoodSelectTitleView.m in Sources */,
 				7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */,
+				7AD8665C1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m in Sources */,
 				7ABCC0D51E2622C800750E47 /* TCRestaurantInfoViewController.m in Sources */,
 				7AB5683D1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m in Sources */,
 				7AD8664D1E4C71F400686AC2 /* TCGoodsOrderAddressViewCell.m in Sources */,

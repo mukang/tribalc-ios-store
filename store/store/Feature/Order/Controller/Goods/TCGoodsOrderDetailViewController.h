@@ -7,7 +7,10 @@
 //
 
 #import "TCBaseViewController.h"
+@class TCGoodsOrder;
 
 @interface TCGoodsOrderDetailViewController : TCBaseViewController
+
+@property (strong, nonatomic) TCGoodsOrder *goodsOrder;
 
 @end
