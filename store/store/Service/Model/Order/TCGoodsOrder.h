@@ -20,6 +20,14 @@
 @property (copy, nonatomic) NSString *orderNum;
 /** 用户ID */
 @property (copy, nonatomic) NSString *ownerId;
+/** 购买账户（手机号） */
+@property (copy, nonatomic) NSString *user;
+/** 购买人昵称 */
+@property (copy, nonatomic) NSString *nickName;
+/** 购买人头像 */
+@property (copy, nonatomic) NSString *picture;
+/** 物流单号 */
+@property (copy, nonatomic) NSString *logisticsNum;
 /** 收获地址 */
 @property (copy, nonatomic) NSString *address;
 /** 配送方式 Default NOT_PAYPOSTAGE From { PAYPOSTAGE, NOT_PAYPOSTAGE } */

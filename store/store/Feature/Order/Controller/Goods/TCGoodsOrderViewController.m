@@ -7,6 +7,7 @@
 //
 
 #import "TCGoodsOrderViewController.h"
+#import "TCGoodsOrderDetailViewController.h"
 
 #import "TCGoodsOrderViewCell.h"
 #import "TCGoodsOrderHeaderView.h"
@@ -157,6 +158,8 @@
     TCGoodsOrder *goodsOrder = self.dataList[indexPath.section];
     TCGoodsOrderItem *orderItem = goodsOrder.itemList[indexPath.row];
     cell.orderItem = orderItem;
+    cell.account = goodsOrder.user;
+    cell.purchaser = goodsOrder.nickName;
     return cell;
 }
 
@@ -175,8 +178,10 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
+    TCGoodsOrder *goodsOrder = self.dataList[indexPath.section];
+    TCGoodsOrderDetailViewController *vc = [[TCGoodsOrderDetailViewController alloc] init];
+    vc.goodsOrder = goodsOrder;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Override Methods

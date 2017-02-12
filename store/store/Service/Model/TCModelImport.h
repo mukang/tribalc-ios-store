@@ -47,7 +47,8 @@
 #import "TCGoodsOrder.h"
 #import "TCGoodsOrderWrapper.h"
 #import "TCGoodsOrderChangeInfo.h"
-
+#import "TCReservation.h"
+#import "TCReservationWrapper.h"
 
 
 
