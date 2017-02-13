@@ -250,7 +250,7 @@ TCPhotoModeViewDelegate>
     }else if (indexPath.section == 1) {
         if (indexPath.row == 1) {
             
-            NSString *authStr = [[TCBuluoApi api] currentUserSession].storeInfo.storeAuthenticationStatus;
+            NSString *authStr = [[TCBuluoApi api] currentUserSession].storeInfo.authenticationStatus;
             if ([authStr isEqualToString:@"NOT_START"]) {
                 TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
                 businessVC.hidesBottomBarWhenPushed = YES;
@@ -259,7 +259,7 @@ TCPhotoModeViewDelegate>
                 TCBussinessAuthFailureAndProcessController *bussVc = [[TCBussinessAuthFailureAndProcessController alloc] initWithAuthStatus:authStr];
                 bussVc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:bussVc animated:YES];
-            }else {
+            }else if ([authStr isEqualToString:@"SUCCESS"]) {
                 TCBussinessAuthSuccessController *successVc = [[TCBussinessAuthSuccessController alloc] init];
                 successVc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:successVc animated:YES];

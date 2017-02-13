@@ -192,7 +192,7 @@
     }
     
     
-    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.storeAuthenticationStatus;
+    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
     if ([storeState isEqualToString:@"SUCCESS"]) {
         [self loadDataIsMore:NO];
     }else {
@@ -349,7 +349,7 @@
 
 - (void)next {
     
-    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.storeAuthenticationStatus;
+    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
     if ([storeState isEqualToString:@"SUCCESS"]) {
         TCGoodsCategoryController *goodCVC = [[TCGoodsCategoryController alloc] init];
         goodCVC.hidesBottomBarWhenPushed = YES;
