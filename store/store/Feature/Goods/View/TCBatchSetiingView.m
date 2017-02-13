@@ -10,7 +10,7 @@
 #import <Masonry.h>
 #import "MBProgressHUD+Category.h"
 
-@interface TCBatchSetiingView ()
+@interface TCBatchSetiingView ()<UITextFieldDelegate>
 
 @property (strong, nonatomic) UITextField *priceTextField;
 
@@ -52,6 +52,7 @@
     
     UITextField *priceTextField = [[UITextField alloc] init];
     priceTextField.placeholder = @"  统一输入价格";
+    priceTextField.delegate = self;
     priceTextField.layer.cornerRadius = 3.0;
     priceTextField.clipsToBounds = YES;
     priceTextField.font = [UIFont systemFontOfSize:14];
@@ -70,6 +71,7 @@
     reperotyTextField.placeholder = @"  统一输入库存";
     reperotyTextField.layer.cornerRadius = 3.0;
     reperotyTextField.clipsToBounds = YES;
+    reperotyTextField.delegate = self;
     reperotyTextField.font = [UIFont systemFontOfSize:14];
     reperotyTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
     reperotyTextField.layer.borderWidth = 0.5;
@@ -165,6 +167,18 @@
         make.top.height.width.equalTo(cancelBtn);
         make.left.equalTo(cancelBtn.mas_right);
     }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    
+//    if (self.delegate) {
+//        if ([self.delegate respondsToSelector:@selector(textFieldShouldReturn)]) {
+//            [self.delegate textFieldShouldReturn];
+//        }
+//    }
+    return YES;
 }
 
 - (void)certain {

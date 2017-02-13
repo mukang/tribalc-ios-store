@@ -10,8 +10,16 @@
 
 typedef void(^DeleteBlock)();
 
+@protocol TCBatchSetiingViewDelegate <NSObject>
+
+- (void)textFieldShouldReturn;
+
+@end
+
 @interface TCBatchSetiingView : UIView
 
 @property (copy,nonatomic) DeleteBlock deleteBlock;
+
+@property (weak, nonatomic) id<TCBatchSetiingViewDelegate> delegate;
 
 @end

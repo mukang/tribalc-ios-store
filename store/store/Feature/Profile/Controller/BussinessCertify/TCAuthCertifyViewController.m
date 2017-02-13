@@ -96,7 +96,8 @@
     [scrollView addSubview:label3];
     
     UIButton *frontBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [frontBtn setBackgroundColor:[UIColor redColor]];
+//    [frontBtn setBackgroundColor:[UIColor redColor]];
+    [frontBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
     frontBtn.tag = 11111;
     [frontBtn addTarget:self action:@selector(toChoosePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:frontBtn];
@@ -118,7 +119,8 @@
     self.frontImageView = frontImageView;
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn setBackgroundColor:[UIColor redColor]];
+//    [backBtn setBackgroundColor:[UIColor redColor]];
+    [backBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
     backBtn.tag = 22222;
     [backBtn addTarget:self action:@selector(toChoosePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:backBtn];
@@ -192,7 +194,8 @@
     
     [frontBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(scrollView);
-        make.width.height.equalTo(@(TCRealValue(40)));
+        make.width.equalTo(@(TCRealValue(47)));
+        make.height.equalTo(@(TCRealValue(37)));
         make.top.equalTo(label3.mas_bottom).offset(TCRealValue(85));
     }];
     
@@ -210,7 +213,8 @@
     
     [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(scrollView);
-        make.width.height.equalTo(@(TCRealValue(40)));
+        make.width.equalTo(@(TCRealValue(47)));
+        make.height.equalTo(@(TCRealValue(37)));
         make.top.equalTo(frontImageView.mas_bottom).offset(TCRealValue(75));
     }];
     

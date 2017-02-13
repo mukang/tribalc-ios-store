@@ -17,7 +17,7 @@
 #import "TCGoodsStandardDescriptionDetail.h"
 #import "TCGoodsPriceAndRepertory.h"
 
-@interface TCCreateGoodsStandardController ()<UITableViewDelegate,UITableViewDataSource,TCCreateStandardCellDelegate,TCCreatePriceAndRepertoryCellDelegate>
+@interface TCCreateGoodsStandardController ()<UITableViewDelegate,UITableViewDataSource,TCCreateStandardCellDelegate,TCCreatePriceAndRepertoryCellDelegate,TCBatchSetiingViewDelegate,UITextFieldDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -191,6 +191,7 @@
     textField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
     textField.layer.borderWidth = 0.5;
     [headerView addSubview:textField];
+    textField.delegate = self;
     self.goodsStandardTitleTextField = textField;
     
     if (self.goodsStandardMate) {
@@ -516,6 +517,10 @@
     self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
 }
 
+- (void)textFieldShouldReturnn {
+    [self.view endEditing:YES];
+}
+
 - (void)textFieldShouldEndEditting:(UITableViewCell *)cell {
     self.currentIndexPath = nil;
 }
@@ -611,6 +616,7 @@
 - (void)batchSeting {
     if (_setingView == nil) {
         _setingView = [[TCBatchSetiingView alloc] init];
+        _setingView.delegate = self;
         [self.navigationController.view addSubview:_setingView];
         @WeakObj(self)
         _setingView.deleteBlock = ^{
@@ -625,6 +631,10 @@
         }];
     }
 }
+
+//- (void)textFieldShouldReturn {
+//    [self.view endEditing:YES];
+//}
 
 - (void)deleteSetingView {
     if (_setingView) {
@@ -647,6 +657,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [_cellsArr[indexPath.section] cellHeight];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing:YES];
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

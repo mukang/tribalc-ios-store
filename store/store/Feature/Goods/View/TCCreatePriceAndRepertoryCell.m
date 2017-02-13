@@ -128,6 +128,15 @@
     }];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(textFieldShouldReturnn)]) {
+            [self.delegate textFieldShouldReturnn];
+        }
+    }
+    return YES;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSInteger index = textField.tag;
     

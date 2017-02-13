@@ -226,6 +226,11 @@
     }
 }
 
+- (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing:YES];
+    return YES;
+}
+
 #pragma TCGoodsTipsCellDelegate
 - (void)didSelectedLib:(NSArray *)arr {
     self.selectedLibsArr = arr;

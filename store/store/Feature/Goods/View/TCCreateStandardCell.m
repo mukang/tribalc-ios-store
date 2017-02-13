@@ -203,6 +203,15 @@
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(textFieldShouldReturnn)]) {
+            [self.delegate textFieldShouldReturnn];
+        }
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
     if (self.delegate) {

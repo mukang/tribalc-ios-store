@@ -15,6 +15,8 @@
 
 - (void)textFieldDidEndEditting:(NSDictionary *)dict;
 
+- (void)textFieldShouldReturnn;
+
 @end
 
 @interface TCCreatePriceAndRepertoryCell : UITableViewCell

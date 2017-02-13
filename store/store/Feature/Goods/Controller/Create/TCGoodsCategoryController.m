@@ -111,13 +111,18 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    TCStoreCategoryInfo *storeInfo = _goodsCategoryInfoArray[indexPath.item];
-    NSString *category = storeInfo.category;
-    TCGoodsMeta *good = [[TCGoodsMeta alloc] init];
-    good.category = category;
-    TCChoseSpecificationsController *createVC = [[TCChoseSpecificationsController alloc] init];
-    createVC.good = good;
-    [self.navigationController pushViewController:createVC animated:YES];
+    if (indexPath.item != 7) {
+        TCStoreCategoryInfo *storeInfo = _goodsCategoryInfoArray[indexPath.item];
+        NSString *category = storeInfo.category;
+        TCGoodsMeta *good = [[TCGoodsMeta alloc] init];
+        good.category = category;
+        TCChoseSpecificationsController *createVC = [[TCChoseSpecificationsController alloc] init];
+        createVC.good = good;
+        [self.navigationController pushViewController:createVC animated:YES];
+    }else {
+        [MBProgressHUD showHUDWithMessage:@"此功能暂未开放，敬请期待！"];
+    }
+    
     
 //    if ([self.delegate respondsToSelector:@selector(storeCategoryViewCell:didSelectItemWithCategoryInfo:)]) {
 //        TCStoreCategoryInfo *categoryInfo = self.categoryInfoArray[indexPath.item];

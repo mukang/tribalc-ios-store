@@ -15,6 +15,8 @@
 
 - (void)textViewDidEndEditting:(UITextView *)textView;
 
+- (void)textViewShouldReturnn;
+
 @end
 
 @interface TCGoodsDetailTitleCell : UITableViewCell
