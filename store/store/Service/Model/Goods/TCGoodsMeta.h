@@ -45,7 +45,7 @@
 /** 快递包邮类型 */
 @property (copy, nonatomic) NSString *expressType;
 
-@property (assign, nonatomic) CGFloat expressFee;
+@property (assign, nonatomic) double expressFee;
 
 @property (strong, nonatomic) TCGoodsPriceAndRepertory *priceAndRepertory;
 

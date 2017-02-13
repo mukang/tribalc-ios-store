@@ -21,6 +21,7 @@
 #import "TCBuluoApi.h"
 #import "TCStoreCategoryInfo.h"
 #import "NSObject+TCModel.h"
+#import "TCBusinessLicenceViewController.h"
 
 @interface TCGoodsStoreSettingViewController ()
 <UITableViewDataSource,
@@ -104,7 +105,7 @@ TCStoreRecommendViewCellDelegate>
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
-    if ([[TCBuluoApi api].currentUserSession.storeInfo.storeAuthenticationStatus isEqualToString:@"SUCCEED"]) {
+    if ([[TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus isEqualToString:@"SUCCEED"]) {
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.right.equalTo(weakSelf.view);
         }];
@@ -383,7 +384,8 @@ TCStoreRecommendViewCellDelegate>
 }
 
 - (void)handleClickAuthenticationButton:(UIButton *)sender {
-    
+    TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
+    [self.navigationController pushViewController:businessVC animated:YES];
 }
 
 - (void)handleSelectStoreAddressCell {
@@ -424,7 +426,7 @@ TCStoreRecommendViewCellDelegate>
     CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     CGFloat bottomPadding;
-    if ([self.storeDetailInfo.storeAuthenticationStatus isEqualToString:@"SUCCEED"]) {
+    if ([self.storeDetailInfo.authenticationStatus isEqualToString:@"SUCCEED"]) {
         bottomPadding = height;
     } else {
         bottomPadding = height - 49;

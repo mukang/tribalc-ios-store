@@ -10,9 +10,9 @@
 
 @interface TCGoodsPriceAndRepertory : NSObject
 
-@property (assign, nonatomic) CGFloat originPrice;
+@property (assign, nonatomic) double originPrice;
 
-@property (assign, nonatomic) CGFloat salePrice;
+@property (assign, nonatomic) double salePrice;
 
 @property (assign, nonatomic) NSInteger repertory;
 

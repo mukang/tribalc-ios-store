@@ -122,6 +122,73 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)fetchGoodStandards:(NSString *)goodStandardId result:(void (^)(TCGoodStandards *goodStandard, NSError *error))resultBlock;
 
+/**
+ 商家获取产品列表
+ 
+ @param isPublished 是否上架
+ @param limitSize 获取数量
+ @param sort 排序
+ @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
+ @param resultBlock 结果回调
+ */
+- (void)fetchGoodsWrapper:(BOOL)isPublished limitSize:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsWrapper *, NSError *))resultBlock;
+
+
+/**
+ 获取商品规格组列表
+ 
+ @param limitSize 获取数量
+ @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
+ @param resultBlock 结果回调
+ */
+- (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize category:(NSString *)category sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock;
+
+/**
+ 创建商品
+ 
+ @param goods 商品
+ @param goodsStandardMate 规格
+ @param resultBlock 回调
+ */
+- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock;
+
+
+/**
+ 修改商品发布状态
+ 
+ @param goodsId 商品id
+ @param published 是否上架
+ @param resultBlock 回调
+ */
+- (void)modifyGoodsState:(NSString *)goodsId published:(NSString *)published result:(void (^)(BOOL, NSError *))resultBlock;
+
+
+/**
+ 删除商品
+ 
+ @param goodsId 商品id
+ @param resultBlock 回调
+ */
+- (void)deleteGoods:(NSString *)goodsId result:(void (^)(BOOL, NSError *))resultBlock;
+
+
+/**
+ 获取商品规格组
+ 
+ @param standardId 规格组id
+ @param resultBlock 回调
+ */
+- (void)getGoodsStandard:(NSString *)standardId result:(void (^)(TCGoodsStandardMate *goodsStandardMate, NSError *error))resultBlock;
+
+
+/**
+ 修改商品
+ 
+ @param goods 商品
+ @param resultBlock 回调
+ */
+- (void)modifyGoods:(TCGoodsMeta *)goods result:(void (^)(BOOL success, NSError *error))resultBlock;
+
 #pragma mark - 服务类资源
 
 /**
@@ -248,73 +315,12 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  */
 - (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
-
 /**
- 商家获取产品列表
-
- @param isPublished 是否上架
- @param limitSize 获取数量
- @param sort 排序
- @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
- @param resultBlock 结果回调
- */
-- (void)fetchGoodsWrapper:(BOOL)isPublished limitSize:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsWrapper *, NSError *))resultBlock;
-
-
-/**
- 获取商品规格组列表
-
- @param limitSize 获取数量
- @param sortSkip 默认查询起步的时间和跳过时间，以逗号分隔
- @param resultBlock 结果回调
- */
-- (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize category:(NSString *)category sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock;
-
-/**
- 创建商品
-
- @param goods 商品
- @param goodsStandardMate 规格
+ 获取店铺认证信息
+ 
  @param resultBlock 回调
  */
-- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock;
-
-
-/**
- 修改商品发布状态
-
- @param goodsId 商品id
- @param published 是否上架
- @param resultBlock 回调
- */
-- (void)modifyGoodsState:(NSString *)goodsId published:(NSString *)published result:(void (^)(BOOL, NSError *))resultBlock;
-
-
-/**
- 删除商品
-
- @param goodsId 商品id
- @param resultBlock 回调
- */
-- (void)deleteGoods:(NSString *)goodsId result:(void (^)(BOOL, NSError *))resultBlock;
-
-
-/**
- 获取商品规格组
-
- @param standardId 规格组id
- @param resultBlock 回调
- */
-- (void)getGoodsStandard:(NSString *)standardId result:(void (^)(TCGoodsStandardMate *goodsStandardMate, NSError *error))resultBlock;
-
-
-/**
- 修改商品
-
- @param goods 商品
- @param resultBlock 回调
- */
-- (void)modifyGoods:(TCGoodsMeta *)goods result:(void (^)(BOOL success, NSError *error))resultBlock;
+- (void)fetchStoreAuthenticationInfo:(void (^)(TCAuthenticationInfo *authenticationInfo, NSError *error))resultBlock;
 
 #pragma mark - 订单资源
 

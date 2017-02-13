@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		550319151E30A360004522C7 /* TCBusinessLicenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319141E30A360004522C7 /* TCBusinessLicenceViewController.m */; };
-		550319181E30BC89004522C7 /* TCAuthCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319171E30BC89004522C7 /* TCAuthCertifyViewController.m */; };
-		5503191B1E30C7DF004522C7 /* TCIndustryPermitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503191A1E30C7DF004522C7 /* TCIndustryPermitViewController.m */; };
 		5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503191E1E30D2BE004522C7 /* TCAuthenticationInfo.m */; };
 		550319231E31BE27004522C7 /* TCGoodsCategoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319221E31BE27004522C7 /* TCGoodsCategoryController.m */; };
 		550319261E31F68C004522C7 /* TCCreateGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319251E31F68C004522C7 /* TCCreateGoodsViewController.m */; };
@@ -32,6 +29,12 @@
 		55647EC21E4C159E00E4A0E9 /* TCGoodsStandardListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EBA1E4C159E00E4A0E9 /* TCGoodsStandardListCell.m */; };
 		55647EC31E4C159E00E4A0E9 /* TCGoodsTipsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EBC1E4C159E00E4A0E9 /* TCGoodsTipsCell.m */; };
 		55647EC61E4C15D500E4A0E9 /* TCGoodsStandardKeysBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EC51E4C15D500E4A0E9 /* TCGoodsStandardKeysBtn.m */; };
+		55647F4F1E4DA9B400E4A0E9 /* TCAuthCertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F4A1E4DA9B400E4A0E9 /* TCAuthCertifyViewController.m */; };
+		55647F501E4DA9B400E4A0E9 /* TCBusinessLicenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F4C1E4DA9B400E4A0E9 /* TCBusinessLicenceViewController.m */; };
+		55647F511E4DA9B400E4A0E9 /* TCIndustryPermitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F4E1E4DA9B400E4A0E9 /* TCIndustryPermitViewController.m */; };
+		55647F541E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F531E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.m */; };
+		55647F571E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F561E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m */; };
+		55647F5A1E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647F591E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m */; };
 		558F6DA41E48196400CB2F81 /* TCGoodsIssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DA31E48196400CB2F81 /* TCGoodsIssueViewController.m */; };
 		558F6DCF1E48C70B00CB2F81 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DCC1E48C70B00CB2F81 /* MGSwipeButton.m */; };
 		558F6DD01E48C70B00CB2F81 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DCE1E48C70B00CB2F81 /* MGSwipeTableCell.m */; };
@@ -224,12 +227,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		550319131E30A360004522C7 /* TCBusinessLicenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCBusinessLicenceViewController.h; path = store/Feature/Profile/Controller/TCBusinessLicenceViewController.h; sourceTree = SOURCE_ROOT; };
-		550319141E30A360004522C7 /* TCBusinessLicenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCBusinessLicenceViewController.m; path = store/Feature/Profile/Controller/TCBusinessLicenceViewController.m; sourceTree = SOURCE_ROOT; };
-		550319161E30BC89004522C7 /* TCAuthCertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCAuthCertifyViewController.h; path = store/Feature/Profile/Controller/TCAuthCertifyViewController.h; sourceTree = SOURCE_ROOT; };
-		550319171E30BC89004522C7 /* TCAuthCertifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCAuthCertifyViewController.m; path = store/Feature/Profile/Controller/TCAuthCertifyViewController.m; sourceTree = SOURCE_ROOT; };
-		550319191E30C7DF004522C7 /* TCIndustryPermitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCIndustryPermitViewController.h; path = store/Feature/Profile/Controller/TCIndustryPermitViewController.h; sourceTree = SOURCE_ROOT; };
-		5503191A1E30C7DF004522C7 /* TCIndustryPermitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCIndustryPermitViewController.m; path = store/Feature/Profile/Controller/TCIndustryPermitViewController.m; sourceTree = SOURCE_ROOT; };
 		5503191D1E30D2BE004522C7 /* TCAuthenticationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAuthenticationInfo.h; sourceTree = "<group>"; };
 		5503191E1E30D2BE004522C7 /* TCAuthenticationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAuthenticationInfo.m; sourceTree = "<group>"; };
 		550319211E31BE27004522C7 /* TCGoodsCategoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsCategoryController.h; sourceTree = "<group>"; };
@@ -274,6 +271,18 @@
 		55647EBC1E4C159E00E4A0E9 /* TCGoodsTipsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsTipsCell.m; sourceTree = "<group>"; };
 		55647EC41E4C15D500E4A0E9 /* TCGoodsStandardKeysBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsStandardKeysBtn.h; sourceTree = "<group>"; };
 		55647EC51E4C15D500E4A0E9 /* TCGoodsStandardKeysBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsStandardKeysBtn.m; sourceTree = "<group>"; };
+		55647F491E4DA9B400E4A0E9 /* TCAuthCertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAuthCertifyViewController.h; sourceTree = "<group>"; };
+		55647F4A1E4DA9B400E4A0E9 /* TCAuthCertifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAuthCertifyViewController.m; sourceTree = "<group>"; };
+		55647F4B1E4DA9B400E4A0E9 /* TCBusinessLicenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBusinessLicenceViewController.h; sourceTree = "<group>"; };
+		55647F4C1E4DA9B400E4A0E9 /* TCBusinessLicenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBusinessLicenceViewController.m; sourceTree = "<group>"; };
+		55647F4D1E4DA9B400E4A0E9 /* TCIndustryPermitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCIndustryPermitViewController.h; sourceTree = "<group>"; };
+		55647F4E1E4DA9B400E4A0E9 /* TCIndustryPermitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCIndustryPermitViewController.m; sourceTree = "<group>"; };
+		55647F521E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBussinessAuthFailureAndProcessController.h; sourceTree = "<group>"; };
+		55647F531E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBussinessAuthFailureAndProcessController.m; sourceTree = "<group>"; };
+		55647F551E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBussinessAuthSuccessController.h; sourceTree = "<group>"; };
+		55647F561E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBussinessAuthSuccessController.m; sourceTree = "<group>"; };
+		55647F581E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreAuthSuccessCell.h; sourceTree = "<group>"; };
+		55647F591E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreAuthSuccessCell.m; sourceTree = "<group>"; };
 		558F6DA21E48196400CB2F81 /* TCGoodsIssueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsIssueViewController.h; sourceTree = "<group>"; };
 		558F6DA31E48196400CB2F81 /* TCGoodsIssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsIssueViewController.m; sourceTree = "<group>"; };
 		558F6DCB1E48C70B00CB2F81 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
@@ -642,19 +651,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		550318E31E30637B004522C7 /* BusinessCertify */ = {
-			isa = PBXGroup;
-			children = (
-				550319131E30A360004522C7 /* TCBusinessLicenceViewController.h */,
-				550319141E30A360004522C7 /* TCBusinessLicenceViewController.m */,
-				550319161E30BC89004522C7 /* TCAuthCertifyViewController.h */,
-				550319171E30BC89004522C7 /* TCAuthCertifyViewController.m */,
-				550319191E30C7DF004522C7 /* TCIndustryPermitViewController.h */,
-				5503191A1E30C7DF004522C7 /* TCIndustryPermitViewController.m */,
-			);
-			path = BusinessCertify;
-			sourceTree = "<group>";
-		};
 		5503191C1E30D29E004522C7 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -702,6 +698,23 @@
 				55647EC51E4C15D500E4A0E9 /* TCGoodsStandardKeysBtn.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		55647F481E4DA9B400E4A0E9 /* BussinessCertify */ = {
+			isa = PBXGroup;
+			children = (
+				55647F491E4DA9B400E4A0E9 /* TCAuthCertifyViewController.h */,
+				55647F4A1E4DA9B400E4A0E9 /* TCAuthCertifyViewController.m */,
+				55647F4B1E4DA9B400E4A0E9 /* TCBusinessLicenceViewController.h */,
+				55647F4C1E4DA9B400E4A0E9 /* TCBusinessLicenceViewController.m */,
+				55647F4D1E4DA9B400E4A0E9 /* TCIndustryPermitViewController.h */,
+				55647F4E1E4DA9B400E4A0E9 /* TCIndustryPermitViewController.m */,
+				55647F521E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.h */,
+				55647F531E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.m */,
+				55647F551E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.h */,
+				55647F561E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m */,
+			);
+			path = BussinessCertify;
 			sourceTree = "<group>";
 		};
 		558F6DCA1E48C70B00CB2F81 /* MGSwipeTableCell */ = {
@@ -1474,10 +1487,10 @@
 		7ABCC0FE1E262B3C00750E47 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				55647F481E4DA9B400E4A0E9 /* BussinessCertify */,
 				7ABCC1061E262BA000750E47 /* TCProfileViewController.h */,
 				7ABCC1071E262BA000750E47 /* TCProfileViewController.m */,
 				7A7B60931E309FB6004971C9 /* Create */,
-				550318E31E30637B004522C7 /* BusinessCertify */,
 				7A5344551E2F1C1D0053B527 /* Info */,
 				7AE92B771E2CB2280012B11E /* Setting */,
 				7AE92B6C1E2CB0F90012B11E /* QRCode */,
@@ -1498,6 +1511,8 @@
 				7A5344561E2F1C280053B527 /* Info */,
 				7AE92B841E2CB2440012B11E /* Setting */,
 				7AE92B6D1E2CB1060012B11E /* QRCode */,
+				55647F581E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.h */,
+				55647F591E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1811,6 +1826,7 @@
 				7AE92B761E2CB1350012B11E /* TCQRCodeViewController.m in Sources */,
 				7A9988141E24EE3E006175CC /* TCGoodDetail.m in Sources */,
 				7A661E5F1E31B4440080D37D /* TCCommonSubtitleViewCell.m in Sources */,
+				55647F4F1E4DA9B400E4A0E9 /* TCAuthCertifyViewController.m in Sources */,
 				5503194A1E35DDEE004522C7 /* TCCreateGoodsStandardController.m in Sources */,
 				7AE92B721E2CB1280012B11E /* TCScannerBorder.m in Sources */,
 				7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */,
@@ -1820,8 +1836,8 @@
 				7A55F4311E28E91E0018FED3 /* TCProfileHeaderView.m in Sources */,
 				7AE92B6B1E2C79970012B11E /* TCPhotoModeView.m in Sources */,
 				7A9987F01E24E958006175CC /* TCUserSession.m in Sources */,
+				55647F501E4DA9B400E4A0E9 /* TCBusinessLicenceViewController.m in Sources */,
 				7ABCC0DC1E2622C800750E47 /* TCCalloutAnnotationView.m in Sources */,
-				5503191B1E30C7DF004522C7 /* TCIndustryPermitViewController.m in Sources */,
 				7A1B039D1E36083D003258D0 /* TCStoreSurroundingViewCell.m in Sources */,
 				7A48B4281E4B004F00373BF4 /* TCGoodsOrderViewController.m in Sources */,
 				7A48B42C1E4B02DB00373BF4 /* TCGoodsOrder.m in Sources */,
@@ -1866,7 +1882,6 @@
 				7AD866701E4DB15000686AC2 /* TCReservationViewCell.m in Sources */,
 				7A53446C1E2F7B7C0053B527 /* TCBioEditPhoneViewController.m in Sources */,
 				7A48B4321E4B048100373BF4 /* TCGoodsOrderWrapper.m in Sources */,
-				550319181E30BC89004522C7 /* TCAuthCertifyViewController.m in Sources */,
 				5503192F1E34926C004522C7 /* TCChoseSpecificationsController.m in Sources */,
 				550319351E349779004522C7 /* TCGoodsStandardMate.m in Sources */,
 				7AB568341E4572C20005814A /* TCBusinessHoursViewCell.m in Sources */,
@@ -1902,11 +1917,13 @@
 				7A48B4201E4884EF00373BF4 /* TCCommonSwitchViewCell.m in Sources */,
 				7A8E42851E377445003A475B /* TCStoreFeatureViewCell.m in Sources */,
 				7A48B4171E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m in Sources */,
+				55647F571E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m in Sources */,
 				7A9987CF1E24C9FA006175CC /* TCClientRequest.m in Sources */,
 				558F6DD01E48C70B00CB2F81 /* MGSwipeTableCell.m in Sources */,
 				7A661E5C1E31B3B40080D37D /* TCCommonInputViewCell.m in Sources */,
 				55647EBD1E4C159E00E4A0E9 /* TCBatchSetiingView.m in Sources */,
 				7ABCC1081E262BA000750E47 /* TCProfileViewController.m in Sources */,
+				55647F541E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.m in Sources */,
 				55647EBF1E4C159E00E4A0E9 /* TCCreateStandardCell.m in Sources */,
 				7ABCC0D81E2622C800750E47 /* TCHomeViewController.m in Sources */,
 				7A53446E1E2F7B7C0053B527 /* TCBioEditSMSViewController.m in Sources */,
@@ -1917,8 +1934,8 @@
 				7A8E42821E3757E3003A475B /* TCCookingStyleViewCell.m in Sources */,
 				7A9987D41E24E371006175CC /* TCClient.m in Sources */,
 				550319431E34D86B004522C7 /* TCRefreshFooter.m in Sources */,
+				55647F5A1E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m in Sources */,
 				55647EC31E4C159E00E4A0E9 /* TCGoodsTipsCell.m in Sources */,
-				550319151E30A360004522C7 /* TCBusinessLicenceViewController.m in Sources */,
 				7A5344651E2F6EC50053B527 /* TCInfoEditViewController.m in Sources */,
 				7A9988271E24EFE6006175CC /* TCUserPhoneInfo.m in Sources */,
 				7ABCC0D41E2622C800750E47 /* TCRecommendListViewController.m in Sources */,
@@ -1973,6 +1990,7 @@
 				7ABCC0D61E2622C800750E47 /* TCRestaurantTableViewCell.m in Sources */,
 				5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */,
 				550319291E3218D8004522C7 /* TCGoodsPriceAndRepertory.m in Sources */,
+				55647F511E4DA9B400E4A0E9 /* TCIndustryPermitViewController.m in Sources */,
 				7ABCC0D31E2622C800750E47 /* TCRecommendInfoViewController.m in Sources */,
 				7A7B60A91E30B4AF004971C9 /* TCStoreCategoryInfo.m in Sources */,
 				7A9987E41E24E42B006175CC /* UIImage+Category.m in Sources */,

@@ -557,14 +557,14 @@
     if (self.goods.priceAndRepertory == nil) {
         self.goods.priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
     }
-    self.goods.priceAndRepertory.salePrice = [text floatValue];
+    self.goods.priceAndRepertory.salePrice = [text doubleValue];
 }
 
 - (void)setGoodsOriginPrice:(NSString *)text {
     if (self.goods.priceAndRepertory == nil) {
         self.goods.priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
     }
-    self.goods.priceAndRepertory.originPrice = [text floatValue];
+    self.goods.priceAndRepertory.originPrice = [text doubleValue];
 }
 
 - (void)setGoodsReperoty:(NSString *)text {

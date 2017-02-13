@@ -221,7 +221,7 @@
         if (indexPath.row == 0) {
             self.goods.number = textField.text;
         }else if (indexPath.row == 1) {
-            self.goods.expressFee = [textField.text floatValue];
+            self.goods.expressFee = [textField.text doubleValue];
         }
     }
 }
