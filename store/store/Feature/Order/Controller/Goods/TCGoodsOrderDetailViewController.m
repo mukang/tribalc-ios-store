@@ -9,6 +9,7 @@
 #import "TCGoodsOrderDetailViewController.h"
 
 #import "TCCommonButton.h"
+#import "TCGoodsDeliveryView.h"
 #import "TCCommonSubtitleViewCell.h"
 #import "TCGoodsOrderAddressViewCell.h"
 #import "TCGoodsOrderPurchaserViewCell.h"
@@ -229,7 +230,8 @@
 #pragma mark - Actions
 
 - (void)handleClickDeliverButton:(UIButton *)sender {
-    
+    TCGoodsDeliveryView *deliveryView = [[TCGoodsDeliveryView alloc] initWithController:self];
+    [deliveryView show];
 }
 
 - (NSArray *)handleCreateInfoArrayWithStatus:(NSString *)status {

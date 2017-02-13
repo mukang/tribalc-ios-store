@@ -201,6 +201,8 @@
 		7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B7D1E2CB2280012B11E /* TCSuggestionViewController.m */; };
 		7AE92B8D1E2CB2C20012B11E /* TCCommonIndicatorViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B8C1E2CB2C20012B11E /* TCCommonIndicatorViewCell.m */; };
 		7AE92B901E2CB2D80012B11E /* TCCommonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B8F1E2CB2D80012B11E /* TCCommonButton.m */; };
+		7AFEC4131E51452400B0E754 /* TCGoodsDeliveryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4121E51452400B0E754 /* TCGoodsDeliveryView.m */; };
+		7AFEC4161E515DE800B0E754 /* TCDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4151E515DE800B0E754 /* TCDropdownMenu.m */; };
 		E71BB80DAB52591718DA7767 /* libPods-store.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00C8004B261DE1B413018A3 /* libPods-store.a */; };
 /* End PBXBuildFile section */
 
@@ -605,6 +607,10 @@
 		7AE92B8C1E2CB2C20012B11E /* TCCommonIndicatorViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCommonIndicatorViewCell.m; sourceTree = "<group>"; };
 		7AE92B8E1E2CB2D80012B11E /* TCCommonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCommonButton.h; sourceTree = "<group>"; };
 		7AE92B8F1E2CB2D80012B11E /* TCCommonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCommonButton.m; sourceTree = "<group>"; };
+		7AFEC4111E51452400B0E754 /* TCGoodsDeliveryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsDeliveryView.h; sourceTree = "<group>"; };
+		7AFEC4121E51452400B0E754 /* TCGoodsDeliveryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsDeliveryView.m; sourceTree = "<group>"; };
+		7AFEC4141E515DE800B0E754 /* TCDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCDropdownMenu.h; sourceTree = "<group>"; };
+		7AFEC4151E515DE800B0E754 /* TCDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCDropdownMenu.m; sourceTree = "<group>"; };
 		AF80221D1AF577A91976C738 /* Pods-store.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.debug.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.debug.xcconfig"; sourceTree = "<group>"; };
 		B00C8004B261DE1B413018A3 /* libPods-store.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-store.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54209AED3B5DC0C7B24D243 /* Pods-store.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.release.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.release.xcconfig"; sourceTree = "<group>"; };
@@ -1146,6 +1152,10 @@
 				7AB568361E45827D0005814A /* TCDatePickerView.m */,
 				7A17EB9B1E4B2467005D377C /* TCTabView.h */,
 				7A17EB9C1E4B2467005D377C /* TCTabView.m */,
+				7AFEC4111E51452400B0E754 /* TCGoodsDeliveryView.h */,
+				7AFEC4121E51452400B0E754 /* TCGoodsDeliveryView.m */,
+				7AFEC4141E515DE800B0E754 /* TCDropdownMenu.h */,
+				7AFEC4151E515DE800B0E754 /* TCDropdownMenu.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1824,6 +1834,7 @@
 				7AD8664A1E4C67E700686AC2 /* TCGoodsOrderDetailViewController.m in Sources */,
 				7ABCC0E81E2622C800750E47 /* TCGoodShopView.m in Sources */,
 				7A7B60AF1E30BCD5004971C9 /* TCStoreCategoryIconView.m in Sources */,
+				7AFEC4131E51452400B0E754 /* TCGoodsDeliveryView.m in Sources */,
 				7A99881B1E24EE3E006175CC /* TCDetailStore.m in Sources */,
 				55647EC11E4C159E00E4A0E9 /* TCGoodsListCell.m in Sources */,
 				7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */,
@@ -1841,6 +1852,7 @@
 				7A9987D01E24C9FA006175CC /* TCClientRequestError.m in Sources */,
 				7A9987E21E24E42B006175CC /* NSObject+TCModel.m in Sources */,
 				7AD866591E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m in Sources */,
+				7AFEC4161E515DE800B0E754 /* TCDropdownMenu.m in Sources */,
 				550319321E34961E004522C7 /* TCGoodsStandardWrapper.m in Sources */,
 				7AD866731E4DC51900686AC2 /* TCReservationDetailViewController.m in Sources */,
 				7AD866681E4DA6C700686AC2 /* TCReservationWrapper.m in Sources */,
