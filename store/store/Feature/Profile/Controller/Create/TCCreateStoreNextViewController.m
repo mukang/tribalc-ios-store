@@ -349,6 +349,7 @@
             vc.navigationItem.title = @"店铺信息";
             vc.backForbidden = YES;
             [weakSelf.navigationController pushViewController:vc animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationStoreDidCreated object:nil];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"创建店铺失败，%@", reason]];

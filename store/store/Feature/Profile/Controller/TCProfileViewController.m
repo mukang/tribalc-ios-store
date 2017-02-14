@@ -13,6 +13,8 @@
 #import "TCAppSettingViewController.h"
 #import "TCInfoViewController.h"
 #import "TCStoreCategoryViewController.h"
+#import "TCStoreSettingViewController.h"
+#import "TCGoodsStoreSettingViewController.h"
 
 #import "TCProfileHeaderView.h"
 #import "TCProfileViewCell.h"
@@ -216,7 +218,12 @@ TCPhotoModeViewDelegate>
     TCProfileViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCProfileViewCell" forIndexPath:indexPath];
     if (indexPath.section == 0) {
         cell.iconImageView.image = [UIImage imageNamed:@"profile_create"];
-        cell.titleLabel.text = @"创建店铺";
+        NSString *storeType = [[TCBuluoApi api] currentUserSession].storeInfo.storeType;
+        if ([storeType isEqualToString:@"GOODS"] || [storeType isEqualToString:@"SET_MEAL"]) {
+            cell.titleLabel.text = @"店铺设置";
+        } else {
+            cell.titleLabel.text = @"创建店铺";
+        }
     } else {
         if (indexPath.row == 0) {
             cell.iconImageView.image = [UIImage imageNamed:@"profile_wallet"];
@@ -243,10 +250,21 @@ TCPhotoModeViewDelegate>
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([self checkUserNeedLogin]) return;
     
-    if (indexPath.section == 0) {
-        TCStoreCategoryViewController *vc = [[TCStoreCategoryViewController alloc] init];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+    if (indexPath.section == 0) { // 创建店铺 或 店铺设置
+        NSString *storeType = [[TCBuluoApi api] currentUserSession].storeInfo.storeType;
+        if ([storeType isEqualToString:@"GOODS"]) {
+            TCGoodsStoreSettingViewController *vc = [[TCGoodsStoreSettingViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if ([storeType isEqualToString:@"SET_MEAL"]) {
+            TCStoreSettingViewController *vc = [[TCStoreSettingViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            TCStoreCategoryViewController *vc = [[TCStoreCategoryViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }else if (indexPath.section == 1) {
         if (indexPath.row == 1) {
             
@@ -381,6 +399,7 @@ TCPhotoModeViewDelegate>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDidLogin:) name:TCBuluoApiNotificationUserDidLogin object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserDidLogout:) name:TCBuluoApiNotificationUserDidLogout object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleStoreInfoDidUpdate:) name:TCBuluoApiNotificationUserInfoDidUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleStoreDidCreated:) name:TCBuluoApiNotificationStoreDidCreated object:nil];
 }
 
 - (void)removeNotifications {
@@ -431,6 +450,10 @@ TCPhotoModeViewDelegate>
     [self updateHeaderView];
 }
 
+- (void)handleStoreDidCreated:(id)sender {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -14,6 +14,7 @@
 NSString *const TCBuluoApiNotificationUserDidLogin = @"TCBuluoApiNotificationUserDidLogin";
 NSString *const TCBuluoApiNotificationUserDidLogout = @"TCBuluoApiNotificationUserDidLogout";
 NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificationUserInfoDidUpdate";
+NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotificationStoreDidCreated";
 
 @implementation TCBuluoApi {
     TCUserSession *_userSession;

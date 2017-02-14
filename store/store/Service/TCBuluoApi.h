@@ -12,6 +12,7 @@
 extern NSString *const TCBuluoApiNotificationUserDidLogin;
 extern NSString *const TCBuluoApiNotificationUserDidLogout;
 extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
+extern NSString *const TCBuluoApiNotificationStoreDidCreated;
 
 @interface TCBuluoApi : NSObject
 
