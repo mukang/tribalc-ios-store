@@ -29,5 +29,7 @@
 @property (nonatomic) NSInteger personExpense;
 /** 服务是否接受预定 */
 @property (nonatomic) BOOL reservable;
+/** 服务类别 */
+@property (copy, nonatomic) NSString *category;
 
 @end

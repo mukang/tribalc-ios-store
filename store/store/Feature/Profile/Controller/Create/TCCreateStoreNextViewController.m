@@ -414,6 +414,7 @@
         _storeSetMealMeta = [[TCStoreSetMealMeta alloc] init];
         _storeSetMealMeta.name = self.storeDetailInfo.name;
         _storeSetMealMeta.pictures = self.storeDetailInfo.pictures;
+        _storeSetMealMeta.category = self.storeDetailInfo.category;
     }
     return _storeSetMealMeta;
 }

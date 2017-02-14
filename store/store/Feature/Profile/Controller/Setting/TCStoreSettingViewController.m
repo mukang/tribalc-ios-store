@@ -778,6 +778,9 @@ TCStoreFacilitiesViewCellDelegate>
     vc.storeDetailInfo = self.storeDetailInfo;
     vc.editSurroundingCompletion = ^() {
         weakSelf.storeSetMealMeta.pictures = weakSelf.storeDetailInfo.pictures;
+        if (weakSelf.storeDetailInfo.pictures.count) {
+            weakSelf.storeSetMealMeta.mainPicture = weakSelf.storeDetailInfo.pictures[0];
+        }
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:2];
         [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
