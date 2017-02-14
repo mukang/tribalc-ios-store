@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="utB-XS-ei4" customClass="TCWalletBillDetailHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SgD-U9-0Xw">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="123" id="xEb-dx-d2r"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auz-Pv-Vc4">
+                    <rect key="frame" x="152" y="27" width="70" height="70"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n8a-S5-TUY">
+                            <rect key="frame" x="3" y="3" width="64" height="64"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="63.5" id="KrL-3r-1Jn"/>
+                                <constraint firstAttribute="height" constant="63.5" id="qnq-Xk-uoC"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="n8a-S5-TUY" firstAttribute="centerX" secondItem="auz-Pv-Vc4" secondAttribute="centerX" id="5uo-rX-cc0"/>
+                        <constraint firstAttribute="width" constant="70" id="Mro-H3-up8"/>
+                        <constraint firstAttribute="height" constant="70" id="YT6-s2-Zff"/>
+                        <constraint firstItem="n8a-S5-TUY" firstAttribute="centerY" secondItem="auz-Pv-Vc4" secondAttribute="centerY" id="l8y-5f-MmF"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="auz-Pv-Vc4" firstAttribute="top" secondItem="utB-XS-ei4" secondAttribute="top" constant="26.5" id="Dqn-GG-g9n"/>
+                <constraint firstItem="auz-Pv-Vc4" firstAttribute="centerX" secondItem="utB-XS-ei4" secondAttribute="centerX" id="HnN-5e-UXO"/>
+                <constraint firstItem="SgD-U9-0Xw" firstAttribute="leading" secondItem="utB-XS-ei4" secondAttribute="leading" id="K1q-dV-P65"/>
+                <constraint firstAttribute="trailing" secondItem="SgD-U9-0Xw" secondAttribute="trailing" id="aMw-jq-bDP"/>
+                <constraint firstItem="SgD-U9-0Xw" firstAttribute="top" secondItem="utB-XS-ei4" secondAttribute="top" id="dPX-DN-O7f"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="iconBgView" destination="auz-Pv-Vc4" id="ROT-gE-mm7"/>
+                <outlet property="iconImageView" destination="n8a-S5-TUY" id="yKy-zy-PlL"/>
+            </connections>
+            <point key="canvasLocation" x="-42.5" y="-57"/>
+        </view>
+    </objects>
+</document>

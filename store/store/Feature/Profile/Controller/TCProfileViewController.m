@@ -15,6 +15,7 @@
 #import "TCStoreCategoryViewController.h"
 #import "TCStoreSettingViewController.h"
 #import "TCGoodsStoreSettingViewController.h"
+#import "TCWalletViewController.h"
 
 #import "TCProfileHeaderView.h"
 #import "TCProfileViewCell.h"
@@ -251,38 +252,12 @@ TCPhotoModeViewDelegate>
     if ([self checkUserNeedLogin]) return;
     
     if (indexPath.section == 0) { // 创建店铺 或 店铺设置
-        NSString *storeType = [[TCBuluoApi api] currentUserSession].storeInfo.storeType;
-        if ([storeType isEqualToString:@"GOODS"]) {
-            TCGoodsStoreSettingViewController *vc = [[TCGoodsStoreSettingViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        } else if ([storeType isEqualToString:@"SET_MEAL"]) {
-            TCStoreSettingViewController *vc = [[TCStoreSettingViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        } else {
-            TCStoreCategoryViewController *vc = [[TCStoreCategoryViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
+        [self handleSelectCreateStoreCell];
     }else if (indexPath.section == 1) {
-        if (indexPath.row == 1) {
-            
-            NSString *authStr = [[TCBuluoApi api] currentUserSession].storeInfo.authenticationStatus;
-            if ([authStr isEqualToString:@"NOT_START"]) {
-                TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
-                businessVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:businessVC animated:YES];
-            }else if ([authStr isEqualToString:@"FAILURE"] || [authStr isEqualToString:@"PROCESSING"]) {
-                TCBussinessAuthFailureAndProcessController *bussVc = [[TCBussinessAuthFailureAndProcessController alloc] initWithAuthStatus:authStr];
-                bussVc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:bussVc animated:YES];
-            }else if ([authStr isEqualToString:@"SUCCESS"]) {
-                TCBussinessAuthSuccessController *successVc = [[TCBussinessAuthSuccessController alloc] init];
-                successVc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:successVc animated:YES];
-            }
-            
+        if (indexPath.row == 0) { // 钱包
+            [self handleSelectWalletCell];
+        } else if (indexPath.row == 1) { // 商户认证
+            [self handleSelectBussinessAuthCell];
         }
     }
 }
@@ -436,6 +411,46 @@ TCPhotoModeViewDelegate>
     TCAppSettingViewController *vc = [[TCAppSettingViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectCreateStoreCell {
+    NSString *storeType = [[TCBuluoApi api] currentUserSession].storeInfo.storeType;
+    if ([storeType isEqualToString:@"GOODS"]) {
+        TCGoodsStoreSettingViewController *vc = [[TCGoodsStoreSettingViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if ([storeType isEqualToString:@"SET_MEAL"]) {
+        TCStoreSettingViewController *vc = [[TCStoreSettingViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        TCStoreCategoryViewController *vc = [[TCStoreCategoryViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+- (void)handleSelectWalletCell {
+    TCWalletViewController *vc = [[TCWalletViewController alloc] initWithNibName:@"TCWalletViewController" bundle:[NSBundle mainBundle]];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleSelectBussinessAuthCell {
+    NSString *authStr = [[TCBuluoApi api] currentUserSession].storeInfo.authenticationStatus;
+    if ([authStr isEqualToString:@"NOT_START"]) {
+        TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
+        businessVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:businessVC animated:YES];
+    }else if ([authStr isEqualToString:@"FAILURE"] || [authStr isEqualToString:@"PROCESSING"]) {
+        TCBussinessAuthFailureAndProcessController *bussVc = [[TCBussinessAuthFailureAndProcessController alloc] initWithAuthStatus:authStr];
+        bussVc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:bussVc animated:YES];
+    }else if ([authStr isEqualToString:@"SUCCESS"]) {
+        TCBussinessAuthSuccessController *successVc = [[TCBussinessAuthSuccessController alloc] init];
+        successVc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:successVc animated:YES];
+    }
 }
 
 - (void)handleUserDidLogin:(id)sender {

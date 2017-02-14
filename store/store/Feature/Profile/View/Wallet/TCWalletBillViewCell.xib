@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TCWalletBillViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4c-9B-OKa">
+                        <rect key="frame" x="20" y="15" width="45" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="P5i-jd-run"/>
+                            <constraint firstAttribute="width" constant="45" id="t7b-Xn-gcn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXB-hd-Qfk">
+                        <rect key="frame" x="20" y="38" width="45" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="A9p-0x-P27"/>
+                            <constraint firstAttribute="width" constant="45" id="v8y-2f-9bA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XQ1-US-e0x">
+                        <rect key="frame" x="68" y="12" width="42" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="42" id="Syx-KW-3Pa"/>
+                            <constraint firstAttribute="height" constant="42" id="y9F-XO-2AS"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lo2-6k-i7P">
+                        <rect key="frame" x="130" y="16" width="170" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="OAH-8M-bWl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRz-IC-4hr">
+                        <rect key="frame" x="130" y="40" width="170" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="WMq-5J-nNh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="PRz-IC-4hr" firstAttribute="top" secondItem="Lo2-6k-i7P" secondAttribute="bottom" constant="6" id="33D-b9-24B"/>
+                    <constraint firstItem="vXB-hd-Qfk" firstAttribute="top" secondItem="F4c-9B-OKa" secondAttribute="bottom" constant="7" id="3o9-Qb-P2p"/>
+                    <constraint firstItem="F4c-9B-OKa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="45C-L3-XaF"/>
+                    <constraint firstAttribute="trailing" secondItem="PRz-IC-4hr" secondAttribute="trailing" constant="20" id="7oF-qS-Dsf"/>
+                    <constraint firstItem="XQ1-US-e0x" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Lsw-r1-jRh"/>
+                    <constraint firstItem="F4c-9B-OKa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="M6L-sP-Tmb"/>
+                    <constraint firstAttribute="trailing" secondItem="Lo2-6k-i7P" secondAttribute="trailing" constant="20" id="MjT-Id-cB5"/>
+                    <constraint firstItem="Lo2-6k-i7P" firstAttribute="leading" secondItem="XQ1-US-e0x" secondAttribute="trailing" constant="20" id="OiY-t3-1bv"/>
+                    <constraint firstItem="vXB-hd-Qfk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="WPz-Dt-GcM"/>
+                    <constraint firstItem="Lo2-6k-i7P" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="WrS-QR-nya"/>
+                    <constraint firstItem="XQ1-US-e0x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="68" id="wt0-sU-q3Z"/>
+                    <constraint firstItem="PRz-IC-4hr" firstAttribute="leading" secondItem="XQ1-US-e0x" secondAttribute="trailing" constant="20" id="yos-Sz-B7b"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+            <connections>
+                <outlet property="amountLabel" destination="Lo2-6k-i7P" id="5yw-0x-SRg"/>
+                <outlet property="detailTimeLabel" destination="vXB-hd-Qfk" id="D60-mQ-Og6"/>
+                <outlet property="iconImageView" destination="XQ1-US-e0x" id="FVj-Kk-gxh"/>
+                <outlet property="titleLabel" destination="PRz-IC-4hr" id="Vt9-zA-rSx"/>
+                <outlet property="weekdayLabel" destination="F4c-9B-OKa" id="xWx-7N-6in"/>
+            </connections>
+            <point key="canvasLocation" x="26" y="51.5"/>
+        </tableViewCell>
+    </objects>
+</document>
