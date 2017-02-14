@@ -270,7 +270,28 @@
             if (indexPath.row == 0) {
                 TCCommonSubtitleViewCell *cell = [[TCCommonSubtitleViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonSubtitleViewCell"];
                 cell.titleLabel.text = @"类别";
-                cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@",self.goods.category];
+                NSString *categoryStr = self.goods.category;
+                if ([categoryStr isKindOfClass:[NSString class]]) {
+                    if ([categoryStr isEqualToString:@"FOOD"]) {
+                        categoryStr = @"美食";
+                    }else if ([categoryStr isEqualToString:@"GIFT"]) {
+                        categoryStr = @"礼品";
+                    }else if ([categoryStr isEqualToString:@"OFFICE"]) {
+                        categoryStr = @"办公用品";
+                    }else if ([categoryStr isEqualToString:@"LIVING"]) {
+                    categoryStr = @"生活用品";
+                    }else if ([categoryStr isEqualToString:@"HOUSE"]) {
+                    categoryStr = @"家具用品";
+                    }else if ([categoryStr isEqualToString:@"MAKEUP"]) {
+                        categoryStr = @"个护化妆";
+                    }else if ([categoryStr isEqualToString:@"PENETRATION"]) {
+                        categoryStr = @"妇婴用品";
+                    }else if ([categoryStr isEqualToString:@"PENETRATION"]) {
+                        categoryStr = @"会员卡";
+                    }
+                    cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@",categoryStr];
+                }
+                
                 return cell;
             }else if (indexPath.row == 1) {
                 TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
@@ -370,7 +391,28 @@
             if (indexPath.row == 0) {
                 TCCommonSubtitleViewCell *cell = [[TCCommonSubtitleViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonSubtitleViewCell"];
                 cell.titleLabel.text = @"类别";
-                cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@",self.goods.category];
+//                cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@",self.goods.category];
+                NSString *categoryStr = self.goods.category;
+                if ([categoryStr isKindOfClass:[NSString class]]) {
+                    if ([categoryStr isEqualToString:@"FOOD"]) {
+                        categoryStr = @"美食";
+                    }else if ([categoryStr isEqualToString:@"GIFT"]) {
+                        categoryStr = @"礼品";
+                    }else if ([categoryStr isEqualToString:@"OFFICE"]) {
+                        categoryStr = @"办公用品";
+                    }else if ([categoryStr isEqualToString:@"LIVING"]) {
+                        categoryStr = @"生活用品";
+                    }else if ([categoryStr isEqualToString:@"HOUSE"]) {
+                        categoryStr = @"家具用品";
+                    }else if ([categoryStr isEqualToString:@"MAKEUP"]) {
+                        categoryStr = @"个护化妆";
+                    }else if ([categoryStr isEqualToString:@"PENETRATION"]) {
+                        categoryStr = @"妇婴用品";
+                    }else if ([categoryStr isEqualToString:@"PENETRATION"]) {
+                        categoryStr = @"会员卡";
+                    }
+                    cell.subtitleLabel.text = [NSString stringWithFormat:@"商品>%@",categoryStr];
+                }
                 return cell;
             }else if (indexPath.row == 1) {
                 TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
@@ -453,6 +495,11 @@
             }
         }
     }
+}
+
+- (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing:YES];
+    return YES;
 }
 
 - (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldBeginEditing:(UITextField *)textField {

@@ -71,7 +71,8 @@
     [self.view addSubview:label3];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setBackgroundColor:[UIColor redColor]];
+//    [btn setBackgroundColor:[UIColor redColor]];
+    [btn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(toChoosePhoto) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
@@ -140,7 +141,8 @@
     
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.width.height.equalTo(@(TCRealValue(40)));
+        make.width.equalTo(@(TCRealValue(47)));
+        make.height.equalTo(@(TCRealValue(37)));
         make.top.equalTo(label3.mas_bottom).offset(TCRealValue(85));
     }];
     

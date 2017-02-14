@@ -89,7 +89,7 @@
         TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
         businessVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:businessVC animated:YES];
-    }else if ([_status isEqualToString:@""]) {
+    }else if ([_status isEqualToString:@"PROCESSING"]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

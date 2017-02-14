@@ -16,6 +16,7 @@
 - (void)textFieldShouldBeginEditting:(UITableViewCell *)cell;
 - (void)textFieldShouldEndEditting:(UITableViewCell *)cell;
 - (void)createOrReloadPriceAndRepertoryCell:(UITableViewCell *)cell;
+- (void)textFieldShouldReturnn;
 @end
 
 @interface TCCreateStandardCell : UITableViewCell

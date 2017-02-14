@@ -192,12 +192,12 @@
     }
     
     
-    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
-    if ([storeState isEqualToString:@"SUCCESS"]) {
+//    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+//    if ([storeState isEqualToString:@"SUCCESS"]) {
         [self loadDataIsMore:NO];
-    }else {
-        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
-    }
+//    }else {
+//        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
+//    }
     
     
 }
@@ -349,14 +349,14 @@
 
 - (void)next {
     
-    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
-    if ([storeState isEqualToString:@"SUCCESS"]) {
+//    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+//    if ([storeState isEqualToString:@"SUCCESS"]) {
         TCGoodsCategoryController *goodCVC = [[TCGoodsCategoryController alloc] init];
         goodCVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:goodCVC animated:YES];
-    }else {
-        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
-    }
+//    }else {
+//        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
+//    }
 
 }
 
