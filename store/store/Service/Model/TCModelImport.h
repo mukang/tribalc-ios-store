@@ -50,7 +50,11 @@
 #import "TCReservation.h"
 #import "TCReservationWrapper.h"
 
-
+/********** 钱包相关 **********/
+#import "TCWalletAccount.h"
+#import "TCBankCard.h"
+#import "TCWalletBill.h"
+#import "TCWalletBillWrapper.h"
 
 
 
