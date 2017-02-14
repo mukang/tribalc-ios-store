@@ -402,8 +402,8 @@
 
 - (UIView *)getStoreTagsView {
     UIView *view = [[UIView alloc] init];
-    NSArray *tagArr = [self getStoreTagLogoTitleArr:serviceDetail.detailStore.faclities];
-    NSArray *tagLogoArr = serviceDetail.detailStore.faclities;
+    NSArray *tagArr = [self getStoreTagLogoTitleArr:serviceDetail.detailStore.facilities];
+    NSArray *tagLogoArr = serviceDetail.detailStore.facilities;
     CGFloat width = TCRealValue(37);
     for (int i = 0; i < tagLogoArr.count; i++) {
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i * TCRealValue(24) + width, 0, TCRealValue(24), TCRealValue(24))];

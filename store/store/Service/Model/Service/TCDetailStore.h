@@ -24,7 +24,7 @@
 /** 位置信息 */
 @property (copy, nonatomic) NSString *coordinate;
 /** 辅助设备 */
-@property (copy, nonatomic) NSArray *faclities;
+@property (copy, nonatomic) NSArray *facilities;
 /** 折扣信息 */
 @property ( nonatomic) CGFloat discount;
 /** 标志性位置 */
