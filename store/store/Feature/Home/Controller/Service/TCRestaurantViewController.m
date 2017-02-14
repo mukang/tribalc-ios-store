@@ -39,7 +39,7 @@
 #pragma mark - Get Data
 - (void)loadRestaurantDataWithSortType:(NSString *)sortType {
     TCBuluoApi *api = [TCBuluoApi api];
-    NSString *categoryStr = [self.title isEqualToString:@"餐饮"] ? @"REPAST" : @"ENTERTAINMENT";
+    NSString *categoryStr = [self.title isEqualToString:@"餐饮"] ? @"REPAST" : @"HAIRDRESSING,FITNESS,ENTERTAINMENT,KEEPHEALTHY";
     [MBProgressHUD showHUD:YES];
     [api fetchServiceWrapper:categoryStr limiSize:20 sortSkip:nil sort:sortType result:^(TCServiceWrapper *serviceWrapper, NSError *error) {
         if (serviceWrapper) {

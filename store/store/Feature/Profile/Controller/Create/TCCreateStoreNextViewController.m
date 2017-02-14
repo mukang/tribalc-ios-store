@@ -307,6 +307,10 @@
         [MBProgressHUD showHUDWithMessage:@"请上传店铺环境图"];
         return;
     }
+    if (!self.storeSetMealMeta.personExpense) {
+        [MBProgressHUD showHUDWithMessage:@"请填写人均消费"];
+        return;
+    }
     if (self.storeDetailInfo.desc.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
         return;
