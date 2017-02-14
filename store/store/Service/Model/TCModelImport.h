@@ -18,6 +18,7 @@
 #import "TCGoodDetail.h"
 #import "TCGoodStandards.h"
 #import "TCGoodsMeta.h"
+#import "TCGoodsMetaWrapper.h"
 
 #import "TCGoodsStandardMate.h"
 #import "TCGoodsStandardWrapper.h"

@@ -46,6 +46,8 @@
 
 - (void)setUpViews {
     
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     UITextView *textView = [UITextView new];
     textView.textColor = TCRGBColor(42, 42, 42);
     textView.font = [UIFont systemFontOfSize:12];
@@ -56,10 +58,10 @@
     [self.contentView addSubview:textView];
     self.textView = textView;
     
-    self.palceLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, TCScreenWidth-30, 15)];
+    self.palceLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, TCScreenWidth-30, 15)];
     self.palceLabel.textColor = TCRGBColor(186, 186, 186);
     self.palceLabel.numberOfLines = 2;
-    self.palceLabel.font = [UIFont systemFontOfSize:12];
+    self.palceLabel.font = [UIFont systemFontOfSize:14];
     self.palceLabel.text = @"输入商品详情标题";
     [_textView addSubview:self.palceLabel];
     
@@ -84,7 +86,7 @@
     
     [self.palceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(textView).offset(5);
-        make.top.equalTo(textView).offset(5);
+        make.top.equalTo(textView).offset(7);
         make.width.equalTo(@(TCScreenWidth-30));
         make.height.equalTo(@15);
     }];

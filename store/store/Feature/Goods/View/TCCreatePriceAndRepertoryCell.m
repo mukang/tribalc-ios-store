@@ -60,7 +60,7 @@
     _orignPriceTextField.layer.cornerRadius = 3.0;
     _orignPriceTextField.delegate = self;
     _orignPriceTextField.clipsToBounds = YES;
-    _orignPriceTextField.placeholder = @"输入原价";
+    _orignPriceTextField.placeholder = @"  输入原价";
     _orignPriceTextField.layer.borderWidth = 0.5;
     _orignPriceTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
     _orignPriceTextField.tag = 1001;
@@ -71,7 +71,7 @@
     _salePriceTextField.layer.cornerRadius = 3.0;
     _salePriceTextField.clipsToBounds = YES;
     _salePriceTextField.delegate = self;
-    _salePriceTextField.placeholder = @"输入现价";
+    _salePriceTextField.placeholder = @"  输入现价";
     _salePriceTextField.layer.borderWidth = 0.5;
     _salePriceTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
     _salePriceTextField.tag = 1002;
@@ -82,7 +82,7 @@
     _repertoryTextField.layer.cornerRadius = 3.0;
     _repertoryTextField.clipsToBounds = YES;
     _repertoryTextField.delegate = self;
-    _repertoryTextField.placeholder = @"输入库存";
+    _repertoryTextField.placeholder = @"  输入库存";
     _repertoryTextField.layer.borderWidth = 0.5;
     _repertoryTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
     _repertoryTextField.tag = 1003;
@@ -94,11 +94,11 @@
         make.width.equalTo(@30);
         make.height.equalTo(@28);
     }];
-    
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(deleteBtn.mas_bottom);
         make.left.right.equalTo(self.contentView);
-        make.height.equalTo(@0.5);
+        make.height.equalTo(@(1/scale));
     }];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

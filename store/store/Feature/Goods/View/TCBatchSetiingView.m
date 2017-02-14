@@ -146,10 +146,12 @@
         make.height.equalTo(@15);
     }];
     
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
+    
     [heLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(centerView);
         make.top.equalTo(desLabel.mas_bottom).offset(15);
-        make.height.equalTo(@0.5);
+        make.height.equalTo(@(1/scale));
     }];
     
     [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -160,7 +162,7 @@
     
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.equalTo(cancelBtn);
-        make.width.equalTo(@0.5);
+        make.width.equalTo(@(1/scale));
     }];
     
     [certainBtn mas_makeConstraints:^(MASConstraintMaker *make) {

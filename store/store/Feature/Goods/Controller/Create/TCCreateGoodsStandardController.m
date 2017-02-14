@@ -185,7 +185,7 @@
     [headerView addSubview:label];
     
     UITextField *textField = [[UITextField alloc] init];
-    textField.placeholder = @"请输入规格组标题";
+    textField.placeholder = @"  请输入规格组标题";
     textField.font = [UIFont systemFontOfSize:14];
     textField.layer.cornerRadius = 3.0;
     textField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;

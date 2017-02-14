@@ -125,6 +125,7 @@
 }
 
 - (void)chosePhoto {
+    [self.view endEditing:YES];
     TCPhotoModeView *photoModeView = [[TCPhotoModeView alloc] initWithController:self];
     photoModeView.delegate = self;
     [photoModeView show];
