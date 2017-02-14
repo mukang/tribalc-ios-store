@@ -7,11 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol TCGoodsDeliveryViewDelegate;
 
 @interface TCGoodsDeliveryView : UIView
+
+@property (weak, nonatomic) id<TCGoodsDeliveryViewDelegate> delegate;
 
 - (instancetype)initWithController:(UIViewController *)controller;
 - (void)show;
 - (void)dismiss;
+
+@end
+
+@protocol TCGoodsDeliveryViewDelegate <NSObject>
+
+@optional
+- (void)goodsDeliveryView:(TCGoodsDeliveryView *)view didClickDeliveryButtonWithLogisticsCompany:(NSString *)company logisticsNum:(NSString *)num;
 
 @end

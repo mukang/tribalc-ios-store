@@ -8,6 +8,8 @@
 
 #import "TCDropdownMenu.h"
 
+static CGFloat const duration = 0.25;
+
 @interface TCDropdownMenu () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) UIButton *mainButton;
@@ -15,7 +17,6 @@
 @property (strong, nonatomic) NSArray *titles;
 @property (nonatomic) NSInteger rowHeight;
 @property (weak, nonatomic) UIView *listView;
-@property (weak, nonatomic) UITableView *tableView;
 
 @end
 
@@ -35,16 +36,36 @@
 - (void)setup {
     UIButton *mainButton = [UIButton buttonWithType:UIButtonTypeCustom];
     mainButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    mainButton.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
     [mainButton setTitle:@"请选择" forState:UIControlStateNormal];
     [mainButton setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
     mainButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [mainButton addTarget:self action:@selector(handleClickMainButton:) forControlEvents:UIControlEventTouchUpInside];
+    mainButton.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    mainButton.layer.borderWidth = 0.5;
+    mainButton.layer.masksToBounds = YES;
     [self addSubview:mainButton];
     self.mainButton = mainButton;
     
     UIImageView *arrowMark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropdown_menu"]];
     [mainButton addSubview:arrowMark];
     self.arrowMark = arrowMark;
+    
+    [mainButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(weakSelf);
+    }];
+    [arrowMark mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(9, 9));
+        make.centerY.equalTo(mainButton.mas_centerY);
+        make.right.equalTo(mainButton.mas_right).with.offset(-10);
+    }];
+}
+
+#pragma mark - Public Methods
+
+- (void)setMenuTitles:(NSArray *)titles rowHeight:(CGFloat)rowHeight {
+    self.titles = [NSArray arrayWithArray:titles];
+    self.rowHeight = rowHeight;
     
     UIView *listView = [[UIView alloc] init];
     listView.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
@@ -59,16 +80,7 @@
     tableView.delegate = self;
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     [listView addSubview:tableView];
-    self.tableView = tableView;
     
-    [mainButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.right.equalTo(weakSelf);
-    }];
-    [arrowMark mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(9, 9));
-        make.centerY.equalTo(mainButton.mas_centerY);
-        make.right.equalTo(mainButton.mas_right).with.offset(-10);
-    }];
     [listView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf);
         make.top.equalTo(weakSelf.mas_bottom);
@@ -79,9 +91,36 @@
     }];
 }
 
-- (void)setMenuTitles:(NSArray *)titles rowHeight:(CGFloat)rowHeight {
-    self.titles = [NSArray arrayWithArray:titles];
-    self.rowHeight = rowHeight;
+- (void)showDropDown {
+    [self.listView.superview bringSubviewToFront:self.listView];
+    
+    if ([self.delegate respondsToSelector:@selector(dropdownMenuWillShow:)]) {
+        [self.delegate dropdownMenuWillShow:self];
+    }
+    
+    [weakSelf.listView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(150);
+    }];
+    [UIView animateWithDuration:duration animations:^{
+        weakSelf.arrowMark.transform = CGAffineTransformMakeRotation(M_PI);
+        [weakSelf.listView.superview layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        weakSelf.menuIsShow = YES;
+    }];
+    self.mainButton.selected = YES;
+}
+
+- (void)hideDropDown {
+    [weakSelf.listView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(0);
+    }];
+    [UIView animateWithDuration:duration animations:^{
+        weakSelf.arrowMark.transform = CGAffineTransformIdentity;
+        [weakSelf.listView.superview layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        weakSelf.menuIsShow = NO;
+    }];
+    self.mainButton.selected = NO;
 }
 
 #pragma mark - UITableViewDataSource
@@ -92,11 +131,45 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
+    cell.textLabel.text = self.titles[indexPath.row];
+    cell.textLabel.textColor = TCRGBColor(42, 42, 42);
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
+    cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.rowHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.01;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *name = self.titles[indexPath.row];
+    [self.mainButton setTitle:name forState:UIControlStateNormal];
+    [self hideDropDown];
+    if ([self.delegate respondsToSelector:@selector(dropdownMenu:didSelectName:)]) {
+        [self.delegate dropdownMenu:self didSelectName:name];
+    }
+}
+
+#pragma mark - Actions
+
 - (void)handleClickMainButton:(UIButton *)sender {
-    
+    if (sender.selected == NO) {
+        [self showDropDown];
+    } else {
+        [self hideDropDown];
+    }
 }
 
 @end

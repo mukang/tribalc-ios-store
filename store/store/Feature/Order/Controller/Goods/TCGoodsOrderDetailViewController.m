@@ -24,12 +24,13 @@
 #import "UIImage+Category.h"
 #import <UIImageView+WebCache.h>
 
-@interface TCGoodsOrderDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TCGoodsOrderDetailViewController () <UITableViewDataSource, UITableViewDelegate, TCGoodsDeliveryViewDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
 @property (weak, nonatomic) TCCommonButton *deliverButton;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-@property (strong, nonatomic) NSMutableArray *infoArray;
+
+@property (weak, nonatomic) TCGoodsDeliveryView *deliveryView;
 
 @end
 
@@ -175,7 +176,7 @@
         case 5:
         {
             TCGoodsOrderStatusViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCGoodsOrderStatusViewCell" forIndexPath:indexPath];
-            cell.infoArray = self.infoArray;
+            cell.infoArray = [self handleCreateInfoArrayWithStatus:self.goodsOrder.status];
             currentCell = cell;
         }
             break;
@@ -227,11 +228,46 @@
     return 0.01;
 }
 
+#pragma mark - TCGoodsDeliveryViewDelegate
+
+- (void)goodsDeliveryView:(TCGoodsDeliveryView *)view didClickDeliveryButtonWithLogisticsCompany:(NSString *)company logisticsNum:(NSString *)num {
+    TCGoodsOrderChangeInfo *info = [[TCGoodsOrderChangeInfo alloc] init];
+    info.orderID = self.goodsOrder.ID;
+    info.status = @"DELIVERY";
+    info.logisticsCompany = company;
+    info.logisticsNum = num;
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] changeGoodsOrderStatus:info result:^(BOOL success, TCGoodsOrder *goodsOrder, NSError *error) {
+        if (success) {
+            [MBProgressHUD hideHUD:YES];
+            [view dismiss];
+            weakSelf.goodsOrder = goodsOrder;
+            [weakSelf handleHideBottomButton];
+            [weakSelf.tableView reloadData];
+            if (weakSelf.statusChangeBlock) {
+                weakSelf.statusChangeBlock(goodsOrder);
+            }
+        } else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"发货失败，%@", reason]];
+        }
+    }];
+}
+
 #pragma mark - Actions
 
 - (void)handleClickDeliverButton:(UIButton *)sender {
     TCGoodsDeliveryView *deliveryView = [[TCGoodsDeliveryView alloc] initWithController:self];
+    deliveryView.delegate = self;
     [deliveryView show];
+}
+
+- (void)handleHideBottomButton {
+    self.deliverButton.hidden = YES;
+    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf.view.mas_bottom);
+    }];
+    [self.view layoutIfNeeded];
 }
 
 - (NSArray *)handleCreateInfoArrayWithStatus:(NSString *)status {
@@ -262,13 +298,6 @@
         _dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     }
     return _dateFormatter;
-}
-
-- (NSMutableArray *)infoArray {
-    if (_infoArray == nil) {
-        _infoArray = [NSMutableArray arrayWithArray:[self handleCreateInfoArrayWithStatus:self.goodsOrder.status]];
-    }
-    return _infoArray;
 }
 
 - (void)didReceiveMemoryWarning {

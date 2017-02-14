@@ -990,30 +990,34 @@ NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificati
     }
 }
 
-- (void)changeGoodsOrderStatus:(TCGoodsOrderChangeInfo *)goodsOrderChangeInfo result:(void (^)(BOOL, NSError *))resultBlock {
+- (void)changeGoodsOrderStatus:(TCGoodsOrderChangeInfo *)goodsOrderChangeInfo result:(void (^)(BOOL, TCGoodsOrder *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"orders/%@/status?type=store&me=%@", goodsOrderChangeInfo.orderID, self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
         request.token = self.currentUserSession.token;
+        NSDictionary *dic = [goodsOrderChangeInfo toObjectDictionary];
+        for (NSString *key in dic.allKeys) {
+            [request setValue:dic[key] forParam:key];
+        }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
             if (response.statusCode == 200) {
                 if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                    TCGoodsOrder *goodsOrder = [[TCGoodsOrder alloc] initWithObjectDictionary:response.data];
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, goodsOrder, nil));
                 }
             } else {
                 if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, nil, response.error));
                 }
             }
         }];
     } else {
         TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
         if (resultBlock) {
-            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+            TC_CALL_ASYNC_MQ(resultBlock(NO, nil, sessionError));
         }
     }
 }
-
 
 - (void)fetchStoreAuthenticationInfo:(void (^)(TCAuthenticationInfo *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {

@@ -8,12 +8,17 @@
 
 #import "TCGoodsDeliveryView.h"
 #import "UIImage+Category.h"
+#import "TCDropdownMenu.h"
 
 static CGFloat const duration = 0.25;
 
-@interface TCGoodsDeliveryView ()
+@interface TCGoodsDeliveryView () <UITextFieldDelegate, TCDropdownMenuDelegate>
 
 @property (weak, nonatomic) UIView *containerView;
+@property (weak, nonatomic) TCDropdownMenu *dropdownMenu;
+@property (weak, nonatomic) UITextField *numTextField;
+/** 物流公司 */
+@property (copy, nonatomic) NSString *companyName;
 
 @end
 
@@ -72,11 +77,23 @@ static CGFloat const duration = 0.25;
     [self addSubview:containerView];
     self.containerView = containerView;
     
+    UIView *containerTapView = [[UIView alloc] init];
+    containerTapView.backgroundColor = [UIColor clearColor];
+    [self.containerView addSubview:containerTapView];
+    UITapGestureRecognizer *containerTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapContainerTapView:)];
+    [containerTapView addGestureRecognizer:containerTapGesture];
+    
     UILabel *nameLabel = [[UILabel alloc] init];
     nameLabel.text = @"物流公司";
     nameLabel.textColor = TCRGBColor(42, 42, 42);
     nameLabel.font = [UIFont systemFontOfSize:14];
     [self.containerView addSubview:nameLabel];
+    
+    TCDropdownMenu *dropdownMenu = [[TCDropdownMenu alloc] init];
+    dropdownMenu.delegate = self;
+    [self.containerView addSubview:dropdownMenu];
+    [dropdownMenu setMenuTitles:@[@"顺丰", @"圆通", @"申通", @"韵达", @"中通", @"天天", @"EMS", @"宅急送", @"优速", @"如风达"] rowHeight:30];
+    self.dropdownMenu = dropdownMenu;
     
     UILabel *numLabel = [[UILabel alloc] init];
     numLabel.text = @"物流编号";
@@ -89,15 +106,18 @@ static CGFloat const duration = 0.25;
     numTextField.font = [UIFont systemFontOfSize:14];
     numTextField.keyboardType = UIKeyboardTypeASCIICapable;
     numTextField.returnKeyType = UIReturnKeyDone;
-    numTextField.layer.borderWidth = 1;
+    numTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    numTextField.layer.borderWidth = 0.5;
     numTextField.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
     numTextField.layer.masksToBounds = YES;
+    numTextField.delegate = self;
     [self.containerView addSubview:numTextField];
+    self.numTextField = numTextField;
     
     UIButton *cancelButton = [self buttonWithTitle:@"取消"
                                        normalImage:[UIImage imageWithColor:TCRGBColor(252, 108, 38)]
                                   highlightedImage:[UIImage imageWithColor:TCRGBColor(236, 85, 11)]
-                                            action:@selector(dismiss)];
+                                            action:@selector(handleClickCancelButton:)];
     [self.containerView addSubview:cancelButton];
     
     UIButton *deliveryButton = [self buttonWithTitle:@"确认发货"
@@ -106,10 +126,19 @@ static CGFloat const duration = 0.25;
                                               action:@selector(handleClickDeliveryButton:)];
     [self.containerView addSubview:deliveryButton];
     
+    [containerTapView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(weakSelf.containerView);
+    }];
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(80, 40));
         make.left.equalTo(weakSelf.containerView.mas_left).with.offset(20);
         make.top.equalTo(weakSelf.containerView.mas_top).with.offset(50);
+    }];
+    [dropdownMenu mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(nameLabel.mas_right);
+        make.right.equalTo(weakSelf.containerView.mas_right).with.offset(-20);
+        make.top.equalTo(nameLabel.mas_top);
+        make.bottom.equalTo(nameLabel.mas_bottom);
     }];
     [numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(80, 40));
@@ -152,14 +181,65 @@ static CGFloat const duration = 0.25;
     return button;
 }
 
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField isFirstResponder]) {
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
+#pragma mark - TCDropdownMenuDelegate
+
+- (void)dropdownMenuWillShow:(TCDropdownMenu *)dropdownMenu {
+    if ([self.numTextField isFirstResponder]) {
+        [self.numTextField resignFirstResponder];
+    }
+}
+
+- (void)dropdownMenu:(TCDropdownMenu *)dropdownMenu didSelectName:(NSString *)name {
+    self.companyName = name;
+}
+
 #pragma mark - Actions
 
 - (void)handleTapBgView:(UITapGestureRecognizer *)gesture {
+    [self handleHideDropdownMenuAndKeyboard];
+    [self dismiss];
+}
+
+- (void)handleTapContainerTapView:(UITapGestureRecognizer *)gesture {
+    [self handleHideDropdownMenuAndKeyboard];
+}
+
+- (void)handleClickCancelButton:(UIButton *)sender {
+    [self handleHideDropdownMenuAndKeyboard];
     [self dismiss];
 }
 
 - (void)handleClickDeliveryButton:(UIButton *)sender {
-    [self dismiss];
+    [self handleHideDropdownMenuAndKeyboard];
+    if (self.companyName == nil) {
+        [MBProgressHUD showHUDWithMessage:@"请选择物流公司"];
+        return;
+    }
+    if (self.numTextField.text.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请选择物流单号"];
+        return;
+    }
+    if ([self.delegate respondsToSelector:@selector(goodsDeliveryView:didClickDeliveryButtonWithLogisticsCompany:logisticsNum:)]) {
+        [self.delegate goodsDeliveryView:self didClickDeliveryButtonWithLogisticsCompany:self.companyName logisticsNum:self.numTextField.text];
+    }
+}
+
+- (void)handleHideDropdownMenuAndKeyboard {
+    if (self.dropdownMenu.menuIsShow) {
+        [self.dropdownMenu hideDropDown];
+    }
+    if ([self.numTextField isFirstResponder]) {
+        [self.numTextField resignFirstResponder];
+    }
 }
 
 @end

@@ -9,8 +9,11 @@
 #import "TCBaseViewController.h"
 @class TCGoodsOrder;
 
+typedef void(^TCOrderStatusChangeBlock)(TCGoodsOrder *goodsOrder);
+
 @interface TCGoodsOrderDetailViewController : TCBaseViewController
 
 @property (strong, nonatomic) TCGoodsOrder *goodsOrder;
+@property (copy, nonatomic) TCOrderStatusChangeBlock statusChangeBlock;
 
 @end

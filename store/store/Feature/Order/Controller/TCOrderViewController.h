@@ -6,8 +6,8 @@
 //  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TCBaseViewController.h"
 
-@interface TCOrderViewController : UIViewController
+@interface TCOrderViewController : TCBaseViewController
 
 @end

@@ -181,6 +181,27 @@
     TCGoodsOrder *goodsOrder = self.dataList[indexPath.section];
     TCGoodsOrderDetailViewController *vc = [[TCGoodsOrderDetailViewController alloc] init];
     vc.goodsOrder = goodsOrder;
+    vc.statusChangeBlock = ^(TCGoodsOrder *goodsOrder) {
+        if (weakSelf.currentStatus == nil) {
+            for (int i=0; i<weakSelf.dataList.count; i++) {
+                TCGoodsOrder *order = weakSelf.dataList[i];
+                if ([order.ID isEqualToString:goodsOrder.ID]) {
+                    [weakSelf.dataList replaceObjectAtIndex:i withObject:goodsOrder];
+                    break;
+                }
+            }
+            [weakSelf.collectionView reloadData];
+        } else if ([weakSelf.currentStatus isEqualToString:@"SETTLE"]) {
+            for (int i=0; i<weakSelf.dataList.count; i++) {
+                TCGoodsOrder *order = weakSelf.dataList[i];
+                if ([order.ID isEqualToString:goodsOrder.ID]) {
+                    [weakSelf.dataList removeObjectAtIndex:i];
+                    break;
+                }
+            }
+            [weakSelf.collectionView reloadData];
+        }
+    };
     [self.navigationController pushViewController:vc animated:YES];
 }
 

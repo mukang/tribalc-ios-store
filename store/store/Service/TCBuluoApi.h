@@ -340,7 +340,7 @@ extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
  @param goodsOrderChangeInfo TCGoodsOrderChangeInfo对象
  @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
  */
-- (void)changeGoodsOrderStatus:(TCGoodsOrderChangeInfo *)goodsOrderChangeInfo result:(void (^)(BOOL success, NSError *error))resultBlock;
+- (void)changeGoodsOrderStatus:(TCGoodsOrderChangeInfo *)goodsOrderChangeInfo result:(void (^)(BOOL success, TCGoodsOrder *goodsOrder, NSError *error))resultBlock;
 
 /**
  服务预定列表
