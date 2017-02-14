@@ -91,12 +91,12 @@
         make.top.equalTo(self.contentView);
         make.height.equalTo(@60);
     }];
-    
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(20);
         make.right.equalTo(self.contentView).offset(-20);
         make.top.equalTo(titleLabel.mas_bottom);
-        make.height.equalTo(@0.5);
+        make.height.equalTo(@(1/scale));
     }];
     
     [libsView mas_makeConstraints:^(MASConstraintMaker *make) {

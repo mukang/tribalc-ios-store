@@ -93,7 +93,7 @@
     
     UIView *lineView = [[UIView alloc] init];
     [self.contentView addSubview:lineView];
-    lineView.backgroundColor = TCRGBColor(154, 154, 154);
+    lineView.backgroundColor = TCRGBColor(186, 186, 186);
     _lineView = lineView;
     lineView.hidden = YES;
     
@@ -113,11 +113,11 @@
         make.right.equalTo(self.contentView).offset(-20);
         make.width.height.equalTo(@15);
     }];
-    
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView).offset(20);
-        make.right.equalTo(self.contentView).offset(-20);
-        make.height.equalTo(@0.5);
+        make.left.equalTo(self.contentView).offset(15);
+        make.right.equalTo(self.contentView).offset(-15);
+        make.height.equalTo(@(1/scale));
         make.top.equalTo(_titleL.mas_bottom).offset(15);
     }];
     

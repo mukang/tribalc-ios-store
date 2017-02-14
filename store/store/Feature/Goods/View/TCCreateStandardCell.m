@@ -51,7 +51,7 @@
     _standardNameTextField = [[UITextField alloc] init];
     _standardNameTextField.delegate = self;
     _standardNameTextField.font = [UIFont systemFontOfSize:14];
-    _standardNameTextField.placeholder = @" 输入名称，如颜色";
+    _standardNameTextField.placeholder = @"  输入名称，如颜色";
     _standardNameTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
     _standardNameTextField.layer.cornerRadius = 3.0;
     _standardNameTextField.tag = 111;
@@ -61,7 +61,7 @@
     
     _standardContentTextField = [[UITextField alloc] init];
     _standardContentTextField.font = [UIFont systemFontOfSize:14];
-    _standardContentTextField.placeholder = @" 请输入商品标签，用“,”隔开";
+    _standardContentTextField.placeholder = @"  请输入商品标签，用“、”隔开";
     _standardContentTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
     _standardContentTextField.layer.cornerRadius = 3.0;
     _standardContentTextField.tag = 222;
@@ -101,11 +101,11 @@
         make.width.equalTo(@30);
         make.height.equalTo(@28);
     }];
-    
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(deleteBtn.mas_bottom);
         make.left.right.equalTo(self.contentView);
-        make.height.equalTo(@0.5);
+        make.height.equalTo(@(1/scale));
     }];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -277,7 +277,7 @@
     }
     NSString *standardStr = _standardContentTextField.text;
     
-    NSArray *arr = [standardStr componentsSeparatedByString:@","];
+    NSArray *arr = [standardStr componentsSeparatedByString:@"、"];
     
     NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.currentStandards];
     NSMutableArray *mutArr = [NSMutableArray arrayWithCapacity:0];
@@ -300,7 +300,7 @@
     if (mutArr.count > 0) {
         for (int i = 0; i < mutArr.count; i++) {
             TCGoodsStandardKeysBtn *btn = [TCGoodsStandardKeysBtn buttonWithType:UIButtonTypeCustom];
-            [btn setTitle:arr[i] forState:UIControlStateNormal];
+            [btn setTitle:mutArr[i] forState:UIControlStateNormal];
             [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
             btn.layer.cornerRadius = 3.0;
             btn.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;

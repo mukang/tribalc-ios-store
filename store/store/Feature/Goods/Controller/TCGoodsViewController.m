@@ -9,7 +9,7 @@
 #import "TCGoodsViewController.h"
 #import <Masonry.h>
 #import "TCGoodsCategoryController.h"
-#import "TCGoodsWrapper.h"
+#import "TCGoodsMetaWrapper.h"
 #import "TCGoodsMeta.h"
 #import "TCBuluoApi.h"
 #import "TCGoodsListCell.h"
@@ -25,7 +25,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 
-@property (strong, nonatomic) TCGoodsWrapper *goodsWrapper;
+@property (strong, nonatomic) TCGoodsMetaWrapper *goodsWrapper;
 
 @property (strong, nonatomic) NSArray *goods;
 
@@ -72,7 +72,7 @@
         skip = self.goodsWrapper.nextSkip;
     }
     @WeakObj(self)
-    [[TCBuluoApi api] fetchGoodsWrapper:isPublish limitSize:20 sort:nil sortSkip:skip result:^(TCGoodsWrapper *goodsWrapper, NSError *error) {
+    [[TCBuluoApi api] fetchGoodsWrapper:isPublish limitSize:20 sort:nil sortSkip:skip result:^(TCGoodsMetaWrapper *goodsWrapper, NSError *error) {
         @StrongObj(self)
         if (goodsWrapper) {
             [MBProgressHUD hideHUD:YES];
@@ -132,12 +132,12 @@
         make.width.equalTo(@(TCScreenWidth/2.0));
         make.height.equalTo(@(TCRealValue(41)));
     }];
-    
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_onSaleBtn);
         make.right.equalTo(_onSaleBtn);
         make.height.equalTo(@(TCRealValue(20)));
-        make.width.equalTo(@0.5);
+        make.width.equalTo(@(1/scale));
     }];
     
     [_storeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
