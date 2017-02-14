@@ -12,8 +12,6 @@ typedef void(^DeleteBlock)();
 
 @protocol TCBatchSetiingViewDelegate <NSObject>
 
-- (void)textFieldShouldReturn;
-
 @end
 
 @interface TCBatchSetiingView : UIView
