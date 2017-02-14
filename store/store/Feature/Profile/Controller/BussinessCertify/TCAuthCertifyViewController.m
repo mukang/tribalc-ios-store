@@ -30,18 +30,18 @@
 
 @property (strong, nonatomic) TCAuthenticationInfo *authInfo;
 
-@property (copy, nonatomic) NSMutableArray *mutableArr;
+@property (copy, nonatomic) NSMutableArray *imageArr;
 
 @end
 
 @implementation TCAuthCertifyViewController
 
-- (NSMutableArray *)mutableArr {
-    if (_mutableArr == nil) {
-        _mutableArr = [NSMutableArray arrayWithCapacity:0];
-    }
-    return _mutableArr;
-}
+//- (NSMutableArray *)mutableArr {
+//    if (_mutableArr == nil) {
+//        _mutableArr = [NSMutableArray arrayWithCapacity:0];
+//    }
+//    return _mutableArr;
+//}
 
 - (instancetype)initWithAuthInfo:(TCAuthenticationInfo *)info {
     if (self = [super init]) {
@@ -65,7 +65,7 @@
     point1.clipsToBounds = YES;
     
     UILabel *label1 = [[UILabel alloc] init];
-    label1.text = @"必须本人身份证正反面照片，且内容清晰可辨认";
+    label1.text = @"请确保上传身份证与当前注册手机号持有人身份一致";
     label1.textColor = TCRGBColor(154, 154, 154);
     label1.font = [UIFont systemFontOfSize:13];
     label1.numberOfLines = 0;
@@ -78,7 +78,7 @@
     point2.clipsToBounds = YES;
     
     UILabel *label2 = [[UILabel alloc] init];
-    label2.text = @"请您确认拍照权限已开";
+    label2.text = @"请确保身份证照片拍摄清晰，且尽量匹配相框尺寸";
     label2.textColor = TCRGBColor(154, 154, 154);
     label2.font = [UIFont systemFontOfSize:13];
     [scrollView addSubview:label2];
@@ -297,7 +297,9 @@
             }
             
             NSString *str = [TCImageURLSynthesizer synthesizeImagePathWithName:uploadInfo.objectKey source:kTCImageSourceOSS];
-            [self.mutableArr addObject:str];
+            NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.imageArr];
+            [mutableArr addObject:str];
+            self.imageArr = mutableArr;
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"保存失败，%@", reason]];
@@ -313,7 +315,7 @@
 
 - (void)next {
     
-    self.authInfo.idCardPicture = self.mutableArr;
+    self.authInfo.idCardPicture = self.imageArr;
     
     TCIndustryPermitViewController *industryVC = [[TCIndustryPermitViewController alloc] initWithAuthInfo:self.authInfo];
     [self.navigationController pushViewController:industryVC animated:YES];
