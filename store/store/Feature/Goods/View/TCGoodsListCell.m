@@ -123,12 +123,16 @@
                 }
             }
         }
-        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:good.createTime];
         _titleLabel.text = good.title;
         _storeLabel.text = [NSString stringWithFormat:@"库存  %ld份",good.priceAndRepertory.repertory];
         _priceLabel.text = [NSString stringWithFormat:@"单价  %.2f元",good.priceAndRepertory.salePrice];
-//        _salesLabel.text = [NSString stringWithFormat:@"销量  %ld",good.saleQuantity];
-        _creatTimeLabel.text = @"创建时间  2016-09-09";
+        _salesLabel.text = [NSString stringWithFormat:@"销量  %ld",good.saleQuantity];
+        _creatTimeLabel.text = [NSString stringWithFormat:@"创建时间  %@",[dateFormatter stringFromDate:date]];
+        
     }
 }
 

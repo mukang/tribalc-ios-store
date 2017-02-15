@@ -35,6 +35,8 @@
 
 @property (copy, nonatomic) NSString *detail;
 
+@property (assign, nonatomic) NSInteger saleQuantity;
+
 @property (copy, nonatomic) NSString *note;
 
 @property (copy, nonatomic) NSArray *tags;

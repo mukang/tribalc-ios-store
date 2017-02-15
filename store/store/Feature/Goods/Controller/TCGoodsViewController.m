@@ -78,16 +78,16 @@
             [MBProgressHUD hideHUD:YES];
             self.goodsWrapper = goodsWrapper;
             
+            if (!goodsWrapper.hasMore) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            
             if (isMore) {
                 NSMutableArray *mutabelArr = [NSMutableArray arrayWithArray:self.goods];
                 [mutabelArr addObjectsFromArray:goodsWrapper.content];
                 self.goods = mutabelArr;
                 
-                if (!goodsWrapper.hasMore) {
-                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
-                }else {
-                    [self.tableView.mj_footer endRefreshing];
-                }
+                [self.tableView.mj_footer endRefreshing];
                 
             }else {
                 self.goods = goodsWrapper.content;
