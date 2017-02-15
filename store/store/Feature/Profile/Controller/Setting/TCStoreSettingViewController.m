@@ -600,6 +600,65 @@ TCStoreFacilitiesViewCellDelegate>
 
 - (void)handleClickSaveItem:(UIBarButtonItem *)sender {
     [weakSelf.tableView endEditing:YES];
+    if (self.storeDetailInfo.name.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写商家名称"];
+        return;
+    }
+    if (!self.storeSetMealMeta.personExpense) {
+        [MBProgressHUD showHUDWithMessage:@"请填写人均消费"];
+        return;
+    }
+    if (self.storeDetailInfo.address.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请设置门店地址"];
+        return;
+    }
+    if (self.storeDetailInfo.businessHours.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请设置营业时间"];
+        return;
+    }
+    if (self.storeDetailInfo.logo.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请上传店铺LOGO"];
+        return;
+    }
+    if (self.storeDetailInfo.pictures.count == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请上传店铺环境图"];
+        return;
+    }
+    if (self.storeDetailInfo.desc.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
+        return;
+    }
+    if (self.storeSetMealMeta.recommendedReason.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写推荐理由"];
+        return;
+    }
+    if (self.storeSetMealMeta.topics.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写推荐话题"];
+        return;
+    }
+    NSMutableArray *tempArray = [NSMutableArray array];
+    for (TCStoreFeature *feature in self.facilities) {
+        if (feature.isSelected) {
+            [tempArray addObject:feature.name];
+        }
+    }
+    if (tempArray.count > 0) {
+        self.storeDetailInfo.facilities = [tempArray copy];
+    }
+    if ([self.storeDetailInfo.category isEqualToString:@"REPAST"]) {
+        NSMutableArray *temp = [NSMutableArray array];
+        for (TCStoreFeature *feature in self.cookingStyles) {
+            if (feature.isSelected) {
+                [temp addObject:feature.name];
+            }
+        }
+        if (temp.count == 0) {
+            [MBProgressHUD showHUDWithMessage:@"请选择菜系类型"];
+            return;
+        }
+        self.storeDetailInfo.cookingStyle = [temp copy];
+    }
+    
     [self handleChangeStoreDetailInfo];
 }
 
@@ -719,6 +778,9 @@ TCStoreFacilitiesViewCellDelegate>
     vc.storeDetailInfo = self.storeDetailInfo;
     vc.editSurroundingCompletion = ^() {
         weakSelf.storeSetMealMeta.pictures = weakSelf.storeDetailInfo.pictures;
+        if (weakSelf.storeDetailInfo.pictures.count) {
+            weakSelf.storeSetMealMeta.mainPicture = weakSelf.storeDetailInfo.pictures[0];
+        }
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:2];
         [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };

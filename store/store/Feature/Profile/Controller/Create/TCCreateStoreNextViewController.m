@@ -307,6 +307,10 @@
         [MBProgressHUD showHUDWithMessage:@"请上传店铺环境图"];
         return;
     }
+    if (!self.storeSetMealMeta.personExpense) {
+        [MBProgressHUD showHUDWithMessage:@"请填写人均消费"];
+        return;
+    }
     if (self.storeDetailInfo.desc.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
         return;
@@ -373,6 +377,9 @@
     vc.storeDetailInfo = self.storeDetailInfo;
     vc.editSurroundingCompletion = ^() {
         weakSelf.storeSetMealMeta.pictures = weakSelf.storeDetailInfo.pictures;
+        if (weakSelf.storeDetailInfo.pictures.count) {
+            weakSelf.storeSetMealMeta.mainPicture = weakSelf.storeDetailInfo.pictures[0];
+        }
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
         [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
@@ -407,6 +414,7 @@
         _storeSetMealMeta = [[TCStoreSetMealMeta alloc] init];
         _storeSetMealMeta.name = self.storeDetailInfo.name;
         _storeSetMealMeta.pictures = self.storeDetailInfo.pictures;
+        _storeSetMealMeta.category = self.storeDetailInfo.category;
     }
     return _storeSetMealMeta;
 }

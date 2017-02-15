@@ -17,6 +17,8 @@
 @property (copy, nonatomic) NSString *ID;
 /** 服务名称 */
 @property (copy, nonatomic) NSString *name;
+/** 主图 */
+@property (copy, nonatomic) NSString *mainPicture;
 /** 服务环境图 */
 @property (copy, nonatomic) NSArray *pictures;
 /** 服务话题 */
@@ -27,5 +29,7 @@
 @property (nonatomic) NSInteger personExpense;
 /** 服务是否接受预定 */
 @property (nonatomic) BOOL reservable;
+/** 服务类别 */
+@property (copy, nonatomic) NSString *category;
 
 @end

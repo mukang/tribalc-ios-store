@@ -362,6 +362,25 @@ TCStoreRecommendViewCellDelegate>
 }
 
 - (void)handleClickSaveItem:(UIBarButtonItem *)sender {
+    [weakSelf.tableView endEditing:YES];
+    
+    if (self.storeDetailInfo.name.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写商家名称"];
+        return;
+    }
+    if (!self.storeDetailInfo.address) {
+        [MBProgressHUD showHUDWithMessage:@"请设置发货地址"];
+        return;
+    }
+    if (!self.storeDetailInfo.logo) {
+        [MBProgressHUD showHUDWithMessage:@"请上传logo"];
+        return;
+    }
+    if (self.storeDetailInfo.desc.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写店铺介绍"];
+        return;
+    }
+    
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] changeStoreDetailInfo:self.storeDetailInfo result:^(BOOL success, NSError *error) {
         if (success) {
@@ -374,7 +393,6 @@ TCStoreRecommendViewCellDelegate>
                                                                       forState:UIControlStateNormal];
             
             weakSelf.editEnabled = NO;
-            [weakSelf.tableView endEditing:YES];
             [weakSelf.tableView reloadData];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
