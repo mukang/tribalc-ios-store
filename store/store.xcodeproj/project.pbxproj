@@ -39,6 +39,8 @@
 		558F6DCF1E48C70B00CB2F81 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DCC1E48C70B00CB2F81 /* MGSwipeButton.m */; };
 		558F6DD01E48C70B00CB2F81 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DCE1E48C70B00CB2F81 /* MGSwipeTableCell.m */; };
 		55F9EDD01E52F5E400935ADF /* TCGoodsMetaWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */; };
+		55F9EE381E55543C00935ADF /* TCServiceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE371E55543C00935ADF /* TCServiceListCell.m */; };
+		55F9EE3B1E558A5300935ADF /* NSObject+Distance.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE3A1E558A5300935ADF /* NSObject+Distance.m */; };
 		7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */; };
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
@@ -320,6 +322,10 @@
 		558F6DCE1E48C70B00CB2F81 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
 		55F9EDCE1E52F5E400935ADF /* TCGoodsMetaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMetaWrapper.h; sourceTree = "<group>"; };
 		55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMetaWrapper.m; sourceTree = "<group>"; };
+		55F9EE361E55543C00935ADF /* TCServiceListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceListCell.h; sourceTree = "<group>"; };
+		55F9EE371E55543C00935ADF /* TCServiceListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceListCell.m; sourceTree = "<group>"; };
+		55F9EE391E558A5300935ADF /* NSObject+Distance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Distance.h"; sourceTree = "<group>"; };
+		55F9EE3A1E558A5300935ADF /* NSObject+Distance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Distance.m"; sourceTree = "<group>"; };
 		7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppSettingViewController.m; sourceTree = "<group>"; };
 		7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppCacheViewCell.h; sourceTree = "<group>"; };
@@ -1210,6 +1216,8 @@
 				7A9987DF1E24E42B006175CC /* UIImage+Category.m */,
 				7A9987E01E24E42B006175CC /* UIView+Category.h */,
 				7A9987E11E24E42B006175CC /* UIView+Category.m */,
+				55F9EE391E558A5300935ADF /* NSObject+Distance.h */,
+				55F9EE3A1E558A5300935ADF /* NSObject+Distance.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1504,6 +1512,8 @@
 				7ABCC0CD1E2622C800750E47 /* TCServiceFilterView.m */,
 				7ABCC0CE1E2622C800750E47 /* TCServiceSelectBtn.h */,
 				7ABCC0CF1E2622C800750E47 /* TCServiceSelectBtn.m */,
+				55F9EE361E55543C00935ADF /* TCServiceListCell.h */,
+				55F9EE371E55543C00935ADF /* TCServiceListCell.m */,
 			);
 			path = RestaurantList;
 			sourceTree = "<group>";
@@ -2099,6 +2109,7 @@
 				7A9987CF1E24C9FA006175CC /* TCClientRequest.m in Sources */,
 				558F6DD01E48C70B00CB2F81 /* MGSwipeTableCell.m in Sources */,
 				7AFEC44A1E52E56000B0E754 /* TCWalletBillDetailViewCell.m in Sources */,
+				55F9EE381E55543C00935ADF /* TCServiceListCell.m in Sources */,
 				7A661E5C1E31B3B40080D37D /* TCCommonInputViewCell.m in Sources */,
 				55647EBD1E4C159E00E4A0E9 /* TCBatchSetiingView.m in Sources */,
 				7ABCC1081E262BA000750E47 /* TCProfileViewController.m in Sources */,
@@ -2162,6 +2173,7 @@
 				7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */,
 				55647EC01E4C159E00E4A0E9 /* TCGoodsDetailTitleCell.m in Sources */,
 				7A99881F1E24EE3E006175CC /* TCServices.m in Sources */,
+				55F9EE3B1E558A5300935ADF /* NSObject+Distance.m in Sources */,
 				7ABCC0E61E2622C800750E47 /* TCSelectPrimaryBtn.m in Sources */,
 				7A9988161E24EE3E006175CC /* TCGoodStandards.m in Sources */,
 				7ABCC0F51E2622DE00750E47 /* TCComponent.m in Sources */,

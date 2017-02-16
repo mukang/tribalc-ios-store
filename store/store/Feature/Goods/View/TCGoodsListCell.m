@@ -113,6 +113,8 @@
     if (_good != good) {
         _good = good;
         
+        self.imgView.image = nil;
+        
         if (good.pictures) {
             if (good.pictures.count>0) {
                 NSString *str = good.pictures[0];
