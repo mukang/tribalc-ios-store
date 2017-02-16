@@ -98,29 +98,31 @@
         make.top.equalTo(self.contentView).offset(18);
         make.left.equalTo(_imgView.mas_right).offset(TCRealValue(20));
         make.right.equalTo(self.contentView).offset(-TCRealValue(20));
-        make.height.equalTo(@35);
+        make.height.lessThanOrEqualTo(@35);
     }];
     
-    [_storeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [_creatTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(_titleLabel);
-        make.top.equalTo(_titleLabel.mas_bottom).offset(13);
+        make.bottom.equalTo(_imgView);
         make.height.equalTo(@15);
     }];
     
-    [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.height.equalTo(_storeLabel);
-        make.top.equalTo(_storeLabel.mas_bottom).offset(4);
-    }];
-    
     [_salesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.height.equalTo(_priceLabel);
-        make.top.equalTo(_priceLabel.mas_bottom).offset(4);
+        make.left.right.height.equalTo(_creatTimeLabel);
+        make.bottom.equalTo(_creatTimeLabel.mas_top).offset(-4);
     }];
     
-    [_creatTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.height.equalTo(_salesLabel);
-        make.top.equalTo(_salesLabel.mas_bottom).offset(4);
+        make.bottom.equalTo(_salesLabel.mas_top).offset(-4);
     }];
+    
+    [_storeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.equalTo(_priceLabel);
+        make.bottom.equalTo(_priceLabel.mas_top).offset(-4);
+    }];
+
 }
 
 - (void)setGood:(TCGoodsMeta *)good {

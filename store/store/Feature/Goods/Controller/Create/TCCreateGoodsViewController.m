@@ -454,6 +454,7 @@
                 TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
                 cell.titleLabel.text = self.currentGoodsStandardMate.descriptions.primary.label;
                 cell.placeholder = @"请输入商品一级规格";
+                cell.delegate = self;
                 if (self.goods.standardKeys.count) {
                     cell.textField.text = self.goods.standardKeys.firstObject;
                 }
@@ -463,6 +464,7 @@
                     TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
                     cell.titleLabel.text = self.currentGoodsStandardMate.descriptions.secondary.label;
                     cell.placeholder = @"请输入商品二级规格";
+                    cell.delegate = self;
                     if (self.goods.standardKeys.count == 2) {
                         cell.textField.text = self.goods.standardKeys[1];
                     }
