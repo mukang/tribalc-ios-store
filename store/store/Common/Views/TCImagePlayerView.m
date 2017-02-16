@@ -66,6 +66,10 @@ static NSInteger const plusNum = 2;  // 需要加上的数
 - (void)setPictures:(NSArray *)pictures isLocal:(BOOL)isLocal{
     _pictures = pictures;
     
+    for (UIView *view in self.scrollView.subviews) {
+        [view removeFromSuperview];
+    }
+    
     NSInteger imageCount = pictures.count;
     
     if (!imageCount) return;
@@ -155,6 +159,14 @@ static NSInteger const plusNum = 2;  // 需要加上的数
     [self removeTimer];
 }
 
+- (void)prohibitPlay {
+    self.playEnabled = NO;
+}
+
+- (NSInteger)getCurrentPictureIndex {
+    return self.pageControl.currentPage;
+}
+
 #pragma mark - Timer
 
 - (void)addTimer {
@@ -165,6 +177,7 @@ static NSInteger const plusNum = 2;  // 需要加上的数
     [self.timer invalidate];
     self.timer = nil;
 }
+
 
 #pragma mark - Actions
 

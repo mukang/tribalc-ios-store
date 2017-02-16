@@ -17,4 +17,8 @@
 
 - (void)hidePageControl;
 
+- (void)prohibitPlay;
+
+- (NSInteger)getCurrentPictureIndex;
+
 @end

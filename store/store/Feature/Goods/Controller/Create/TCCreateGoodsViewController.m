@@ -35,6 +35,8 @@
 
 @property (strong, nonatomic) TCImagePlayerView *imagePlayerView;
 
+@property (strong, nonatomic) UIButton *deleteBtn;
+
 @end
 
 @implementation TCCreateGoodsViewController
@@ -71,19 +73,31 @@
     
     TCImagePlayerView *imageView = [[TCImagePlayerView alloc] initWithFrame:headView.bounds];
     [headView addSubview:imageView];
+    [imageView prohibitPlay];
     if (self.goods.pictures) {
         [imageView setPictures:self.goods.pictures isLocal:NO];
     }
     self.imagePlayerView = imageView;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setImage:[UIImage imageNamed:@"chosePhoto"] forState:UIControlStateNormal];
     [headView addSubview:btn];
     [btn addTarget:self action:@selector(chosePhoto) forControlEvents:UIControlEventTouchUpInside];
     self.chosePhotoBtn = btn;
     
+    UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"deletePhoto"] forState:UIControlStateNormal];
+    [deleteBtn addTarget:self action:@selector(deletePhoto) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:deleteBtn];
+    self.deleteBtn = deleteBtn;
+    
     _nextBtn = [TCCommonButton bottomButtonWithTitle:@"下一步" color:TCCommonButtonColorOrange target:self action:@selector(next)];
     [self.view addSubview:_nextBtn];
+    
+    [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(headView).offset(-20);
+        make.bottom.equalTo(headView).offset(-20);
+        make.width.height.equalTo(@(TCRealValue(42)));
+    }];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
@@ -92,13 +106,17 @@
     
     if (self.goods.pictures) {
         if (self.goods.pictures.count) {
+            self.deleteBtn.hidden = NO;
+            [btn setImage:[UIImage imageNamed:@"addPhoto"] forState:UIControlStateNormal];
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(headView).offset(20);
                 make.bottom.equalTo(headView).offset(-20);
-                make.width.equalTo(@(TCRealValue(62)));
-                make.height.equalTo(@(TCRealValue(54)));
+                make.width.equalTo(@(TCRealValue(42)));
+                make.height.equalTo(@(TCRealValue(42)));
             }];
         }else {
+            self.deleteBtn.hidden = YES;
+            [btn setImage:[UIImage imageNamed:@"chosePhoto"] forState:UIControlStateNormal];
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.centerY.equalTo(headView);
                 make.width.equalTo(@(TCRealValue(62)));
@@ -107,6 +125,8 @@
         }
         
     }else {
+        self.deleteBtn.hidden = YES;
+        [btn setImage:[UIImage imageNamed:@"chosePhoto"] forState:UIControlStateNormal];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.centerY.equalTo(headView);
             make.width.equalTo(@(TCRealValue(62)));
@@ -121,6 +141,52 @@
     }];
     
     _tableView.tableHeaderView = headView;
+    
+}
+
+- (void)deletePhoto {
+    if (!self.goods.pictures) {
+        return;
+    }
+    
+    if (!self.goods.pictures.count) {
+        return;
+    }
+    
+    NSInteger index = [self.imagePlayerView getCurrentPictureIndex];
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.goods.pictures];
+    if (index < mutableArr.count) {
+        [mutableArr removeObjectAtIndex:index];
+        self.goods.pictures = mutableArr;
+        [self.imagePlayerView setPictures:mutableArr isLocal:NO];
+        
+        if (mutableArr.count) {
+//            self.deleteBtn.hidden = NO;
+//            if (_chosePhotoBtn.centerX == self.view.centerX) {
+//                [_chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                    make.left.equalTo(self.tableView.tableHeaderView).offset(20);
+//                    make.bottom.equalTo(self.tableView.tableHeaderView).offset(-20);
+//                    make.width.equalTo(@(TCRealValue(42)));
+//                    make.height.equalTo(@(TCRealValue(42)));
+//                }];
+//                [_chosePhotoBtn setImage:[UIImage imageNamed:@"addPhoto"] forState:UIControlStateNormal];
+//                [self.view setNeedsUpdateConstraints];
+//                [self.view updateConstraintsIfNeeded];
+//                [self.view layoutIfNeeded];
+//            }
+        }else {
+            self.deleteBtn.hidden = YES;
+            [self.chosePhotoBtn setImage:[UIImage imageNamed:@"chosePhoto"] forState:UIControlStateNormal];
+            [self.chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.centerY.equalTo(self.tableView.tableHeaderView);
+                make.width.equalTo(@(TCRealValue(62)));
+                make.height.equalTo(@(TCRealValue(54)));
+            }];
+            [self.view setNeedsUpdateConstraints];
+            [self.view updateConstraintsIfNeeded];
+            [self.view layoutIfNeeded];
+        }
+    }
     
 }
 
@@ -171,15 +237,16 @@
             NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.goods.pictures];
             [mutableArr addObject:[TCImageURLSynthesizer synthesizeImagePathWithName:uploadInfo.objectKey source:kTCImageSourceOSS]];
             self.goods.pictures = mutableArr;
-//            [self changeStoreCoverWithName:uploadInfo.objectKey];
             [_imagePlayerView setPictures:mutableArr isLocal:NO];
+            self.deleteBtn.hidden = NO;
             if (_chosePhotoBtn.centerX == self.view.centerX) {
                 [_chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.tableView.tableHeaderView).offset(20);
                     make.bottom.equalTo(self.tableView.tableHeaderView).offset(-20);
-                    make.width.equalTo(@(TCRealValue(62)));
-                    make.height.equalTo(@(TCRealValue(54)));
+                    make.width.equalTo(@(TCRealValue(42)));
+                    make.height.equalTo(@(TCRealValue(42)));
                 }];
+                [_chosePhotoBtn setImage:[UIImage imageNamed:@"addPhoto"] forState:UIControlStateNormal];
                 [self.view setNeedsUpdateConstraints];
                 [self.view updateConstraintsIfNeeded];
                 [self.view layoutIfNeeded];
