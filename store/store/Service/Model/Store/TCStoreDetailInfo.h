@@ -51,5 +51,7 @@
 @property (copy, nonatomic) NSArray *cookingStyle;
 /** 营业时间 */
 @property (copy, nonatomic) NSString *businessHours;
+/** 位置信息 */
+@property (copy, nonatomic) NSArray *coordinate;
 
 @end

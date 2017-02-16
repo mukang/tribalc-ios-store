@@ -322,6 +322,11 @@ TCCityPickerViewDelegate>
         [MBProgressHUD showHUDWithMessage:@"请填写详细地址"];
         return;
     }
+    if (!self.annotation) {
+        [MBProgressHUD showHUDWithMessage:@"请点击搜索按钮，在地图上进行搜索"];
+        return;
+    }
+    self.storeAddress.coordinate = @[@(self.annotation.coordinate.longitude), @(self.annotation.coordinate.latitude)];
     
     if (self.editAddressCompletion) {
         self.editAddressCompletion(self.storeAddress);

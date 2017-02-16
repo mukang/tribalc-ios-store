@@ -733,12 +733,14 @@ TCStoreFacilitiesViewCellDelegate>
     storeAddress.city = self.storeDetailInfo.city;
     storeAddress.district = self.storeDetailInfo.district;
     storeAddress.address = self.storeDetailInfo.address;
+    storeAddress.coordinate = self.storeDetailInfo.coordinate;
     vc.storeAddress = storeAddress;
     vc.editAddressCompletion = ^(TCStoreAddress *storeAddress) {
         weakSelf.storeDetailInfo.province = storeAddress.province;
         weakSelf.storeDetailInfo.city = storeAddress.city;
         weakSelf.storeDetailInfo.district = storeAddress.district;
         weakSelf.storeDetailInfo.address = storeAddress.address;
+        weakSelf.storeDetailInfo.coordinate = storeAddress.coordinate;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:1];
         [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
