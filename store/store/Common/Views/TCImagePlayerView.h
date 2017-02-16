@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TCImagePlayerViewDelegate <NSObject>
+
+- (void)didScrollToIndex:(NSInteger)index;
+
+@end
+
 @interface TCImagePlayerView : UIView
+
+@property (weak, nonatomic) id<TCImagePlayerViewDelegate> delegate;
 
 - (void)setPictures:(NSArray *)pictures isLocal:(BOOL)isLocal;
 

@@ -15,7 +15,7 @@
 
 @property (assign, nonatomic) NSInteger createTime;
 
-@property (copy, nonatomic) NSString *published;
+@property (assign, nonatomic) BOOL published;
 /** 规格组id */
 @property (copy, nonatomic) NSString *standardId;
 
@@ -54,5 +54,7 @@
 @property (copy, nonatomic) NSArray *standardKeys;
 
 @property (copy, nonatomic) NSString *number;
+/** 是否为主商品 */
+@property (assign, nonatomic) BOOL primary;
 
 @end

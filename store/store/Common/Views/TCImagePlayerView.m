@@ -164,7 +164,10 @@ static NSInteger const plusNum = 2;  // 需要加上的数
 }
 
 - (NSInteger)getCurrentPictureIndex {
-    return self.pageControl.currentPage;
+//    if (self.pageControl.currentPage) {
+        return self.pageControl.currentPage;
+//    }
+//    return 0;
 }
 
 #pragma mark - Timer
@@ -219,6 +222,11 @@ static NSInteger const plusNum = 2;  // 需要加上的数
     } else {
         self.pageControl.currentPage = currentPage - 1;
     }
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(didScrollToIndex:)]) {
+            [self.delegate didScrollToIndex:self.pageControl.currentPage];
+        }
+    }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
@@ -231,6 +239,11 @@ static NSInteger const plusNum = 2;  // 需要加上的数
     }
     
     self.pageControl.currentPage = currentPage - 1;
+    if (self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(didScrollToIndex:)]) {
+            [self.delegate didScrollToIndex:self.pageControl.currentPage];
+        }
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

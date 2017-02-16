@@ -21,7 +21,7 @@
 #import "TCImageURLSynthesizer.h"
 #import "TCImagePlayerView.h"
 
-@interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate,TCPhotoModeViewDelegate,TCPhotoPickerDelegate,TCGoodsDetailTitleCellDelegate>
+@interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate,TCPhotoModeViewDelegate,TCPhotoPickerDelegate,TCGoodsDetailTitleCellDelegate,TCImagePlayerViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -36,6 +36,8 @@
 @property (strong, nonatomic) TCImagePlayerView *imagePlayerView;
 
 @property (strong, nonatomic) UIButton *deleteBtn;
+
+@property (strong, nonatomic) UIButton *setMainPhotoBtn;
 
 @end
 
@@ -72,11 +74,9 @@
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(250))];
     
     TCImagePlayerView *imageView = [[TCImagePlayerView alloc] initWithFrame:headView.bounds];
+    imageView.delegate = self;
     [headView addSubview:imageView];
     [imageView prohibitPlay];
-    if (self.goods.pictures) {
-        [imageView setPictures:self.goods.pictures isLocal:NO];
-    }
     self.imagePlayerView = imageView;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -90,6 +90,30 @@
     [headView addSubview:deleteBtn];
     self.deleteBtn = deleteBtn;
     
+    UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [setBtn setTitle:@"设为主图" forState:UIControlStateNormal];
+    [setBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    setBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [setBtn setImage:[UIImage imageNamed:@"unSelect"] forState:UIControlStateNormal];
+    [headView addSubview:setBtn];
+    [setBtn addTarget:self action:@selector(setMainPhoto:) forControlEvents:UIControlEventTouchUpInside];
+    self.setMainPhotoBtn = setBtn;
+    if (self.goods.pictures) {
+        [imageView setPictures:self.goods.pictures isLocal:NO];
+        if ([self.goods.mainPicture isKindOfClass:[NSString class]]) {
+            NSInteger index = [self.imagePlayerView getCurrentPictureIndex];
+            if (index < self.goods.pictures.count) {
+                NSString *str = self.goods.pictures[index];
+                if ([str isKindOfClass:[NSString class]]) {
+                    if ([str isEqualToString:self.goods.mainPicture]) {
+                        setBtn.selected = YES;
+                        [setBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+                    }
+                }
+            }
+        }
+    }
+    
     _nextBtn = [TCCommonButton bottomButtonWithTitle:@"下一步" color:TCCommonButtonColorOrange target:self action:@selector(next)];
     [self.view addSubview:_nextBtn];
     
@@ -97,6 +121,11 @@
         make.right.equalTo(headView).offset(-20);
         make.bottom.equalTo(headView).offset(-20);
         make.width.height.equalTo(@(TCRealValue(42)));
+    }];
+    
+    [setBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(headView).offset(-20);
+        make.top.equalTo(headView).offset(20);
     }];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,6 +136,7 @@
     if (self.goods.pictures) {
         if (self.goods.pictures.count) {
             self.deleteBtn.hidden = NO;
+            self.setMainPhotoBtn.hidden = NO;
             [btn setImage:[UIImage imageNamed:@"addPhoto"] forState:UIControlStateNormal];
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(headView).offset(20);
@@ -116,6 +146,7 @@
             }];
         }else {
             self.deleteBtn.hidden = YES;
+            self.setMainPhotoBtn.hidden = YES;
             [btn setImage:[UIImage imageNamed:@"chosePhoto"] forState:UIControlStateNormal];
             [btn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.centerY.equalTo(headView);
@@ -126,6 +157,7 @@
         
     }else {
         self.deleteBtn.hidden = YES;
+        self.setMainPhotoBtn.hidden = YES;
         [btn setImage:[UIImage imageNamed:@"chosePhoto"] forState:UIControlStateNormal];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.centerY.equalTo(headView);
@@ -143,6 +175,32 @@
     _tableView.tableHeaderView = headView;
     
 }
+
+- (void)setMainPhoto:(UIButton *)btn {
+    if (!self.goods.pictures) {
+        return;
+    }
+    
+    if (!self.goods.pictures.count) {
+        return;
+    }
+    
+    if (btn.selected) {
+        return;
+    }
+    
+    btn.selected = YES;
+    [btn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+    
+    NSInteger index = [self.imagePlayerView getCurrentPictureIndex];
+    if (index < self.goods.pictures.count) {
+        NSString *str = self.goods.pictures[index];
+        if ([str isKindOfClass:[NSString class]]) {
+            self.goods.mainPicture = str;
+        }
+    }
+}
+
 
 - (void)deletePhoto {
     if (!self.goods.pictures) {
@@ -176,6 +234,7 @@
 //            }
         }else {
             self.deleteBtn.hidden = YES;
+            self.setMainPhotoBtn.hidden = YES;
             [self.chosePhotoBtn setImage:[UIImage imageNamed:@"chosePhoto"] forState:UIControlStateNormal];
             [self.chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.centerY.equalTo(self.tableView.tableHeaderView);
@@ -195,6 +254,26 @@
     TCPhotoModeView *photoModeView = [[TCPhotoModeView alloc] initWithController:self];
     photoModeView.delegate = self;
     [photoModeView show];
+}
+
+#pragma mark - TCImagePlayerViewDelegate
+
+- (void)didScrollToIndex:(NSInteger)index {
+    if (index < self.goods.pictures.count) {
+        NSString *imageStr = self.goods.pictures[index];
+        if ([self.goods.mainPicture isKindOfClass:[NSString class]]) {
+            if ([self.goods.mainPicture isEqualToString:imageStr]) {
+                self.setMainPhotoBtn.selected = YES;
+                [self.setMainPhotoBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+            }else {
+                self.setMainPhotoBtn.selected = NO;
+                [self.setMainPhotoBtn setImage:[UIImage imageNamed:@"unSelect"] forState:UIControlStateNormal];
+            }
+        }else {
+            self.setMainPhotoBtn.selected = NO;
+            [self.setMainPhotoBtn setImage:[UIImage imageNamed:@"unSelect"] forState:UIControlStateNormal];
+        }
+    }
 }
 
 #pragma mark - TCPhotoModeViewDelegate
@@ -239,6 +318,7 @@
             self.goods.pictures = mutableArr;
             [_imagePlayerView setPictures:mutableArr isLocal:NO];
             self.deleteBtn.hidden = NO;
+            self.setMainPhotoBtn.hidden = NO;
             if (_chosePhotoBtn.centerX == self.view.centerX) {
                 [_chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.tableView.tableHeaderView).offset(20);

@@ -115,9 +115,9 @@
     }
     
     if (btn.tag == 123) {
-        self.goods.published = @"false";
+        self.goods.published = NO;
     }else {
-        self.goods.published = @"true";
+        self.goods.published = YES;
     }
     
     TCGoodsStandardMate *goodStandMate = self.goodsStandardMate;

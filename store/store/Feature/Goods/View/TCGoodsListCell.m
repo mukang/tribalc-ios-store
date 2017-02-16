@@ -26,6 +26,8 @@
 
 @property (strong, nonatomic) UILabel *creatTimeLabel;
 
+@property (strong, nonatomic) UIImageView *mainGoodsImageView;
+
 @end
 
 @implementation TCGoodsListCell
@@ -39,10 +41,16 @@
 }
 
 - (void)setupSubviews {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     _imgView = [[UIImageView alloc] init];
     _imgView.layer.borderColor = TCRGBColor(154, 154, 154).CGColor;
     _imgView.layer.borderWidth = 0.5;
     [self.contentView addSubview:_imgView];
+    
+    UIImageView *mainGoodsImageView = [[UIImageView alloc] init];
+    [_imgView addSubview:mainGoodsImageView];
+    _mainGoodsImageView = mainGoodsImageView;
+    _mainGoodsImageView.image = [UIImage imageNamed:@"mainGoods"];
     
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.textColor = TCRGBColor(42, 42, 42);
@@ -78,6 +86,12 @@
         make.left.equalTo(self.contentView).offset(TCRealValue(30));
         make.centerY.equalTo(self.contentView);
         make.width.height.equalTo(@126);
+    }];
+    
+    [mainGoodsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.equalTo(_imgView);
+        make.width.equalTo(@(TCRealValue(38)));
+        make.height.equalTo(@(TCRealValue(29)));
     }];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -125,6 +139,13 @@
                 }
             }
         }
+        
+        if (good.primary) {
+            self.mainGoodsImageView.hidden = NO;
+        }else {
+            self.mainGoodsImageView.hidden = YES;
+        }
+        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
         dateFormatter.dateFormat = @"yyyy-MM-dd";
