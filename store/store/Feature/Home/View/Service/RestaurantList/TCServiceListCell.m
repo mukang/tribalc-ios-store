@@ -83,9 +83,9 @@
                 }
             }
         }
-        
-        self.tagsL.text = style;
-        
+        if ([style isKindOfClass:[NSString class]]) {
+            self.tagsL.text = [NSString stringWithFormat:@"  %@  ",style];
+        }
     }
 }
 
@@ -121,7 +121,7 @@
     }];
     
     [self.tagsL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.perL);
+        make.left.equalTo(self.perL);
         make.bottom.equalTo(self.imageV);
     }];
 }
