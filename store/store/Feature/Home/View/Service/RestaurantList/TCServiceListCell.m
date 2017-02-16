@@ -58,13 +58,16 @@
                 positionStr = [NSString stringWithFormat:@"%@ | %.2fkm", positionStr, distance];
             }
         }
-        NSRange range = [positionStr rangeOfString:@"|"];
-        if (range.location != NSNotFound) {
-            NSMutableAttributedString *mutableAtt = [[NSMutableAttributedString alloc] initWithString:positionStr];
-            [mutableAtt addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:range];
-            self.positionL.attributedText = mutableAtt;
-        }else {
-            self.positionL.text = positionStr;
+        
+        if ([positionStr isKindOfClass:[NSString class]]) {
+            NSRange range = [positionStr rangeOfString:@"|"];
+            if (range.location != NSNotFound) {
+                NSMutableAttributedString *mutableAtt = [[NSMutableAttributedString alloc] initWithString:positionStr];
+                [mutableAtt addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:range];
+                self.positionL.attributedText = mutableAtt;
+            }else {
+                self.positionL.text = positionStr;
+            }
         }
         
         if (service.personExpense) {
@@ -112,7 +115,7 @@
     
     [self.positionL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.titleL);
-        make.top.equalTo(self.titleL.mas_bottom).offset(10);
+        make.top.equalTo(self.titleL.mas_bottom).offset(5);
     }];
     
     [self.perL mas_makeConstraints:^(MASConstraintMaker *make) {
