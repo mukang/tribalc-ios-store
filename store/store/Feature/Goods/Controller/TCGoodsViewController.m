@@ -303,19 +303,27 @@
     NSInteger index = btn.tag/100;
     TCGoodsMeta *good = self.goods[index];
     @WeakObj(self)
-    [[TCBuluoApi api] getGoodsStandard:good.standardId result:^(TCGoodsStandardMate *goodsStandardMate, NSError *error) {
-        @StrongObj(self)
-        if (goodsStandardMate) {
-            TCCreateGoodsViewController *createVc = [[TCCreateGoodsViewController alloc] init];
-            createVc.goods = good;
-            createVc.currentGoodsStandardMate = goodsStandardMate;
-            createVc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:createVc animated:YES];
-        }else {
-            NSString *reason = error.localizedDescription ?: @"请稍后再试";
-            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取规格组失败，%@", reason]];
-        }
-    }];
+    if (good.standardId) {
+        [[TCBuluoApi api] getGoodsStandard:good.standardId result:^(TCGoodsStandardMate *goodsStandardMate, NSError *error) {
+            @StrongObj(self)
+            if (goodsStandardMate) {
+                TCCreateGoodsViewController *createVc = [[TCCreateGoodsViewController alloc] init];
+                createVc.goods = good;
+                createVc.currentGoodsStandardMate = goodsStandardMate;
+                createVc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:createVc animated:YES];
+            }else {
+                NSString *reason = error.localizedDescription ?: @"请稍后再试";
+                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取规格组失败，%@", reason]];
+            }
+        }];
+    }else {
+        TCCreateGoodsViewController *createVc = [[TCCreateGoodsViewController alloc] init];
+        createVc.goods = good;
+        createVc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:createVc animated:YES];
+    }
+    
     
     
     

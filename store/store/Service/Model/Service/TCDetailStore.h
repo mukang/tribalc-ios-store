@@ -22,7 +22,7 @@
 /** 略所图 */
 @property (copy, nonatomic) NSString *thumbnail;
 /** 位置信息 */
-@property (copy, nonatomic) NSString *coordinate;
+@property (copy, nonatomic) NSArray *coordinate;
 /** 辅助设备 */
 @property (copy, nonatomic) NSArray *facilities;
 /** 折扣信息 */
@@ -33,6 +33,10 @@
 @property (copy, nonatomic) NSString *category;
 /** 商家标签 */
 @property (copy, nonatomic) NSArray *tags;
+
+@property (copy, nonatomic) NSString *district;
+
+@property (copy, nonatomic) NSString *cookingStyle;
 
 
 
@@ -47,7 +51,12 @@
 /** 营业时间 */
 @property (copy, nonatomic) NSString *businessHours;
 
+@property (copy, nonatomic) NSString *province;
 
+@property (copy, nonatomic) NSString *city;
 
+@property (assign, nonatomic) NSInteger personExpense;
+
+@property (copy, nonatomic) NSArray *pictures;
 
 @end

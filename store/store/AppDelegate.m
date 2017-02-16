@@ -8,12 +8,16 @@
 
 #import "AppDelegate.h"
 #import "TCTabBarController.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface AppDelegate ()
+@interface AppDelegate ()<CLLocationManagerDelegate>
 
 @end
 
-@implementation AppDelegate
+@implementation AppDelegate{
+    CLLocationManager *_locationManager;
+    BOOL _isRequest;
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -23,9 +27,58 @@
     self.window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
     
+    [self startLocationAction];
+    
     return YES;
 }
 
+- (void)startLocationAction
+{
+    _locationManager = [[CLLocationManager alloc] init];
+    if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [_locationManager requestWhenInUseAuthorization];
+    }
+    
+    if ([CLLocationManager locationServicesEnabled] &&
+        (!([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted)
+         && !([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied))) {
+            //定位功能可用，开始定位
+            _locationManager.delegate=self;
+            //设置定位精度
+            _locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+            
+            [_locationManager stopUpdatingLocation];
+            [_locationManager startUpdatingLocation];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"isAllowLocal"];
+        }else {
+            [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"isAllowLocal"];
+        }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
+        [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"isAllowLocal"];
+    }else {
+        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"isAllowLocal"];
+    }
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    
+    if (!_isRequest) {
+        CLLocation *location=[locations lastObject];//取出第一个位置
+        CLLocationCoordinate2D coordinate=location.coordinate;//位置坐标
+        
+        _isRequest = YES;
+        [_locationManager stopUpdatingLocation];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f,%f",coordinate.latitude, coordinate.longitude] forKey:@"locationLatAndLog"];
+        
+    }
+    
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

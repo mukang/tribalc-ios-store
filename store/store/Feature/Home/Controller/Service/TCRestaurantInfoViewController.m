@@ -9,6 +9,7 @@
 #import "TCRestaurantInfoViewController.h"
 #import "TCImageURLSynthesizer.h"
 #import "UIImage+Category.h"
+#import "NSObject+Distance.h"
 
 @interface TCRestaurantInfoViewController () {
     UIImageView *serviceTitleImageView;
@@ -253,7 +254,10 @@
     typeLab.textAlignment = NSTextAlignmentRight;
     [view addSubview:typeLab];
     
-    UILabel *rangeLab = [TCComponent createLabelWithFrame:CGRectMake(rightLine.x + TCRealValue(0.5) + TCRealValue(8), markPlaceLab.y, TCScreenWidth - rightLine.x + TCRealValue(0.5) + TCRealValue(8), markPlaceLab.height) AndFontSize:TCRealValue(14) AndTitle:@"2222m"];
+    
+    CGFloat distance = [NSObject distanceWithCoordinateArr:serviceDetail.detailStore.coordinate];
+    NSString *positionStr = [NSString stringWithFormat:@"%.2fkm",distance];
+    UILabel *rangeLab = [TCComponent createLabelWithFrame:CGRectMake(rightLine.x + TCRealValue(0.5) + TCRealValue(8), markPlaceLab.y, TCScreenWidth - rightLine.x + TCRealValue(0.5) + TCRealValue(8), markPlaceLab.height) AndFontSize:TCRealValue(14) AndTitle:positionStr];
     rangeLab.textAlignment = NSTextAlignmentLeft;
     [view addSubview:rangeLab];
     

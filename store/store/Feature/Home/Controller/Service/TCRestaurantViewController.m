@@ -7,6 +7,7 @@
 //
 
 #import "TCRestaurantViewController.h"
+#import "TCServiceListCell.h"
 
 @interface TCRestaurantViewController () {
     TCServiceWrapper *mServiceWrapper;
@@ -85,6 +86,7 @@
     mResaurantTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.size.height - TCRealValue(42)) style:UITableViewStyleGrouped];
     mResaurantTableView.delegate = self;
     mResaurantTableView.dataSource = self;
+    mResaurantTableView.rowHeight = TCRealValue(160);
     [self.view addSubview:mResaurantTableView];
     
     TCRecommendHeader *refreshHeader = [TCRecommendHeader headerWithRefreshingBlock:^{
@@ -146,12 +148,17 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
-    TCRestaurantTableViewCell *cell = [TCRestaurantTableViewCell cellWithTableView:tableView];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    TCServiceListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCServiceListCell"];
+    if (cell == nil) {
+        cell = [[TCServiceListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCServiceListCell"];
+    }
     TCServices *resInfo = mServiceWrapper.content[indexPath.row];
+    cell.isRes = [self.title isEqualToString:@"餐饮"] ? YES : NO;
     cell.service = resInfo;
+//    TCRestaurantTableViewCell *cell = [TCRestaurantTableViewCell cellWithTableView:tableView];
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    TCServices *resInfo = mServiceWrapper.content[indexPath.row];
+//    cell.service = resInfo;
     return cell;
 }
 
@@ -165,10 +172,10 @@
 
 
 #pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return TCRealValue(160);
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return TCRealValue(160);
+//}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
