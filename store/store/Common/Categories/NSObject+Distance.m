@@ -15,9 +15,9 @@
     if ([arr isKindOfClass:[NSArray class]]) {
         if (arr.count == 2) {
             CLLocationCoordinate2D storeCoordinate;
-            storeCoordinate.latitude = [arr[0] floatValue];
+            storeCoordinate.latitude = [arr[1] floatValue];
             
-            storeCoordinate.longitude = [arr[1] floatValue];
+            storeCoordinate.longitude = [arr[0] floatValue];
             
             NSString *coordinateStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"locationLatAndLog"];
             if ([coordinateStr isKindOfClass:[NSString class]]) {
@@ -36,7 +36,7 @@
                     CLLocation *location1 = [[CLLocation alloc] initWithLatitude:storeCoordinate.latitude longitude:storeCoordinate.longitude] ;
                     CLLocation *location2 = [[CLLocation alloc] initWithLatitude:coordinate.latitude  longitude:coordinate.longitude];
                     CLLocationDistance kilometers = [location1 distanceFromLocation:location2];
-                    return kilometers;
+                    return kilometers/1000;
                 }
             }
             
