@@ -18,5 +18,7 @@
 @property (copy, nonatomic) NSString *district;
 /** 详细地址 */
 @property (copy, nonatomic) NSString *address;
+/** 位置信息 */
+@property (copy, nonatomic) NSArray *coordinate;
 
 @end

@@ -10,7 +10,6 @@
 
 #import "TCCommonButton.h"
 #import "TCGoodsDeliveryView.h"
-#import "TCCommonSubtitleViewCell.h"
 #import "TCGoodsOrderAddressViewCell.h"
 #import "TCGoodsOrderPurchaserViewCell.h"
 #import "TCGoodsOrderGoodsViewCell.h"
@@ -60,7 +59,6 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.dataSource = self;
     tableView.delegate = self;
-    [tableView registerClass:[TCCommonSubtitleViewCell class] forCellReuseIdentifier:@"TCCommonSubtitleViewCell"];
     [tableView registerClass:[TCGoodsOrderAddressViewCell class] forCellReuseIdentifier:@"TCGoodsOrderAddressViewCell"];
     [tableView registerClass:[TCGoodsOrderPurchaserViewCell class] forCellReuseIdentifier:@"TCGoodsOrderPurchaserViewCell"];
     [tableView registerClass:[TCGoodsOrderGoodsViewCell class] forCellReuseIdentifier:@"TCGoodsOrderGoodsViewCell"];
