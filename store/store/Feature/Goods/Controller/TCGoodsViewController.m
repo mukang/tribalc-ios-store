@@ -33,26 +33,22 @@
 
 @end
 
-@implementation TCGoodsViewController {
-    __weak TCGoodsViewController *weakSelf;
-}
+@implementation TCGoodsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    weakSelf = self;
     self.navigationItem.leftBarButtonItem = nil;
     [self setUpTopViews];
     [self setCreatBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelf) name:@"KISSUEORMODIFYGOODS" object:nil];
 }
 
-- (void)updateSelf {
-    [self loadDataIsMore:NO];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
+
+- (void)updateSelf {
+    [self loadDataIsMore:NO];
 }
 
 - (void)loadDataIsMore:(BOOL)isMore {
@@ -202,27 +198,6 @@
     
 }
 
-- (UITableView *)tableView {
-    if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        _tableView.delegate = self;
-        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, CGFLOAT_MIN)];
-        _tableView.dataSource = self;
-        _tableView.sectionFooterHeight = 0.01;
-        _tableView.sectionHeaderHeight = 5.0;
-        _tableView.rowHeight = 150.0;
-        [self.view addSubview:_tableView];
-        [self setupTableViewRefreshView];
-
-        [self.view bringSubviewToFront:_btn];
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_storeBtn.mas_bottom);
-            make.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.view);
-        }];
-    }
-    return _tableView;
-}
 
 - (void)setupTableViewRefreshView {
     @WeakObj(self)
@@ -230,7 +205,7 @@
         @StrongObj(self)
         [self loadDataIsMore:NO];
     }];
-    _tableView.mj_header = refreshHeader;
+    self.tableView.mj_header = refreshHeader;
     
     TCRefreshFooter *refreshFooter = [TCRefreshFooter footerWithRefreshingBlock:^(void) {
         @StrongObj(self)
@@ -242,8 +217,11 @@
         
     }];
     refreshFooter.hidden = YES;
-    _tableView.mj_footer = refreshFooter;
+    self.tableView.mj_footer = refreshFooter;
 }
+
+
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.goods.count;
@@ -262,7 +240,7 @@
     
     NSString *upStr = @"修改";
     NSString *downStr;
-    if (_onSaleBtn.selected) {
+    if (self.onSaleBtn.selected) {
         downStr = @"下架";
     }else if (_storeBtn.selected) {
         downStr = @"删除";
@@ -298,6 +276,8 @@
     return cell;
 }
 
+#pragma UIButton Event
+
 - (void)modify:(UIButton *)btn {
     
     NSInteger index = btn.tag/100;
@@ -323,10 +303,6 @@
         createVc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:createVc animated:YES];
     }
-    
-    
-    
-    
 }
 
 - (void)delete:(UIButton *)btn {
@@ -366,6 +342,28 @@
 //        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
 //    }
 
+}
+
+- (UITableView *)tableView {
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, CGFLOAT_MIN)];
+        _tableView.dataSource = self;
+        _tableView.sectionFooterHeight = 0.01;
+        _tableView.sectionHeaderHeight = 5.0;
+        _tableView.rowHeight = 150.0;
+        [self.view addSubview:_tableView];
+        [self setupTableViewRefreshView];
+        
+        [self.view bringSubviewToFront:_btn];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_storeBtn.mas_bottom);
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view);
+        }];
+    }
+    return _tableView;
 }
 
 - (void)didReceiveMemoryWarning {

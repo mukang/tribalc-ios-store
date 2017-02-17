@@ -33,26 +33,6 @@
 
 - (void)setupSubviews {
     
-//    UIView *topView = [[UIView alloc] init];
-//    topView.backgroundColor = TCRGBColor(212, 212, 212);
-//    [self.view addSubview:topView];
-//    
-//    UIImageView *titleImageView = [[UIImageView alloc] init];
-//    [self.view addSubview:titleImageView];
-////    self.titleImageView = titleImageView;
-//    
-//    UILabel *titleLabel = [[UILabel alloc] init];
-////    titleLabel.textColor = TCRGBColor(252, 108, 38);
-//    titleLabel.textAlignment = NSTextAlignmentLeft;
-//    titleLabel.text = @"选择类目";
-//    titleLabel.font = [UIFont systemFontOfSize:TCRealValue(14)];
-//    [self.view addSubview:titleLabel];
-//    
-//    UIView *separatorView = [[UIView alloc] init];
-//    separatorView.backgroundColor = TCRGBColor(212, 212, 212);
-//    [self.view addSubview:separatorView];
-//    self.separatorView = separatorView;
-    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize = CGSizeMake(floorf(TCRealValue(72)), floorf(TCRealValue(72)));
     layout.minimumLineSpacing = floorf(TCRealValue(12));
@@ -66,30 +46,8 @@
     [collectionView registerClass:[TCStoreCategoryIconViewCell class] forCellWithReuseIdentifier:@"TCStoreCategoryIconViewCell"];
     [self.view addSubview:collectionView];
     self.collectionView = collectionView;
-    
-//    [topView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.top.equalTo(self.view);
-//        make.height.equalTo(@(TCRealValue(9)));
-//    }];
-//    
-//    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(CGSizeMake(TCRealValue(13), TCRealValue(13)));
-//        make.centerX.equalTo(self.view).with.offset(-(TCRealValue(16)));
-//        make.top.equalTo(topView.mas_bottom).offset(TCRealValue(16));
-//    }];
-//    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.size.mas_equalTo(CGSizeMake(TCRealValue(100), TCRealValue(16)));
-//        make.left.equalTo(titleImageView.mas_right).with.offset(3);
-//        make.centerY.equalTo(titleImageView.mas_centerY);
-//    }];
-//    [separatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.view).with.offset(TCRealValue(54));
-//        make.left.equalTo(self.view).with.offset(20);
-//        make.right.equalTo(self.view).with.offset(-20);
-//        make.height.mas_equalTo(0.5);
-//    }];
+
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(separatorView.mas_bottom);
         make.top.left.right.equalTo(self.view);
         make.height.equalTo(@(TCRealValue(220)));
     }];
@@ -122,12 +80,6 @@
     }else {
         [MBProgressHUD showHUDWithMessage:@"此功能暂未开放，敬请期待！"];
     }
-    
-    
-//    if ([self.delegate respondsToSelector:@selector(storeCategoryViewCell:didSelectItemWithCategoryInfo:)]) {
-//        TCStoreCategoryInfo *categoryInfo = self.categoryInfoArray[indexPath.item];
-//        [self.delegate storeCategoryViewCell:self didSelectItemWithCategoryInfo:categoryInfo];
-//    }
 }
 
 - (NSArray *)goodsCategoryInfoArray {

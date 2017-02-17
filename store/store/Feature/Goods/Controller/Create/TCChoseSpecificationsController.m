@@ -36,10 +36,6 @@
     [self loadDataIsMore:NO];
 }
 
-- (void)createGoods {
-    
-}
-
 - (void)loadDataIsMore:(BOOL)isMore {
     [MBProgressHUD showHUD:YES];
     
@@ -114,6 +110,7 @@
     }
 }
 
+#pragma mark UITabelViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.currentArr.count+1;
@@ -170,6 +167,23 @@
     return size.height+28.0;
 }
 
+
+
+- (void)next {
+    
+    TCCreateGoodsViewController *createVC = [[TCCreateGoodsViewController alloc] init];
+    
+    if (self.selectedIndexPath.section != 0) {
+        TCGoodsStandardMate *goodsStandardMate = self.currentArr[self.selectedIndexPath.section-1];
+        self.good.standardId = goodsStandardMate.ID;
+        createVC.currentGoodsStandardMate = goodsStandardMate;
+    }
+    
+    createVC.goods = self.good;
+    [self.navigationController pushViewController:createVC animated:YES];
+    
+}
+
 - (UITableView *)tabelView {
     if (_tabelView == nil) {
         _tabelView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -196,21 +210,6 @@
         }];
     }
     return _tabelView;
-}
-
-- (void)next {
-    
-    TCCreateGoodsViewController *createVC = [[TCCreateGoodsViewController alloc] init];
-    
-    if (self.selectedIndexPath.section != 0) {
-        TCGoodsStandardMate *goodsStandardMate = self.currentArr[self.selectedIndexPath.section-1];
-        self.good.standardId = goodsStandardMate.ID;
-        createVC.currentGoodsStandardMate = goodsStandardMate;
-    }
-    
-    createVC.goods = self.good;
-    [self.navigationController pushViewController:createVC animated:YES];
-    
 }
 
 - (void)didReceiveMemoryWarning {

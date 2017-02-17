@@ -55,103 +55,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCache:) name:@"KTCUPDATESTANDARDPRICEORREPEROTY" object:nil];
 }
 
-- (void)updateCache:(NSNotification *)noti {
-    NSDictionary *dic = noti.userInfo;
-    NSString *price = dic[@"price"];
-    NSString *repertory = dic[@"repertory"];
-    
-    if (!self.goodsStandardMate) {
-        self.goodsStandardMate = [[TCGoodsStandardMate alloc] init];
-    }
-    
-    if (!self.goodsStandardMate.priceAndRepertoryMap) {
-        self.goodsStandardMate.priceAndRepertoryMap = [NSDictionary dictionary];
-    }
-    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
-    for (int i = 0; i < self.allStandardArr.count; i++) {
-        NSString *standardStr = self.allStandardArr[i];
-        TCGoodsPriceAndRepertory *priceAndRepertory = self.goodsStandardMate.priceAndRepertoryMap[standardStr];
-        if (!priceAndRepertory) {
-            priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
-        }
-        if ([price isKindOfClass:[NSString class]]) {
-            priceAndRepertory.salePrice = [price doubleValue];
-        }
-        
-        if ([repertory isKindOfClass:[NSString class]]) {
-            priceAndRepertory.repertory = [repertory integerValue];
-        }
-        
-        [mutableDic setObject:priceAndRepertory forKey:standardStr];
-    }
-    
-    self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
-    
-    
-    
-//    if (self.goodsStandardMate) {
-//        if (self.goodsStandardMate.priceAndRepertoryMap) {
-//            for (int i = 0; i < self.allStandardArr.count; i++) {
-//                NSString *standardStr = self.allStandardArr[i];
-//                TCGoodsPriceAndRepertory *priceAndRepertory = self.goodsStandardMate.priceAndRepertoryMap[standardStr];
-//                if (!priceAndRepertory) {
-//                    priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
-//                }
-//                if ([price isKindOfClass:[NSString class]]) {
-//                    priceAndRepertory.salePrice = [price floatValue];
-//                }
-//                
-//                if ([repertory isKindOfClass:[NSString class]]) {
-//                    priceAndRepertory.repertory = [repertory integerValue];
-//                }
-//                
-//                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
-//                [mutableDic setObject:priceAndRepertory forKey:standardStr];
-//            }
-//        }else {
-//            
-//            NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
-//            
-//            for (int i = 0; i < self.allStandardArr.count; i++) {
-//                NSString *standardStr = self.allStandardArr[i];
-//                TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
-//                if ([price isKindOfClass:[NSString class]]) {
-//                    priceAndRepertory.salePrice = [price floatValue];
-//                }
-//                
-//                if ([repertory isKindOfClass:[NSString class]]) {
-//                    priceAndRepertory.repertory = [repertory integerValue];
-//                }
-//                
-////                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
-//                [mutableDic setObject:priceAndRepertory forKey:standardStr];
-//            }
-//            
-//            self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
-//        }
-//    }else {
-//        self.goodsStandardMate = [[TCGoodsStandardMate alloc] init];
-//        NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
-//        
-//        for (int i = 0; i < self.allStandardArr.count; i++) {
-//            NSString *standardStr = self.allStandardArr[i];
-//            TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
-//            if ([price isKindOfClass:[NSString class]]) {
-//                priceAndRepertory.salePrice = [price floatValue];
-//            }
-//            
-//            if ([repertory isKindOfClass:[NSString class]]) {
-//                priceAndRepertory.repertory = [repertory integerValue];
-//            }
-//            
-//            //                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
-//            [mutableDic setObject:priceAndRepertory forKey:standardStr];
-//        }
-//        
-//        self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
-//    }
-    
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -211,13 +114,6 @@
         make.height.equalTo(@30);
         make.right.equalTo(headerView).offset(-15);
     }];
-    
-//    [grayView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.bottom.equalTo(headerView);
-//        make.height.equalTo(@10);
-//    }];
-    
-    
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.view);
@@ -319,117 +215,6 @@
     
 }
 
-- (void)createCells {
-    TCCreateStandardCell *cell = [[TCCreateStandardCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCreateStandardCell"];
-    cell.titleLabel.text = @"一级规格";
-//    cell.isNeedAdd = YES;
-    cell.delegate = self;
-    _cellsArr = [NSArray arrayWithObject:cell];
-    
-    if (self.goodsStandardMate) {
-        if (self.goodsStandardMate.descriptions) {
-            if (self.goodsStandardMate.descriptions.primary) {
-                cell.standardNameTextField.text = self.goodsStandardMate.descriptions.primary.label;
-                self.firstGradeStandardArr = self.goodsStandardMate.descriptions.primary.types;
-                cell.currentStandards = self.goodsStandardMate.descriptions.primary.types;
-            }
-        }
-    }
-    
-    if (self.goodsStandardMate.descriptions.secondary) {
-        [self addSecondaryStandardCell];
-    }
-    
-}
-
-- (void)addSecondaryStandardCell {
-    TCCreateStandardCell *secondaryCell = [[TCCreateStandardCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCreateStandardCell"];
-    secondaryCell.titleLabel.text = @"二级规格";
-    secondaryCell.delegate = self;
-    if (self.goodsStandardMate) {
-        if (self.goodsStandardMate.descriptions) {
-            if (self.goodsStandardMate.descriptions.secondary) {
-                secondaryCell.standardNameTextField.text = self.goodsStandardMate.descriptions.secondary.label;
-                self.secondaryStandardArr = self.goodsStandardMate.descriptions.secondary.types;
-                secondaryCell.currentStandards = self.goodsStandardMate.descriptions.secondary.types;
-            }
-        }
-    }
-    
-    
-//    secondaryCell.isNeedAdd = NO;
-    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:_cellsArr];
-    [mutableArr insertObject:secondaryCell atIndex:1];
-//    [mutableArr addObject:secondaryCell];
-    
-    _cellsArr = mutableArr;
-    
-    for (UITableViewCell *cell  in _cellsArr) {
-        if ([cell isKindOfClass:[TCCreateStandardCell class]]) {
-            [(TCCreateStandardCell *)cell hideAddBtn];
-        }
-        
-    }
-    _hasSecondary = YES;
-    [self tableViewReload];
-}
-
-- (void)deleteCurrentCell:(UITableViewCell *)cell {
-    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:_cellsArr];
-    [mutableArr removeObject:cell];
-    
-    _cellsArr = mutableArr;
-    if (_cellsArr.count > 0) {
-        
-        if ([_cellsArr[0] isKindOfClass:[TCCreateStandardCell class]]) {
-            TCCreateStandardCell *createCell = _cellsArr[0];
-            createCell.titleLabel.text = @"一级规格";
-            [createCell showAddBtn];
-        }
-    }
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    if (indexPath.section == 0) {
-        self.firstGradeStandardArr = self.secondaryStandardArr;
-        self.secondaryStandardArr = nil;
-    }else if (indexPath.section == 1) {
-        self.secondaryStandardArr = nil;
-    }
-    
-    self.hasSecondary = NO;
-    
-    [self reload];
-}
-
-- (void)deleteCurrentStandard:(UITableViewCell *)cell {
-    if (cell) {
-        NSMutableArray *mutabelArr = [NSMutableArray arrayWithArray:_cellsArr];
-        [mutabelArr removeObject:cell];
-        _cellsArr = mutabelArr;
-        
-        TCCreatePriceAndRepertoryCell *ce = (TCCreatePriceAndRepertoryCell *)cell;
-        NSString *str = ce.titleLabel.text;
-        NSMutableArray *mutableStrArr = [NSMutableArray arrayWithArray:self.allStandardArr];
-        [mutableStrArr removeObject:str];
-        self.allStandardArr = mutableStrArr;
-        [self.tableView reloadData];
-    }
-}
-
-- (void)createOrReloadPriceAndRepertoryCell:(UITableViewCell *)cell {
-    if (cell) {
-        TCCreateStandardCell *createCell = (TCCreateStandardCell *)cell;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:createCell];
-        if (indexPath.section == 0) {
-            self.firstGradeStandardArr = createCell.currentStandards;
-        }else if (indexPath.section == 1) {
-            self.secondaryStandardArr = createCell.currentStandards;
-        }
-        
-        [self reload];
-    }
-}
-
 - (void)reload {
     NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
     if (self.secondaryStandardArr.count == 0) {
@@ -479,6 +264,73 @@
     [self.tableView reloadData];
 }
 
+- (void)createCells {
+    TCCreateStandardCell *cell = [[TCCreateStandardCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCreateStandardCell"];
+    cell.titleLabel.text = @"一级规格";
+//    cell.isNeedAdd = YES;
+    cell.delegate = self;
+    _cellsArr = [NSArray arrayWithObject:cell];
+    
+    if (self.goodsStandardMate) {
+        if (self.goodsStandardMate.descriptions) {
+            if (self.goodsStandardMate.descriptions.primary) {
+                cell.standardNameTextField.text = self.goodsStandardMate.descriptions.primary.label;
+                self.firstGradeStandardArr = self.goodsStandardMate.descriptions.primary.types;
+                cell.currentStandards = self.goodsStandardMate.descriptions.primary.types;
+            }
+        }
+    }
+    
+    if (self.goodsStandardMate.descriptions.secondary) {
+        [self addSecondaryStandardCell];
+    }
+    
+}
+
+- (void)batchSeting {
+    if (_setingView == nil) {
+        _setingView = [[TCBatchSetiingView alloc] init];
+        _setingView.delegate = self;
+        [self.navigationController.view addSubview:_setingView];
+        @WeakObj(self)
+        _setingView.deleteBlock = ^{
+            @StrongObj(self)
+            [self deleteSetingView];
+        };
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteSetingView)];
+        [_setingView addGestureRecognizer:tap];
+        
+        [_setingView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.navigationController.view);
+        }];
+    }
+}
+
+- (void)deleteSetingView {
+    if (_setingView) {
+        [_setingView removeFromSuperview];
+        _setingView = nil;
+    }
+}
+
+
+#pragma mark TCCreatePriceAndRepertoryCellDelegate
+
+- (void)deleteCurrentStandard:(UITableViewCell *)cell {
+    if (cell) {
+        NSMutableArray *mutabelArr = [NSMutableArray arrayWithArray:_cellsArr];
+        [mutabelArr removeObject:cell];
+        _cellsArr = mutabelArr;
+        
+        TCCreatePriceAndRepertoryCell *ce = (TCCreatePriceAndRepertoryCell *)cell;
+        NSString *str = ce.titleLabel.text;
+        NSMutableArray *mutableStrArr = [NSMutableArray arrayWithArray:self.allStandardArr];
+        [mutableStrArr removeObject:str];
+        self.allStandardArr = mutableStrArr;
+        [self.tableView reloadData];
+    }
+}
+
 - (void)textFieldDidEndEditting:(NSDictionary *)dict {
     if (!dict)
         return;
@@ -516,6 +368,83 @@
     
     self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
 }
+
+
+#pragma mark TCCreateStandardCellDelegate
+
+- (void)createOrReloadPriceAndRepertoryCell:(UITableViewCell *)cell {
+    if (cell) {
+        TCCreateStandardCell *createCell = (TCCreateStandardCell *)cell;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:createCell];
+        if (indexPath.section == 0) {
+            self.firstGradeStandardArr = createCell.currentStandards;
+        }else if (indexPath.section == 1) {
+            self.secondaryStandardArr = createCell.currentStandards;
+        }
+        
+        [self reload];
+    }
+}
+
+- (void)deleteCurrentCell:(UITableViewCell *)cell {
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:_cellsArr];
+    [mutableArr removeObject:cell];
+    
+    _cellsArr = mutableArr;
+    if (_cellsArr.count > 0) {
+        
+        if ([_cellsArr[0] isKindOfClass:[TCCreateStandardCell class]]) {
+            TCCreateStandardCell *createCell = _cellsArr[0];
+            createCell.titleLabel.text = @"一级规格";
+            [createCell showAddBtn];
+        }
+    }
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath.section == 0) {
+        self.firstGradeStandardArr = self.secondaryStandardArr;
+        self.secondaryStandardArr = nil;
+    }else if (indexPath.section == 1) {
+        self.secondaryStandardArr = nil;
+    }
+    
+    self.hasSecondary = NO;
+    
+    [self reload];
+}
+
+- (void)addSecondaryStandardCell {
+    TCCreateStandardCell *secondaryCell = [[TCCreateStandardCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCreateStandardCell"];
+    secondaryCell.titleLabel.text = @"二级规格";
+    secondaryCell.delegate = self;
+    if (self.goodsStandardMate) {
+        if (self.goodsStandardMate.descriptions) {
+            if (self.goodsStandardMate.descriptions.secondary) {
+                secondaryCell.standardNameTextField.text = self.goodsStandardMate.descriptions.secondary.label;
+                self.secondaryStandardArr = self.goodsStandardMate.descriptions.secondary.types;
+                secondaryCell.currentStandards = self.goodsStandardMate.descriptions.secondary.types;
+            }
+        }
+    }
+    
+    
+    //    secondaryCell.isNeedAdd = NO;
+    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:_cellsArr];
+    [mutableArr insertObject:secondaryCell atIndex:1];
+    //    [mutableArr addObject:secondaryCell];
+    
+    _cellsArr = mutableArr;
+    
+    for (UITableViewCell *cell  in _cellsArr) {
+        if ([cell isKindOfClass:[TCCreateStandardCell class]]) {
+            [(TCCreateStandardCell *)cell hideAddBtn];
+        }
+        
+    }
+    _hasSecondary = YES;
+    [self tableViewReload];
+}
+
 
 - (void)textFieldShouldReturnn {
     [self.view endEditing:YES];
@@ -565,20 +494,58 @@
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (_hasSecondary) {
-        if (section == 2) {
-            return 30.0;
-        }else {
-            return 9.0;
-        }
-    }else {
-        if (section == 1) {
-            return 30.0;
-        }else {
-            return 9.0;
-        }
+
+- (void)updateCache:(NSNotification *)noti {
+    NSDictionary *dic = noti.userInfo;
+    NSString *price = dic[@"price"];
+    NSString *repertory = dic[@"repertory"];
+    
+    if (!self.goodsStandardMate) {
+        self.goodsStandardMate = [[TCGoodsStandardMate alloc] init];
     }
+    
+    if (!self.goodsStandardMate.priceAndRepertoryMap) {
+        self.goodsStandardMate.priceAndRepertoryMap = [NSDictionary dictionary];
+    }
+    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardMate.priceAndRepertoryMap];
+    for (int i = 0; i < self.allStandardArr.count; i++) {
+        NSString *standardStr = self.allStandardArr[i];
+        TCGoodsPriceAndRepertory *priceAndRepertory = self.goodsStandardMate.priceAndRepertoryMap[standardStr];
+        if (!priceAndRepertory) {
+            priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+        }
+        if ([price isKindOfClass:[NSString class]]) {
+            priceAndRepertory.salePrice = [price doubleValue];
+        }
+        
+        if ([repertory isKindOfClass:[NSString class]]) {
+            priceAndRepertory.repertory = [repertory integerValue];
+        }
+        
+        [mutableDic setObject:priceAndRepertory forKey:standardStr];
+    }
+    
+    self.goodsStandardMate.priceAndRepertoryMap = mutableDic;
+    
+}
+
+
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return _cellsArr.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return _cellsArr[indexPath.section];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [_cellsArr[indexPath.section] cellHeight];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -613,51 +580,24 @@
     }
 }
 
-- (void)batchSeting {
-    if (_setingView == nil) {
-        _setingView = [[TCBatchSetiingView alloc] init];
-        _setingView.delegate = self;
-        [self.navigationController.view addSubview:_setingView];
-        @WeakObj(self)
-        _setingView.deleteBlock = ^{
-            @StrongObj(self)
-            [self deleteSetingView];
-        };
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteSetingView)];
-        [_setingView addGestureRecognizer:tap];
-        
-        [_setingView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.navigationController.view);
-        }];
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (_hasSecondary) {
+        if (section == 2) {
+            return 30.0;
+        }else {
+            return 9.0;
+        }
+    }else {
+        if (section == 1) {
+            return 30.0;
+        }else {
+            return 9.0;
+        }
     }
 }
 
-//- (void)textFieldShouldReturn {
-//    [self.view endEditing:YES];
-//}
-
-- (void)deleteSetingView {
-    if (_setingView) {
-        [_setingView removeFromSuperview];
-        _setingView = nil;
-    }
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _cellsArr.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return _cellsArr[indexPath.section];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [_cellsArr[indexPath.section] cellHeight];
-}
+#pragma mark UITTextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.view endEditing:YES];

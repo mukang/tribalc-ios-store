@@ -219,19 +219,7 @@
         [self.imagePlayerView setPictures:mutableArr isLocal:NO];
         
         if (mutableArr.count) {
-//            self.deleteBtn.hidden = NO;
-//            if (_chosePhotoBtn.centerX == self.view.centerX) {
-//                [_chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                    make.left.equalTo(self.tableView.tableHeaderView).offset(20);
-//                    make.bottom.equalTo(self.tableView.tableHeaderView).offset(-20);
-//                    make.width.equalTo(@(TCRealValue(42)));
-//                    make.height.equalTo(@(TCRealValue(42)));
-//                }];
-//                [_chosePhotoBtn setImage:[UIImage imageNamed:@"addPhoto"] forState:UIControlStateNormal];
-//                [self.view setNeedsUpdateConstraints];
-//                [self.view updateConstraintsIfNeeded];
-//                [self.view layoutIfNeeded];
-//            }
+
         }else {
             self.deleteBtn.hidden = YES;
             self.setMainPhotoBtn.hidden = YES;
@@ -345,7 +333,7 @@
 }
 
 
-
+#pragma mark UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
@@ -625,6 +613,8 @@
     }
 }
 
+#pragma mark UITableViewDelegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (!self.goods.standardId) {
@@ -646,6 +636,8 @@
         }
     }
 }
+
+#pragma mark TCCommonInputViewCellDelegate
 
 - (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldReturn:(UITextField *)textField {
     [self.view endEditing:YES];
@@ -675,41 +667,11 @@
             if (indexPath.row == 1) {
                 self.goods.brand = textField.text;
             }else if (indexPath.row == 2) {
-//                if (self.goods.standardKeys) {
-//                    NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.goods.standardKeys];
-//                    
-//                    if (self.goods.standardKeys.count == 2) {
-//                        [mutableArr replaceObjectAtIndex:0 withObject:textField.text];
-//                        self.goods.standardKeys = mutableArr;
-//                    }else if (self.goods.standardKeys.count == 1) {
-//                        if (self.currentGoodsStandardMate.descriptions.secondary) {
-//                            [mutableArr insertObject:textField.text atIndex:0];
-//                        }else {
-//                            [mutableArr replaceObjectAtIndex:0 withObject:textField.text];
-//                        }
-//                        self.goods.standardKeys = mutableArr;
-//                    }else {
-//                        self.goods.standardKeys = @[textField.text];
-//                    }
-//                    
-//                }else {
-//                    self.goods.standardKeys = @[textField.text];
-//                }
+
             }else if (indexPath.row == 3) {
                 
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
-//                    if (self.goods.standardKeys) {
-//                        NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.goods.standardKeys];
-//                        if (self.goods.standardKeys.count == 2) {
-//                            [mutableArr replaceObjectAtIndex:1 withObject:textField.text];
-//                        }else if (self.goods.standardKeys.count == 1) {
-//                            [mutableArr insertObject:textField.text atIndex:1];
-//                        }else {
-//                            self.goods.standardKeys = @[textField.text];
-//                        }
-//                    }else {
-//                        self.goods.standardKeys = @[textField.text];
-//                    }
+
                     
                 }else {
                     [self setGoodsSalePrice:textField.text];
@@ -796,7 +758,6 @@
 
 
 - (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
-//    if (self.currentIndexPath.section != 3 || self.currentIndexPath.row != 0) return;
     
     NSDictionary *info = notification.userInfo;
     

@@ -151,13 +151,15 @@
     }
 }
 
+#pragma mark UITableViewDataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 3;
+        return 2;
     }else {
         return 1;
     }
@@ -206,6 +208,8 @@
     }
 }
 
+#pragma mark UITabelViewDelegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 2) {
@@ -213,6 +217,8 @@
         }
     }
 }
+
+#pragma mark TCCommonInputViewCellDelegate
 
 - (void)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldDidEndEditing:(UITextField *)textField {
     self.currentIndexPath = nil;
