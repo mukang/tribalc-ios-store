@@ -27,6 +27,8 @@
 /** 店铺认证状态 - PROCESSING, FAILURE, SUCCEED */
 @property (copy, nonatomic) NSString *authenticationStatus;
 
+/** 标志性位置 */
+@property (copy, nonatomic) NSString *markPlace;
 /** 分店名称 */
 @property (copy, nonatomic) NSString *subbranchName;
 /** 销售类型 - FOOD, GIFT, OFFICE, LIVING, HOUSE, MAKEUP, PENETRATION, REPAST, HAIRDRESSING, FITNESS, ENTERTAINMENT, KEEPHEALTHY */

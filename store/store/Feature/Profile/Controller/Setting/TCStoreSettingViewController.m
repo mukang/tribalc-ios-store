@@ -48,6 +48,7 @@ TCStoreFacilitiesViewCellDelegate>
 
 @property (copy, nonatomic) NSArray *facilities;
 @property (copy, nonatomic) NSArray *cookingStyles;
+@property (nonatomic) NSInteger currentCookingStylesIndex;
 
 @property (nonatomic, getter=isEditEnabled) BOOL editEnabled;
 @property (nonatomic) BOOL originInteractivePopGestureEnabled;
@@ -195,7 +196,7 @@ TCStoreFacilitiesViewCellDelegate>
             return 5;
             break;
         case 1:
-            return 4;
+            return 5;
             break;
         case 2:
             return 5;
@@ -308,6 +309,19 @@ TCStoreFacilitiesViewCellDelegate>
                     break;
                 case 2:
                 {
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                    cell.titleLabel.text = @"所在区域";
+                    cell.placeholder = @"请填写店铺所在区域，如：三里屯";
+                    cell.textField.text = self.storeDetailInfo.markPlace;
+                    cell.textField.keyboardType = UIKeyboardTypeDefault;
+                    cell.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
+                    cell.delegate = self;
+                    cell.textField.userInteractionEnabled = self.isEditEnabled;
+                    currentCell = cell;
+                }
+                    break;
+                case 3:
+                {
                     TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"门店地址";
                     if (self.storeDetailInfo.address) {
@@ -320,7 +334,7 @@ TCStoreFacilitiesViewCellDelegate>
                     currentCell = cell;
                 }
                     break;
-                case 3:
+                case 4:
                 {
                     TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"营业时间";
@@ -463,9 +477,9 @@ TCStoreFacilitiesViewCellDelegate>
     if (!self.isEditEnabled) return;
     
     if (indexPath.section == 1) {
-        if (indexPath.row == 2) {
+        if (indexPath.row == 3) {
             [self handleSelectStoreAddressCell];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [self handleSelectBusinessHoursCell];
         }
     } else if (indexPath.section == 2) {
@@ -491,7 +505,6 @@ TCStoreFacilitiesViewCellDelegate>
 }
 
 - (void)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldDidEndEditing:(UITextField *)textField {
-    self.currentIndexPath = nil;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
@@ -504,6 +517,8 @@ TCStoreFacilitiesViewCellDelegate>
     } else if (indexPath.section == 1) {
         if (indexPath.row == 1) {
             self.storeDetailInfo.otherPhone = textField.text;
+        } else if (indexPath.row == 2) {
+            self.storeDetailInfo.markPlace = textField.text;
         }
     }
 }
@@ -539,7 +554,6 @@ TCStoreFacilitiesViewCellDelegate>
 }
 
 - (void)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewDidEndEditing:(YYTextView *)textView {
-    self.currentIndexPath = nil;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath.row == 2) {
         self.storeDetailInfo.desc = textView.text;
@@ -562,8 +576,15 @@ TCStoreFacilitiesViewCellDelegate>
 #pragma mark - TCCookingStyleViewCellDelegate
 
 - (void)cookingStyleViewCell:(TCCookingStyleViewCell *)cell didSelectItemAtIndex:(NSInteger)index {
-    TCStoreFeature *storeFeature = self.cookingStyles[index];
-    storeFeature.selected = !storeFeature.isSelected;
+    TCStoreFeature *preStoreFeature = self.cookingStyles[self.currentCookingStylesIndex];
+    if (index == self.currentCookingStylesIndex) {
+        preStoreFeature.selected = !preStoreFeature.isSelected;
+    } else {
+        preStoreFeature.selected = NO;
+        self.currentCookingStylesIndex = index;
+        TCStoreFeature *storeFeature = self.cookingStyles[self.currentCookingStylesIndex];
+        storeFeature.selected = YES;
+    }
     
     cell.features = self.cookingStyles;
 }
@@ -608,6 +629,10 @@ TCStoreFacilitiesViewCellDelegate>
         [MBProgressHUD showHUDWithMessage:@"请填写人均消费"];
         return;
     }
+    if (self.storeDetailInfo.markPlace.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写所在区域"];
+        return;
+    }
     if (self.storeDetailInfo.address.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请设置门店地址"];
         return;
@@ -650,6 +675,7 @@ TCStoreFacilitiesViewCellDelegate>
         for (TCStoreFeature *feature in self.cookingStyles) {
             if (feature.isSelected) {
                 [temp addObject:feature.name];
+                break;
             }
         }
         if (temp.count == 0) {
@@ -718,6 +744,8 @@ TCStoreFacilitiesViewCellDelegate>
     
     [UIView animateWithDuration:duration animations:^{
         [weakSelf.tableView scrollToRowAtIndexPath:weakSelf.currentIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    } completion:^(BOOL finished) {
+        weakSelf.currentIndexPath = nil;
     }];
 }
 
@@ -741,7 +769,7 @@ TCStoreFacilitiesViewCellDelegate>
         weakSelf.storeDetailInfo.district = storeAddress.district;
         weakSelf.storeDetailInfo.address = storeAddress.address;
         weakSelf.storeDetailInfo.coordinate = storeAddress.coordinate;
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:1];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:1];
         [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     [self.navigationController pushViewController:vc animated:YES];
@@ -758,7 +786,7 @@ TCStoreFacilitiesViewCellDelegate>
     }
     vc.businessHoursBlock = ^(NSString *openTime, NSString *closeTime) {
         self.storeDetailInfo.businessHours = [NSString stringWithFormat:@"%@-%@", openTime, closeTime];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:1];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:1];
         [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     [self.navigationController pushViewController:vc animated:YES];
@@ -866,12 +894,16 @@ TCStoreFacilitiesViewCellDelegate>
                            @{@"name": @"其他"}
                            ];
         NSMutableArray *tempArray = [NSMutableArray array];
-        for (NSDictionary *dic in array) {
+        NSString *name;
+        if (self.storeDetailInfo.cookingStyle.count) {
+            name = self.storeDetailInfo.cookingStyle[0];
+        }
+        for (int i=0; i<array.count; i++) {
+            NSDictionary *dic = array[i];
             TCStoreFeature *feature = [[TCStoreFeature alloc] initWithObjectDictionary:dic];
-            for (NSString *name in self.storeDetailInfo.cookingStyle) {
-                if ([feature.name isEqualToString:name]) {
-                    feature.selected = YES;
-                }
+            if ([feature.name isEqualToString:name]) {
+                feature.selected = YES;
+                self.currentCookingStylesIndex = i;
             }
             [tempArray addObject:feature];
         }
