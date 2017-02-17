@@ -16,4 +16,6 @@
 
 @property (strong, nonatomic) TCGoodsStandardMate *goodsStandardMate;
 
+@property (copy, nonatomic) NSString *mainGoodsStandardKey;
+
 @end

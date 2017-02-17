@@ -137,7 +137,7 @@
             }
         }];
     }else {
-        [[TCBuluoApi api] createGoods:self.goods goodsStandardMate:goodStandMate result:^(NSArray *goodsArr, NSError *error) {
+        [[TCBuluoApi api] createGoods:self.goods goodsStandardMate:goodStandMate mainGoodsStandardKey:self.mainGoodsStandardKey result:^(NSArray *goodsArr, NSError *error) {
             if (goodsArr) {
                 NSLog(@"%@",goodsArr);
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"KISSUEORMODIFYGOODS" object:nil];

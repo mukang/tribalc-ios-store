@@ -39,6 +39,8 @@
 
 @property (strong, nonatomic) UIButton *setMainPhotoBtn;
 
+@property (copy, nonatomic) NSString *currentMainGoodsStandardKey;
+
 @end
 
 @implementation TCCreateGoodsViewController
@@ -625,9 +627,10 @@
                     createVc.goodsStandardMate = self.currentGoodsStandardMate;
                 }
                 @WeakObj(self)
-                createVc.myBlock = ^(TCGoodsStandardMate *goodsStandardMate){
+                createVc.myBlock = ^(TCGoodsStandardMate *goodsStandardMate,NSString *key){
                     @StrongObj(self)
                     self.currentGoodsStandardMate = goodsStandardMate;
+                    self.currentMainGoodsStandardKey = key;
                     [self.tableView reloadData];
                 };
                 [self.navigationController pushViewController:createVc animated:YES];
@@ -819,6 +822,11 @@
     if (self.currentGoodsStandardMate) {
         issueVC.goodsStandardMate = self.currentGoodsStandardMate;
     }
+    
+    if (self.currentMainGoodsStandardKey) {
+        issueVC.mainGoodsStandardKey = self.currentMainGoodsStandardKey;
+    }
+    
     [self.navigationController pushViewController:issueVC animated:YES];
 }
 

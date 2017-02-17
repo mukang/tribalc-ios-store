@@ -151,7 +151,7 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
  @param goodsStandardMate 规格
  @param resultBlock 回调
  */
-- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock;
+- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate mainGoodsStandardKey:(NSString *)key result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock;
 
 
 /**

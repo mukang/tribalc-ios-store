@@ -778,14 +778,14 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }];
 }
 
-- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock {
+- (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate mainGoodsStandardKey:(NSString *)key result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock {
     NSString *apiName = [NSString stringWithFormat:@"goods?me=%@",[[TCBuluoApi api] currentUserSession].storeInfo.ID];
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
     request.token = self.currentUserSession.token;
     NSDictionary *goodDic = [goods toObjectDictionary];
     
     
-    if (goodsStandardMate) {
+    if (goodsStandardMate && key) {
         
         NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
         
@@ -821,11 +821,8 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         }
         
         [request setValue:goodsMutableDic forKey:@"goodsMeta"];
+        [request setValue:key forKey:@"primaryStandardKey"];
     }else {
-//        NSMutableDictionary *goodsMutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
-//        for (NSString *key in goodDic.allKeys) {
-//            [request setValue:goodDic[key] forKey:key];
-//        }
         
         [request setValue:goodDic forKey:@"goodsMeta"];
         

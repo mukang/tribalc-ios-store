@@ -16,6 +16,7 @@
 #import "TCGoodsStandardDescriptions.h"
 #import "TCGoodsStandardDescriptionDetail.h"
 #import "TCGoodsPriceAndRepertory.h"
+#import "TCSetMainGoodView.h"
 
 @interface TCCreateGoodsStandardController ()<UITableViewDelegate,UITableViewDataSource,TCCreateStandardCellDelegate,TCCreatePriceAndRepertoryCellDelegate,TCBatchSetiingViewDelegate,UITextFieldDelegate>
 
@@ -40,6 +41,8 @@
 @property (assign, nonatomic) BOOL hasFirstGrade;
 
 @property (strong, nonatomic) TCBatchSetiingView *setingView;
+
+@property (strong, nonatomic) TCSetMainGoodView *setMainGoodView;
 
 @end
 
@@ -187,8 +190,9 @@
     
     for (int i = 0; i < self.allStandardArr.count; i++) {
         NSString *str = self.allStandardArr[i];
-        for (; j < _cellsArr.count; j++) {
-            TCCreatePriceAndRepertoryCell *cell = (TCCreatePriceAndRepertoryCell *)(_cellsArr[j]);
+        int k = j;
+        for (; k < _cellsArr.count; k++) {
+            TCCreatePriceAndRepertoryCell *cell = (TCCreatePriceAndRepertoryCell *)(_cellsArr[k]);
             if ([cell.titleLabel.text isEqualToString:str]) {
                 if (cell.orignPriceTextField.text.length && cell.salePriceTextField.text.length && cell.repertoryTextField.text.length) {
                     TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
@@ -207,12 +211,40 @@
     
     goodsStandardMate.priceAndRepertoryMap = mutabelDict;
     
+//    TCSetMainGoodView *setView = [[TCSetMainGoodView alloc] init];
+//    setView.standards = self.allStandardArr;
+    [self.navigationController.view addSubview:self.setMainGoodView];
+    @WeakObj(self)
+    self.setMainGoodView.deletaBlock = ^{
+        @StrongObj(self)
+        [self.setMainGoodView removeFromSuperview];
+        self.setMainGoodView = nil;
+    };
+    
+    self.setMainGoodView.certainBlock =^(NSString *mainGoodStandardKey){
+        @StrongObj(self)
+        [self commitWith:goodsStandardMate mainGoodStandardKey:mainGoodStandardKey];
+    };
+    
+    self.setMainGoodView.standards = self.allStandardArr;
+    [self.setMainGoodView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.navigationController.view);
+    }];
+    
+}
+
+- (void)commitWith:(TCGoodsStandardMate *)goodsStandardMate mainGoodStandardKey:(NSString *)key {
     if (self.myBlock) {
-        self.myBlock(goodsStandardMate);
+        self.myBlock(goodsStandardMate,key);
     }
-    
     [self.navigationController popViewControllerAnimated:YES];
-    
+}
+
+- (TCSetMainGoodView *)setMainGoodView {
+    if (_setMainGoodView == nil) {
+        _setMainGoodView = [[TCSetMainGoodView alloc] init];
+    }
+    return _setMainGoodView;
 }
 
 - (void)reload {

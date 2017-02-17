@@ -246,24 +246,7 @@
             [view removeFromSuperview];
         }
         
-        if (currentStandards.count > 0) {
-            for (int i = 0; i < currentStandards.count; i++) {
-                TCGoodsStandardKeysBtn *btn = [TCGoodsStandardKeysBtn buttonWithType:UIButtonTypeCustom];
-                [btn setTitle:currentStandards[i] forState:UIControlStateNormal];
-                [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
-                btn.layer.cornerRadius = 3.0;
-                btn.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
-                btn.layer.borderWidth = 0.5;
-                //            btn.clipsToBounds = YES;
-                [_labelsView addSubview:btn];
-                
-                UIButton *deleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-                [deleBtn setImage:[UIImage imageNamed:@"libsDelete"] forState:UIControlStateNormal];
-                [btn addSubview:deleBtn];
-                [deleBtn addTarget:self action:@selector(deleteLibs:) forControlEvents:UIControlEventTouchUpInside];
-                deleBtn.frame = CGRectMake((TCScreenWidth - 30 - 2 * 28)/3 - 7, -7, 14, 14);
-            }
-        }
+        [self setBtns:currentStandards];
         
         [self reload];
     }
@@ -297,43 +280,85 @@
     [mutableArr addObjectsFromArray:mutArr];
     _currentStandards = mutableArr;
     
-    if (mutArr.count > 0) {
-        for (int i = 0; i < mutArr.count; i++) {
-            TCGoodsStandardKeysBtn *btn = [TCGoodsStandardKeysBtn buttonWithType:UIButtonTypeCustom];
-            [btn setTitle:mutArr[i] forState:UIControlStateNormal];
-            [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
-            btn.layer.cornerRadius = 3.0;
-            btn.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
-            btn.layer.borderWidth = 0.5;
-//            btn.clipsToBounds = YES;
-            [_labelsView addSubview:btn];
-            
-            UIButton *deleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [deleBtn setImage:[UIImage imageNamed:@"libsDelete"] forState:UIControlStateNormal];
-            [btn addSubview:deleBtn];
-            [deleBtn addTarget:self action:@selector(deleteLibs:) forControlEvents:UIControlEventTouchUpInside];
-            deleBtn.frame = CGRectMake((TCScreenWidth - 30 - 2 * 28)/3 - 7, -7, 14, 14);
-        }
-    }
+    [self setBtns:mutArr];
     
     [self reload];
     
 }
 
+- (void)setBtns:(NSArray *)arr {
+    if (arr.count > 0) {
+        for (int i = 0; i < arr.count; i++) {
+            
+            NSString *str = arr[i];
+            if ([str isKindOfClass:[NSString class]]) {
+                if (str.length) {
+                    TCGoodsStandardKeysBtn *btn = [TCGoodsStandardKeysBtn buttonWithType:UIButtonTypeCustom];
+                    [btn setTitle:arr[i] forState:UIControlStateNormal];
+                    [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+                    btn.layer.cornerRadius = 3.0;
+                    btn.titleLabel.numberOfLines = 0;
+                    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+                    btn.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+                    btn.layer.borderWidth = 0.5;
+                    //            btn.clipsToBounds = YES;
+                    [_labelsView addSubview:btn];
+                    
+                    UIButton *deleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                    [deleBtn setImage:[UIImage imageNamed:@"libsDelete"] forState:UIControlStateNormal];
+                    [btn addSubview:deleBtn];
+                    [deleBtn addTarget:self action:@selector(deleteLibs:) forControlEvents:UIControlEventTouchUpInside];
+                    //                        deleBtn.frame = CGRectMake((TCScreenWidth - 30 - 2 * 28)/3 - 7, -7, 14, 14);
+                    [deleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.equalTo(btn).offset(-7);
+                        make.right.equalTo(btn).offset(7);
+                        make.width.height.equalTo(@14);
+                    }];
+                }
+            }
+        }
+    }}
+
 - (void)reload {
+    
+    CGFloat width = TCScreenWidth - 30;
+    CGFloat currentX = 0;
+    CGFloat currentY = 0;
+    CGFloat currentL = 0;
+    CGFloat currentH = 0;
+    CGFloat lastH = 0;
+    
     CGFloat labelsViewH = 0.0;
     if (_labelsView.subviews.count > 0) {
         for (int i = 0; i < _labelsView.subviews.count; i++) {
             UIButton *btn = _labelsView.subviews[i];
-            int r = i / 3;
-            int c = i % 3;
-            CGFloat w = (TCScreenWidth - 30 - 2 * 28)/3;
-            CGFloat h = 30.0;
-            CGFloat margn = 28.0;
-            btn.frame = CGRectMake(c * (w + margn), 5+40*r, w, h);
+            NSString *string = btn.titleLabel.text;
+            
+            CGSize size = [string boundingRectWithSize:CGSizeMake(width-10, 9999.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+            
+            currentL = size.width+10;
+            currentH = size.height+10;
+            
+            
+            if (currentL > (width - currentX)) {
+                currentY += (lastH+10);
+                currentX = 0.0;
+            }
+            
+//            int r = i / 3;
+//            int c = i % 3;
+//            CGFloat w = (TCScreenWidth - 30 - 2 * 28)/3;
+//            CGFloat h = 30.0;
+//            CGFloat margn = 28.0;
+//            btn.frame = CGRectMake(c * (w + margn), 5+40*r, w, h);
+            btn.frame = CGRectMake(currentX, currentY, currentL, currentH);
+            lastH = currentH;
+            
+            currentX += (currentL+15);
+           
         }
         
-        labelsViewH = 10+40*((_labelsView.subviews.count-1)/3 + 1);
+        labelsViewH = 10+currentY+currentH;
     }
     
     [_labelsView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -345,6 +370,56 @@
     }else {
         _cellHeight = labelsViewH + 191.0;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    CGFloat labelsViewH = 0.0;
+//    if (_labelsView.subviews.count > 0) {
+//        for (int i = 0; i < _labelsView.subviews.count; i++) {
+//            UIButton *btn = _labelsView.subviews[i];
+//            NSString *string = btn.titleLabel.text;
+//            
+//            CGSize size = [string boundingRectWithSize:CGSizeMake(width, 9999.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+//            
+//            CGFloat currentL = size.width+10;
+//            CGFloat currentH = size.height+10;
+//            
+//            
+//            if (currentL > (width - currentX)) {
+//                currentY += 33.0;
+//                currentX = 0.0;
+//            }
+//            
+//            int r = i / 3;
+//            int c = i % 3;
+//            CGFloat w = (TCScreenWidth - 30 - 2 * 28)/3;
+//            CGFloat h = 30.0;
+//            CGFloat margn = 28.0;
+//            btn.frame = CGRectMake(c * (w + margn), 5+40*r, w, h);
+//        }
+//        
+//        labelsViewH = 10+40*((_labelsView.subviews.count-1)/3 + 1);
+//    }
+//    
+//    [_labelsView mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.height.equalTo(@(labelsViewH));
+//    }];
+//    
+//    if (_addBtn.hidden) {
+//        _cellHeight = labelsViewH + 146.0;
+//    }else {
+//        _cellHeight = labelsViewH + 191.0;
+//    }
+
+    
+    
     [self setNeedsUpdateConstraints];
     [self updateConstraintsIfNeeded];
     [self layoutIfNeeded];

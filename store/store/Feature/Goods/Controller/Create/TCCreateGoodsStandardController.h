@@ -9,7 +9,7 @@
 #import "TCBaseViewController.h"
 #import "TCGoodsStandardMate.h"
 
-typedef void(^MyBlock)(TCGoodsStandardMate *);
+typedef void(^MyBlock)(TCGoodsStandardMate *,NSString *);
 
 
 @interface TCCreateGoodsStandardController : TCBaseViewController
