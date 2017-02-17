@@ -32,8 +32,11 @@ TCCookingStyleViewCellDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) TCStoreDetailInfo *storeDetailInfo;
+
 @property (copy, nonatomic) NSArray *features;
 @property (nonatomic) NSInteger currentFeatureIndex;
+
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
 @end
 
@@ -51,6 +54,18 @@ TCCookingStyleViewCellDelegate>
     
     [self setupNavBar];
     [self setupSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self registerNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self removeNotifications];
 }
 
 - (void)dealloc {
@@ -115,7 +130,7 @@ TCCookingStyleViewCellDelegate>
             return 3;
             break;
         case 1:
-            return 4;
+            return 5;
             break;
         case 2:
             return 1;
@@ -191,6 +206,18 @@ TCCookingStyleViewCellDelegate>
                 break;
             case 2:
             {
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"所在区域";
+                cell.placeholder = @"请填写店铺所在区域，如：三里屯";
+                cell.textField.text = self.storeDetailInfo.markPlace;
+                cell.textField.keyboardType = UIKeyboardTypeDefault;
+                cell.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
+                cell.delegate = self;
+                return cell;
+            }
+                break;
+            case 3:
+            {
                 TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"门店地址";
                 if (self.storeDetailInfo.address) {
@@ -203,7 +230,7 @@ TCCookingStyleViewCellDelegate>
                 return cell;
             }
                 break;
-            case 3:
+            case 4:
             {
                 TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"营业时间";
@@ -253,9 +280,9 @@ TCCookingStyleViewCellDelegate>
     [tableView endEditing:YES];
     
     if (indexPath.section == 1) {
-        if (indexPath.row == 2) {
+        if (indexPath.row == 3) {
             [self handleSelectStoreAddressCell];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [self handleSelectBusinessHoursCell];
         }
     }
@@ -269,6 +296,11 @@ TCCookingStyleViewCellDelegate>
 
 #pragma mark - TCCommonInputViewCellDelegate
 
+- (BOOL)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldShouldBeginEditing:(UITextField *)textField {
+    self.currentIndexPath = [self.tableView indexPathForCell:cell];
+    return YES;
+}
+
 - (void)commonInputViewCell:(TCCommonInputViewCell *)cell textFieldDidEndEditing:(UITextField *)textField {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath.section == 0 && indexPath.row == 0) {
@@ -277,6 +309,8 @@ TCCookingStyleViewCellDelegate>
         self.storeDetailInfo.subbranchName = textField.text;
     } else if (indexPath.section == 1 && indexPath.row == 1) {
         self.storeDetailInfo.otherPhone = textField.text;
+    } else if (indexPath.section == 1 && indexPath.row == 2) {
+        self.storeDetailInfo.markPlace = textField.text;
     }
 }
 
@@ -304,6 +338,17 @@ TCCookingStyleViewCellDelegate>
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+#pragma mark - Notifications
+
+- (void)registerNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)removeNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Actions
 
 - (void)handleClickManualItem:(UIBarButtonItem *)sender {
@@ -313,6 +358,10 @@ TCCookingStyleViewCellDelegate>
 - (void)handleClickNextButton:(UIButton *)sender {
     if (self.storeDetailInfo.name.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请填写商家名称"];
+        return;
+    }
+    if (self.storeDetailInfo.markPlace.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请填写所在区域"];
         return;
     }
     if (self.storeDetailInfo.address.length == 0) {
@@ -374,10 +423,33 @@ TCCookingStyleViewCellDelegate>
     }
     vc.businessHoursBlock = ^(NSString *openTime, NSString *closeTime) {
         self.storeDetailInfo.businessHours = [NSString stringWithFormat:@"%@-%@", openTime, closeTime];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:1];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:1];
         [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     };
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleKeyboardWillShowNotification:(NSNotification *)notification {
+    if (self.currentIndexPath.section != 1 || self.currentIndexPath.row != 2) return;
+    
+    NSDictionary *info = notification.userInfo;
+    
+    CGFloat height = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, height - 49, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, height - 49, 0);
+    
+    [UIView animateWithDuration:duration animations:^{
+        [weakSelf.tableView scrollToRowAtIndexPath:weakSelf.currentIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    } completion:^(BOOL finished) {
+        weakSelf.currentIndexPath = nil;
+    }];
+}
+
+- (void)handleKeyboardWillHideNotification:(NSNotification *)notification {
+    self.tableView.contentInset = UIEdgeInsetsZero;
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
 }
 
 #pragma mark - Override Methods

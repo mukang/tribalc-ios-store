@@ -261,7 +261,6 @@
 }
 
 - (void)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewDidEndEditing:(YYTextView *)textView {
-    self.currentIndexPath = nil;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath.row == 0) {
         self.storeDetailInfo.desc = textView.text;
@@ -399,6 +398,8 @@
     
     [UIView animateWithDuration:duration animations:^{
         [weakSelf.tableView scrollToRowAtIndexPath:weakSelf.currentIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    } completion:^(BOOL finished) {
+        weakSelf.currentIndexPath = nil;
     }];
 }
 
