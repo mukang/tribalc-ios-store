@@ -38,9 +38,6 @@
     }
 }
 
-//- (void)setSelected:(BOOL)selected {
-//    
-//}
 
 - (void)setUpUI {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -49,8 +46,8 @@
     
     [self.titleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(30);
-        make.top.equalTo(self.contentView);
-        make.bottom.equalTo(self.contentView);
+        make.top.equalTo(self.contentView).offset(9);
+        make.bottom.equalTo(self.contentView).offset(-9);
         make.width.lessThanOrEqualTo(@(TCScreenWidth-110));
     }];
     
@@ -66,6 +63,7 @@
         _titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_titleBtn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
         _titleBtn.layer.cornerRadius = 10.0;
+        _titleBtn.userInteractionEnabled = NO;
         _titleBtn.contentEdgeInsets = UIEdgeInsetsMake(5, 30, 5, 30);
         _titleBtn.clipsToBounds = YES;
         [_titleBtn setBackgroundColor:TCRGBColor(242, 242, 242)];

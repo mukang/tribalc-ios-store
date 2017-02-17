@@ -83,7 +83,7 @@
         
         // 存储到缓存和磁盘
 //        [imageCache storeImage:image forKey:key];
-        [imageCache storeImage:image forKey:key completion:nil];
+//        [imageCache storeImage:image forKey:key completion:nil];
         return image;
     }
 }

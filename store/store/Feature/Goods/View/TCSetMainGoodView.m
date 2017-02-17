@@ -10,6 +10,7 @@
 #import <Masonry.h>
 #import "TCCommonButton.h"
 #import "TCSetMainGoodListCell.h"
+#import <UITableView+FDTemplateLayoutCell.h>
 
 @interface TCSetMainGoodView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -50,6 +51,13 @@
     if (self.deletaBlock) {
         self.deletaBlock();
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [tableView fd_heightForCellWithIdentifier:@"TCSetMainGoodListCell" configuration:^(id cell) {
+        TCSetMainGoodListCell *setMainGoodListCell = cell;
+        setMainGoodListCell.titleStr = self.standards[indexPath.row];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -132,6 +140,7 @@
         _tableView.dataSource = self;
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerClass:[TCSetMainGoodListCell class] forCellReuseIdentifier:@"TCSetMainGoodListCell"];
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, 55)];
         
