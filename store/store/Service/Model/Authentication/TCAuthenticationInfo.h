@@ -16,4 +16,6 @@
 
 @property (copy, nonatomic) NSString *tradeLicense;
 
+@property (copy, nonatomic) NSString *authenticationStatus;
+
 @end

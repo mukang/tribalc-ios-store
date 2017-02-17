@@ -13,8 +13,6 @@
 
 @interface TCBussinessAuthSuccessController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (strong, nonatomic) TCAuthenticationInfo *authenticationInfo;
-
 @property (strong, nonatomic) UITableView *tableView;
 
 @end
@@ -25,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"审核成功";
-    [self loadData];
+    [self.tableView reloadData];
 }
 
 - (UITableView *)tableView {
@@ -119,23 +117,6 @@
     }
     
     return view;
-}
-
-- (void)loadData {
-    
-    @WeakObj(self)
-    [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] fetchStoreAuthenticationInfo:^(TCAuthenticationInfo *authenticationInfo, NSError *error) {
-        @StrongObj(self)
-        if (authenticationInfo) {
-            [MBProgressHUD hideHUD:YES];
-            self.authenticationInfo = authenticationInfo;
-            [self.tableView reloadData];
-        }else {
-            NSString *reason = error.localizedDescription ?: @"请稍后再试";
-            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
-        }
-    }];
 }
 
 - (void)didReceiveMemoryWarning {

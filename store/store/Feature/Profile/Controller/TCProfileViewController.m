@@ -438,22 +438,35 @@ TCPhotoModeViewDelegate>
 
 - (void)handleSelectBussinessAuthCell {
     
+    @WeakObj(self)
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] fetchStoreAuthenticationInfo:^(TCAuthenticationInfo *authenticationInfo, NSError *error) {
+        @StrongObj(self)
+        if (authenticationInfo) {
+            [MBProgressHUD hideHUD:YES];
+
+            NSString *authStr = authenticationInfo.authenticationStatus;
+            if ([authStr isEqualToString:@"NOT_START"]) {
+                TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
+                businessVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:businessVC animated:YES];
+            }else if ([authStr isEqualToString:@"FAILURE"] || [authStr isEqualToString:@"PROCESSING"]) {
+                TCBussinessAuthFailureAndProcessController *bussVc = [[TCBussinessAuthFailureAndProcessController alloc] initWithAuthStatus:authStr];
+                bussVc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:bussVc animated:YES];
+            }else if ([authStr isEqualToString:@"SUCCESS"]) {
+                TCBussinessAuthSuccessController *successVc = [[TCBussinessAuthSuccessController alloc] init];
+                successVc.hidesBottomBarWhenPushed = YES;
+                successVc.authenticationInfo = authenticationInfo;
+                [self.navigationController pushViewController:successVc animated:YES];
+            }
+            
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+        }
+    }];
     
-    
-    NSString *authStr = [[TCBuluoApi api] currentUserSession].storeInfo.authenticationStatus;
-    if ([authStr isEqualToString:@"NOT_START"]) {
-        TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
-        businessVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:businessVC animated:YES];
-    }else if ([authStr isEqualToString:@"FAILURE"] || [authStr isEqualToString:@"PROCESSING"]) {
-        TCBussinessAuthFailureAndProcessController *bussVc = [[TCBussinessAuthFailureAndProcessController alloc] initWithAuthStatus:authStr];
-        bussVc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:bussVc animated:YES];
-    }else if ([authStr isEqualToString:@"SUCCESS"]) {
-        TCBussinessAuthSuccessController *successVc = [[TCBussinessAuthSuccessController alloc] init];
-        successVc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:successVc animated:YES];
-    }
 }
 
 - (void)handleUserDidLogin:(id)sender {

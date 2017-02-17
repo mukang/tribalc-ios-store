@@ -7,7 +7,9 @@
 //
 
 #import "TCBaseViewController.h"
-
+@class TCAuthenticationInfo;
 @interface TCBussinessAuthSuccessController : TCBaseViewController
+
+@property (strong, nonatomic) TCAuthenticationInfo *authenticationInfo;
 
 @end
