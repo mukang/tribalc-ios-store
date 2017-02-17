@@ -437,6 +437,9 @@ TCPhotoModeViewDelegate>
 }
 
 - (void)handleSelectBussinessAuthCell {
+    
+    
+    
     NSString *authStr = [[TCBuluoApi api] currentUserSession].storeInfo.authenticationStatus;
     if ([authStr isEqualToString:@"NOT_START"]) {
         TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];

@@ -235,9 +235,9 @@
 - (void)commit {
     [MBProgressHUD showHUD:YES];
     
-    [[TCBuluoApi api] putStoreAuthenticationInfo:self.authInfo result:^(TCStoreInfo *storeInfo, NSError *error) {
-        if (storeInfo) {
-            [[TCBuluoApi api] currentUserSession].storeInfo = storeInfo;
+    [[TCBuluoApi api] putStoreAuthenticationInfo:self.authInfo result:^(BOOL success, NSError *error) {
+        if (success) {
+//            [[TCBuluoApi api] currentUserSession].storeInfo = storeInfo;
             [MBProgressHUD showHUDWithMessage:@"认证信息提交成功，认证正在处理中"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popToRootViewControllerAnimated:YES];

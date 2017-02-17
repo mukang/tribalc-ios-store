@@ -679,7 +679,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
-- (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock {
+- (void)putStoreAuthenticationInfo:(TCAuthenticationInfo *)info result:(void (^)(BOOL success, NSError *error))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"stores/%@/authentication", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
@@ -694,13 +694,13 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             if (response.statusCode == 200) {
                 if (resultBlock) {
                     
-                    TCStoreInfo *uploadInfo = [[TCStoreInfo alloc] initWithObjectDictionary:response.data];
+//                    TCStoreInfo *uploadInfo = [[TCStoreInfo alloc] initWithObjectDictionary:response.data];
                     
-                    TC_CALL_ASYNC_MQ(resultBlock(uploadInfo, nil));
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
             } else {
                 if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
                 }
             }
         }];
