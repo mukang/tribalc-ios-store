@@ -9,4 +9,5 @@ pod 'YYText'
 pod 'AMap2DMap-NO-IDFA'
 pod 'AMapSearch-NO-IDFA'
 pod 'AMapLocation-NO-IDFA'
+pod 'UITableView+FDTemplateLayoutCell'
 end
