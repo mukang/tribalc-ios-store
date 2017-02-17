@@ -48,6 +48,7 @@ TCStoreFacilitiesViewCellDelegate>
 
 @property (copy, nonatomic) NSArray *facilities;
 @property (copy, nonatomic) NSArray *cookingStyles;
+@property (nonatomic) NSInteger currentCookingStylesIndex;
 
 @property (nonatomic, getter=isEditEnabled) BOOL editEnabled;
 @property (nonatomic) BOOL originInteractivePopGestureEnabled;
@@ -562,8 +563,15 @@ TCStoreFacilitiesViewCellDelegate>
 #pragma mark - TCCookingStyleViewCellDelegate
 
 - (void)cookingStyleViewCell:(TCCookingStyleViewCell *)cell didSelectItemAtIndex:(NSInteger)index {
-    TCStoreFeature *storeFeature = self.cookingStyles[index];
-    storeFeature.selected = !storeFeature.isSelected;
+    TCStoreFeature *preStoreFeature = self.cookingStyles[self.currentCookingStylesIndex];
+    if (index == self.currentCookingStylesIndex) {
+        preStoreFeature.selected = !preStoreFeature.isSelected;
+    } else {
+        preStoreFeature.selected = NO;
+        self.currentCookingStylesIndex = index;
+        TCStoreFeature *storeFeature = self.cookingStyles[self.currentCookingStylesIndex];
+        storeFeature.selected = YES;
+    }
     
     cell.features = self.cookingStyles;
 }
@@ -650,6 +658,7 @@ TCStoreFacilitiesViewCellDelegate>
         for (TCStoreFeature *feature in self.cookingStyles) {
             if (feature.isSelected) {
                 [temp addObject:feature.name];
+                break;
             }
         }
         if (temp.count == 0) {
@@ -866,12 +875,16 @@ TCStoreFacilitiesViewCellDelegate>
                            @{@"name": @"其他"}
                            ];
         NSMutableArray *tempArray = [NSMutableArray array];
-        for (NSDictionary *dic in array) {
+        NSString *name;
+        if (self.storeDetailInfo.cookingStyle.count) {
+            name = self.storeDetailInfo.cookingStyle[0];
+        }
+        for (int i=0; i<array.count; i++) {
+            NSDictionary *dic = array[i];
             TCStoreFeature *feature = [[TCStoreFeature alloc] initWithObjectDictionary:dic];
-            for (NSString *name in self.storeDetailInfo.cookingStyle) {
-                if ([feature.name isEqualToString:name]) {
-                    feature.selected = YES;
-                }
+            if ([feature.name isEqualToString:name]) {
+                feature.selected = YES;
+                self.currentCookingStylesIndex = i;
             }
             [tempArray addObject:feature];
         }

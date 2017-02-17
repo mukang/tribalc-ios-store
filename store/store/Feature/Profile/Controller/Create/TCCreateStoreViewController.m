@@ -33,6 +33,7 @@ TCCookingStyleViewCellDelegate>
 @property (weak, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) TCStoreDetailInfo *storeDetailInfo;
 @property (copy, nonatomic) NSArray *features;
+@property (nonatomic) NSInteger currentFeatureIndex;
 
 @end
 
@@ -46,6 +47,7 @@ TCCookingStyleViewCellDelegate>
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     weakSelf = self;
+    self.currentFeatureIndex = 0;
     
     [self setupNavBar];
     [self setupSubviews];
@@ -288,8 +290,15 @@ TCCookingStyleViewCellDelegate>
 #pragma mark - TCCookingStyleViewCellDelegate
 
 - (void)cookingStyleViewCell:(TCCookingStyleViewCell *)cell didSelectItemAtIndex:(NSInteger)index {
-    TCStoreFeature *storeFeature = self.features[index];
-    storeFeature.selected = !storeFeature.isSelected;
+    TCStoreFeature *preStoreFeature = self.features[self.currentFeatureIndex];
+    if (index == self.currentFeatureIndex) {
+        preStoreFeature.selected = !preStoreFeature.isSelected;
+    } else {
+        preStoreFeature.selected = NO;
+        self.currentFeatureIndex = index;
+        TCStoreFeature *storeFeature = self.features[self.currentFeatureIndex];
+        storeFeature.selected = YES;
+    }
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -319,6 +328,7 @@ TCCookingStyleViewCellDelegate>
         for (TCStoreFeature *feature in self.features) {
             if (feature.isSelected) {
                 [tempArray addObject:feature.name];
+                break;
             }
         }
         if (tempArray.count == 0) {
