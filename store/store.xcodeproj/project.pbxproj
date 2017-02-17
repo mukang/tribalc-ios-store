@@ -43,6 +43,7 @@
 		55F9EE3B1E558A5300935ADF /* NSObject+Distance.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE3A1E558A5300935ADF /* NSObject+Distance.m */; };
 		55F9EE4A1E56D14F00935ADF /* TCSetMainGoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */; };
 		55F9EE4D1E56DF4E00935ADF /* TCSetMainGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */; };
+		55F9EE501E570F8400935ADF /* TCSetMainGoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4F1E570F8400935ADF /* TCSetMainGoodCell.m */; };
 		7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */; };
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
@@ -332,6 +333,8 @@
 		55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSetMainGoodView.m; sourceTree = "<group>"; };
 		55F9EE4B1E56DF4E00935ADF /* TCSetMainGoodListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodListCell.h; sourceTree = "<group>"; };
 		55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSetMainGoodListCell.m; sourceTree = "<group>"; };
+		55F9EE4E1E570F8400935ADF /* TCSetMainGoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodCell.h; sourceTree = "<group>"; };
+		55F9EE4F1E570F8400935ADF /* TCSetMainGoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSetMainGoodCell.m; sourceTree = "<group>"; };
 		7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppSettingViewController.m; sourceTree = "<group>"; };
 		7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppCacheViewCell.h; sourceTree = "<group>"; };
@@ -788,6 +791,8 @@
 				55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */,
 				55F9EE4B1E56DF4E00935ADF /* TCSetMainGoodListCell.h */,
 				55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */,
+				55F9EE4E1E570F8400935ADF /* TCSetMainGoodCell.h */,
+				55F9EE4F1E570F8400935ADF /* TCSetMainGoodCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1994,6 +1999,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A55F4281E288B0B0018FED3 /* TCStoreInfo.m in Sources */,
+				55F9EE501E570F8400935ADF /* TCSetMainGoodCell.m in Sources */,
 				7ABCC1021E262B7A00750E47 /* TCGoodsViewController.m in Sources */,
 				7A7B609A1E30A0B9004971C9 /* TCCreateGoodsStoreViewController.m in Sources */,
 				7A40CE0B1E3851F20049A8EF /* TCStoreFeature.m in Sources */,

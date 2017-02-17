@@ -20,6 +20,7 @@
 #import "TCBuluoApi.h"
 #import "TCImageURLSynthesizer.h"
 #import "TCImagePlayerView.h"
+#import "TCSetMainGoodCell.h"
 
 @interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate,TCPhotoModeViewDelegate,TCPhotoPickerDelegate,TCGoodsDetailTitleCellDelegate,TCImagePlayerViewDelegate>
 
@@ -349,6 +350,9 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.goods.standardId && self.currentGoodsStandardMate) {
+        return 4;
+    }
     return 3;
 }
 
@@ -603,13 +607,19 @@
             }
         }
         
-    }else {
+    }else if (indexPath.section == 2) {
         TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
         cell.titleLabel.text = @"原产国";
         cell.placeholder = @"请输入商品原产国";
         cell.delegate = self;
         if ([self.goods.originCountry isKindOfClass:[NSString class]]) {
             cell.textField.text = self.goods.originCountry;
+        }
+        return cell;
+    }else {
+        TCSetMainGoodCell *cell = [[TCSetMainGoodCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCSetMainGoodCell"];
+        if (self.goods.primary) {
+            cell.select = YES;
         }
         return cell;
     }
@@ -635,6 +645,13 @@
                 };
                 [self.navigationController pushViewController:createVc animated:YES];
                 [tableView deselectRowAtIndexPath:indexPath animated:NO];
+            }
+        }
+    }else {
+        if (indexPath.section == 3) {
+            if (!self.goods.primary) {
+                self.goods.primary = YES;
+                [self.tableView reloadData];
             }
         }
     }
