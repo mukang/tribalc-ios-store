@@ -859,15 +859,30 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         }else {
             NSArray *arr = (NSArray *)response.data;
             NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
-            for (int i = 0; i < arr.count; i++) {
-                NSDictionary *dic = arr[i];
-                TCGoodsMeta *good = [[TCGoodsMeta alloc] initWithObjectDictionary:dic];
-                [mutableArr addObject:good];
+            if ([arr isKindOfClass:[NSArray class]]) {
+                if (arr.count) {
+                    for (int i = 0; i < arr.count; i++) {
+                        NSDictionary *dic = arr[i];
+                        TCGoodsMeta *good = [[TCGoodsMeta alloc] initWithObjectDictionary:dic];
+                        if (good) {
+                            [mutableArr addObject:good];
+                        }
+                    }
+                }
+                
+                if (resultBlock && mutableArr.count) {
+                    TC_CALL_ASYNC_MQ(resultBlock(mutableArr, nil));
+                }else {
+                    if (resultBlock) {
+                        TC_CALL_ASYNC_MQ(resultBlock(nil, nil));
+                    }
+                }
+            }else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, nil));
+                }
             }
             
-            if (resultBlock) {
-                TC_CALL_ASYNC_MQ(resultBlock(mutableArr, nil));
-            }
         }
     }];
 }

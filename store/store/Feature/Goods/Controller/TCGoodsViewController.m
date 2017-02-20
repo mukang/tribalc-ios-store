@@ -31,6 +31,8 @@
 
 @property (strong, nonatomic) UIButton *btn;
 
+@property (assign, nonatomic) BOOL first;
+
 @end
 
 @implementation TCGoodsViewController
@@ -38,13 +40,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = nil;
+    self.first = YES;
     [self setUpTopViews];
     [self setCreatBtn];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelf) name:@"KISSUEORMODIFYGOODS" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelf) name:@"KISSUEORMODIFYGOODS" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (!self.first) {
+        [self loadDataIsMore:NO];
+    }
 }
 
 - (void)updateSelf {
@@ -72,7 +79,12 @@
         @StrongObj(self)
         if (goodsWrapper) {
             [MBProgressHUD hideHUD:YES];
+            self.first = NO;
             self.goodsWrapper = goodsWrapper;
+            
+            if (self.tableView.hidden) {
+                self.tableView.hidden = NO;
+            }
             
             if (!goodsWrapper.hasMore) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -96,6 +108,20 @@
             [self.tableView reloadData];
             
         }else {
+            self.first = NO;
+            if (isMore) {
+                [self.tableView.mj_footer endRefreshing];
+            }else {
+                [self.tableView.mj_header endRefreshing];
+            }
+            
+            if ([[TCBuluoApi api] needLogin]) {
+                self.goodsWrapper = nil;
+                self.goods = nil;
+                [self.tableView reloadData];
+                self.tableView.hidden = YES;
+            }
+            
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"加载失败，%@", reason]];
         }

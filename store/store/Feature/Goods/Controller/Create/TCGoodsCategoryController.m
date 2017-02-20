@@ -74,8 +74,8 @@
         NSString *category = storeInfo.category;
         TCGoodsMeta *good = [[TCGoodsMeta alloc] init];
         good.category = category;
-        TCChoseSpecificationsController *createVC = [[TCChoseSpecificationsController alloc] init];
-        createVC.good = good;
+        TCChoseSpecificationsController *createVC = [[TCChoseSpecificationsController alloc] initWithGoods:good];
+//        createVC.good = good;
         [self.navigationController pushViewController:createVC animated:YES];
     }else {
         [MBProgressHUD showHUDWithMessage:@"此功能暂未开放，敬请期待！"];
@@ -102,6 +102,10 @@
         _goodsCategoryInfoArray = [NSArray arrayWithArray:temp];
     }
     return _goodsCategoryInfoArray;
+}
+
+- (void)dealloc {
+    NSLog(@"---- TCGoodsCategoryController ----");
 }
 
 - (void)didReceiveMemoryWarning {

@@ -284,6 +284,10 @@
     self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
 }
 
+- (void)dealloc {
+    NSLog(@"------ TCGoodsIssueViewController ------");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

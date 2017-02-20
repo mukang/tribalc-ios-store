@@ -14,7 +14,8 @@ typedef void(^MyBlock)(TCGoodsStandardMate *,NSString *);
 
 @interface TCCreateGoodsStandardController : TCBaseViewController
 
-@property (strong, nonatomic) TCGoodsStandardMate *goodsStandardMate;
+- (instancetype)initWithGoodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate;
+
 
 @property (copy, nonatomic) MyBlock myBlock;
 

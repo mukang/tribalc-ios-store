@@ -632,10 +632,11 @@
     if (!self.goods.standardId) {
         if (indexPath.section == 1) {
             if (indexPath.row == 2) {
-                TCCreateGoodsStandardController *createVc = [[TCCreateGoodsStandardController alloc] init];
-                if (self.currentGoodsStandardMate) {
-                    createVc.goodsStandardMate = self.currentGoodsStandardMate;
-                }
+                TCGoodsStandardMate *standardMate = self.currentGoodsStandardMate;
+                TCCreateGoodsStandardController *createVc = [[TCCreateGoodsStandardController alloc] initWithGoodsStandardMate:standardMate];
+//                if (self.currentGoodsStandardMate) {
+//                    createVc.goodsStandardMate = self.currentGoodsStandardMate;
+//                }
                 @WeakObj(self)
                 createVc.myBlock = ^(TCGoodsStandardMate *goodsStandardMate,NSString *key){
                     @StrongObj(self)
@@ -651,7 +652,7 @@
         if (indexPath.section == 3) {
             if (!self.goods.primary) {
                 self.goods.primary = YES;
-                [self.tableView reloadData];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:3]] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
     }
@@ -835,16 +836,23 @@
     }
     
     TCGoodsIssueViewController *issueVC = [[TCGoodsIssueViewController alloc] init];
-    issueVC.goods = self.goods;
+    TCGoodsMeta *goodMeta = self.goods;
+    issueVC.goods = goodMeta;
     if (self.currentGoodsStandardMate) {
-        issueVC.goodsStandardMate = self.currentGoodsStandardMate;
+        TCGoodsStandardMate *standardMate = self.currentGoodsStandardMate;
+        issueVC.goodsStandardMate = standardMate;
     }
     
     if (self.currentMainGoodsStandardKey) {
-        issueVC.mainGoodsStandardKey = self.currentMainGoodsStandardKey;
+        NSString *key = self.currentMainGoodsStandardKey;
+        issueVC.mainGoodsStandardKey = key;
     }
     
     [self.navigationController pushViewController:issueVC animated:YES];
+}
+
+- (void)dealloc {
+    NSLog(@"------ TCCreateGoodsViewController ------");
 }
 
 - (void)didReceiveMemoryWarning {

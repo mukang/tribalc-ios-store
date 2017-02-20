@@ -44,9 +44,20 @@
 
 @property (strong, nonatomic) TCSetMainGoodView *setMainGoodView;
 
+@property (strong, nonatomic) TCGoodsStandardMate *goodsStandardMate;
+
 @end
 
 @implementation TCCreateGoodsStandardController
+
+- (instancetype)initWithGoodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate {
+    if (self = [super init]) {
+        if (goodsStandardMate) {
+            _goodsStandardMate = goodsStandardMate;
+        }
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -634,6 +645,10 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.view endEditing:YES];
     return YES;
+}
+
+- (void)dealloc {
+    NSLog(@"---- TCCreateGoodsStandardController ----");
 }
 
 - (void)didReceiveMemoryWarning {

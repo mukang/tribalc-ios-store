@@ -25,9 +25,18 @@
 
 @property (copy, nonatomic) NSDictionary *goodsStandardDic;
 
+@property (strong, nonatomic) TCGoodsMeta *good;
+
 @end
 
 @implementation TCChoseSpecificationsController
+
+- (instancetype)initWithGoods:(TCGoodsMeta *)good {
+    if (self = [super init]) {
+        _good = good;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -98,7 +107,9 @@
                 }
             }
         }else {
+            @WeakObj(self)
             [[TCBuluoApi api] fetchGoodStandards:standardMeta.ID result:^(TCGoodStandards *goodStandard, NSError *error) {
+                @StrongObj(self)
                 if (goodStandard) {
                     standardCell.goodsStandard = goodStandard;
                     NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.goodsStandardDic];
@@ -210,6 +221,10 @@
         }];
     }
     return _tabelView;
+}
+
+- (void)dealloc {
+    NSLog(@"----- TCChoseSpecificationsController -----");
 }
 
 - (void)didReceiveMemoryWarning {

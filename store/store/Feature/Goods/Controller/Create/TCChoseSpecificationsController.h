@@ -11,6 +11,8 @@
 
 @interface TCChoseSpecificationsController : TCBaseViewController
 
-@property (strong, nonatomic) TCGoodsMeta *good;
+- (instancetype)initWithGoods:(TCGoodsMeta *)good;
+
+
 
 @end
