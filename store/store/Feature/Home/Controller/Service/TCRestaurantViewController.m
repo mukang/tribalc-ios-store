@@ -272,7 +272,7 @@
             typeStr = @"popularValue,desc";
             break;
         case TCDistanceMin:
-            
+            typeStr = @"coordinate,asc";
             break;
         default:
             break;

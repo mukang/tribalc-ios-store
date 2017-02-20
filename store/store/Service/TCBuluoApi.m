@@ -299,7 +299,30 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     NSString *categoryPart = category ? [NSString stringWithFormat:@"category=%@&", category] : @"";
     NSString *limitSizePart = [NSString stringWithFormat:@"limitSize=%zd&", limitSize];
     NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"sortSkip=%@&", sortSkip] : @"";
-    NSString *apiName = [NSString stringWithFormat:@"store_set_meals?%@%@%@%@", categoryPart, limitSizePart, sortSkipPart, sortPart];
+    NSString *coordinateStr = @"";
+    
+    if ([sort isKindOfClass:[NSString class]]) {
+        if ([sort isEqualToString:@"coordinate,asc"]) {
+            NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"locationLatAndLog"];
+            if ([str isKindOfClass:[NSString class]]) {
+                NSArray *strArr = [str componentsSeparatedByString:@","];
+                if ([strArr isKindOfClass:[NSArray class]]) {
+                    if (strArr.count == 2) {
+                        
+                        NSString *lonStr = strArr[1];
+                        NSString *latStr = strArr[0];
+                        
+                        if ([lonStr isKindOfClass:[NSString class]] && [latStr isKindOfClass:[NSString class]]) {
+                            coordinateStr = [NSString stringWithFormat:@"coordinate=%@,%@&",lonStr,latStr];
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    NSString *apiName = [NSString stringWithFormat:@"store_set_meals?%@%@%@%@%@", categoryPart, limitSizePart, sortSkipPart,coordinateStr, sortPart];
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
     request.token = self.currentUserSession.token;
     [[TCClient client] send:request finish:^(TCClientResponse *response) {
