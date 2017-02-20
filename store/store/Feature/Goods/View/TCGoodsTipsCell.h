@@ -20,6 +20,8 @@
 
 @property (copy, nonatomic) NSString *type;
 
+@property (copy, nonatomic) NSArray *libsArr;
+
 @property (weak, nonatomic) id<TCGoodsTipsCellDelegate> delegate;
 
 - (CGFloat)cellHeight;

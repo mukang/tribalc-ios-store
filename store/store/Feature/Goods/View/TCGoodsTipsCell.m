@@ -16,8 +16,6 @@
 
 @property (strong, nonatomic) UIView *libsView;
 
-@property (copy, nonatomic) NSArray *libsArr;
-
 @end
 
 @implementation TCGoodsTipsCell
@@ -207,12 +205,34 @@
         [btn setBackgroundColor:[UIColor whiteColor]];
         [mutableArr removeObject:btn.titleLabel.text];
     }
-    self.libsArr = mutableArr;
+    _libsArr = mutableArr;
     
     if (self.delegate) {
         if ([self.delegate respondsToSelector:@selector(didSelectedLib:)]) {
             [self.delegate didSelectedLib:self.libsArr];
         }
+    }
+}
+
+- (void)setLibsArr:(NSArray *)libsArr {
+    if (_libsArr != libsArr) {
+        _libsArr = libsArr;
+        
+        for (UIButton *btn in _libsView.subviews) {
+            NSString *title = btn.titleLabel.text;
+            for (int i = 0; i < libsArr.count; i++) {
+                NSString *str = libsArr[i];
+                if ([str isKindOfClass:[NSString class]]) {
+                    if ([str isEqualToString:title]) {
+                        [btn setBackgroundColor:[UIColor orangeColor]];
+                        break;
+                    }else {
+                        [btn setBackgroundColor:[UIColor whiteColor]];
+                    }
+                }
+            }
+        }
+        
     }
 }
 

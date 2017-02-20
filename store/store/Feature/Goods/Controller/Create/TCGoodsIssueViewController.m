@@ -89,6 +89,11 @@
     _tipsCell = [[TCGoodsTipsCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCGoodsTipsCell"];
     _tipsCell.type = self.goods.category;
     _tipsCell.delegate = self;
+    if ([self.goods.tags isKindOfClass:[NSArray class]]) {
+        if (self.goods.tags.count) {
+            _tipsCell.libsArr = self.goods.tags;
+        }
+    }
     _tipsCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
