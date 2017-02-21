@@ -41,6 +41,9 @@
 }
 
 - (void)setUpViews {
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteBtn addTarget:self action:@selector(delete) forControlEvents:UIControlEventTouchUpInside];
     [deleteBtn setImage:[UIImage imageNamed:@"standardDelete"] forState:UIControlStateNormal];
