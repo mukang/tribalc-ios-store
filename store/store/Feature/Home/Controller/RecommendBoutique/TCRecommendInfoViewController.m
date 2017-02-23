@@ -8,6 +8,8 @@
 
 #import "TCRecommendInfoViewController.h"
 #import "UIImage+Category.h"
+#import "TCImageURLSynthesizer.h"
+#import "UIImage+Category.h"
 
 @interface TCRecommendInfoViewController () {
     TCGoodDetail *mGoodDetail;
@@ -349,13 +351,16 @@
     for (UIView *view in cell.contentView.subviews) {
         [view removeFromSuperview];
     }
-    NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, mGoodDetail.pictures[indexPath.row]]];
+    
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, collectionView.width, collectionView.height)];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    UIImage *placeholderImage = [UIImage placeholderImageWithSize:imageView.size];
-    [imageView sd_setImageWithURL:imgUrl placeholderImage:placeholderImage options:SDWebImageRetryFailed];
     imageView.backgroundColor = [UIColor whiteColor];
     [cell.contentView addSubview:imageView];
+    NSString *imageStr = mGoodDetail.pictures[indexPath.row];
+    NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:imageStr];
+    UIImage *placeholderImage = [UIImage placeholderImageWithSize:imageView.size];
+    [imageView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
+
     return cell;
 }
 

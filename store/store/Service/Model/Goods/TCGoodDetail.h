@@ -7,6 +7,7 @@
 //
 
 #import "TCGoods.h"
+#import "TCStoreInfo.h"
 
 @interface TCGoodDetail : NSObject
 
@@ -60,5 +61,7 @@
 
 
 @property (copy, nonatomic) NSString *number;
+
+@property (strong, nonatomic) TCStoreInfo *tMarkStore;
 
 @end
