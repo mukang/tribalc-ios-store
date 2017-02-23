@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TCServices.h"
+#import "TCService.h"
 #import "UIImageView+WebCache.h"
 
 @interface TCRestaurantTableViewCell : UITableViewCell <SDWebImageManagerDelegate>
 
-@property (strong, nonatomic) TCServices *service;
+@property (strong, nonatomic) TCService *service;
 
 @property (weak, nonatomic) UIImageView *resImgView;
 @property (weak, nonatomic) UILabel *nameLab;

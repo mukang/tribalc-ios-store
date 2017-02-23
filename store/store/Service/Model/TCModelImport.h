@@ -27,7 +27,7 @@
 
 /********** 服务相关 **********/
 #import "TCServiceWrapper.h"
-#import "TCServices.h"
+#import "TCService.h"
 #import "TCServiceDetail.h"
 #import "TCMarkStore.h"
 #import "TCListStore.h"

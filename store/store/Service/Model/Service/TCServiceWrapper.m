@@ -7,12 +7,12 @@
 //
 
 #import "TCServiceWrapper.h"
-#import "TCServices.h"
+#import "TCService.h"
 
 @implementation TCServiceWrapper
 
 + (NSDictionary *)objectClassInArray {
-    return @{@"content": [TCServices class]};
+    return @{@"content": [TCService class]};
 }
 
 @end

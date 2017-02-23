@@ -169,9 +169,9 @@
         self.categoryLabel.text = self.categoryMap[serviceDetail.detailStore.category];
     }
     
-    self.distanceLabel.text = @"1.5km";
+    self.distanceLabel.text = [NSString stringWithFormat:@"%0.2fkm", serviceDetail.detailStore.distance];
     
-    self.perPersonLabel.text = [NSString stringWithFormat:@"%0.2f元/人", serviceDetail.personExpense];
+    self.perPersonLabel.text = [NSString stringWithFormat:@"%0.0f元/人", serviceDetail.personExpense];
     
     NSString *collectionStr = [NSString stringWithFormat:@"%zd人已收藏", serviceDetail.collectionNum];
     [self.collectionButton setAttributedTitle:[[NSAttributedString alloc] initWithString:collectionStr

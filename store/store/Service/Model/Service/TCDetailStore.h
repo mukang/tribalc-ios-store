@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface TCDetailStore : NSObject
 
@@ -23,6 +24,8 @@
 @property (copy, nonatomic) NSString *thumbnail;
 /** 位置信息 */
 @property (copy, nonatomic) NSArray *coordinate;
+/** 经纬度 */
+@property (nonatomic) CLLocationCoordinate2D coordinate2D;
 /** 折扣信息 */
 @property ( nonatomic) CGFloat discount;
 /** 标志性位置 */
@@ -56,5 +59,8 @@
 @property (copy, nonatomic) NSArray *pictures;
 /** 辅助设备 */
 @property (copy, nonatomic) NSArray *facilities;
+
+/** 距离 */
+@property (nonatomic) double distance;
 
 @end

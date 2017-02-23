@@ -19,6 +19,7 @@
 #import "TCBuluoApi.h"
 
 #import <UITableView+FDTemplateLayoutCell.h>
+#import <MAMapKit/MAMapKit.h>
 
 #define headerViewH TCRealValue(270)
 #define navBarH     64.0
@@ -115,12 +116,25 @@
     [[TCBuluoApi api] fetchServiceDetail:self.serviceID result:^(TCServiceDetail *serviceDetail, NSError *error) {
         if (serviceDetail) {
             [MBProgressHUD hideHUD:YES];
+            [weakSelf addDistanceInServiceDetail:serviceDetail];
             [weakSelf updateUIWithServiceDetail:serviceDetail];
         } else {
             NSString *reason = error.localizedDescription ?: @"请退出该页面重试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取数据失败，%@", reason]];
         }
     }];
+}
+
+- (void)addDistanceInServiceDetail:(TCServiceDetail *)serviceDetail {
+    NSArray *coordinateArr = [[NSUserDefaults standardUserDefaults] objectForKey:TCBuluoUserLocationCoordinateKey];
+    if ([coordinateArr isKindOfClass:[NSArray class]] && coordinateArr.count == 2) {
+        CLLocationCoordinate2D userCoordinate = CLLocationCoordinate2DMake([coordinateArr[0] doubleValue], [coordinateArr[1] doubleValue]);
+        MAMapPoint point1 = MAMapPointForCoordinate(userCoordinate);
+        if (serviceDetail.detailStore.coordinate) {
+            MAMapPoint point2 = MAMapPointForCoordinate(serviceDetail.detailStore.coordinate2D);
+            serviceDetail.detailStore.distance = MAMetersBetweenMapPoints(point1,point2) / 1000;
+        }
+    }
 }
 
 - (void)updateUIWithServiceDetail:(TCServiceDetail *)serviceDetail {

@@ -13,7 +13,6 @@
 #import "TCCommonIndicatorViewCell.h"
 #import "TCStoreSearchAddressViewCell.h"
 
-#import <AMapFoundationKit/AMapFoundationKit.h>
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 
@@ -89,8 +88,6 @@ TCCityPickerViewDelegate>
     [self.view addSubview:saveButton];
     self.saveButton = saveButton;
     
-    [AMapServices sharedServices].apiKey = @"f6e6be9c7571a38102e25077d81a960a";
-    [AMapServices sharedServices].enableHTTPS = YES;
     CGFloat mapY = 97;
     CGFloat mapH = TCScreenHeight - mapY - 49 - TCRealValue(60);
     CGRect mapFrame = CGRectMake(0, mapY, TCScreenWidth, mapH);

@@ -78,7 +78,7 @@
 }
 
 
-- (void)setService:(TCServices *)service {
+- (void)setService:(TCService *)service {
     _service = service;
     [self setupData];
     [self setupFrame];

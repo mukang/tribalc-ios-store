@@ -8,7 +8,10 @@
 
 #import "TCRestaurantViewController.h"
 #import "TCServiceDetailViewController.h"
+#import "TCServiceMapViewController.h"
 #import "TCServiceListCell.h"
+
+#import <MAMapKit/MAMapKit.h>
 
 @interface TCRestaurantViewController () {
     TCServiceWrapper *mServiceWrapper;
@@ -17,10 +20,13 @@
 
 @end
 
-@implementation TCRestaurantViewController
+@implementation TCRestaurantViewController {
+    __weak TCRestaurantViewController *weakSelf;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    weakSelf = self;
     
     [self setupNavigationBar];
     
@@ -47,6 +53,7 @@
         if (serviceWrapper) {
             [MBProgressHUD hideHUD:YES];
             mServiceWrapper = serviceWrapper;
+            [weakSelf addDistanceInServiceWrapper:mServiceWrapper];
             [mResaurantTableView reloadData];
             [mResaurantTableView.mj_header endRefreshing];
         } else {
@@ -66,6 +73,7 @@
                 NSArray *contentArr = mServiceWrapper.content;
                 mServiceWrapper = serviceWrapper;
                 mServiceWrapper.content = [contentArr arrayByAddingObjectsFromArray:serviceWrapper.content];
+                [weakSelf addDistanceInServiceWrapper:mServiceWrapper];
                 [mResaurantTableView reloadData];
                 [mResaurantTableView.mj_footer endRefreshing];
             } else {
@@ -80,8 +88,21 @@
     }
 }
 
+- (void)addDistanceInServiceWrapper:(TCServiceWrapper *)serviceWrapper {
+    NSArray *coordinateArr = [[NSUserDefaults standardUserDefaults] objectForKey:TCBuluoUserLocationCoordinateKey];
+    if ([coordinateArr isKindOfClass:[NSArray class]] && coordinateArr.count == 2) {
+        CLLocationCoordinate2D userCoordinate = CLLocationCoordinate2DMake([coordinateArr[0] doubleValue], [coordinateArr[1] doubleValue]);
+        MAMapPoint point1 = MAMapPointForCoordinate(userCoordinate);
+        for (TCService *service in serviceWrapper.content) {
+            if (service.store.coordinate) {
+                MAMapPoint point2 = MAMapPointForCoordinate(service.store.coordinate2D);
+                service.store.distance = MAMetersBetweenMapPoints(point1,point2) / 1000;
+            }
+        }
+    }
+}
 
-
+#pragma mark - TableView
 
 - (void)createTableView {
     mResaurantTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.size.height - TCRealValue(42)) style:UITableViewStyleGrouped];
@@ -153,12 +174,12 @@
     if (cell == nil) {
         cell = [[TCServiceListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCServiceListCell"];
     }
-    TCServices *resInfo = mServiceWrapper.content[indexPath.row];
+    TCService *resInfo = mServiceWrapper.content[indexPath.row];
     cell.isRes = [self.title isEqualToString:@"餐饮"] ? YES : NO;
     cell.service = resInfo;
 //    TCRestaurantTableViewCell *cell = [TCRestaurantTableViewCell cellWithTableView:tableView];
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    TCServices *resInfo = mServiceWrapper.content[indexPath.row];
+//    TCService *resInfo = mServiceWrapper.content[indexPath.row];
 //    cell.service = resInfo;
     return cell;
 }
@@ -181,7 +202,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    TCServices *service = mServiceWrapper.content[indexPath.row];
+    TCService *service = mServiceWrapper.content[indexPath.row];
     TCServiceDetailViewController *vc = [[TCServiceDetailViewController alloc] init];
     vc.serviceID = service.ID;
     [self.navigationController pushViewController:vc animated:YES];
@@ -249,8 +270,10 @@
 # pragma mark - Touch Action
 
 - (void)touchLocationBtn:(id)sender {
-    TCLocationViewController *locationViewController = [[TCLocationViewController alloc] init];
-    [self.navigationController pushViewController:locationViewController animated:YES];
+    TCServiceMapViewController *vc = [[TCServiceMapViewController alloc] init];
+    vc.navigationItem.title = self.navigationItem.title;
+    vc.dataList = mServiceWrapper.content;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class TCServices;
+@class TCService;
 @interface TCServiceListCell : UITableViewCell
 
-@property (strong, nonatomic) TCServices *service;
+@property (strong, nonatomic) TCService *service;
 
 @property (assign, nonatomic) BOOL isRes;
 

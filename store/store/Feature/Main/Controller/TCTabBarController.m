@@ -15,8 +15,10 @@
 
 //#import "TCFunctions.h"
 //#import <EAIntroView/EAIntroView.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 static NSString *const kAppVersion = @"kAppVersion";
+static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
 
 @interface TCTabBarController ()
 
@@ -38,6 +40,7 @@ static NSString *const kAppVersion = @"kAppVersion";
     
     
 //    [self handleShowIntroView];
+    [self setupAMapServices];
 }
 
 - (void)addChildController:(UIViewController *)childController title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selecteImage {
@@ -95,6 +98,13 @@ static NSString *const kAppVersion = @"kAppVersion";
 //        return NO;
 //    }
 //}
+
+#pragma mark - AMapServices
+
+- (void)setupAMapServices {
+    [AMapServices sharedServices].apiKey = AMapApiKey;
+    [AMapServices sharedServices].enableHTTPS = YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

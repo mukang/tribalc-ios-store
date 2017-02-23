@@ -17,6 +17,7 @@
 #import "MBProgressHUD+Category.h"
 #import "NSObject+TCNomal.h"
 #import <Masonry.h>
+#import "TCConst.h"
 #endif
 
 

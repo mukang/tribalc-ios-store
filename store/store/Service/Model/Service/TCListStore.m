@@ -10,6 +10,14 @@
 
 @implementation TCListStore
 
-
+- (void)setCoordinate:(NSArray *)coordinate {
+    _coordinate = coordinate;
+    
+    if (coordinate.count == 2) {
+        CLLocationDegrees latitude = [coordinate[1] doubleValue];
+        CLLocationDegrees longitude = [coordinate[0] doubleValue];
+        self.coordinate2D = CLLocationCoordinate2DMake(latitude, longitude);
+    }
+}
 
 @end

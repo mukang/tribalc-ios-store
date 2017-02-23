@@ -13,7 +13,6 @@
 #import "TCGetNavigationItem.h"
 #import "TCRestaurantSortView.h"
 #import "TCRestaurantFilterView.h"
-#import "TCLocationViewController.h"
 #import "TCBuluoApi.h"
 #import "TCModelImport.h"
 #import "TCClientConfig.h"
