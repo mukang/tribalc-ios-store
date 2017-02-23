@@ -18,7 +18,7 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        UIImageView *logoImageView = [self createShopLogoImageViewWithFrame:CGRectMake(TCRealValue(20), frame.size.height / 2 - TCRealValue(48 / 2), TCRealValue(48), TCRealValue(48)) AndUrlStr:shopDetail.thumbnail];
+        UIImageView *logoImageView = [self createShopLogoImageViewWithFrame:CGRectMake(TCRealValue(20), frame.size.height / 2 - TCRealValue(48 / 2), TCRealValue(48), TCRealValue(48)) AndUrlStr:shopDetail.tMarkStore.logo];
         [self addSubview:logoImageView];
         
         UILabel *brandLab = [self createBrandLabWithFrame:CGRectMake(logoImageView.x + logoImageView.width + TCRealValue(12), TCRealValue(8), frame.size.width - logoImageView.width - logoImageView.x - TCRealValue(12), TCRealValue(14)) BrandStr:shopDetail.brand];
@@ -27,7 +27,7 @@
         UIView *evaluateView = [self getEvaluateViewWithFrame:CGRectMake(brandLab.x, brandLab.y + brandLab.height + TCRealValue(4), brandLab.width, TCRealValue(13)) AndEvaluateNumer:5];
         [self addSubview:evaluateView];
         
-        UILabel *saleAndProfitLab = [self getSaleAndPhoneNumberLabWithFrame:CGRectMake(brandLab.x, evaluateView.y + evaluateView.height + TCRealValue(5), brandLab.width, TCRealValue(11)) SaleNumber:shopDetail.saleQuantity PhoneNumer:65573];
+        UILabel *saleAndProfitLab = [self getSaleAndPhoneNumberLabWithFrame:CGRectMake(brandLab.x, evaluateView.y + evaluateView.height + TCRealValue(5), brandLab.width, TCRealValue(11)) SaleNumber:shopDetail.saleQuantity PhoneNumer:shopDetail.tMarkStore.phone];
         [self addSubview:saleAndProfitLab];
         
         
@@ -36,11 +36,11 @@
     return self;
 }
 
-- (UILabel *)getSaleAndPhoneNumberLabWithFrame:(CGRect)frame SaleNumber:(NSInteger)saleNumber PhoneNumer:(NSInteger)phoneNumer {
+- (UILabel *)getSaleAndPhoneNumberLabWithFrame:(CGRect)frame SaleNumber:(NSInteger)saleNumber PhoneNumer:(NSString *)phoneNumer {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.font = [UIFont systemFontOfSize:TCRealValue(11)];
     label.textColor = TCRGBColor(154, 154, 154);
-    label.text = [NSString stringWithFormat:@"总销量 : %li   电话 : %li", saleNumber, phoneNumer];
+    label.text = [NSString stringWithFormat:@"总销量 : %li   电话 : %@", saleNumber, phoneNumer?phoneNumer:@""];
     return label;
 }
 
@@ -75,7 +75,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.font = [UIFont fontWithName:BOLD_FONT size:TCRealValue(14)];
     label.textColor = TCRGBColor(42, 42, 42);
-    label.text = [NSString stringWithFormat:@"品牌 : %@", brandStr];
+    label.text = brandStr;
     
     return label;
 }

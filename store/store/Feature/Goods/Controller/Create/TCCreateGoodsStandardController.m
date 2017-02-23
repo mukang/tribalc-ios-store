@@ -210,6 +210,12 @@
                     priceAndRepertory.originPrice = [cell.orignPriceTextField.text doubleValue];
                     priceAndRepertory.salePrice = [cell.salePriceTextField.text doubleValue];
                     priceAndRepertory.repertory = [cell.repertoryTextField.text integerValue];
+                    
+                    NSRange range = [str rangeOfString:@"-"];
+                    if (range.location != NSNotFound) {
+                        str = [str stringByReplacingOccurrencesOfString:@"-" withString:@"^"];
+                    }
+                    
                     [mutabelDict setObject:priceAndRepertory forKey:str];
                 }else {
                     [MBProgressHUD showHUDWithMessage:@"请输入完整信息"];
@@ -245,6 +251,12 @@
 }
 
 - (void)commitWith:(TCGoodsStandardMate *)goodsStandardMate mainGoodStandardKey:(NSString *)key {
+    
+    NSRange range = [key rangeOfString:@"-"];
+    if (range.location != NSNotFound) {
+        key = [key stringByReplacingOccurrencesOfString:@"-" withString:@"^"];
+    }
+    
     if (self.myBlock) {
         self.myBlock(goodsStandardMate,key);
     }

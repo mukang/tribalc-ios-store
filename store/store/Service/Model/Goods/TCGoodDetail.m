@@ -10,6 +10,8 @@
 
 @implementation TCGoodDetail
 
-
++(NSDictionary *)objectClassInDictionary {
+    return @{@"tMarkStore":[TCStoreInfo class]};
+}
 
 @end
