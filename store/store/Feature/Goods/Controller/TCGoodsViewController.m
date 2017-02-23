@@ -50,15 +50,21 @@
     [super viewWillAppear:animated];
     
     if (!self.first) {
-        
-        NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
-        if ([storeState isEqualToString:@"SUCCESS"]) {
-            [self loadDataIsMore:NO];
-        }else {
+        [self loadData];
+    }
+}
+
+- (void)loadData {
+    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+    if ([storeState isEqualToString:@"SUCCESS"]) {
+        [self loadDataIsMore:NO];
+    }else {
+        if ([[TCBuluoApi api] needLogin]) {
             [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
+        }else {
+            [MBProgressHUD showHUDWithMessage:@"请先创建商铺"];
         }
         
-//        [self loadDataIsMore:NO];
     }
 }
 
@@ -87,7 +93,6 @@
         @StrongObj(self)
         if (goodsWrapper) {
             [MBProgressHUD hideHUD:YES];
-            self.first = NO;
             self.goodsWrapper = goodsWrapper;
             
             if (self.tableView.hidden) {
@@ -209,6 +214,7 @@
 }
 
 - (void)onClick:(UIButton *)btn {
+    self.first = NO;
     if (btn.tag == 1111) {
         _onSaleBtn.selected = YES;
         _storeBtn.selected = NO;
@@ -221,13 +227,7 @@
         [_storeBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     }
     
-    
-    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
-    if ([storeState isEqualToString:@"SUCCESS"]) {
-        [self loadDataIsMore:NO];
-    }else {
-        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
-    }
+    [self loadData];
 }
 
 
