@@ -834,6 +834,18 @@
             return;
         }
     }
+    //设置商品主图
+    if (![self.goods.mainPicture isKindOfClass:[NSString class]]) {
+        if ([self.goods.pictures isKindOfClass:[NSArray class]]) {
+            if (self.goods.pictures.count) {
+                NSString *mainP = self.goods.pictures[0];
+                if ([mainP isKindOfClass:[NSString class]]) {
+                    self.goods.mainPicture = mainP;
+                }
+            }
+        }
+    }
+    
     
     TCGoodsIssueViewController *issueVC = [[TCGoodsIssueViewController alloc] init];
     TCGoodsMeta *goodMeta = self.goods;
