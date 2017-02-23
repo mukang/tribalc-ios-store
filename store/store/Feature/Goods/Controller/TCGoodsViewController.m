@@ -16,8 +16,12 @@
 #import "TCRefreshHeader.h"
 #import "TCRefreshFooter.h"
 #import "TCCreateGoodsViewController.h"
+#import "TCUnCommonView.h"
+#import "TCBusinessLicenceViewController.h"
+#import "TCLoginViewController.h"
+#import "TCNavigationController.h"
 
-@interface TCGoodsViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface TCGoodsViewController ()<UITableViewDelegate, UITableViewDataSource,TCUnCommonViewDelegate>
 
 @property (strong, nonatomic) UIButton *onSaleBtn;
 
@@ -32,6 +36,8 @@
 @property (strong, nonatomic) UIButton *btn;
 
 @property (assign, nonatomic) BOOL first;
+
+@property (strong, nonatomic) TCUnCommonView *unCommonView;
 
 @end
 
@@ -57,16 +63,35 @@
 }
 
 - (void)loadData {
-    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
-    if ([storeState isEqualToString:@"SUCCESS"]) {
-        [self loadDataIsMore:NO];
+    
+    if ([[TCBuluoApi api] needLogin]) {
+        [self.view bringSubviewToFront:self.unCommonView];
+        self.unCommonView.hidden = NO;
+        self.unCommonView.unCommonType = TCUnCommonTypeUnLogin;
     }else {
-        if ([[TCBuluoApi api] needLogin]) {
-            [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
-        }else {
-            [MBProgressHUD showHUDWithMessage:@"请创建商铺并认证"];
-        }
-        
+        self.unCommonView.hidden = YES;
+        @WeakObj(self)
+        [MBProgressHUD showHUD:YES];
+        [[TCBuluoApi api] fetchStoreAuthenticationInfo:^(TCAuthenticationInfo *authenticationInfo, NSError *error) {
+            @StrongObj(self)
+            if (authenticationInfo) {
+                [MBProgressHUD hideHUD:YES];
+                
+                NSString *authStr = authenticationInfo.authenticationStatus;
+                if ([authStr isEqualToString:@"SUCCESS"]) {
+                    self.unCommonView.hidden = YES;
+                    [self loadDataIsMore:NO];
+                }else {
+                    [self.view bringSubviewToFront:self.unCommonView];
+                    self.unCommonView.hidden = NO;
+                    self.unCommonView.unCommonType = TCUnCommonTypeUnCommon;
+                }
+                
+            }else {
+                NSString *reason = error.localizedDescription ?: @"请稍后再试";
+                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+            }
+        }];
     }
 }
 
@@ -121,9 +146,17 @@
             }
             
             [self.tableView reloadData];
+
+            if (self.goods.count == 0) {
+                [self.view bringSubviewToFront:self.unCommonView];
+                self.unCommonView.unCommonType = TCUnCommonTypeNoContent;
+                self.unCommonView.hidden = NO;
+            }else {
+                [self.view bringSubviewToFront:self.tableView];
+                self.unCommonView.hidden = YES;
+            }
             
         }else {
-            self.first = NO;
             if (isMore) {
                 [self.tableView.mj_footer endRefreshing];
             }else {
@@ -253,6 +286,20 @@
     self.tableView.mj_footer = refreshFooter;
 }
 
+#pragma mark TCUnCommonViewDelegate
+
+- (void)toAuth {
+    TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
+    businessVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:businessVC animated:YES];
+}
+
+- (void)toLogin {
+    TCLoginViewController *vc = [[TCLoginViewController alloc] initWithNibName:@"TCLoginViewController" bundle:[NSBundle mainBundle]];
+    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 
 #pragma mark UITableViewDataSource
 
@@ -380,6 +427,21 @@
         
     }
 
+}
+
+- (TCUnCommonView *)unCommonView {
+    if (_unCommonView == nil) {
+        _unCommonView = [[TCUnCommonView alloc] init];
+        [self.view addSubview:_unCommonView];
+        _unCommonView.delegate = self;
+        
+        [_unCommonView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_storeBtn.mas_bottom);
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view);
+        }];
+    }
+    return _unCommonView;
 }
 
 - (UITableView *)tableView {
