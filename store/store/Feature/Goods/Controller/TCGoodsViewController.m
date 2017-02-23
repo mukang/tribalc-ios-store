@@ -49,7 +49,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (!self.first) {
+    if (self.first) {
+        [self onClick:_onSaleBtn];
+    }else {
         [self loadData];
     }
 }
@@ -180,7 +182,6 @@
         make.top.height.width.equalTo(_onSaleBtn);
     }];
     
-    [self onClick:_onSaleBtn];
 }
 
 - (void)setCreatBtn {
