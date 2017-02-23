@@ -31,5 +31,7 @@
 @property (nonatomic) BOOL reservable;
 /** 服务类别 */
 @property (copy, nonatomic) NSString *category;
+/** 位置信息 */
+@property (copy, nonatomic) NSArray *coordinate;
 
 @end

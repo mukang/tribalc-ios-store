@@ -143,7 +143,7 @@
     if (_facilitiesMap == nil) {
         _facilitiesMap = @{
                            @"Wi-Fi": @"service_facilities_wi_fi",
-                           @"停车场": @"service_facilities_parking",
+                           @"停车位": @"service_facilities_parking",
                            @"地铁": @"service_facilities_subway",
                            @"近商圈": @"service_facilities_business",
                            @"宝宝椅": @"service_facilities_baby_chair",

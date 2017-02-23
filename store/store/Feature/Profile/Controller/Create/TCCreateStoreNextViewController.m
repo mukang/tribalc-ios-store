@@ -416,6 +416,7 @@
         _storeSetMealMeta.name = self.storeDetailInfo.name;
         _storeSetMealMeta.pictures = self.storeDetailInfo.pictures;
         _storeSetMealMeta.category = self.storeDetailInfo.category;
+        _storeSetMealMeta.coordinate = self.storeDetailInfo.coordinate;
     }
     return _storeSetMealMeta;
 }
@@ -424,10 +425,11 @@
     if (_features == nil) {
         NSArray *array = @[
                            @{@"name": @"Wi-Fi"},
-                           @{@"name": @"停车场"},
+                           @{@"name": @"停车位"},
                            @{@"name": @"地铁"},
                            @{@"name": @"近商圈"},
                            @{@"name": @"宝宝椅"},
+                           @{@"name": @"有包间"},
                            @{@"name": @"商务宴请"},
                            @{@"name": @"适合小聚"},
                            @{@"name": @"残疾人设施"},
