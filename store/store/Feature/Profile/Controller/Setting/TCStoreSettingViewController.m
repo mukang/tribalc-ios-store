@@ -842,10 +842,11 @@ TCStoreFacilitiesViewCellDelegate>
     if (_facilities == nil) {
         NSArray *array = @[
                            @{@"name": @"Wi-Fi"},
-                           @{@"name": @"停车场"},
+                           @{@"name": @"停车位"},
                            @{@"name": @"地铁"},
                            @{@"name": @"近商圈"},
                            @{@"name": @"宝宝椅"},
+                           @{@"name": @"有包间"},
                            @{@"name": @"商务宴请"},
                            @{@"name": @"适合小聚"},
                            @{@"name": @"残疾人设施"},
