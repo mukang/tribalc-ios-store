@@ -62,7 +62,7 @@
         if ([[TCBuluoApi api] needLogin]) {
             [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
         }else {
-            [MBProgressHUD showHUDWithMessage:@"请先创建商铺"];
+            [MBProgressHUD showHUDWithMessage:@"请创建商铺并认证"];
         }
         
     }
@@ -371,7 +371,12 @@
         goodCVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:goodCVC animated:YES];
     }else {
-        [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
+        if ([[TCBuluoApi api] needLogin]) {
+            [MBProgressHUD showHUDWithMessage:@"请先登录并创建商铺"];
+        }else {
+            [MBProgressHUD showHUDWithMessage:@"请创建商铺并认证"];
+        }
+        
     }
 
 }
