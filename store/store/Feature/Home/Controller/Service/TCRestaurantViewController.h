@@ -10,7 +10,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import "TCServiceFilterView.h"
 #import "TCRestaurantTableViewCell.h"
-#import "TCRestaurantInfoViewController.h"
 #import "TCGetNavigationItem.h"
 #import "TCRestaurantSortView.h"
 #import "TCRestaurantFilterView.h"

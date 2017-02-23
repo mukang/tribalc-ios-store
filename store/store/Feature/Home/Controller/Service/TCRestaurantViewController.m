@@ -7,6 +7,7 @@
 //
 
 #import "TCRestaurantViewController.h"
+#import "TCServiceDetailViewController.h"
 #import "TCServiceListCell.h"
 
 @interface TCRestaurantViewController () {
@@ -180,10 +181,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    
     TCServices *service = mServiceWrapper.content[indexPath.row];
-    TCRestaurantInfoViewController *restaurantInfo = [[TCRestaurantInfoViewController alloc]initWithServiceId:service.ID];
-    [self.navigationController pushViewController:restaurantInfo animated:YES];
+    TCServiceDetailViewController *vc = [[TCServiceDetailViewController alloc] init];
+    vc.serviceID = service.ID;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

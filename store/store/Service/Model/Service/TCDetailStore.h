@@ -23,8 +23,6 @@
 @property (copy, nonatomic) NSString *thumbnail;
 /** 位置信息 */
 @property (copy, nonatomic) NSArray *coordinate;
-/** 辅助设备 */
-@property (copy, nonatomic) NSArray *facilities;
 /** 折扣信息 */
 @property ( nonatomic) CGFloat discount;
 /** 标志性位置 */
@@ -33,30 +31,30 @@
 @property (copy, nonatomic) NSString *category;
 /** 商家标签 */
 @property (copy, nonatomic) NSArray *tags;
-
+/** 区 */
 @property (copy, nonatomic) NSString *district;
-
-@property (copy, nonatomic) NSString *cookingStyle;
-
-
+/** 详细地址 */
+@property (copy, nonatomic) NSString *address;
+/** 菜系类型 */
+@property (copy, nonatomic) NSArray *cookingStyle;
 
 /** 电话号码 */
 @property (copy, nonatomic) NSString *phone;
-/** 详细地址 */
-@property (copy, nonatomic) NSString *address;
 /** 收藏人数 */
 @property (nonatomic) NSInteger collectionNum;
 /** 人气值 */
 @property (nonatomic) NSInteger popularValue;
 /** 营业时间 */
 @property (copy, nonatomic) NSString *businessHours;
-
+/** 省 */
 @property (copy, nonatomic) NSString *province;
-
+/** 市 */
 @property (copy, nonatomic) NSString *city;
-
+/** 人均消费 */
 @property (assign, nonatomic) NSInteger personExpense;
-
+/** 店铺环境图 */
 @property (copy, nonatomic) NSArray *pictures;
+/** 辅助设备 */
+@property (copy, nonatomic) NSArray *facilities;
 
 @end

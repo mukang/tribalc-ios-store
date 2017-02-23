@@ -27,7 +27,7 @@
 /** 店铺信息 */
 @property TCListStore *store;
 
-/** 套餐主题 */
+/** 推荐主题 */
 @property (copy, nonatomic) NSString *topics;
 /** 服务 */
 @property (copy, nonatomic) NSArray *pictures;
