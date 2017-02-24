@@ -292,17 +292,21 @@
 }
 
 - (void)changeGoodDetailWithIndex:(NSString *)index {
+    if (index) {
+        goodDetail = [[TCGoodDetail alloc] initWithObjectDictionary:_goodStandard.goodsIndexes[index]];
+        
+        UIImage *placeholderImage = [UIImage placeholderImageWithSize:CGSizeMake(TCRealValue(115), TCRealValue(115))];
+        NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:goodDetail.mainPicture];
+        [selectTitleView.selectImageView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
+        selectTitleView.selectPriceLab.text = [NSString stringWithFormat:@"￥%@", @([NSString stringWithFormat:@"%f", goodDetail.salePrice].floatValue)];
+        
+        [selectTitleView setupRepertory:goodDetail.repertory];
+        
+        [self changeStandardButton:YES];
+    }else {
+        [self changeStandardButton:NO];
+    }
     
-    goodDetail = [[TCGoodDetail alloc] initWithObjectDictionary:_goodStandard.goodsIndexes[index]];
-    
-    UIImage *placeholderImage = [UIImage placeholderImageWithSize:CGSizeMake(TCRealValue(115), TCRealValue(115))];
-    NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:goodDetail.mainPicture];
-    [selectTitleView.selectImageView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
-    selectTitleView.selectPriceLab.text = [NSString stringWithFormat:@"￥%@", @([NSString stringWithFormat:@"%f", goodDetail.salePrice].floatValue)];
-    
-    [selectTitleView setupRepertory:goodDetail.repertory];
-    
-    [self changeStandardButton];
 }
 
 - (void)touchClose {
@@ -340,6 +344,8 @@
         TCSelectButton *selectBtn = secondaryBtnView.subviews[i];
         selectBtn.isEffective = YES;
     }
+    
+    [self changeGoodDetailWithIndex:nil];
 }
 
 - (void)touchSecondaryBtnWhenIsSelected:(TCSelectButton *)btn {
@@ -349,6 +355,7 @@
         TCSelectButton *selectBtn = primaryBtnView.subviews[i];
         selectBtn.isEffective = YES;
     }
+    [self changeGoodDetailWithIndex:nil];
 }
 
 - (void)touchPrimaryBtn:(TCSelectPrimaryBtn *)btn {
@@ -392,9 +399,14 @@
     }
 }
 
-- (void)changeStandardButton {
+- (void)changeStandardButton:(BOOL)isHaveDetail; {
     if (_delegate && [_delegate respondsToSelector:@selector(selectView:didChangeStandardButtonWithGoodDetail:)]) {
-        [_delegate selectView:self didChangeStandardButtonWithGoodDetail:goodDetail];
+        if (isHaveDetail) {
+            [_delegate selectView:self didChangeStandardButtonWithGoodDetail:goodDetail];
+        }else {
+            [_delegate selectView:self didChangeStandardButtonWithGoodDetail:nil];
+        }
+        
     }
 }
 

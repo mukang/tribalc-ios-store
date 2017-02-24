@@ -23,6 +23,7 @@
     UICollectionView *imageCollectionView;
     TCGoodTitleView *goodTitleView;
     UIWebView *textAndImageView;
+    UILabel *selectLab;
 }
 
 @end
@@ -74,19 +75,52 @@
 }
 
 - (void)reloadDetailViewWithTouchGoodDetail:(TCGoodDetail *)goodDetail {
+    if (goodDetail) {
+        mGoodDetail = goodDetail;
+        [imageCollectionView reloadData];
+        //    [goodTitleView setupTitleWithText:goodDetail.title];
+        titleViewHeight = goodTitleView.height;
+        [goodTitleView setupTitleWithText:goodDetail.title];
+        [goodTitleView setSalePriceWithPrice:goodDetail.salePrice];
+        [goodTitleView setOriginPriceLabWithOriginPrice:goodDetail.originPrice];
+        [goodTitleView setTagLabWithTagArr:goodDetail.tags];
+        [self changeViewCoordinates];
+        imgPageControl.numberOfPages = goodDetail.pictures.count;
+        [self reloadWebViewWithUrlStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, goodDetail.detailURL]];
+        [self updateSelectedLabel:goodDetail.standardSnapshot];
+    }else {
+        [self updateSelectedLabel:nil];
+    }
     
-    mGoodDetail = goodDetail;
-    [imageCollectionView reloadData];
-    //    [goodTitleView setupTitleWithText:goodDetail.title];
-    titleViewHeight = goodTitleView.height;
-    [goodTitleView setupTitleWithText:goodDetail.title];
-    [goodTitleView setSalePriceWithPrice:goodDetail.salePrice];
-    [goodTitleView setOriginPriceLabWithOriginPrice:goodDetail.originPrice];
-    [goodTitleView setTagLabWithTagArr:goodDetail.tags];
-    [self changeViewCoordinates];
-    imgPageControl.numberOfPages = goodDetail.pictures.count;
-    [self reloadWebViewWithUrlStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, goodDetail.detailURL]];
-    
+}
+
+
+- (void)updateSelectedLabel:(NSString *)str {
+    if ([str isKindOfClass:[NSString class]]) {
+        
+        NSString *title = @"";
+        
+        NSArray *arr = [str componentsSeparatedByString:@"|"];
+        if (arr.count) {
+            for (NSString *string in arr) {
+                NSArray *subArr = [string componentsSeparatedByString:@":"];
+                if (subArr.count == 2) {
+                    NSString *key = subArr[1];
+                    NSMutableString *mutableStr = [NSMutableString stringWithString:title];
+                    if (mutableStr.length) {
+                        [mutableStr appendString:[NSString stringWithFormat:@"  %@",key]];
+                        title = mutableStr;
+                    }else {
+                        title = key;
+                    }
+                }
+            }
+        }
+        
+        selectLab.text = [NSString stringWithFormat:@"已选：\"%@\"",title];
+    }else {
+        selectLab.text = @"请选择规格";
+    }
 }
 
 - (void)changeViewCoordinates {
@@ -143,7 +177,6 @@
     [self createBackButton];
 
 }
-
 
 
 #pragma mark - Back Button
@@ -208,8 +241,7 @@
 - (UIButton *)createStandardSelectButtonWithFrame:(CGRect)frame {
     UIButton *button = [[UIButton alloc] initWithFrame:frame];
     button.backgroundColor = [UIColor whiteColor];
-    UILabel *selectLab = [TCComponent createLabelWithFrame:CGRectMake(TCRealValue(20), 0, frame.size.width - TCRealValue(20), frame.size.height) AndFontSize:TCRealValue(15) AndTitle:@"请选择规格"];
-    [button addSubview:selectLab];
+    
     
     UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"goods_select_standard"]];
     [imgView sizeToFit];
@@ -217,6 +249,9 @@
     [button addSubview:imgView];
     
     [button addTarget:self action:@selector(touchSelectStandardBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    selectLab = [TCComponent createLabelWithFrame:CGRectMake(TCRealValue(20), 0, frame.size.width - TCRealValue(20) - imgView.width, frame.size.height) AndFontSize:TCRealValue(15) AndTitle:@"请选择规格"];
+    [button addSubview:selectLab];
     
     return button;
 }
@@ -462,7 +497,9 @@
     
 }
 
-
+- (void)dealloc {
+    NSLog(@"---- TCRecommendInfoViewController -----");
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

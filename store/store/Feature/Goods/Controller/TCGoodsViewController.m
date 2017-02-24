@@ -65,6 +65,8 @@
 - (void)loadData {
     
     if ([[TCBuluoApi api] needLogin]) {
+        [_onSaleBtn setTitle:@"出售中" forState:UIControlStateNormal];
+        [_storeBtn setTitle:@"仓库中" forState:UIControlStateNormal];
         [self.view bringSubviewToFront:self.unCommonView];
         self.unCommonView.hidden = NO;
         self.unCommonView.unCommonType = TCUnCommonTypeUnLogin;
