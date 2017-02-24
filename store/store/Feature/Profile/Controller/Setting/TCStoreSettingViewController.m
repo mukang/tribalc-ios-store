@@ -122,7 +122,7 @@ TCStoreFacilitiesViewCellDelegate>
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
-    if ([[TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus isEqualToString:@"SUCCEED"]) {
+    if ([[TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus isEqualToString:@"SUCCESS"]) {
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.right.equalTo(weakSelf.view);
         }];
@@ -734,7 +734,7 @@ TCStoreFacilitiesViewCellDelegate>
     CGFloat duration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     CGFloat bottomPadding;
-    if ([self.storeDetailInfo.authenticationStatus isEqualToString:@"SUCCEED"]) {
+    if ([self.storeDetailInfo.authenticationStatus isEqualToString:@"SUCCESS"]) {
         bottomPadding = height;
     } else {
         bottomPadding = height - 49;
