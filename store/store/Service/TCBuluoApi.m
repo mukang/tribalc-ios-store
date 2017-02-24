@@ -10,6 +10,7 @@
 #import "TCClient.h"
 #import "TCArchiveService.h"
 #import "NSObject+TCModel.h"
+#import "UIImage+Category.h"
 
 NSString *const TCBuluoApiNotificationUserDidLogin = @"TCBuluoApiNotificationUserDidLogin";
 NSString *const TCBuluoApiNotificationUserDidLogout = @"TCBuluoApiNotificationUserDidLogout";
@@ -208,7 +209,23 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 #pragma mark - 上传图片资源
 
 - (void)uploadImage:(UIImage *)image progress:(void (^)(NSProgress *))progress result:(void (^)(BOOL, TCUploadInfo *, NSError *))resultBlock {
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    
+//    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSData *imageData = [UIImage compressionImageWith:image];
+    
+//    NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+//    
+//    //文件管理器
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    
+//    //把刚刚图片转换的data对象拷贝至沙盒中 并保存为image.png
+//    [fileManager createDirectoryAtPath:DocumentsPath withIntermediateDirectories:YES attributes:nil error:nil];
+//    [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:[NSString stringWithFormat:@"/image.png"]] contents:imageData attributes:nil];
+//    
+//    //得到选择后沙盒中图片的完整路径
+//    NSString *filePath = [[NSString alloc]initWithFormat:@"%@%@",DocumentsPath,  [NSString stringWithFormat:@"/image.png"]];
+//    NSLog(@"-------%f",[[fileManager attributesOfItemAtPath:filePath error:nil] fileSize]/(1024.0*1024.0));
+    
     [self authorizeImageData:imageData result:^(TCUploadInfo *uploadInfo, NSError *error) {
         if (error) {
             if (resultBlock) {

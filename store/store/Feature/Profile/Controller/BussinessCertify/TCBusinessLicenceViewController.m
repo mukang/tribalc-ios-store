@@ -215,6 +215,7 @@
             self.imageView.image = coverImage;
             
             self.imageUrl = [TCImageURLSynthesizer synthesizeImagePathWithName:uploadInfo.objectKey source:kTCImageSourceOSS];
+            NSLog(@"%@", [TCImageURLSynthesizer synthesizeImageURLWithPath:self.imageUrl].absoluteString);
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"保存失败，%@", reason]];

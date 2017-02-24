@@ -92,4 +92,30 @@
     return [self placeholderImageWithNamed:@"placeholder_image" imageSize:size];
 }
 
++ (NSData *)compressionImageWith:(UIImage *)image {
+    NSData *data = UIImageJPEGRepresentation(image, 1.0);
+    data = UIImageJPEGRepresentation(image, 0.9);
+    if (data.length > 500000) {
+        image = [UIImage imageWithImageSimple:image scaledToSize:CGSizeMake(1080, image.size.height/image.size.width*1080.0)];
+        data = UIImageJPEGRepresentation(image, 1.0);
+    }
+    
+    
+    if (data.length > 1000000) {
+        data = UIImageJPEGRepresentation(image, 0.3);
+    }
+
+    return data;
+}
+
+//压缩图片大小
++ (UIImage*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 @end

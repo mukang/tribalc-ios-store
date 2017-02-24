@@ -37,4 +37,13 @@
  */
 + (UIImage *)placeholderImageWithSize:(CGSize)size;
 
+
+/**
+ 压缩图片
+
+ @param image 原始图片
+ @return 返回压缩过的图片data
+ */
++ (NSData *)compressionImageWith:(UIImage *)image;
+
 @end

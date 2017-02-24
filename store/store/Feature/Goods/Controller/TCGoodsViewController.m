@@ -68,30 +68,40 @@
         [self.view bringSubviewToFront:self.unCommonView];
         self.unCommonView.hidden = NO;
         self.unCommonView.unCommonType = TCUnCommonTypeUnLogin;
+        self.btn.hidden = YES;
     }else {
         self.unCommonView.hidden = YES;
-        @WeakObj(self)
-        [MBProgressHUD showHUD:YES];
-        [[TCBuluoApi api] fetchStoreAuthenticationInfo:^(TCAuthenticationInfo *authenticationInfo, NSError *error) {
-            @StrongObj(self)
-            if (authenticationInfo) {
-                [MBProgressHUD hideHUD:YES];
-                
-                NSString *authStr = authenticationInfo.authenticationStatus;
-                if ([authStr isEqualToString:@"SUCCESS"]) {
-                    self.unCommonView.hidden = YES;
-                    [self loadDataIsMore:NO];
+        self.btn.hidden = NO;
+        NSString *authS = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+        if ([authS isEqualToString:@"SUCCESS"]) {
+            [self loadDataIsMore:NO];
+        }else {
+            @WeakObj(self)
+            [MBProgressHUD showHUD:YES];
+            [[TCBuluoApi api] fetchStoreAuthenticationInfo:^(TCAuthenticationInfo *authenticationInfo, NSError *error) {
+                @StrongObj(self)
+                if (authenticationInfo) {
+                    [MBProgressHUD hideHUD:YES];
+                    
+                    NSString *authStr = authenticationInfo.authenticationStatus;
+                    if ([authStr isEqualToString:@"SUCCESS"]) {
+                        [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus = authStr;
+                        self.unCommonView.hidden = YES;
+                        [self loadDataIsMore:NO];
+                    }else {
+                        [self.view bringSubviewToFront:self.unCommonView];
+                        self.unCommonView.hidden = NO;
+                        self.unCommonView.unCommonType = TCUnCommonTypeUnCommon;
+                        [self.view bringSubviewToFront:self.btn];
+                    }
+                    
                 }else {
-                    [self.view bringSubviewToFront:self.unCommonView];
-                    self.unCommonView.hidden = NO;
-                    self.unCommonView.unCommonType = TCUnCommonTypeUnCommon;
+                    NSString *reason = error.localizedDescription ?: @"请稍后再试";
+                    [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+                    [self.view bringSubviewToFront:self.btn];
                 }
-                
-            }else {
-                NSString *reason = error.localizedDescription ?: @"请稍后再试";
-                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
-            }
-        }];
+            }];
+        }
     }
 }
 
@@ -156,6 +166,8 @@
                 self.unCommonView.hidden = YES;
             }
             
+            [self.view bringSubviewToFront:self.btn];
+            
         }else {
             if (isMore) {
                 [self.tableView.mj_footer endRefreshing];
@@ -169,7 +181,7 @@
                 [self.tableView reloadData];
                 self.tableView.hidden = YES;
             }
-            
+            [self.view bringSubviewToFront:self.btn];
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"加载失败，%@", reason]];
         }

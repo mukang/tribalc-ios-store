@@ -43,6 +43,8 @@
     [self.contentView addSubview:lineView];
     
     UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
     [self.contentView addSubview:imageView];
     self.imageV = imageView;
     

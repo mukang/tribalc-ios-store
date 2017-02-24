@@ -455,6 +455,7 @@ TCPhotoModeViewDelegate>
                 bussVc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:bussVc animated:YES];
             }else if ([authStr isEqualToString:@"SUCCESS"]) {
+                [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus = authStr;
                 TCBussinessAuthSuccessController *successVc = [[TCBussinessAuthSuccessController alloc] init];
                 successVc.hidesBottomBarWhenPushed = YES;
                 successVc.authenticationInfo = authenticationInfo;

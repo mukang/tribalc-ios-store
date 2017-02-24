@@ -284,11 +284,27 @@
         if (success) {
             [MBProgressHUD hideHUD:YES];
             
+            NSString *str = [TCImageURLSynthesizer synthesizeImagePathWithName:uploadInfo.objectKey source:kTCImageSourceOSS];
+            NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.imageArr];
             if (self.selectedBtn) {
                 if (self.selectedBtn.tag == 11111) {
                     self.frontImageView.image = coverImage;
+                    if (mutableArr.count == 0) {
+                        [mutableArr addObject:str];
+                    }else if (mutableArr.count == 1) {
+                        [mutableArr insertObject:str atIndex:0];
+                    }else {
+                        [mutableArr replaceObjectAtIndex:0 withObject:str];
+                    }
                 }else {
                     self.backImageView.image = coverImage;
+                    if (mutableArr.count == 0) {
+                        [mutableArr addObject:str];
+                    }else if (mutableArr.count == 1) {
+                        [mutableArr addObject:str];
+                    }else {
+                        [mutableArr replaceObjectAtIndex:1 withObject:str];
+                    }
                 }
             }
             
@@ -296,9 +312,10 @@
                 self.nextBtn.enabled = YES;
             }
             
-            NSString *str = [TCImageURLSynthesizer synthesizeImagePathWithName:uploadInfo.objectKey source:kTCImageSourceOSS];
-            NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.imageArr];
-            [mutableArr addObject:str];
+            
+//            NSLog(@"%@", [TCImageURLSynthesizer synthesizeImageURLWithPath:str].absoluteString);
+//            NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.imageArr];
+//            [mutableArr addObject:str];
             self.imageArr = mutableArr;
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
