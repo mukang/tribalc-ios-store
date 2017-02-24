@@ -32,6 +32,9 @@
 }
 
 - (void)setupSubviews {
+    UIImageView *bgImageView = [[UIImageView alloc] init];
+    bgImageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"goods_category_background" ofType:@"png"]];
+    [self.view addSubview:bgImageView];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.itemSize = CGSizeMake(floorf(TCRealValue(72)), floorf(TCRealValue(72)));
@@ -40,13 +43,16 @@
     layout.sectionInset = UIEdgeInsetsMake(floorf(TCRealValue(19)), floorf(TCRealValue(24)), 0, floorf(TCRealValue(24)));
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-    collectionView.backgroundColor = [UIColor whiteColor];
+    collectionView.backgroundColor = [UIColor clearColor];
     collectionView.dataSource = self;
     collectionView.delegate = self;
     [collectionView registerClass:[TCStoreCategoryIconViewCell class] forCellWithReuseIdentifier:@"TCStoreCategoryIconViewCell"];
     [self.view addSubview:collectionView];
     self.collectionView = collectionView;
 
+    [bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.equalTo(@(TCRealValue(220)));
