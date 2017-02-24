@@ -244,12 +244,12 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
  */
 - (void)createStore:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
-/**
- 获取店铺基本信息
-
- @param resultBlock 结果回调，storeInfo为nil时表示获取失败，失败原因见error的code和userInfo
- */
-- (void)fetchStoreInfo:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
+///**
+// 获取店铺基本信息
+//
+// @param resultBlock 结果回调，storeInfo为nil时表示获取失败，失败原因见error的code和userInfo
+// */
+//- (void)fetchStoreInfo:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
 /**
  获取店铺详细信息
