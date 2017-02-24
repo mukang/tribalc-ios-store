@@ -37,7 +37,7 @@
     // Do any additional setup after loading the view.
     weakSelf = self;
     self.limitSize = 20;
-    self.navigationItem.title = @"服务预定";
+    self.navigationItem.title = @"预定管理";
     
     [self setupSubviews];
     [self loadNewData];
