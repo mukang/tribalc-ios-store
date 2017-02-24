@@ -21,7 +21,7 @@
         UIImageView *logoImageView = [self createShopLogoImageViewWithFrame:CGRectMake(TCRealValue(20), frame.size.height / 2 - TCRealValue(48 / 2), TCRealValue(48), TCRealValue(48)) AndUrlStr:shopDetail.tMarkStore.logo];
         [self addSubview:logoImageView];
         
-        UILabel *brandLab = [self createBrandLabWithFrame:CGRectMake(logoImageView.x + logoImageView.width + TCRealValue(12), TCRealValue(8), frame.size.width - logoImageView.width - logoImageView.x - TCRealValue(12), TCRealValue(14)) BrandStr:shopDetail.brand];
+        UILabel *brandLab = [self createBrandLabWithFrame:CGRectMake(logoImageView.x + logoImageView.width + TCRealValue(12), TCRealValue(8), frame.size.width - logoImageView.width - logoImageView.x - TCRealValue(12), TCRealValue(14)) BrandStr:shopDetail.tMarkStore.name];
         [self addSubview:brandLab];
         
         UIView *evaluateView = [self getEvaluateViewWithFrame:CGRectMake(brandLab.x, brandLab.y + brandLab.height + TCRealValue(4), brandLab.width, TCRealValue(13)) AndEvaluateNumer:5];

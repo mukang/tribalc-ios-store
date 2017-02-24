@@ -760,7 +760,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
     NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
     NSString *sor = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
-    NSString *apiName = [NSString stringWithFormat:@"goods?me=%@&published=%@%@%@%@",[[TCBuluoApi api] currentUserSession].storeInfo.ID,published, limitSizePart, sortSkipPart,sor];
+    NSString *apiName = [NSString stringWithFormat:@"goods?me=%@&published=%@%@%@%@",[[TCBuluoApi api] currentUserSession].assigned,published, limitSizePart, sortSkipPart,sor];
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
     request.token = self.currentUserSession.token;
     [[TCClient client] send:request finish:^(TCClientResponse *response) {
@@ -782,7 +782,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
     NSString *sor = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
     NSString *categoryStr = category ? [NSString stringWithFormat:@"&category=%@",category] : @"";
-    NSString *apiName = [NSString stringWithFormat:@"goods_standards?me=%@%@%@%@%@",[[TCBuluoApi api] currentUserSession].storeInfo.ID,categoryStr, limitSizePart, sortSkipPart,sor];
+    NSString *apiName = [NSString stringWithFormat:@"goods_standards?me=%@%@%@%@%@",[[TCBuluoApi api] currentUserSession].assigned,categoryStr, limitSizePart, sortSkipPart,sor];
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
     request.token = self.currentUserSession.token;
     [[TCClient client] send:request finish:^(TCClientResponse *response) {
@@ -815,7 +815,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 }
 
 - (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate mainGoodsStandardKey:(NSString *)key result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock {
-    NSString *apiName = [NSString stringWithFormat:@"goods?me=%@",[[TCBuluoApi api] currentUserSession].storeInfo.ID];
+    NSString *apiName = [NSString stringWithFormat:@"goods?me=%@",[[TCBuluoApi api] currentUserSession].assigned];
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
     request.token = self.currentUserSession.token;
     NSDictionary *goodDic = [goods toObjectDictionary];
@@ -902,7 +902,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)modifyGoodsState:(NSString *)goodsId published:(NSString *)published result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"goods/%@/published?me=%@", goodsId,self.currentUserSession.storeInfo.ID];
+        NSString *apiName = [NSString stringWithFormat:@"goods/%@/published?me=%@", goodsId,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
         request.token = self.currentUserSession.token;
         
@@ -929,7 +929,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)deleteGoods:(NSString *)goodsId result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"goods/%@?me=%@", goodsId,self.currentUserSession.storeInfo.ID];
+        NSString *apiName = [NSString stringWithFormat:@"goods/%@?me=%@", goodsId,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodDelete apiName:apiName];
         request.token = self.currentUserSession.token;
         
@@ -982,7 +982,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)modifyGoods:(TCGoodsMeta *)goods result:(void (^)(BOOL success, NSError *error))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"goods/%@?me=%@", goods.ID,self.currentUserSession.storeInfo.ID];
+        NSString *apiName = [NSString stringWithFormat:@"goods/%@?me=%@", goods.ID,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
         request.token = self.currentUserSession.token;
         
@@ -1070,7 +1070,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)fetchStoreAuthenticationInfo:(void (^)(TCAuthenticationInfo *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@/authentication", self.currentUserSession.storeInfo.ID];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/authentication", self.currentUserSession.assigned];
 
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
