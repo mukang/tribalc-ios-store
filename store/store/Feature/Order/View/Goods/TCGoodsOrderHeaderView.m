@@ -72,7 +72,7 @@
         make.centerY.equalTo(weakSelf.containerView.mas_centerY);
     }];
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(62, 18));
+        make.size.mas_equalTo(CGSizeMake(62, 48));
         make.top.equalTo(weakSelf.containerView.mas_top);
         make.right.equalTo(weakSelf.containerView.mas_right).with.offset(-15);
     }];
