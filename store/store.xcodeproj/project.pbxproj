@@ -43,6 +43,7 @@
 		55F9EE4A1E56D14F00935ADF /* TCSetMainGoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */; };
 		55F9EE4D1E56DF4E00935ADF /* TCSetMainGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */; };
 		55F9EE501E570F8400935ADF /* TCSetMainGoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4F1E570F8400935ADF /* TCSetMainGoodCell.m */; };
+		55F9EE541E5EF08B00935ADF /* TCUnCommonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE531E5EF08B00935ADF /* TCUnCommonView.m */; };
 		7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */; };
 		7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00A91E2E17DF0028555D /* TCAppCacheViewCell.m */; };
 		7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AC1E2E17F50028555D /* TCAppNotificationViewCell.m */; };
@@ -335,6 +336,8 @@
 		55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSetMainGoodListCell.m; sourceTree = "<group>"; };
 		55F9EE4E1E570F8400935ADF /* TCSetMainGoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodCell.h; sourceTree = "<group>"; };
 		55F9EE4F1E570F8400935ADF /* TCSetMainGoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSetMainGoodCell.m; sourceTree = "<group>"; };
+		55F9EE521E5EF08B00935ADF /* TCUnCommonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUnCommonView.h; sourceTree = "<group>"; };
+		55F9EE531E5EF08B00935ADF /* TCUnCommonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUnCommonView.m; sourceTree = "<group>"; };
 		7A0E00A51E2E17030028555D /* TCAppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppSettingViewController.h; sourceTree = "<group>"; };
 		7A0E00A61E2E17030028555D /* TCAppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppSettingViewController.m; sourceTree = "<group>"; };
 		7A0E00A81E2E17DF0028555D /* TCAppCacheViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppCacheViewCell.h; sourceTree = "<group>"; };
@@ -1278,6 +1281,8 @@
 				7AFEC4121E51452400B0E754 /* TCGoodsDeliveryView.m */,
 				7AFEC4141E515DE800B0E754 /* TCDropdownMenu.h */,
 				7AFEC4151E515DE800B0E754 /* TCDropdownMenu.m */,
+				55F9EE521E5EF08B00935ADF /* TCUnCommonView.h */,
+				55F9EE531E5EF08B00935ADF /* TCUnCommonView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2143,6 +2148,7 @@
 				7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */,
 				7A17EB9A1E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m in Sources */,
 				550319231E31BE27004522C7 /* TCGoodsCategoryController.m in Sources */,
+				55F9EE541E5EF08B00935ADF /* TCUnCommonView.m in Sources */,
 				550319261E31F68C004522C7 /* TCCreateGoodsViewController.m in Sources */,
 				55647E6A1E4B081300E4A0E9 /* TCGoodsMeta.m in Sources */,
 				7AFEC45A1E52E5D700B0E754 /* TCWalletBillWrapper.m in Sources */,
