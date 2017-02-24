@@ -40,6 +40,7 @@
     UILabel *noteLabel = [[UILabel alloc] init];
     noteLabel.textColor = TCRGBColor(154, 154, 154);
     noteLabel.font = [UIFont boldSystemFontOfSize:14];
+    noteLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:noteLabel];
     
     self.iconImageView = iconImageView;

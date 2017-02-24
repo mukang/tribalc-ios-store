@@ -179,6 +179,14 @@
 
 #pragma mark - UITableViewDelegate
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 131;
+    }else {
+        return 40;
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         if ([self.reservation.status isEqualToString:@"CANNEL"]) {
