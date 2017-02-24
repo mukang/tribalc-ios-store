@@ -9,8 +9,12 @@
 #import "TCOrderViewController.h"
 #import "TCGoodsOrderViewController.h"
 #import "TCReservationViewController.h"
+#import "TCLoginViewController.h"
+#import "TCNavigationController.h"
 
 #import "TCExtendButton.h"
+
+#import "TCBuluoApi.h"
 
 @interface TCOrderViewController ()
 
@@ -33,22 +37,6 @@
     [self setupNavBar];
     [self setupSubviews];
     [self setupConstraints];
-    
-//    self.navigationItem.leftBarButtonItem = nil;
-//    
-//    UIButton *goodsOrderButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    goodsOrderButton.backgroundColor = TCRGBColor(221, 221, 221);
-//    [goodsOrderButton setTitle:@"商品订单" forState:UIControlStateNormal];
-//    [goodsOrderButton addTarget:self action:@selector(handleClickGoodsOrderButton:) forControlEvents:UIControlEventTouchUpInside];
-//    goodsOrderButton.frame = CGRectMake(100, 100, 100, 50);
-//    [self.view addSubview:goodsOrderButton];
-//    
-//    UIButton *reservationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    reservationButton.backgroundColor = TCRGBColor(221, 221, 221);
-//    [reservationButton setTitle:@"服务预定" forState:UIControlStateNormal];
-//    [reservationButton addTarget:self action:@selector(handleClickReservationButton:) forControlEvents:UIControlEventTouchUpInside];
-//    reservationButton.frame = CGRectMake(100, 200, 100, 50);
-//    [self.view addSubview:reservationButton];
 }
 
 #pragma mark - Private Methods
@@ -56,7 +44,6 @@
 - (void)setupNavBar {
     self.hideOriginalNavBar = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.extendedLayoutIncludesOpaqueBars = YES;
 }
 
 - (void)setupSubviews {
@@ -118,16 +105,37 @@
     }];
 }
 
+#pragma mark - Actions
+
 - (void)handleClickGoodsOrderButton:(UIButton *)sender {
+    if ([self checkUserNeedLogin]) return;
+    
     TCGoodsOrderViewController *vc = [[TCGoodsOrderViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)handleClickReservationButton:(UIButton *)sender {
+    if ([self checkUserNeedLogin]) return;
+    
     TCReservationViewController *vc = [[TCReservationViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - Show Login View Controller
+
+- (BOOL)checkUserNeedLogin {
+    if ([[TCBuluoApi api] needLogin]) {
+        [self showLoginViewController];
+    }
+    return [[TCBuluoApi api] needLogin];
+}
+
+- (void)showLoginViewController {
+    TCLoginViewController *vc = [[TCLoginViewController alloc] initWithNibName:@"TCLoginViewController" bundle:[NSBundle mainBundle]];
+    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - Status Bar
