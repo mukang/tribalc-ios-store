@@ -69,6 +69,10 @@
         self.unCommonView.hidden = NO;
         self.unCommonView.unCommonType = TCUnCommonTypeUnLogin;
         self.btn.hidden = YES;
+        self.goodsWrapper = nil;
+        self.goods = nil;
+        [self.tableView reloadData];
+        self.tableView.hidden = YES;
     }else {
         self.unCommonView.hidden = YES;
         self.btn.hidden = NO;
