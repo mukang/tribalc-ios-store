@@ -472,10 +472,12 @@ TCPhotoModeViewDelegate>
 
 - (void)handleUserDidLogin:(id)sender {
     [self updateHeaderView];
+    [self.tableView reloadData];
 }
 
 - (void)handleUserDidLogout:(id)sender {
     [self updateHeaderView];
+    [self.tableView reloadData];
 }
 
 - (void)handleStoreInfoDidUpdate:(id)sender {

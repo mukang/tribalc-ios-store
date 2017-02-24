@@ -106,7 +106,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             TCUserSession *userSession = self.currentUserSession;
             userSession.storeInfo = storeInfo;
             [self setUserSession:userSession];
-            [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserInfoDidUpdate object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserDidLogin object:nil];
         }
     }];
 }
@@ -129,10 +129,6 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             userSession = [[TCUserSession alloc] initWithObjectDictionary:response.data];
             [self setUserSession:userSession];
             [self fetchStoreInfoWithID:userSession.assigned];
-            
-            TC_CALL_ASYNC_MQ({
-                [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserDidLogin object:nil];
-            });
         }
         if (resultBlock) {
             if (error) {

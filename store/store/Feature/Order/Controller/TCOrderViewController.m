@@ -20,6 +20,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.navigationItem.leftBarButtonItem = nil;
+    
     UIButton *goodsOrderButton = [UIButton buttonWithType:UIButtonTypeCustom];
     goodsOrderButton.backgroundColor = TCRGBColor(221, 221, 221);
     [goodsOrderButton setTitle:@"商品订单" forState:UIControlStateNormal];
