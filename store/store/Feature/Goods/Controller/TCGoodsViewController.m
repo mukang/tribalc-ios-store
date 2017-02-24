@@ -185,6 +185,11 @@
                 [self.tableView reloadData];
                 self.tableView.hidden = YES;
             }
+            
+            if (self.tableView.hidden) {
+                self.tableView.hidden = NO;
+            }
+            
             [self.view bringSubviewToFront:self.btn];
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"加载失败，%@", reason]];
