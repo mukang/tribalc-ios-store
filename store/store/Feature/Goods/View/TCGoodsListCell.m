@@ -46,6 +46,7 @@
     _imgView.layer.borderColor = TCRGBColor(154, 154, 154).CGColor;
     _imgView.layer.borderWidth = 0.5;
     [self.contentView addSubview:_imgView];
+    _imgView.frame = CGRectMake(30, 12, 126, 126);
     
     UIImageView *mainGoodsImageView = [[UIImageView alloc] init];
     [_imgView addSubview:mainGoodsImageView];
@@ -82,11 +83,13 @@
     _creatTimeLabel.numberOfLines = 1;
     [self.contentView addSubview:_creatTimeLabel];
     
-    [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView).offset(TCRealValue(30));
-        make.centerY.equalTo(self.contentView);
-        make.width.height.equalTo(@126);
-    }];
+//    [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+////        make.left.equalTo(self.contentView).offset(TCRealValue(30));
+////        make.centerY.equalTo(self.contentView);
+//        make.left.equalTo(@30);
+//        make.top.equalTo(@12);
+//        make.width.height.equalTo(@126);
+//    }];
     
     [mainGoodsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.equalTo(_imgView);
@@ -123,24 +126,28 @@
         make.bottom.equalTo(_priceLabel.mas_top).offset(-4);
     }];
 
+
 }
 
 - (void)setGood:(TCGoodsMeta *)good {
     if (_good != good) {
         _good = good;
         
-        self.imgView.image = nil;
         
-        if (good.pictures) {
+        NSURL *URL = nil;
+        if ([good.mainPicture isKindOfClass:[NSString class]]) {
+            URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:good.mainPicture];
+        }else if (good.pictures) {
             if (good.pictures.count>0) {
                 NSString *str = good.pictures[0];
                 if ([str isKindOfClass:[NSString class]]) {
-                    NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:str];
-                    UIImage *placeholderImage = [UIImage placeholderImageWithSize:_imgView.size];
-                    [self.imgView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
+                    URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:str];
                 }
             }
         }
+        
+        UIImage *placeholderImage = [UIImage placeholderImageWithSize:_imgView.size];
+        [self.imgView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
         
         if (good.primary) {
             self.mainGoodsImageView.hidden = NO;
