@@ -64,7 +64,8 @@
 
 - (UIImageView *)createShopLogoImageViewWithFrame:(CGRect)frame AndUrlStr:(NSString *)urlStr{
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
     NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:urlStr];
     UIImage *placeholderImage = [UIImage placeholderImageWithSize:frame.size];
     [imageView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
