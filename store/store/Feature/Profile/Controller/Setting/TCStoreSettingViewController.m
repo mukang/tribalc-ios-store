@@ -543,16 +543,6 @@ TCStoreFacilitiesViewCellDelegate>
     return YES;
 }
 
-- (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([text isEqualToString:@"\n"]) {
-        if ([textView isFirstResponder]) {
-            [textView resignFirstResponder];
-        }
-        return NO;
-    }
-    return YES;
-}
-
 - (void)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewDidEndEditing:(YYTextView *)textView {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath.row == 2) {
@@ -704,6 +694,7 @@ TCStoreFacilitiesViewCellDelegate>
     [[TCBuluoApi api] changeStoreSetMeal:self.storeSetMealMeta result:^(BOOL success, NSError *error) {
         if (success) {
             [MBProgressHUD showHUDWithMessage:@"修改成功"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserInfoDidUpdate object:nil];
             weakSelf.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑"
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self

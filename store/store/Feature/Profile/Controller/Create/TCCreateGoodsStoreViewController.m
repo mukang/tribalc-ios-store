@@ -276,16 +276,6 @@ YYTextViewDelegate>
     return YES;
 }
 
-- (BOOL)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([text isEqualToString:@"\n"]) {
-        if ([textView isFirstResponder]) {
-            [textView resignFirstResponder];
-        }
-        return NO;
-    }
-    return YES;
-}
-
 - (void)storeRecommendViewCell:(TCStoreRecommendViewCell *)cell textViewDidEndEditing:(YYTextView *)textView {
     self.storeDetailInfo.desc = textView.text;
 }

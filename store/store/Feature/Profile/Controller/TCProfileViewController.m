@@ -485,6 +485,7 @@ TCPhotoModeViewDelegate>
 }
 
 - (void)handleStoreDidCreated:(id)sender {
+    [self updateHeaderView];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }

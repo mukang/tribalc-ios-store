@@ -63,7 +63,13 @@
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
-    CGFloat bottomMargin = 0;
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(weakSelf.view);
+        make.bottom.equalTo(weakSelf.view.mas_bottom);
+    }];
+}
+
+- (void)showBottomButton {
     if ([self.reservation.status isEqualToString:@"PROCESSING"]) {
         TCCommonButton *rejectButton = [TCCommonButton bottomButtonWithTitle:@"取消预定"
                                                                        color:TCCommonButtonColorBlue
@@ -72,7 +78,7 @@
         [self.view addSubview:rejectButton];
         self.rejectButton = rejectButton;
         
-        TCCommonButton *passButton = [TCCommonButton bottomButtonWithTitle:@"取消预定"
+        TCCommonButton *passButton = [TCCommonButton bottomButtonWithTitle:@"确认通过"
                                                                      color:TCCommonButtonColorOrange
                                                                     target:self
                                                                     action:@selector(handleClickPassButton:)];
@@ -89,12 +95,11 @@
             make.width.equalTo(rejectButton.mas_width);
             make.right.bottom.equalTo(weakSelf.view);
         }];
-        bottomMargin = 49;
+        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.equalTo(weakSelf.view);
+            make.bottom.equalTo(weakSelf.view.mas_bottom).with.offset(-49);
+        }];
     }
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(weakSelf.view);
-        make.bottom.equalTo(weakSelf.view.mas_bottom).with.offset(-bottomMargin);
-    }];
 }
 
 - (void)loadNetData {
@@ -102,8 +107,9 @@
     [[TCBuluoApi api] fetchDetailReservation:self.reservationID result:^(TCReservation *reservation, NSError *error) {
         if (reservation) {
             [MBProgressHUD hideHUD:YES];
-            self.reservation = reservation;
-            [self.tableView reloadData];
+            weakSelf.reservation = reservation;
+            [weakSelf showBottomButton];
+            [weakSelf.tableView reloadData];
         } else {
             NSString *reason = error.localizedDescription ?: @"请退出后重试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取数据失败，%@", reason]];
@@ -249,7 +255,6 @@
     }];
     self.rejectButton.hidden = YES;
     self.passButton.hidden = YES;
-    [self.view layoutIfNeeded];
     [self.tableView reloadData];
 }
 
