@@ -200,9 +200,11 @@
     NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.libsArr];
     if (btn.selected) {
         [btn setBackgroundColor:[UIColor orangeColor]];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [mutableArr addObject:btn.titleLabel.text];
     }else {
         [btn setBackgroundColor:[UIColor whiteColor]];
+        [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
         [mutableArr removeObject:btn.titleLabel.text];
     }
     _libsArr = mutableArr;
@@ -224,10 +226,14 @@
                 NSString *str = libsArr[i];
                 if ([str isKindOfClass:[NSString class]]) {
                     if ([str isEqualToString:title]) {
+                        btn.selected = YES;
                         [btn setBackgroundColor:[UIColor orangeColor]];
+                        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                         break;
                     }else {
+                        btn.selected = NO;
                         [btn setBackgroundColor:[UIColor whiteColor]];
+                        [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
                     }
                 }
             }
