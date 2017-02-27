@@ -316,21 +316,9 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     
     if ([sort isKindOfClass:[NSString class]]) {
         if ([sort isEqualToString:@"coordinate,asc"]) {
-            NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"locationLatAndLog"];
-            if ([str isKindOfClass:[NSString class]]) {
-                NSArray *strArr = [str componentsSeparatedByString:@","];
-                if ([strArr isKindOfClass:[NSArray class]]) {
-                    if (strArr.count == 2) {
-                        
-                        NSString *lonStr = strArr[1];
-                        NSString *latStr = strArr[0];
-                        
-                        if ([lonStr isKindOfClass:[NSString class]] && [latStr isKindOfClass:[NSString class]]) {
-                            coordinateStr = [NSString stringWithFormat:@"coordinate=%@,%@&",lonStr,latStr];
-                        }
-                        
-                    }
-                }
+            NSArray *coordinateArr = [[NSUserDefaults standardUserDefaults] objectForKey:TCBuluoUserLocationCoordinateKey];
+            if ([coordinateArr isKindOfClass:[NSArray class]] && coordinateArr.count == 2) {
+                coordinateStr = [NSString stringWithFormat:@"coordinate=%@,%@&", coordinateArr[1], coordinateArr[0]];
             }
         }
     }
