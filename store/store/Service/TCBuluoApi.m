@@ -436,7 +436,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)changeStoreSetMeal:(TCStoreSetMealMeta *)storeSetMealMeta result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"store_set_meals/%@", storeSetMealMeta.ID];
+        NSString *apiName = [NSString stringWithFormat:@"store_set_meals/%@?me=%@", storeSetMealMeta.ID,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
         request.token = self.currentUserSession.token;
         NSDictionary *dic = [storeSetMealMeta toObjectDictionary];

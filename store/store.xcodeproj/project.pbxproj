@@ -2413,8 +2413,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.buluo-gs.store";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5f3e13e9-0db0-45fa-bb18-91d63d19d75c";
-				PROVISIONING_PROFILE_SPECIFIER = "Store Distribution";
+				PROVISIONING_PROFILE = "d2ce535b-1def-4e29-b36c-b0726aab79bf";
+				PROVISIONING_PROFILE_SPECIFIER = "Store Development";
 			};
 			name = Release;
 		};
