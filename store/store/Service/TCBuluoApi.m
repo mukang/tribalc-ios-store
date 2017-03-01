@@ -340,6 +340,24 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }];
 }
 
+- (void)fetchServiceWrapperWithQuery:(NSString *)query result:(void (^)(TCServiceWrapper *, NSError *))resultBlock {
+    NSString *apiName = [NSString stringWithFormat:@"store_set_meals?%@", query];
+    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+    request.token = self.currentUserSession.token;
+    [[TCClient client] send:request finish:^(TCClientResponse *response) {
+        if (response.error) {
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+            }
+        } else {
+            TCServiceWrapper *serviceWrapper = [[TCServiceWrapper alloc] initWithObjectDictionary:response.data];
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(serviceWrapper, nil));
+            }
+        }
+    }];
+}
+
 - (void)fetchServiceDetail:(NSString *)serviceID result:(void (^)(TCServiceDetail *, NSError *))resultBlock {
     NSString *apiName = [NSString stringWithFormat:@"store_set_meals/%@", serviceID];
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
