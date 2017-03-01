@@ -204,6 +204,14 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
 - (void)fetchServiceWrapper:(NSString *)category limiSize:(NSUInteger)limitSize sortSkip:(NSString *)sortSkip sort:(NSString *)sort result:(void (^)(TCServiceWrapper *serviceWrapper, NSError *error))resultBlock;
 
 /**
+ 获取服务列表
+
+ @param query query
+ @param resultBlock 结果回调，serviceWrapper为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchServiceWrapperWithQuery:(NSString *)query result:(void (^)(TCServiceWrapper *serviceWrapper, NSError *error))resultBlock;
+
+/**
  获取商品详情
  
  @param serviceID 服务的ID

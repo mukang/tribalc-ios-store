@@ -231,40 +231,40 @@
 
 
 #pragma mark - TCServiceFilterViewDelegate
-- (void)filterView:(TCServiceFilterView *)filterView didSelectFilterServiceBtn:(NSInteger)type {
-    switch (type) {
-        case TCDeliver:
-            [self filterByInfo:TCDeliver];
-            break;
-        case TCReserve:
-            [self filterByInfo:TCReserve];
-            break;
-        default:
-            break;
-    }
-}
+//- (void)filterView:(TCServiceFilterView *)filterView didSelectFilterServiceBtn:(NSInteger)type {
+//    switch (type) {
+//        case TCDeliver:
+//            [self filterByInfo:TCDeliver];
+//            break;
+//        case TCReserve:
+//            [self filterByInfo:TCReserve];
+//            break;
+//        default:
+//            break;
+//    }
+//}
 
-- (void)filterView:(TCServiceFilterView *)filterView didSelectSortServiceBtn:(NSInteger)type {
-    switch (type) {
-        case TCAverageMin:
-            [self sortByInfo:TCAverageMin];
-            break;
-        case TCAverageMax:
-            [self sortByInfo:TCAverageMax];
-            break;
-        case TCPopularityMax:
-            [self sortByInfo:TCPopularityMax];
-            break;
-        case TCEvaluateMax:
-            [self sortByInfo:TCEvaluateMax];
-            break;
-        case TCDistanceMin:
-            [self sortByInfo:TCDistanceMin];
-            break;
-        default:
-            break;
-    }
-}
+//- (void)filterView:(TCServiceFilterView *)filterView didSelectSortServiceBtn:(NSInteger)type {
+//    switch (type) {
+//        case TCAverageMin:
+//            [self sortByInfo:TCAverageMin];
+//            break;
+//        case TCAverageMax:
+//            [self sortByInfo:TCAverageMax];
+//            break;
+//        case TCPopularityMax:
+//            [self sortByInfo:TCPopularityMax];
+//            break;
+//        case TCEvaluateMax:
+//            [self sortByInfo:TCEvaluateMax];
+//            break;
+//        case TCDistanceMin:
+//            [self sortByInfo:TCDistanceMin];
+//            break;
+//        default:
+//            break;
+//    }
+//}
 
 
 # pragma mark - Touch Action
@@ -281,47 +281,47 @@
 # pragma mark - Sort And Filter
 
 - (void)sortByInfo:(NSInteger)type {
-    NSString *typeStr = @"";
-    switch (type) {
-        case TCAverageMin:
-            typeStr = @"personExpense,asc";
-            break;
-        case TCAverageMax:
-            typeStr = @"personExpense,desc";
-            break;
-        case TCEvaluateMax:
-            
-            break;
-        case TCPopularityMax:
-            typeStr = @"popularValue,desc";
-            break;
-        case TCDistanceMin:
-            typeStr = @"coordinate,asc";
-            break;
-        default:
-            break;
-    }
-    
-    if (![typeStr isEqualToString:@""]) {
-        [self loadRestaurantDataWithSortType:typeStr];
-    }
+//    NSString *typeStr = @"";
+//    switch (type) {
+//        case TCAverageMin:
+//            typeStr = @"personExpense,asc";
+//            break;
+//        case TCAverageMax:
+//            typeStr = @"personExpense,desc";
+//            break;
+//        case TCEvaluateMax:
+//            
+//            break;
+//        case TCPopularityMax:
+//            typeStr = @"popularValue,desc";
+//            break;
+//        case TCDistanceMin:
+//            typeStr = @"coordinate,asc";
+//            break;
+//        default:
+//            break;
+//    }
+//    
+//    if (![typeStr isEqualToString:@""]) {
+//        [self loadRestaurantDataWithSortType:typeStr];
+//    }
 }
 
 - (void)filterByInfo:(NSInteger)type {
-    NSString *typeStr = @"";
-    switch (type) {
-        case TCDeliver:
-            
-            break;
-        case TCReserve:
-            
-            break;
-        default:
-            break;
-    }
-    if (![typeStr isEqualToString:@""]) {
-        [self loadRestaurantDataWithSortType:typeStr];
-    }
+//    NSString *typeStr = @"";
+//    switch (type) {
+//        case TCDeliver:
+//            
+//            break;
+//        case TCReserve:
+//            
+//            break;
+//        default:
+//            break;
+//    }
+//    if (![typeStr isEqualToString:@""]) {
+//        [self loadRestaurantDataWithSortType:typeStr];
+//    }
 
 }
 
@@ -333,7 +333,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [filterView hiddenAllView];
+//    [filterView hiddenAllView];
 }
 
 - (void)didReceiveMemoryWarning {

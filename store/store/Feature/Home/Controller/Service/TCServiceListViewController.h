@@ -8,6 +8,15 @@
 
 #import "TCBaseViewController.h"
 
+typedef NS_ENUM(NSInteger, TCServiceType) {
+    TCServiceTypeRepast,
+    TCServiceTypeOther
+};
+
 @interface TCServiceListViewController : TCBaseViewController
+
+@property (nonatomic, readonly) TCServiceType serviceType;
+
+- (instancetype)initWithServiceType:(TCServiceType)serviceType;
 
 @end

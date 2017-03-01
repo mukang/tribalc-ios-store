@@ -61,6 +61,11 @@
 		7A3571E81E345B5C00E79C59 /* TCStoreAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3571E71E345B5C00E79C59 /* TCStoreAddressViewController.m */; };
 		7A3571EB1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3571EA1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m */; };
 		7A40CE0B1E3851F20049A8EF /* TCStoreFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A40CE0A1E3851F20049A8EF /* TCStoreFeature.m */; };
+		7A41CD6D1E651BDB00645026 /* TCServiceTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD6C1E651BDB00645026 /* TCServiceTabBar.m */; };
+		7A41CD701E651F2900645026 /* TCServiceTabItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD6F1E651F2900645026 /* TCServiceTabItemView.m */; };
+		7A41CD731E653B2400645026 /* TCServiceSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD721E653B2400645026 /* TCServiceSortView.m */; };
+		7A41CD761E655E3900645026 /* TCServiceSelectItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD751E655E3900645026 /* TCServiceSelectItemView.m */; };
+		7A41CD791E6675B600645026 /* TCServiceFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD781E6675B600645026 /* TCServiceFilterView.m */; };
 		7A48B4171E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B4161E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m */; };
 		7A48B41A1E48247800373BF4 /* TCStoreSetMealMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B4191E48247800373BF4 /* TCStoreSetMealMeta.m */; };
 		7A48B41D1E486A6F00373BF4 /* TCStoreSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B41C1E486A6F00373BF4 /* TCStoreSettingViewController.m */; };
@@ -182,7 +187,6 @@
 		7ABCC0EC1E2622C800750E47 /* TCRestaurantFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0C71E2622C800750E47 /* TCRestaurantFilterView.m */; };
 		7ABCC0ED1E2622C800750E47 /* TCRestaurantSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0C91E2622C800750E47 /* TCRestaurantSortView.m */; };
 		7ABCC0EE1E2622C800750E47 /* TCSelectSortButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0CB1E2622C800750E47 /* TCSelectSortButton.m */; };
-		7ABCC0EF1E2622C800750E47 /* TCServiceFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0CD1E2622C800750E47 /* TCServiceFilterView.m */; };
 		7ABCC0F01E2622C800750E47 /* TCServiceSelectBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0CF1E2622C800750E47 /* TCServiceSelectBtn.m */; };
 		7ABCC0F51E2622DE00750E47 /* TCComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0F21E2622DE00750E47 /* TCComponent.m */; };
 		7ABCC0F61E2622DE00750E47 /* TCGetNavigationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCC0F41E2622DE00750E47 /* TCGetNavigationItem.m */; };
@@ -373,6 +377,16 @@
 		7A3571EA1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSearchAddressViewCell.m; sourceTree = "<group>"; };
 		7A40CE091E3851F20049A8EF /* TCStoreFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreFeature.h; sourceTree = "<group>"; };
 		7A40CE0A1E3851F20049A8EF /* TCStoreFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreFeature.m; sourceTree = "<group>"; };
+		7A41CD6B1E651BDB00645026 /* TCServiceTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceTabBar.h; sourceTree = "<group>"; };
+		7A41CD6C1E651BDB00645026 /* TCServiceTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceTabBar.m; sourceTree = "<group>"; };
+		7A41CD6E1E651F2900645026 /* TCServiceTabItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceTabItemView.h; sourceTree = "<group>"; };
+		7A41CD6F1E651F2900645026 /* TCServiceTabItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceTabItemView.m; sourceTree = "<group>"; };
+		7A41CD711E653B2400645026 /* TCServiceSortView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceSortView.h; sourceTree = "<group>"; };
+		7A41CD721E653B2400645026 /* TCServiceSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceSortView.m; sourceTree = "<group>"; };
+		7A41CD741E655E3900645026 /* TCServiceSelectItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceSelectItemView.h; sourceTree = "<group>"; };
+		7A41CD751E655E3900645026 /* TCServiceSelectItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceSelectItemView.m; sourceTree = "<group>"; };
+		7A41CD771E6675B600645026 /* TCServiceFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceFilterView.h; sourceTree = "<group>"; };
+		7A41CD781E6675B600645026 /* TCServiceFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceFilterView.m; sourceTree = "<group>"; };
 		7A48B4151E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreFacilitiesViewFlowLayout.h; sourceTree = "<group>"; };
 		7A48B4161E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreFacilitiesViewFlowLayout.m; sourceTree = "<group>"; };
 		7A48B4181E48247800373BF4 /* TCStoreSetMealMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSetMealMeta.h; sourceTree = "<group>"; };
@@ -608,8 +622,6 @@
 		7ABCC0C91E2622C800750E47 /* TCRestaurantSortView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCRestaurantSortView.m; sourceTree = "<group>"; };
 		7ABCC0CA1E2622C800750E47 /* TCSelectSortButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSelectSortButton.h; sourceTree = "<group>"; };
 		7ABCC0CB1E2622C800750E47 /* TCSelectSortButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSelectSortButton.m; sourceTree = "<group>"; };
-		7ABCC0CC1E2622C800750E47 /* TCServiceFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceFilterView.h; sourceTree = "<group>"; };
-		7ABCC0CD1E2622C800750E47 /* TCServiceFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceFilterView.m; sourceTree = "<group>"; };
 		7ABCC0CE1E2622C800750E47 /* TCServiceSelectBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceSelectBtn.h; sourceTree = "<group>"; };
 		7ABCC0CF1E2622C800750E47 /* TCServiceSelectBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceSelectBtn.m; sourceTree = "<group>"; };
 		7ABCC0F11E2622DE00750E47 /* TCComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCComponent.h; sourceTree = "<group>"; };
@@ -1514,6 +1526,16 @@
 				7A8352CE1E5DA7F0003A8E76 /* TCServiceAnnotation.m */,
 				7A8352CA1E5DA44D003A8E76 /* TCServiceAnnotationView.h */,
 				7A8352CB1E5DA44D003A8E76 /* TCServiceAnnotationView.m */,
+				7A41CD6B1E651BDB00645026 /* TCServiceTabBar.h */,
+				7A41CD6C1E651BDB00645026 /* TCServiceTabBar.m */,
+				7A41CD6E1E651F2900645026 /* TCServiceTabItemView.h */,
+				7A41CD6F1E651F2900645026 /* TCServiceTabItemView.m */,
+				7A41CD711E653B2400645026 /* TCServiceSortView.h */,
+				7A41CD721E653B2400645026 /* TCServiceSortView.m */,
+				7A41CD771E6675B600645026 /* TCServiceFilterView.h */,
+				7A41CD781E6675B600645026 /* TCServiceFilterView.m */,
+				7A41CD741E655E3900645026 /* TCServiceSelectItemView.h */,
+				7A41CD751E655E3900645026 /* TCServiceSelectItemView.m */,
 				7ABCC0C51E2622C800750E47 /* RestaurantList */,
 			);
 			path = Service;
@@ -1528,8 +1550,6 @@
 				7ABCC0C91E2622C800750E47 /* TCRestaurantSortView.m */,
 				7ABCC0CA1E2622C800750E47 /* TCSelectSortButton.h */,
 				7ABCC0CB1E2622C800750E47 /* TCSelectSortButton.m */,
-				7ABCC0CC1E2622C800750E47 /* TCServiceFilterView.h */,
-				7ABCC0CD1E2622C800750E47 /* TCServiceFilterView.m */,
 				7ABCC0CE1E2622C800750E47 /* TCServiceSelectBtn.h */,
 				7ABCC0CF1E2622C800750E47 /* TCServiceSelectBtn.m */,
 				55F9EE361E55543C00935ADF /* TCServiceListCell.h */,
@@ -2049,6 +2069,7 @@
 				7A48B42C1E4B02DB00373BF4 /* TCGoodsOrder.m in Sources */,
 				7ABCC0F01E2622C800750E47 /* TCServiceSelectBtn.m in Sources */,
 				550319441E34D86B004522C7 /* TCRefreshHeader.m in Sources */,
+				7A41CD6D1E651BDB00645026 /* TCServiceTabBar.m in Sources */,
 				558F6DA41E48196400CB2F81 /* TCGoodsIssueViewController.m in Sources */,
 				7ABCC0E71E2622C800750E47 /* TCSelectSecondaryBtn.m in Sources */,
 				7ABCC0F61E2622DE00750E47 /* TCGetNavigationItem.m in Sources */,
@@ -2078,6 +2099,7 @@
 				7AD866591E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m in Sources */,
 				7AFEC4161E515DE800B0E754 /* TCDropdownMenu.m in Sources */,
 				550319321E34961E004522C7 /* TCGoodsStandardWrapper.m in Sources */,
+				7A41CD701E651F2900645026 /* TCServiceTabItemView.m in Sources */,
 				7AD866731E4DC51900686AC2 /* TCReservationDetailViewController.m in Sources */,
 				7AD866681E4DA6C700686AC2 /* TCReservationWrapper.m in Sources */,
 				550319381E3497A3004522C7 /* TCGoodsStandardDescriptions.m in Sources */,
@@ -2107,7 +2129,6 @@
 				7A9987E31E24E42B006175CC /* NSObject+TCNomal.m in Sources */,
 				7A48B41A1E48247800373BF4 /* TCStoreSetMealMeta.m in Sources */,
 				7AFEC4461E52E56000B0E754 /* TCBankPickerView.m in Sources */,
-				7ABCC0EF1E2622C800750E47 /* TCServiceFilterView.m in Sources */,
 				7A48B41D1E486A6F00373BF4 /* TCStoreSettingViewController.m in Sources */,
 				7A48B42F1E4B030700373BF4 /* TCGoodsOrderItem.m in Sources */,
 				7ABCC0EE1E2622C800750E47 /* TCSelectSortButton.m in Sources */,
@@ -2183,11 +2204,13 @@
 				7A7B60AC1E30BC2E004971C9 /* TCStoreCategoryIconViewCell.m in Sources */,
 				7AE92B801E2CB2280012B11E /* TCAboutUSViewController.m in Sources */,
 				7AFEC44C1E52E56000B0E754 /* TCWalletBillViewCell.m in Sources */,
+				7A41CD761E655E3900645026 /* TCServiceSelectItemView.m in Sources */,
 				7A55F42B1E288B1F0018FED3 /* TCStoreDetailInfo.m in Sources */,
 				7A99876F1E24C820006175CC /* TCFunctions.m in Sources */,
 				7AD866651E4DA69C00686AC2 /* TCReservation.m in Sources */,
 				7A83529D1E5D360E003A8E76 /* TCServiceNameViewCell.m in Sources */,
 				7A55F4221E287F5B0018FED3 /* TCUserAgreementViewController.m in Sources */,
+				7A41CD731E653B2400645026 /* TCServiceSortView.m in Sources */,
 				7AD866791E4DCC8A00686AC2 /* TCReservationInfoViewCell.m in Sources */,
 				7A9988151E24EE3E006175CC /* TCGoods.m in Sources */,
 				7A9987701E24C820006175CC /* TCImageURLSynthesizer.m in Sources */,
@@ -2196,6 +2219,7 @@
 				7A2BD12D1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m in Sources */,
 				7ABCC0E31E2622C800750E47 /* TCGoodSelectTitleView.m in Sources */,
 				7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */,
+				7A41CD791E6675B600645026 /* TCServiceFilterView.m in Sources */,
 				7AF0B4851E64200B00B8F7D6 /* TCServiceListViewController.m in Sources */,
 				7AD8665C1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m in Sources */,
 				7AB5683D1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m in Sources */,
