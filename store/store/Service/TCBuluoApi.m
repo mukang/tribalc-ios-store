@@ -307,39 +307,6 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 #pragma mark - 服务类资源
 
-- (void)fetchServiceWrapper:(NSString *)category limiSize:(NSUInteger)limitSize sortSkip:(NSString *)sortSkip sort:(NSString *)sort result:(void (^)(TCServiceWrapper *, NSError *))resultBlock {
-    NSString *sortPart = sort ? [NSString stringWithFormat:@"sort=%@", sort] : @"sort=popularValue,desc";
-    NSString *categoryPart = category ? [NSString stringWithFormat:@"category=%@&", category] : @"";
-    NSString *limitSizePart = [NSString stringWithFormat:@"limitSize=%zd&", limitSize];
-    NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"sortSkip=%@&", sortSkip] : @"";
-    NSString *coordinateStr = @"";
-    
-    if ([sort isKindOfClass:[NSString class]]) {
-        if ([sort isEqualToString:@"coordinate,asc"]) {
-            NSArray *coordinateArr = [[NSUserDefaults standardUserDefaults] objectForKey:TCBuluoUserLocationCoordinateKey];
-            if ([coordinateArr isKindOfClass:[NSArray class]] && coordinateArr.count == 2) {
-                coordinateStr = [NSString stringWithFormat:@"coordinate=%@,%@&", coordinateArr[1], coordinateArr[0]];
-            }
-        }
-    }
-    
-    NSString *apiName = [NSString stringWithFormat:@"store_set_meals?%@%@%@%@%@", categoryPart, limitSizePart, sortSkipPart,coordinateStr, sortPart];
-    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
-    request.token = self.currentUserSession.token;
-    [[TCClient client] send:request finish:^(TCClientResponse *response) {
-        if (response.error) {
-            if (resultBlock) {
-                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
-            }
-        } else {
-            TCServiceWrapper *serviceWrapper = [[TCServiceWrapper alloc] initWithObjectDictionary:response.data];
-            if (resultBlock) {
-                TC_CALL_ASYNC_MQ(resultBlock(serviceWrapper, nil));
-            }
-        }
-    }];
-}
-
 - (void)fetchServiceWrapperWithQuery:(NSString *)query result:(void (^)(TCServiceWrapper *, NSError *))resultBlock {
     NSString *apiName = [NSString stringWithFormat:@"store_set_meals?%@", query];
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];

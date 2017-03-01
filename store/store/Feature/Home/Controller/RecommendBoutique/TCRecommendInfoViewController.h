@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "TCComponent.h"
-#import "TCGetNavigationItem.h"
 #import "TCGoods.h"
 #import "UIImageView+WebCache.h"
 #import "TCBuluoApi.h"
