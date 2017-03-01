@@ -237,7 +237,7 @@ TCStoreFacilitiesViewCellDelegate>
                     TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"分店名称";
                     cell.placeholder = @"请填写分店名称";
-                    cell.textField.text = self.storeDetailInfo.name;
+                    cell.textField.text = self.storeDetailInfo.subbranchName;
                     cell.textField.keyboardType = UIKeyboardTypeDefault;
                     cell.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
                     cell.delegate = self;

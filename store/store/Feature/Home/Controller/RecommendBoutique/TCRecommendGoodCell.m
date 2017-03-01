@@ -29,7 +29,8 @@
 
 - (void)createGoodImageView {
     _goodImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, TCRealValue(428 / 2))];
-    _goodImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _goodImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _goodImageView.clipsToBounds = YES;
     [self.contentView addSubview:_goodImageView];
 }
 
