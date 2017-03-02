@@ -7,11 +7,12 @@
 //
 
 #import "TCServiceAddressViewCell.h"
+#import "TCExtendButton.h"
 
 @interface TCServiceAddressViewCell ()
 
-@property (weak, nonatomic) UIImageView *phoneImageView;
-@property (weak, nonatomic) UIImageView *addressImageView;
+@property (weak, nonatomic) TCExtendButton *phoneButton;
+@property (weak, nonatomic) TCExtendButton *addressButton;
 @property (weak, nonatomic) UIView *lineView;
 
 @end
@@ -45,11 +46,19 @@
     addressLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:addressLabel];
     
-    UIImageView *phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"service_phone"]];
-    [self.contentView addSubview:phoneImageView];
+    TCExtendButton *phoneButton = [TCExtendButton buttonWithType:UIButtonTypeCustom];
+    [phoneButton setImage:[UIImage imageNamed:@"service_phone"] forState:UIControlStateNormal];
+    [phoneButton setImage:[UIImage imageNamed:@"service_phone"] forState:UIControlStateHighlighted];
+    [phoneButton addTarget:self action:@selector(handleClickPhoneButton:) forControlEvents:UIControlEventTouchUpInside];
+    phoneButton.hitTestSlop = UIEdgeInsetsMake(-19, -15, -6, -15);
+    [self.contentView addSubview:phoneButton];
     
-    UIImageView *addressImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"service_address"]];
-    [self.contentView addSubview:addressImageView];
+    TCExtendButton *addressButton = [TCExtendButton buttonWithType:UIButtonTypeCustom];
+    [addressButton setImage:[UIImage imageNamed:@"service_address"] forState:UIControlStateNormal];
+    [addressButton setImage:[UIImage imageNamed:@"service_address"] forState:UIControlStateHighlighted];
+    [addressButton addTarget:self action:@selector(handleClickAddressButton:) forControlEvents:UIControlEventTouchUpInside];
+    addressButton.hitTestSlop = UIEdgeInsetsMake(-6, -15, -19, -15);
+    [self.contentView addSubview:addressButton];
     
     UIView *lineView = [[UIView alloc] init];
     lineView.backgroundColor = TCRGBColor(221, 221, 221);
@@ -57,8 +66,8 @@
     
     self.phoneLabel = phoneLabel;
     self.addressLabel = addressLabel;
-    self.phoneImageView = phoneImageView;
-    self.addressImageView = addressImageView;
+    self.phoneButton = phoneButton;
+    self.addressButton = addressButton;
     self.lineView = lineView;
 }
 
@@ -76,12 +85,12 @@
         make.right.equalTo(weakSelf.contentView).offset(-50);
         make.height.mas_equalTo(16);
     }];
-    [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.phoneButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(15, 15));
         make.right.equalTo(weakSelf.contentView).offset(-20);
         make.centerY.equalTo(weakSelf.phoneLabel);
     }];
-    [self.addressImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.addressButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(15, 15));
         make.right.equalTo(weakSelf.contentView).offset(-20);
         make.centerY.equalTo(weakSelf.addressLabel);
@@ -92,6 +101,20 @@
         make.bottom.equalTo(weakSelf.contentView);
         make.height.mas_equalTo(0.5);
     }];
+}
+
+#pragma mark - Actions
+
+- (void)handleClickPhoneButton:(TCExtendButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(didClickPhoneButtonInServiceAddressViewCell:)]) {
+        [self.delegate didClickPhoneButtonInServiceAddressViewCell:self];
+    }
+}
+
+- (void)handleClickAddressButton:(TCExtendButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(didClickAddressButtonInServiceAddressViewCell:)]) {
+        [self.delegate didClickAddressButtonInServiceAddressViewCell:self];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

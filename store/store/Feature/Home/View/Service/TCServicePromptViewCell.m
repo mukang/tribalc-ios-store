@@ -156,7 +156,7 @@
                            @"酒店内餐厅": @"service_facilities_restaurants_of_hotel",
                            @"会员权益": @"service_facilities_vip_rights",
                            @"代客泊车": @"service_facilities_valet_parking",
-                           @"有景观位": @"service_facilities_scene_seat",
+                           @"有观景位": @"service_facilities_scene_seat",
                            @"有机食物": @"service_facilities_organic_food",
                            @"可带宠物": @"service_facilities_pet_ok"
                            };

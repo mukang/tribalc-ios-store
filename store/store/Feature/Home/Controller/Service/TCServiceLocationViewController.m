@@ -1,71 +1,60 @@
 //
-//  TCServiceMapViewController.m
+//  TCServiceLocationViewController.m
 //  store
 //
-//  Created by 穆康 on 2017/2/22.
+//  Created by 穆康 on 2017/3/2.
 //  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import "TCServiceMapViewController.h"
-#import "TCServiceDetailViewController.h"
+#import "TCServiceLocationViewController.h"
 
-#import "TCService.h"
-
+#import "TCDetailStore.h"
 #import "TCServiceAnnotation.h"
 #import "TCServiceAnnotationView.h"
 
 #import <MAMapKit/MAMapKit.h>
 
-@interface TCServiceMapViewController () <MAMapViewDelegate, TCServiceAnnotationViewDelegate>
-
-@property (copy, nonatomic) NSArray *annotations;
-@property (copy, nonatomic) NSDictionary *categoryImageDic;
+@interface TCServiceLocationViewController () <MAMapViewDelegate>
 
 @property (weak, nonatomic) MAMapView *mapView;
+@property (strong, nonatomic) TCServiceAnnotation *annotation;
+
+@property (copy, nonatomic) NSDictionary *categoryImageDic;
 
 @end
 
-@implementation TCServiceMapViewController
-
-#pragma mark - Life Cycle
+@implementation TCServiceLocationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self setupAnnotations];
+    self.navigationItem.title = self.detailStore.name;
+    [self setupAnnotation];
     [self setupSubviews];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.mapView addAnnotations:self.annotations];
+    [self.mapView addAnnotation:self.annotation];
 }
 
 #pragma mark - Private Methods
 
-- (void)setupAnnotations {
-    NSMutableArray *temp = [NSMutableArray array];
-    for (TCService *service in self.dataList) {
-        if (!service.store.coordinate) continue;
-        
-        TCServiceAnnotation *annotation = [[TCServiceAnnotation alloc] init];
-        annotation.coordinate = service.store.coordinate2D;
-        annotation.title = service.store.name;
-        annotation.subtitle = service.store.address;
-        annotation.imageName = self.categoryImageDic[service.store.category];
-        annotation.serviceID = service.ID;
-        [temp addObject:annotation];
-    }
-    self.annotations = [NSArray arrayWithArray:temp];
+- (void)setupAnnotation {
+    TCServiceAnnotation *annotation = [[TCServiceAnnotation alloc] init];
+    annotation.coordinate = self.detailStore.coordinate2D;
+    annotation.title = self.detailStore.name;
+    annotation.subtitle = self.detailStore.address;
+    annotation.imageName = self.categoryImageDic[self.detailStore.category];
+    self.annotation = annotation;
 }
 
 - (void)setupSubviews {
     MAMapView *mapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
     mapView.zoomLevel = 12.5;
-    mapView.showsUserLocation = YES;
-    mapView.userTrackingMode = MAUserTrackingModeFollow;
+    mapView.centerCoordinate = self.detailStore.coordinate2D;
     mapView.delegate = self;
     [self.view addSubview:mapView];
     self.mapView = mapView;
@@ -79,27 +68,12 @@
         if (annotationView == nil) {
             annotationView = [[TCServiceAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"TCServiceAnnotationView"];
         }
-        annotationView.canShowCallout = YES;
         TCServiceAnnotation *serviceAnnotation = annotation;
         annotationView.image = [UIImage imageNamed:serviceAnnotation.imageName];
         annotationView.nameLabel.text = annotation.title;
-        annotationView.delegate = self;
         return annotationView;
     }
     return nil;
-}
-
-//- (void)mapView:(MAMapView *)mapView mapDidZoomByUser:(BOOL)wasUserAction {
-//    NSLog(@"--->%f", mapView.zoomLevel);
-//}
-
-#pragma mark - TCServiceAnnotationViewDelegate
-
-- (void)didClickInfoButtonInServiceAnnotationView:(TCServiceAnnotationView *)view {
-    TCServiceDetailViewController *vc = [[TCServiceDetailViewController alloc] init];
-    TCServiceAnnotation *annotation = view.annotation;
-    vc.serviceID = annotation.serviceID;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Override Methods

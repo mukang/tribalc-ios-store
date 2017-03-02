@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TCServiceAddressViewCellDelegate;
 @interface TCServiceAddressViewCell : UITableViewCell
 
 @property (weak, nonatomic) UILabel *phoneLabel;
 @property (weak, nonatomic) UILabel *addressLabel;
+@property (weak, nonatomic) id<TCServiceAddressViewCellDelegate> delegate;
+
+@end
+
+@protocol TCServiceAddressViewCellDelegate <NSObject>
+
+@optional
+- (void)didClickPhoneButtonInServiceAddressViewCell:(TCServiceAddressViewCell *)cell;
+- (void)didClickAddressButtonInServiceAddressViewCell:(TCServiceAddressViewCell *)cell;
 
 @end

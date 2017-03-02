@@ -64,7 +64,7 @@
     self.logoBgView = logoBgView;
     
     UIImageView *logoImageView = [[UIImageView alloc] init];
-    logoImageView.contentMode = UIViewContentModeScaleAspectFit;
+    logoImageView.contentMode = UIViewContentModeScaleAspectFill;
     logoImageView.layer.cornerRadius = 29;
     logoImageView.layer.masksToBounds = YES;
     [self addSubview:logoImageView];

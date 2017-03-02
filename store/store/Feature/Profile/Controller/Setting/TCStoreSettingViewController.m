@@ -846,7 +846,7 @@ TCStoreFacilitiesViewCellDelegate>
                            @{@"name": @"酒店内餐厅"},
                            @{@"name": @"会员权益"},
                            @{@"name": @"代客泊车"},
-                           @{@"name": @"有景观位"},
+                           @{@"name": @"有观景位"},
                            @{@"name": @"有机食物"},
                            @{@"name": @"可带宠物"}
                            ];
