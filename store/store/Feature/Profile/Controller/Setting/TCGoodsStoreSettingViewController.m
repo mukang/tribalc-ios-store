@@ -84,6 +84,7 @@ TCStoreRecommendViewCellDelegate>
 #pragma mark - Private Methods
 
 - (void)setupNavBar {
+    self.navigationItem.title = @"店铺信息";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self

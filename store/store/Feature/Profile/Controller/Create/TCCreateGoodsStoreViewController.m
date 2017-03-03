@@ -321,7 +321,6 @@ YYTextViewDelegate>
         if (storeInfo) {
             [MBProgressHUD hideHUD:YES];
             TCGoodsStoreSettingViewController *vc = [[TCGoodsStoreSettingViewController alloc] init];
-            vc.navigationItem.title = @"店铺信息";
             vc.backForbidden = YES;
             [weakSelf.navigationController pushViewController:vc animated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationStoreDidCreated object:nil];
