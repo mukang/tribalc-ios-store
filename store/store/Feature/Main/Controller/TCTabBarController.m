@@ -13,8 +13,8 @@
 #import "TCOrderViewController.h"
 #import "TCProfileViewController.h"
 
-//#import "TCFunctions.h"
-//#import <EAIntroView/EAIntroView.h>
+#import "TCFunctions.h"
+#import <EAIntroView/EAIntroView.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
 static NSString *const kAppVersion = @"kAppVersion";
@@ -39,7 +39,7 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
     [self addChildController:[[TCProfileViewController alloc] init] title:@"店铺" image:@"tabBar_profile_normal" selectedImage:@"tabBar_profile_selected"];
     
     
-//    [self handleShowIntroView];
+    [self handleShowIntroView];
     [self setupAMapServices];
 }
 
@@ -69,35 +69,35 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
 /**
  判断是否要显示引导页
  */
-//- (void)handleShowIntroView {
-//    if (![self isFirstLaunch]) return;
-//    
-//    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:3];
-//    for (int i=0; i<3; i++) {
-//        NSString *imagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"intro_image_%02zd", i+1] ofType:@"png"];
-//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-//        imageView.image = [UIImage imageWithContentsOfFile:imagePath];
-//        EAIntroPage *introPage = [EAIntroPage pageWithCustomView:imageView];
-//        [tempArray addObject:introPage];
-//    }
-//    EAIntroView *introView = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:tempArray];
-//    introView.skipButton.hidden = YES;
-//    introView.pageControl.hidden = YES;
-//    introView.scrollView.bounces = NO;
-//    [introView showInView:self.view animateDuration:0];
-//}
-//
-//- (BOOL)isFirstLaunch {
-//    NSString *appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAppVersion];
-//    NSString *currentAppVersion = TCGetAppVersion();
-//    if (appVersion == nil || ![appVersion isEqualToString:currentAppVersion]) {
-//        [[NSUserDefaults standardUserDefaults] setObject:currentAppVersion forKey:kAppVersion];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        return YES;
-//    } else {
-//        return NO;
-//    }
-//}
+- (void)handleShowIntroView {
+    if (![self isFirstLaunch]) return;
+    
+    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:3];
+    for (int i=0; i<3; i++) {
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"intro_image_%02zd", i+1] ofType:@"png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+        EAIntroPage *introPage = [EAIntroPage pageWithCustomView:imageView];
+        [tempArray addObject:introPage];
+    }
+    EAIntroView *introView = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:tempArray];
+    introView.skipButton.hidden = YES;
+    introView.pageControl.hidden = YES;
+    introView.scrollView.bounces = NO;
+    [introView showInView:self.view animateDuration:0];
+}
+
+- (BOOL)isFirstLaunch {
+    NSString *appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAppVersion];
+    NSString *currentAppVersion = TCGetAppVersion();
+    if (appVersion == nil || ![appVersion isEqualToString:currentAppVersion]) {
+        [[NSUserDefaults standardUserDefaults] setObject:currentAppVersion forKey:kAppVersion];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 #pragma mark - AMapServices
 

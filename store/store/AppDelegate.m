@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TCTabBarController.h"
+#import "TCLaunchViewController.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
@@ -26,6 +27,9 @@
     TCTabBarController *tabBarController = [[TCTabBarController alloc] init];
     self.window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
+    
+    [self showLaunchWindow];
+    application.statusBarHidden = NO;
     
     [self startLocationAction];
     
@@ -79,6 +83,17 @@
     }
     
 }
+
+/** 显示启动视窗 */
+- (void)showLaunchWindow {
+    TCLaunchViewController *launchViewController = [[TCLaunchViewController alloc] init];
+    self.launchWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.launchWindow.rootViewController = launchViewController;
+    self.launchWindow.windowLevel = UIWindowLevelNormal;
+    self.launchWindow.hidden = NO;
+    launchViewController.launchWindow = self.launchWindow;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
