@@ -150,7 +150,7 @@
 }
 
 - (void)initMainView {
-
+    
     UIView *titleImageView = [self createTitleImageViewWithFrame:CGRectMake(0, 0, self.view.width, TCRealValue(374))];
     [mScrollView addSubview:titleImageView];
     
@@ -163,10 +163,14 @@
     UIView *shopView = [[TCGoodShopView alloc] initWithFrame:CGRectMake(0, standardSelectBtn.y + standardSelectBtn.height + TCRealValue(7.5), self.view.width, TCRealValue(64)) AndShopDetail:mGoodDetail];
     [mScrollView addSubview:shopView];
     
+    mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(shopView.frame));
+    
     UISegmentedControl *selectGoodInfoSegment = [self createSelectGoodGraphicAndParameterView:CGRectMake(0, shopView.y + shopView.height, self.view.width, TCRealValue(39))];
+    selectGoodInfoSegment.hidden = YES;
     [mScrollView addSubview:selectGoodInfoSegment];
     
     textAndImageView = [self createURLInfoViewWithOrigin:CGPointMake(0, selectGoodInfoSegment.y + selectGoodInfoSegment.height) AndURLStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, mGoodDetail.detailURL]];
+    textAndImageView.hidden = YES;
     [mScrollView addSubview:textAndImageView];
 
 //    UIView *bottomView = [self createBottomViewWithFrame:CGRectMake(0, self.view.height - TCRealValue(49), self.view.width, TCRealValue(49))];
@@ -340,11 +344,11 @@
     
     UIWebView *webView = [[UIWebView alloc] init];
     [webView setOrigin:point];
-    NSURL *url = [NSURL URLWithString:urlStr];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    webView.delegate = self;
-    [webView loadRequest:request];
-    [webView sizeToFit];
+//    NSURL *url = [NSURL URLWithString:urlStr];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    webView.delegate = self;
+//    [webView loadRequest:request];
+//    [webView sizeToFit];
     UIScrollView *tempView = (UIScrollView *)[webView.subviews objectAtIndex:0];
     tempView.scrollEnabled = NO;
 

@@ -22,6 +22,8 @@
 
 @interface TCPhotoPicker : NSObject
 
+/** 是否允许编辑，default is YES */
+@property (nonatomic) BOOL allowsEditing;
 @property (weak, nonatomic) id<TCPhotoPickerDelegate> delegate;
 
 /**

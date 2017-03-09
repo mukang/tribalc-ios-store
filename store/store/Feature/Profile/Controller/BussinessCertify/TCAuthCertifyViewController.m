@@ -251,6 +251,7 @@
 - (void)didClickCameraButtonInPhotoModeView:(TCPhotoModeView *)view {
     [view dismiss];
     TCPhotoPicker *photoPicker = [[TCPhotoPicker alloc] initWithSourceController:self];
+    photoPicker.allowsEditing = NO;
     photoPicker.delegate = self;
     [photoPicker showPhotoPikerWithSourceType:UIImagePickerControllerSourceTypeCamera];
     self.photoPicker = photoPicker;
@@ -259,6 +260,7 @@
 - (void)didClickAlbumButtonInPhotoModeView:(TCPhotoModeView *)view {
     [view dismiss];
     TCPhotoPicker *photoPicker = [[TCPhotoPicker alloc] initWithSourceController:self];
+    photoPicker.allowsEditing = NO;
     photoPicker.delegate = self;
     [photoPicker showPhotoPikerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     self.photoPicker = photoPicker;
