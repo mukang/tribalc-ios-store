@@ -39,6 +39,8 @@ TCStoreRecommendViewCellDelegate>
 
 @property (nonatomic) BOOL originInteractivePopGestureEnabled;
 
+@property (weak, nonatomic) TCNavigationController *nav;
+
 @end
 
 @implementation TCGoodsStoreSettingViewController {
@@ -65,6 +67,7 @@ TCStoreRecommendViewCellDelegate>
     TCNavigationController *nav = (TCNavigationController *)self.navigationController;
     self.originInteractivePopGestureEnabled = nav.enableInteractivePopGesture;
     nav.enableInteractivePopGesture = !self.isBackForbidden;
+    self.nav = nav;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -72,8 +75,7 @@ TCStoreRecommendViewCellDelegate>
     
     [self removeNotifications];
     
-    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
-    nav.enableInteractivePopGesture = self.originInteractivePopGestureEnabled;
+    self.nav.enableInteractivePopGesture = self.originInteractivePopGestureEnabled;
 }
 
 - (void)dealloc {

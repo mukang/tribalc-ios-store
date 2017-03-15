@@ -34,12 +34,7 @@ static CGFloat const duration = 0.25;
 - (void)show {
     if (!sourceController) return;
     
-    UIView *superView;
-    if (sourceController.navigationController) {
-        superView = sourceController.navigationController.view;
-    } else {
-        superView = sourceController.view;
-    }
+    UIView *superView = [UIApplication sharedApplication].keyWindow;
     [superView addSubview:self];
     [superView bringSubviewToFront:self];
     
