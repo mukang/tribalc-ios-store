@@ -46,7 +46,7 @@ NSString *const TCLaunchWindowDidDisappearNotification = @"TCLaunchWindowDidDisa
     self.launchImageView = launchImageView;
     
     UILabel *versionLabel = [[UILabel alloc] init];
-    versionLabel.text = [NSString stringWithFormat:@"%@-alpha-1", TCGetAppVersion()];
+    versionLabel.text = [NSString stringWithFormat:@"%@", TCGetAppVersion()];
     versionLabel.textAlignment = NSTextAlignmentCenter;
     versionLabel.textColor = [UIColor whiteColor];
     versionLabel.font = [UIFont systemFontOfSize:15];
