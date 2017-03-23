@@ -27,23 +27,23 @@
 
 - (void)setupSubviews {
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
     UILabel *subtitleLabel = [[UILabel alloc] init];
-    subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+    subtitleLabel.textColor = TCGrayColor;
     subtitleLabel.textAlignment = NSTextAlignmentLeft;
     subtitleLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:subtitleLabel];
     self.subtitleLabel = subtitleLabel;
     
     YYTextView *textView = [[YYTextView alloc] init];
-    textView.textColor = TCRGBColor(42, 42, 42);
+    textView.textColor = TCBlackColor;
     textView.font = [UIFont systemFontOfSize:14];
-    textView.placeholderTextColor = TCRGBColor(154, 154, 154);
+    textView.placeholderTextColor = TCGrayColor;
     textView.placeholderFont = [UIFont systemFontOfSize:14];
     textView.returnKeyType = UIReturnKeyNext;
     textView.layer.cornerRadius = 2.5;

@@ -61,7 +61,7 @@
     if (_titleL == nil) {
         _titleL = [[UILabel alloc] init];
         _titleL.textAlignment = NSTextAlignmentLeft;
-        _titleL.textColor = TCRGBColor(42, 42, 42);
+        _titleL.textColor = TCBlackColor;
         _titleL.font = [UIFont systemFontOfSize:16];
         _titleL.text = @"设为主商品";
     }

@@ -28,7 +28,7 @@
 
 - (void)setupSubviews {
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.font = [UIFont systemFontOfSize:14];
     [self addSubview:titleLabel];
     
@@ -62,7 +62,7 @@
         self.titleLabel.textColor = TCRGBColor(80, 199, 209);
         self.imageView.image = [UIImage imageNamed:@"service_up_arrow"];
     } else {
-        self.titleLabel.textColor = TCRGBColor(42, 42, 42);
+        self.titleLabel.textColor = TCBlackColor;
         self.imageView.image = [UIImage imageNamed:@"service_down_arrow"];
     }
 }

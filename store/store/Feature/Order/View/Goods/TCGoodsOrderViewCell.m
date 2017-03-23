@@ -39,7 +39,7 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     UIView *containerView = [[UIView alloc] init];
-    containerView.backgroundColor = TCRGBColor(242, 242, 242);
+    containerView.backgroundColor = TCBackgroundColor;
     [self.contentView addSubview:containerView];
     
     UIImageView *imageView = [[UIImageView alloc] init];
@@ -47,22 +47,22 @@
     [containerView addSubview:imageView];
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.textColor = TCRGBColor(42, 42, 42);
+    nameLabel.textColor = TCBlackColor;
     nameLabel.font = [UIFont systemFontOfSize:12];
     [containerView addSubview:nameLabel];
     
     UILabel *brandLabel = [[UILabel alloc] init];
-    brandLabel.textColor = TCRGBColor(42, 42, 42);
+    brandLabel.textColor = TCBlackColor;
     brandLabel.font = [UIFont systemFontOfSize:12];
     [containerView addSubview:brandLabel];
     
     UILabel *accountLabel = [[UILabel alloc] init];
-    accountLabel.textColor = TCRGBColor(42, 42, 42);
+    accountLabel.textColor = TCBlackColor;
     accountLabel.font = [UIFont systemFontOfSize:12];
     [containerView addSubview:accountLabel];
     
     UILabel *purchaserLabel = [[UILabel alloc] init];
-    purchaserLabel.textColor = TCRGBColor(154, 154, 154);
+    purchaserLabel.textColor = TCGrayColor;
     purchaserLabel.font = [UIFont systemFontOfSize:12];
     [containerView addSubview:purchaserLabel];
     
@@ -120,7 +120,7 @@
     NSString *accountStr = [NSString stringWithFormat:@"%@%@", titleStr, account];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:accountStr];
     NSRange titleRange = [accountStr rangeOfString:titleStr];
-    [attStr addAttribute:NSForegroundColorAttributeName value:TCRGBColor(154, 154, 154) range:titleRange];
+    [attStr addAttribute:NSForegroundColorAttributeName value:TCGrayColor range:titleRange];
     self.accountLabel.attributedText = attStr;
 }
 

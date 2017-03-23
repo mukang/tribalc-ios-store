@@ -70,8 +70,8 @@ TCCityPickerViewDelegate>
 
 - (void)setupSubviews {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView.backgroundColor = TCRGBColor(242, 242, 242);
-    tableView.separatorColor = TCRGBColor(221, 221, 221);
+    tableView.backgroundColor = TCBackgroundColor;
+    tableView.separatorColor = TCSeparatorLineColor;
     tableView.rowHeight = 44;
     tableView.dataSource = self;
     tableView.delegate = self;
@@ -167,10 +167,10 @@ TCCityPickerViewDelegate>
         cell.titleLabel.text = @"所在地区";
         if (self.storeAddress.province) {
             cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@%@", self.storeAddress.province, self.storeAddress.city, self.storeAddress.district];
-            cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+            cell.subtitleLabel.textColor = TCBlackColor;
         } else {
             cell.subtitleLabel.text = @"请选择所在地区";
-            cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+            cell.subtitleLabel.textColor = TCGrayColor;
         }
         return cell;
     } else {

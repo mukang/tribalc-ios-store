@@ -39,7 +39,7 @@
 - (UILabel *)getSaleAndPhoneNumberLabWithFrame:(CGRect)frame SaleNumber:(NSInteger)saleNumber PhoneNumer:(NSString *)phoneNumer {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.font = [UIFont systemFontOfSize:TCRealValue(11)];
-    label.textColor = TCRGBColor(154, 154, 154);
+    label.textColor = TCGrayColor;
     label.text = [NSString stringWithFormat:@"总销量 : %li   电话 : %@", saleNumber, phoneNumer?phoneNumer:@""];
     return label;
 }
@@ -75,7 +75,7 @@
 - (UILabel *)createBrandLabWithFrame:(CGRect)frame BrandStr:(NSString *)brandStr {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.font = [UIFont fontWithName:BOLD_FONT size:TCRealValue(14)];
-    label.textColor = TCRGBColor(42, 42, 42);
+    label.textColor = TCBlackColor;
     label.text = brandStr;
     
     return label;

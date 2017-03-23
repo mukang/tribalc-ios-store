@@ -81,19 +81,19 @@
 - (void)setUpViews {
     _titleL = [[UILabel alloc] init];
     _titleL.font = [UIFont systemFontOfSize:14];
-    _titleL.textColor = TCRGBColor(42, 42, 42);
+    _titleL.textColor = TCBlackColor;
     _titleL.numberOfLines = 0;
     [self.contentView addSubview:_titleL];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+    [btn setTitleColor:TCBlackColor forState:UIControlStateNormal];
     [self.contentView addSubview:btn];
     [btn setImage:[UIImage imageNamed:@"unSelect"] forState:UIControlStateNormal];
     self.btn = btn;
     
     UIView *lineView = [[UIView alloc] init];
     [self.contentView addSubview:lineView];
-    lineView.backgroundColor = TCRGBColor(186, 186, 186);
+    lineView.backgroundColor =TCLightGrayColor;
     _lineView = lineView;
     lineView.hidden = YES;
     

@@ -41,12 +41,12 @@ static NSString *const kImageNameSelected = @"kImageNameSelected";
 
 - (void)setupSubviews {
     UIView *firstVerticalLine = [[UIView alloc] init];
-    firstVerticalLine.backgroundColor = TCRGBColor(221, 221, 221);
+    firstVerticalLine.backgroundColor = TCSeparatorLineColor;
     [self addSubview:firstVerticalLine];
     self.firstVerticalLine = firstVerticalLine;
     
     UIView *secondVerticalLine = [[UIView alloc] init];
-    secondVerticalLine.backgroundColor = TCRGBColor(221, 221, 221);
+    secondVerticalLine.backgroundColor = TCSeparatorLineColor;
     [self addSubview:secondVerticalLine];
     self.secondVerticalLine = secondVerticalLine;
     
@@ -55,7 +55,7 @@ static NSString *const kImageNameSelected = @"kImageNameSelected";
         NSDictionary *map = self.nameMaps[i];
         TCServiceSelectItemView *itemView = [[TCServiceSelectItemView alloc] init];
         itemView.titleLabel.text = map[kTitleName];
-        [itemView setTitleColor:TCRGBColor(154, 154, 154) forState:NO];
+        [itemView setTitleColor:TCGrayColor forState:NO];
         [itemView setTitleColor:TCRGBColor(80, 199, 209) forState:YES];
         [itemView setImage:[UIImage imageNamed:map[kImageNameNormal]] forState:NO];
         [itemView setImage:[UIImage imageNamed:map[kImageNameSelected]] forState:YES];

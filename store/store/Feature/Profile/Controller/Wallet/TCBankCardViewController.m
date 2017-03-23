@@ -48,7 +48,7 @@
 }
 
 - (void)setupSubviews {
-    self.tableView.backgroundColor = TCRGBColor(242, 242, 242);
+    self.tableView.backgroundColor = TCBackgroundColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 132.5;
     

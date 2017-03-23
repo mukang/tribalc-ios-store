@@ -35,12 +35,12 @@
     [self.contentView addSubview:bgImageView];
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.textColor = TCRGBColor(42, 42, 42);
+    nameLabel.textColor = TCBlackColor;
     nameLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.contentView addSubview:nameLabel];
     
     UILabel *phoneLabel = [[UILabel alloc] init];
-    phoneLabel.textColor = TCRGBColor(42, 42, 42);
+    phoneLabel.textColor = TCBlackColor;
     phoneLabel.textAlignment = NSTextAlignmentRight;
     phoneLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.contentView addSubview:phoneLabel];
@@ -49,7 +49,7 @@
     [self.contentView addSubview:locationIcon];
     
     UILabel *addressLabel = [[UILabel alloc] init];
-    addressLabel.textColor = TCRGBColor(42, 42, 42);
+    addressLabel.textColor = TCBlackColor;
     addressLabel.font = [UIFont systemFontOfSize:12];
     addressLabel.numberOfLines = 0;
     [self.contentView addSubview:addressLabel];

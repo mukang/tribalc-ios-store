@@ -21,7 +21,7 @@
 
 - (void)setupSubviews {
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.textColor = TCRGBColor(42, 42, 42);
+    nameLabel.textColor = TCBlackColor;
     nameLabel.font = [UIFont systemFontOfSize:14];
     [self addSubview:nameLabel];
     self.nameLabel = nameLabel;

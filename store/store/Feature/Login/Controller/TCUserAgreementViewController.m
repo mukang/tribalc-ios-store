@@ -34,7 +34,7 @@
                                                                     NSFontAttributeName : [UIFont systemFontOfSize:16],
                                                                     NSForegroundColorAttributeName : [UIColor whiteColor]
                                                                     };
-    UIImage *bgImage = [UIImage imageWithColor:TCRGBColor(42, 42, 42)];
+    UIImage *bgImage = [UIImage imageWithColor:TCBlackColor];
     [self.navigationController.navigationBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
 }
 

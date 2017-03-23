@@ -40,19 +40,19 @@
     [self.contentView addSubview:deleteBtn];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(186, 186, 186);
+    lineView.backgroundColor =TCLightGrayColor;
     [self.contentView addSubview:lineView];
     
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.font = [UIFont systemFontOfSize:14];
-    _titleLabel.textColor = TCRGBColor(42, 42, 42);
+    _titleLabel.textColor = TCBlackColor;
     [self.contentView addSubview:_titleLabel];
     
     _standardNameTextField = [[UITextField alloc] init];
     _standardNameTextField.delegate = self;
     _standardNameTextField.font = [UIFont systemFontOfSize:14];
     _standardNameTextField.placeholder = @"  输入名称，如颜色";
-    _standardNameTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    _standardNameTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _standardNameTextField.layer.cornerRadius = 3.0;
     _standardNameTextField.tag = 111;
     _standardNameTextField.clipsToBounds = YES;
@@ -62,7 +62,7 @@
     _standardContentTextField = [[UITextField alloc] init];
     _standardContentTextField.font = [UIFont systemFontOfSize:14];
     _standardContentTextField.placeholder = @"  请输入商品标签，用“、”隔开";
-    _standardContentTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    _standardContentTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _standardContentTextField.layer.cornerRadius = 3.0;
     _standardContentTextField.tag = 222;
     _standardContentTextField.delegate = self;
@@ -92,7 +92,7 @@
     UILabel *l = [[UILabel alloc] init];
     l.text = @"添加二级规格";
     l.font = [UIFont systemFontOfSize:12];
-    l.textColor = TCRGBColor(42, 42, 42);
+    l.textColor = TCBlackColor;
     [_addBtn addSubview:l];
     
     [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -295,11 +295,11 @@
                 if (str.length) {
                     TCGoodsStandardKeysBtn *btn = [TCGoodsStandardKeysBtn buttonWithType:UIButtonTypeCustom];
                     [btn setTitle:arr[i] forState:UIControlStateNormal];
-                    [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+                    [btn setTitleColor:TCBlackColor forState:UIControlStateNormal];
                     btn.layer.cornerRadius = 3.0;
                     btn.titleLabel.numberOfLines = 0;
                     btn.titleLabel.font = [UIFont systemFontOfSize:14];
-                    btn.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+                    btn.layer.borderColor =TCLightGrayColor.CGColor;
                     btn.layer.borderWidth = 0.5;
                     //            btn.clipsToBounds = YES;
                     [_labelsView addSubview:btn];

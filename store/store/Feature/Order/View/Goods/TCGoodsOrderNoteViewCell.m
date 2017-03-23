@@ -31,11 +31,11 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     UIView *containerView = [[UIView alloc] init];
-    containerView.backgroundColor = TCRGBColor(242, 242, 242);
+    containerView.backgroundColor = TCBackgroundColor;
     [self.contentView addSubview:containerView];
     
     UILabel *noteLabel = [[UILabel alloc] init];
-    noteLabel.textColor = TCRGBColor(154, 154, 154);
+    noteLabel.textColor = TCGrayColor;
     noteLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:noteLabel];
     

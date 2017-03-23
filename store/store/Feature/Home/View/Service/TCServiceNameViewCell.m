@@ -43,39 +43,39 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.textColor = TCRGBColor(42, 42, 42);
+    nameLabel.textColor = TCBlackColor;
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.font = [UIFont boldSystemFontOfSize:22.5];
     [self.contentView addSubview:nameLabel];
     
     UILabel *categoryLabel = [[UILabel alloc] init];
-    categoryLabel.textColor = TCRGBColor(42, 42, 42);
+    categoryLabel.textColor = TCBlackColor;
     categoryLabel.textAlignment = NSTextAlignmentCenter;
     categoryLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:categoryLabel];
     
     UILabel *placeLabel = [[UILabel alloc] init];
-    placeLabel.textColor = TCRGBColor(42, 42, 42);
+    placeLabel.textColor = TCBlackColor;
     placeLabel.textAlignment = NSTextAlignmentCenter;
     placeLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:placeLabel];
     
     UILabel *distanceLabel = [[UILabel alloc] init];
-    distanceLabel.textColor = TCRGBColor(42, 42, 42);
+    distanceLabel.textColor = TCBlackColor;
     distanceLabel.textAlignment = NSTextAlignmentCenter;
     distanceLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:distanceLabel];
     
     UIView *leftLineView = [[UIView alloc] init];
-    leftLineView.backgroundColor = TCRGBColor(221, 221, 221);
+    leftLineView.backgroundColor = TCSeparatorLineColor;
     [self.contentView addSubview:leftLineView];
     
     UIView *rightLineView = [[UIView alloc] init];
-    rightLineView.backgroundColor = TCRGBColor(221, 221, 221);
+    rightLineView.backgroundColor = TCSeparatorLineColor;
     [self.contentView addSubview:rightLineView];
     
     UILabel *perPersonLabel = [[UILabel alloc] init];
-    perPersonLabel.textColor = TCRGBColor(154, 154, 154);
+    perPersonLabel.textColor = TCGrayColor;
     perPersonLabel.textAlignment = NSTextAlignmentRight;
     perPersonLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:perPersonLabel];
@@ -88,7 +88,7 @@
     [self.contentView addSubview:collectionButton];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(221, 221, 221);
+    lineView.backgroundColor = TCSeparatorLineColor;
     [self.contentView addSubview:lineView];
     
     self.nameLabel = nameLabel;
@@ -177,7 +177,7 @@
     [self.collectionButton setAttributedTitle:[[NSAttributedString alloc] initWithString:collectionStr
                                                                               attributes:@{
                                                                                            NSFontAttributeName: [UIFont systemFontOfSize:11],
-                                                                                           NSForegroundColorAttributeName: TCRGBColor(154, 154, 154)
+                                                                                           NSForegroundColorAttributeName: TCGrayColor
                                                                                            }]
                                      forState:UIControlStateNormal];
 }

@@ -43,7 +43,7 @@
     [self.contentView addSubview:contentLabel];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(221, 221, 221);
+    lineView.backgroundColor = TCSeparatorLineColor;
     [self.contentView addSubview:lineView];
     
     self.titleButton = titleButton;
@@ -93,7 +93,7 @@
     [self.titleButton setAttributedTitle:[[NSAttributedString alloc] initWithString:titleStr
                                                                          attributes:@{
                                                                                       NSFontAttributeName: [UIFont boldSystemFontOfSize:22.5],
-                                                                                      NSForegroundColorAttributeName: TCRGBColor(42, 42, 42)
+                                                                                      NSForegroundColorAttributeName: TCBlackColor
                                                                                       }]
                                 forState:UIControlStateNormal];
 }
@@ -106,7 +106,7 @@
     paragraphStyle.alignment = NSTextAlignmentCenter;
     NSDictionary *textAttributes = @{
                                      NSFontAttributeName: [UIFont systemFontOfSize:14],
-                                     NSForegroundColorAttributeName: TCRGBColor(42, 42, 42),
+                                     NSForegroundColorAttributeName: TCBlackColor,
                                      NSParagraphStyleAttributeName: paragraphStyle
                                      };
     self.contentLabel.attributedText = [[NSAttributedString alloc] initWithString:content

@@ -32,8 +32,8 @@
         [self.titleBtn setBackgroundColor:TCRGBColor(252, 108, 38)];
         self.imageV.image = [UIImage imageNamed:@"mainGoodSelected"];
     }else {
-        [self.titleBtn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
-        [self.titleBtn setBackgroundColor:TCRGBColor(242, 242, 242)];
+        [self.titleBtn setTitleColor:TCBlackColor forState:UIControlStateNormal];
+        [self.titleBtn setBackgroundColor:TCBackgroundColor];
         self.imageV.image = [UIImage imageNamed:@"mainGoodUnselect"];
     }
 }
@@ -61,12 +61,12 @@
 - (UIButton *)titleBtn {
     if (_titleBtn == nil) {
         _titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_titleBtn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+        [_titleBtn setTitleColor:TCBlackColor forState:UIControlStateNormal];
         _titleBtn.layer.cornerRadius = 10.0;
         _titleBtn.userInteractionEnabled = NO;
         _titleBtn.contentEdgeInsets = UIEdgeInsetsMake(5, 30, 5, 30);
         _titleBtn.clipsToBounds = YES;
-        [_titleBtn setBackgroundColor:TCRGBColor(242, 242, 242)];
+        [_titleBtn setBackgroundColor:TCBackgroundColor];
         _titleBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _titleBtn.titleLabel.numberOfLines = 0;
     }

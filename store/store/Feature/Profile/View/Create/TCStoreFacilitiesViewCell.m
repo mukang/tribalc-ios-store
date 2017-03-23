@@ -39,7 +39,7 @@
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"辅助设施";
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:titleLabel];
@@ -47,7 +47,7 @@
     
     UILabel *subtitleLabel = [[UILabel alloc] init];
     subtitleLabel.text = @"（可多选）";
-    subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+    subtitleLabel.textColor = TCGrayColor;
     subtitleLabel.textAlignment = NSTextAlignmentLeft;
     subtitleLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:subtitleLabel];

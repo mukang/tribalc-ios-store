@@ -44,15 +44,15 @@
 
 - (void)setupSubviews {
     YYTextView *textView = [[YYTextView alloc] init];
-    textView.backgroundColor = TCRGBColor(242, 242, 242);
+    textView.backgroundColor = TCBackgroundColor;
     textView.returnKeyType = UIReturnKeyDone;
     textView.layer.cornerRadius = 2.5;
     textView.alwaysBounceVertical = YES;
     textView.alwaysBounceHorizontal = NO;
-    textView.textColor = TCRGBColor(42, 42, 42);
+    textView.textColor = TCBlackColor;
     textView.font = [UIFont systemFontOfSize:14];
     textView.placeholderText = @"请输入您的想法...";
-    textView.placeholderTextColor = TCRGBColor(154, 154, 154);
+    textView.placeholderTextColor = TCGrayColor;
     textView.placeholderFont = [UIFont systemFontOfSize:14];
     textView.delegate = self;
     [self.view addSubview:textView];

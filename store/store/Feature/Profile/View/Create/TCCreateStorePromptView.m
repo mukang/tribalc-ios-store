@@ -22,7 +22,7 @@
 - (void)setupSubviews {
     UILabel *promptLabel = [[UILabel alloc] init];
     promptLabel.text = @"入住过程中如有问题请拨打";
-    promptLabel.textColor = TCRGBColor(154, 154, 154);
+    promptLabel.textColor = TCGrayColor;
     promptLabel.textAlignment = NSTextAlignmentLeft;
     promptLabel.font = [UIFont systemFontOfSize:12];
     [self addSubview:promptLabel];

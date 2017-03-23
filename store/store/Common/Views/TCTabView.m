@@ -28,7 +28,7 @@
                     btn.frame = CGRectMake((kBtnWidth+margn)*i +20, 0, kBtnWidth, frame.size.height-2);
                     [self addSubview:btn];
                     [btn setTitle:titleArr[i] forState:UIControlStateNormal];
-                    [btn setTitleColor:TCRGBColor(154, 154, 154) forState:UIControlStateNormal];
+                    [btn setTitleColor:TCGrayColor forState:UIControlStateNormal];
                     btn.tag = 10000+i;
                     btn.titleLabel.font = [UIFont systemFontOfSize:14];
                     [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
@@ -59,7 +59,7 @@
             NSInteger index = view.tag - 10000;
             if (index != i) {
                 UIButton *button = (UIButton *)view;
-                [button setTitleColor:TCRGBColor(154, 154, 154) forState:UIControlStateNormal];
+                [button setTitleColor:TCGrayColor forState:UIControlStateNormal];
             }
         }
     }

@@ -14,7 +14,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = TCRGBColor(242, 242, 242);
+        self.backgroundColor = TCBackgroundColor;
         
         [self setupLeftView];
         
@@ -32,7 +32,7 @@
     [self.contentView addSubview:_leftImgBtn];
     
     _leftTitleLab = [TCComponent createLabelWithFrame:CGRectMake(TCRealValue(20), TCRealValue(16.5), _leftImgBtn.width - TCRealValue(20), TCRealValue(12)) AndFontSize:TCRealValue(12) AndTitle:@""];
-    _leftTitleLab.textColor = TCRGBColor(42, 42, 42);
+    _leftTitleLab.textColor = TCBlackColor;
     [_leftImgBtn addSubview:_leftTitleLab];
 }
 
@@ -62,14 +62,14 @@
 
 - (UILabel *)getRightTitleLab {
     UILabel *label = [TCComponent createLabelWithFrame:CGRectMake(TCRealValue(26.5), TCRealValue(16.5), TCScreenWidth * 0.553 - 26.5, TCRealValue(12)) AndFontSize:TCRealValue(12) AndTitle:@""];
-    label.textColor = TCRGBColor(42, 42, 42);
+    label.textColor = TCBlackColor;
     
     return label;
 }
 
 - (UILabel *)getRightSubTitleLab {
     UILabel *label = [TCComponent createLabelWithFrame:CGRectMake(TCRealValue(26.5), TCRealValue(31.5), TCScreenWidth * 0.553 - TCRealValue(26.5), TCRealValue(12)) AndFontSize:TCRealValue(12) AndTitle:@""];
-    label.textColor = TCRGBColor(154, 154, 154);
+    label.textColor = TCGrayColor;
     return label;
 }
 

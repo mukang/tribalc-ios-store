@@ -60,7 +60,7 @@
     
     UILabel *goodsOrderLabel = [[UILabel alloc] init];
     goodsOrderLabel.text = @"订单管理";
-    goodsOrderLabel.textColor = TCRGBColor(42, 42, 42);
+    goodsOrderLabel.textColor = TCBlackColor;
     goodsOrderLabel.textAlignment = NSTextAlignmentCenter;
     goodsOrderLabel.font = [UIFont systemFontOfSize:TCRealValue(16)];
     [self.view addSubview:goodsOrderLabel];
@@ -74,7 +74,7 @@
     
     UILabel *reservationLabel = [[UILabel alloc] init];
     reservationLabel.text = @"预定管理";
-    reservationLabel.textColor = TCRGBColor(42, 42, 42);
+    reservationLabel.textColor = TCBlackColor;
     reservationLabel.textAlignment = NSTextAlignmentCenter;
     reservationLabel.font = [UIFont systemFontOfSize:TCRealValue(16)];
     [self.view addSubview:reservationLabel];

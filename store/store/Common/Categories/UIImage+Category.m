@@ -75,7 +75,7 @@
         
         UIGraphicsBeginImageContextWithOptions(size, NO, 0);
         CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(ctx, TCRGBColor(242, 242, 242).CGColor);
+        CGContextSetFillColorWithColor(ctx, TCBackgroundColor.CGColor);
         CGContextFillRect(ctx, CGRectMake(0.0f, 0.0f, size.width, size.height));
         [originalImage drawInRect:originalImageF];
         image = UIGraphicsGetImageFromCurrentImageContext();

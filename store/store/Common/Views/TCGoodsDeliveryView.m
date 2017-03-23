@@ -85,7 +85,7 @@ static CGFloat const duration = 0.25;
     
     UILabel *nameLabel = [[UILabel alloc] init];
     nameLabel.text = @"物流公司";
-    nameLabel.textColor = TCRGBColor(42, 42, 42);
+    nameLabel.textColor = TCBlackColor;
     nameLabel.font = [UIFont systemFontOfSize:14];
     [self.containerView addSubview:nameLabel];
     
@@ -97,18 +97,18 @@ static CGFloat const duration = 0.25;
     
     UILabel *numLabel = [[UILabel alloc] init];
     numLabel.text = @"物流编号";
-    numLabel.textColor = TCRGBColor(42, 42, 42);
+    numLabel.textColor = TCBlackColor;
     numLabel.font = [UIFont systemFontOfSize:14];
     [self.containerView addSubview:numLabel];
     
     UITextField *numTextField = [[UITextField alloc] init];
-    numTextField.textColor = TCRGBColor(42, 42, 42);
+    numTextField.textColor = TCBlackColor;
     numTextField.font = [UIFont systemFontOfSize:14];
     numTextField.keyboardType = UIKeyboardTypeASCIICapable;
     numTextField.returnKeyType = UIReturnKeyDone;
     numTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     numTextField.layer.borderWidth = 0.5;
-    numTextField.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    numTextField.layer.borderColor = TCSeparatorLineColor.CGColor;
     numTextField.layer.masksToBounds = YES;
     numTextField.delegate = self;
     [self.containerView addSubview:numTextField];

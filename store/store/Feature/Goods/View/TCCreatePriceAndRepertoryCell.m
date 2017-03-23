@@ -50,12 +50,12 @@
     [self.contentView addSubview:deleteBtn];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(186, 186, 186);
+    lineView.backgroundColor =TCLightGrayColor;
     [self.contentView addSubview:lineView];
     
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.font = [UIFont systemFontOfSize:14];
-    _titleLabel.textColor = TCRGBColor(42, 42, 42);
+    _titleLabel.textColor = TCBlackColor;
     [self.contentView addSubview:_titleLabel];
     
     _orignPriceTextField = [[UITextField alloc] init];
@@ -65,7 +65,7 @@
     _orignPriceTextField.clipsToBounds = YES;
     _orignPriceTextField.placeholder = @"  输入原价";
     _orignPriceTextField.layer.borderWidth = 0.5;
-    _orignPriceTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    _orignPriceTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _orignPriceTextField.tag = 1001;
     [self.contentView addSubview:_orignPriceTextField];
     
@@ -76,7 +76,7 @@
     _salePriceTextField.delegate = self;
     _salePriceTextField.placeholder = @"  输入现价";
     _salePriceTextField.layer.borderWidth = 0.5;
-    _salePriceTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    _salePriceTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _salePriceTextField.tag = 1002;
     [self.contentView addSubview:_salePriceTextField];
     
@@ -87,7 +87,7 @@
     _repertoryTextField.delegate = self;
     _repertoryTextField.placeholder = @"  输入库存";
     _repertoryTextField.layer.borderWidth = 0.5;
-    _repertoryTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    _repertoryTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _repertoryTextField.tag = 1003;
     [self.contentView addSubview:_repertoryTextField];
     

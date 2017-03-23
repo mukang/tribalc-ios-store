@@ -31,7 +31,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"清除缓存";
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:titleLabel];
     self.titleLabel = titleLabel;
@@ -40,7 +40,7 @@
     UILabel *subtitleLabel = [[UILabel alloc] init];
     subtitleLabel.text = [NSString stringWithFormat:@"%.2fM",tmpSize];
     subtitleLabel.textAlignment = NSTextAlignmentRight;
-    subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+    subtitleLabel.textColor = TCBlackColor;
     subtitleLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:subtitleLabel];
     self.subtitleLabel = subtitleLabel;

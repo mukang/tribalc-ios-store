@@ -110,7 +110,7 @@ static CGFloat const duration = 0.25;
     [containerView addSubview:confirmButton];
     
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
-    datePicker.backgroundColor = TCRGBColor(242, 242, 242);
+    datePicker.backgroundColor = TCBackgroundColor;
     datePicker.frame = CGRectMake(0, 40, containerView.width, containerView.height - 40);
     [containerView addSubview:datePicker];
     self.datePicker = datePicker;

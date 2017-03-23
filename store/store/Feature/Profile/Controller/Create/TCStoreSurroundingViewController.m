@@ -56,7 +56,7 @@ TCStoreSurroundingViewCellDelegate>
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     weakSelf = self;
-    self.view.backgroundColor = TCRGBColor(242, 242, 242);
+    self.view.backgroundColor = TCBackgroundColor;
     self.pictures = [NSMutableArray arrayWithArray:self.storeDetailInfo.pictures];
     self.currentIndex = 100;
     self.totalCount = 9;
@@ -127,7 +127,7 @@ TCStoreSurroundingViewCellDelegate>
     self.collectionView = collectionView;
     
     UILabel *countLabel = [[UILabel alloc] init];
-    countLabel.textColor = TCRGBColor(154, 154, 154);
+    countLabel.textColor = TCGrayColor;
     countLabel.font = [UIFont systemFontOfSize:12];
     [containerView addSubview:countLabel];
     self.countLabel = countLabel;
@@ -139,7 +139,7 @@ TCStoreSurroundingViewCellDelegate>
         promptLabel.text = @"上传漂亮的顾客用餐环境图或者您店铺的外景图，可以大大提高用户购买率\n图片要求无水印，上传的图片尺寸在2000×1500以上更好（必须上传）。";
     }
     promptLabel.textAlignment = NSTextAlignmentCenter;
-    promptLabel.textColor = TCRGBColor(42, 42, 42);
+    promptLabel.textColor = TCBlackColor;
     promptLabel.font = [UIFont systemFontOfSize:12];
     promptLabel.numberOfLines = 0;
     [self.view addSubview:promptLabel];

@@ -31,7 +31,7 @@
 - (void)setupSubviews {
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"详细地址";
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:titleLabel];
@@ -39,7 +39,7 @@
     
     UITextField *textField = [[UITextField alloc] init];
     textField.textAlignment = NSTextAlignmentLeft;
-    textField.textColor = TCRGBColor(42, 42, 42);
+    textField.textColor = TCBlackColor;
     textField.font = [UIFont systemFontOfSize:14];
     textField.returnKeyType = UIReturnKeyDone;
     [self.contentView addSubview:textField];

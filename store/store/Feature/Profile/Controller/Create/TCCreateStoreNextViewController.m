@@ -77,8 +77,8 @@
 
 - (void)setupSubviews {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView.backgroundColor = TCRGBColor(242, 242, 242);
-    tableView.separatorColor = TCRGBColor(221, 221, 221);
+    tableView.backgroundColor = TCBackgroundColor;
+    tableView.separatorColor = TCSeparatorLineColor;
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerClass:[TCCommonIndicatorViewCell class] forCellReuseIdentifier:@"TCCommonIndicatorViewCell"];
@@ -134,14 +134,14 @@
         if (indexPath.row == 0) {
             TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
-            cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+            cell.subtitleLabel.textColor = TCGrayColor;
             cell.titleLabel.text = @"LOGO";
             cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
             return cell;
         } else if (indexPath.row == 1) {
             TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
-            cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+            cell.subtitleLabel.textColor = TCGrayColor;
             cell.titleLabel.text = @"环境图";
             if (self.storeDetailInfo.pictures.count) {
                 cell.subtitleLabel.text = [NSString stringWithFormat:@"%zd张", self.storeDetailInfo.pictures.count];

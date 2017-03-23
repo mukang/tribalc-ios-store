@@ -61,7 +61,7 @@
 
 - (UIScrollView *)getHomeScrollViewWithFrame:(CGRect)frame {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
-    scrollView.backgroundColor = TCRGBColor(242, 242, 242);
+    scrollView.backgroundColor = TCBackgroundColor;
     scrollView.delegate = self;
     
     return scrollView;
@@ -112,7 +112,7 @@
 
 - (UIView *)getGrayBorderViewWithFrame:(CGRect)frame {
     UIView *view = [[UIView alloc] initWithFrame:frame];
-    view.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    view.layer.borderColor = TCSeparatorLineColor.CGColor;
     view.layer.borderWidth = TCRealValue(0.5);
     view.frame = CGRectMake(frame.origin.x - TCRealValue(0.5), frame.origin.y, frame.size.width + TCRealValue(1), frame.size.height);
     return view;
@@ -151,7 +151,7 @@
     UIButton *expressImgBtn = [TCComponent createImageBtnWithFrame:CGRectMake(TCRealValue(15), frame.size.height / 2 - TCRealValue(12) / 2, TCRealValue(10), TCRealValue(12)) AndImageName:@"home_express"];
     [expressView addSubview:expressImgBtn];
     
-    UILabel *expressLab = [TCComponent createLabelWithFrame:CGRectMake(expressImgBtn.x + expressImgBtn.width + TCRealValue(5), 0, TCRealValue(50), frame.size.height) AndFontSize:TCRealValue(12) AndTitle:@"部落快报" AndTextColor:TCRGBColor(42, 42, 42)];
+    UILabel *expressLab = [TCComponent createLabelWithFrame:CGRectMake(expressImgBtn.x + expressImgBtn.width + TCRealValue(5), 0, TCRealValue(50), frame.size.height) AndFontSize:TCRealValue(12) AndTitle:@"部落快报" AndTextColor:TCBlackColor];
     [expressView addSubview:expressLab];
     
     UIView *activityView = [self getExpressActivityViewWithFrame:CGRectMake(expressLab.x + expressLab.width + TCRealValue(3), 0, TCScreenWidth - expressLab.x - expressLab.width - TCRealValue(3), frame.size.height)];
@@ -166,10 +166,10 @@
 - (UIView *)getExpressActivityViewWithFrame:(CGRect)frame {
     UIView *activityView = [[UIView alloc] initWithFrame:frame];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height / 2 - TCRealValue(17.5) / 2, TCRealValue(0.5), TCRealValue(17.5))];
-    lineView.backgroundColor = TCRGBColor(154, 154, 154);
+    lineView.backgroundColor = TCGrayColor;
     [activityView addSubview:lineView];
     
-    UILabel *activityLab = [TCComponent createLabelWithFrame:CGRectMake(lineView.x + lineView.width + TCRealValue(5), 0, frame.size.width - lineView.x - lineView.width - TCRealValue(5), frame.size.height) AndFontSize:12 AndTitle:@"活动 : 10月9日午餐新活动" AndTextColor:TCRGBColor(154, 154, 154)];
+    UILabel *activityLab = [TCComponent createLabelWithFrame:CGRectMake(lineView.x + lineView.width + TCRealValue(5), 0, frame.size.width - lineView.x - lineView.width - TCRealValue(5), frame.size.height) AndFontSize:12 AndTitle:@"活动 : 10月9日午餐新活动" AndTextColor:TCGrayColor];
     [activityView addSubview:activityLab];
     
     return activityView;

@@ -124,10 +124,10 @@
     if (_tagsL == nil) {
         _tagsL = [[UILabel alloc] init];
         _tagsL.font = [UIFont systemFontOfSize:11];
-        _tagsL.textColor = TCRGBColor(42, 42, 42);
+        _tagsL.textColor = TCBlackColor;
         _tagsL.layer.cornerRadius = 8.0;
         _tagsL.clipsToBounds = YES;
-        _tagsL.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+        _tagsL.layer.borderColor =TCLightGrayColor.CGColor;
         _tagsL.layer.borderWidth = 1.0/([UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3);
     }
     return _tagsL;
@@ -146,7 +146,7 @@
     if (_positionL == nil) {
         _positionL = [[UILabel alloc] init];
         _positionL.font = [UIFont systemFontOfSize:12];
-        _positionL.textColor = TCRGBColor(42, 42, 42);
+        _positionL.textColor = TCBlackColor;
     }
     return _positionL;
 }

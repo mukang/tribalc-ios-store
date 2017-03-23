@@ -43,7 +43,7 @@
 - (void)setupSubviews {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     _imgView = [[UIImageView alloc] init];
-    _imgView.layer.borderColor = TCRGBColor(154, 154, 154).CGColor;
+    _imgView.layer.borderColor = TCGrayColor.CGColor;
     _imgView.layer.borderWidth = 0.5;
     [self.contentView addSubview:_imgView];
     _imgView.frame = CGRectMake(30, 12, 126, 126);
@@ -54,31 +54,31 @@
     _mainGoodsImageView.image = [UIImage imageNamed:@"mainGoods"];
     
     _titleLabel = [[UILabel alloc] init];
-    _titleLabel.textColor = TCRGBColor(42, 42, 42);
+    _titleLabel.textColor = TCBlackColor;
     _titleLabel.font = [UIFont systemFontOfSize:14];
     _titleLabel.numberOfLines = 0;
     [self.contentView addSubview:_titleLabel];
     
     _storeLabel = [[UILabel alloc] init];
-    _storeLabel.textColor = TCRGBColor(154, 154, 154);
+    _storeLabel.textColor = TCGrayColor;
     _storeLabel.font = [UIFont systemFontOfSize:13];
     _storeLabel.numberOfLines = 1;
     [self.contentView addSubview:_storeLabel];
     
     _priceLabel = [[UILabel alloc] init];
-    _priceLabel.textColor = TCRGBColor(154, 154, 154);
+    _priceLabel.textColor = TCGrayColor;
     _priceLabel.font = [UIFont systemFontOfSize:13];
     _priceLabel.numberOfLines = 1;
     [self.contentView addSubview:_priceLabel];
     
     _salesLabel = [[UILabel alloc] init];
-    _salesLabel.textColor = TCRGBColor(154, 154, 154);
+    _salesLabel.textColor = TCGrayColor;
     _salesLabel.font = [UIFont systemFontOfSize:13];
     _salesLabel.numberOfLines = 1;
     [self.contentView addSubview:_salesLabel];
     
     _creatTimeLabel = [[UILabel alloc] init];
-    _creatTimeLabel.textColor = TCRGBColor(154, 154, 154);
+    _creatTimeLabel.textColor = TCGrayColor;
     _creatTimeLabel.font = [UIFont systemFontOfSize:13];
     _creatTimeLabel.numberOfLines = 1;
     [self.contentView addSubview:_creatTimeLabel];

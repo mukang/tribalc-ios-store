@@ -44,7 +44,7 @@
     [titleButton setAttributedTitle:[[NSAttributedString alloc] initWithString:@"温馨提示"
                                                                     attributes:@{
                                                                                  NSFontAttributeName: [UIFont boldSystemFontOfSize:22.5],
-                                                                                 NSForegroundColorAttributeName: TCRGBColor(42, 42, 42)
+                                                                                 NSForegroundColorAttributeName: TCBlackColor
                                                                                  }]
                            forState:UIControlStateNormal];
     titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 2, 0, 0);
@@ -55,7 +55,7 @@
     [self.contentView addSubview:containerView];
     
     UILabel *businessHoursLabel = [[UILabel alloc] init];
-    businessHoursLabel.textColor = TCRGBColor(154, 154, 154);
+    businessHoursLabel.textColor = TCGrayColor;
     businessHoursLabel.textAlignment = NSTextAlignmentCenter;
     businessHoursLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:businessHoursLabel];

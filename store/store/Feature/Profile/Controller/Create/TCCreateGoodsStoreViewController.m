@@ -81,8 +81,8 @@ YYTextViewDelegate>
 
 - (void)setupSubviews {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView.backgroundColor = TCRGBColor(242, 242, 242);
-    tableView.separatorColor = TCRGBColor(221, 221, 221);
+    tableView.backgroundColor = TCBackgroundColor;
+    tableView.separatorColor = TCSeparatorLineColor;
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerClass:[TCCommonInputViewCell class] forCellReuseIdentifier:@"TCCommonInputViewCell"];
@@ -179,10 +179,10 @@ YYTextViewDelegate>
                 cell.subtitleLabel.textAlignment = NSTextAlignmentLeft;
                 if (self.storeDetailInfo.address) {
                     cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.storeDetailInfo.province, self.storeDetailInfo.city, self.storeDetailInfo.district, self.storeDetailInfo.address];
-                    cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+                    cell.subtitleLabel.textColor = TCBlackColor;
                 } else {
                     cell.subtitleLabel.text = @"请设置发货地址";
-                    cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+                    cell.subtitleLabel.textColor = TCGrayColor;
                 }
                 return cell;
             }
@@ -192,7 +192,7 @@ YYTextViewDelegate>
         {
             TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
-            cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+            cell.subtitleLabel.textColor = TCGrayColor;
             cell.titleLabel.text = @"LOGO";
             cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
             return cell;

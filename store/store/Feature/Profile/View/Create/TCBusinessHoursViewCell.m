@@ -32,17 +32,17 @@
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"营业时间";
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:titleLabel];
     
     UILabel *openTimeLabel = [[UILabel alloc] init];
-    openTimeLabel.textColor = TCRGBColor(42, 42, 42);
+    openTimeLabel.textColor = TCBlackColor;
     openTimeLabel.textAlignment = NSTextAlignmentCenter;
     openTimeLabel.font = [UIFont systemFontOfSize:16];
     openTimeLabel.userInteractionEnabled = YES;
-    openTimeLabel.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    openTimeLabel.layer.borderColor = TCSeparatorLineColor.CGColor;
     openTimeLabel.layer.borderWidth = 1;
     openTimeLabel.layer.cornerRadius = 2.5;
     openTimeLabel.layer.masksToBounds = YES;
@@ -52,11 +52,11 @@
     [openTimeLabel addGestureRecognizer:openTimeTap];
     
     UILabel *closeTimeLabel = [[UILabel alloc] init];
-    closeTimeLabel.textColor = TCRGBColor(42, 42, 42);
+    closeTimeLabel.textColor = TCBlackColor;
     closeTimeLabel.textAlignment = NSTextAlignmentCenter;
     closeTimeLabel.font = [UIFont systemFontOfSize:16];
     closeTimeLabel.userInteractionEnabled = YES;
-    closeTimeLabel.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    closeTimeLabel.layer.borderColor = TCSeparatorLineColor.CGColor;
     closeTimeLabel.layer.borderWidth = 1;
     closeTimeLabel.layer.cornerRadius = 2.5;
     closeTimeLabel.layer.masksToBounds = YES;
@@ -66,7 +66,7 @@
     [closeTimeLabel addGestureRecognizer:closeTimeTap];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(221, 221, 221);
+    lineView.backgroundColor = TCSeparatorLineColor;
     [self.contentView addSubview:lineView];
     
     self.titleLabel = titleLabel;

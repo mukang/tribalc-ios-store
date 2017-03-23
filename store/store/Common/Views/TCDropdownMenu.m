@@ -38,10 +38,10 @@ static CGFloat const duration = 0.25;
     mainButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     mainButton.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
     [mainButton setTitle:@"请选择" forState:UIControlStateNormal];
-    [mainButton setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+    [mainButton setTitleColor:TCBlackColor forState:UIControlStateNormal];
     mainButton.titleLabel.font = [UIFont systemFontOfSize:14];
     [mainButton addTarget:self action:@selector(handleClickMainButton:) forControlEvents:UIControlEventTouchUpInside];
-    mainButton.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    mainButton.layer.borderColor = TCSeparatorLineColor.CGColor;
     mainButton.layer.borderWidth = 0.5;
     mainButton.layer.masksToBounds = YES;
     [self addSubview:mainButton];
@@ -68,14 +68,14 @@ static CGFloat const duration = 0.25;
     self.rowHeight = rowHeight;
     
     UIView *listView = [[UIView alloc] init];
-    listView.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    listView.layer.borderColor = TCSeparatorLineColor.CGColor;
     listView.layer.borderWidth = 0.5;
     listView.layer.masksToBounds = YES;
     [self.superview addSubview:listView];
     self.listView = listView;
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView.separatorColor = TCRGBColor(221, 221, 221);
+    tableView.separatorColor = TCSeparatorLineColor;
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
@@ -132,7 +132,7 @@ static CGFloat const duration = 0.25;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
     cell.textLabel.text = self.titles[indexPath.row];
-    cell.textLabel.textColor = TCRGBColor(42, 42, 42);
+    cell.textLabel.textColor = TCBlackColor;
     cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
