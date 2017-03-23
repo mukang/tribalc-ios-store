@@ -28,14 +28,14 @@
 - (void)setupSubviews {
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
     UITextField *textField = [[UITextField alloc] init];
     textField.textAlignment = NSTextAlignmentLeft;
-    textField.textColor = TCRGBColor(42, 42, 42);
+    textField.textColor = TCBlackColor;
     textField.font = [UIFont systemFontOfSize:14];
     textField.returnKeyType = UIReturnKeyDone;
     textField.delegate = self;
@@ -64,7 +64,7 @@
     self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
                                                                            attributes:@{
                                                                                         NSFontAttributeName: [UIFont systemFontOfSize:14],
-                                                                                        NSForegroundColorAttributeName: TCRGBColor(154, 154, 154)
+                                                                                        NSForegroundColorAttributeName: TCGrayColor
                                                                                         }];
 }
 

@@ -49,24 +49,24 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UITextView *textView = [UITextView new];
-    textView.textColor = TCRGBColor(42, 42, 42);
+    textView.textColor = TCBlackColor;
     textView.font = [UIFont systemFontOfSize:12];
 //    textView.placeholderFont = [UIFont systemFontOfSize:12];
 //    textView.placeholderText = @"输入商品详情标题";
-//    textView.placeholderTextColor = TCRGBColor(186, 186, 186);
+//    textView.placeholderTextColor =TCLightGrayColor;
     textView.delegate = self;
     [self.contentView addSubview:textView];
     self.textView = textView;
     
     self.palceLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, TCScreenWidth-30, 15)];
-    self.palceLabel.textColor = TCRGBColor(186, 186, 186);
+    self.palceLabel.textColor =TCLightGrayColor;
     self.palceLabel.numberOfLines = 2;
     self.palceLabel.font = [UIFont systemFontOfSize:14];
     self.palceLabel.text = @"输入商品详情标题";
     [_textView addSubview:self.palceLabel];
     
     UILabel *l = [[UILabel alloc] init];
-    l.textColor = TCRGBColor(186, 186, 186);
+    l.textColor =TCLightGrayColor;
     l.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:l];
     l.textAlignment = NSTextAlignmentRight;
@@ -74,7 +74,7 @@
     self.numLabel = l;
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(186, 186, 186);
+    lineView.backgroundColor =TCLightGrayColor;
     [self.contentView addSubview:lineView];
     
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {

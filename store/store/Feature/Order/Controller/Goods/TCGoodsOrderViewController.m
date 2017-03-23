@@ -86,7 +86,7 @@
     layout.footerReferenceSize = CGSizeMake(TCScreenWidth, 18);
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-    collectionView.backgroundColor = TCRGBColor(242, 242, 242);
+    collectionView.backgroundColor = TCBackgroundColor;
     collectionView.dataSource = self;
     collectionView.delegate = self;
     [collectionView registerClass:[TCGoodsOrderViewCell class] forCellWithReuseIdentifier:@"TCGoodsOrderViewCell"];

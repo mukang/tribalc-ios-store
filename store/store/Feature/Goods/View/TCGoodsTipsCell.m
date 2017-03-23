@@ -53,15 +53,15 @@
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.font = [UIFont systemFontOfSize:16];
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     [self.contentView addSubview:titleLabel];
     
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:title];
-    [attStr setAttributes:@{NSForegroundColorAttributeName : TCRGBColor(186, 186, 186)} range:[title rangeOfString:s]];
+    [attStr setAttributes:@{NSForegroundColorAttributeName :TCLightGrayColor} range:[title rangeOfString:s]];
     titleLabel.attributedText = attStr;
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(186, 186, 186);
+    lineView.backgroundColor =TCLightGrayColor;
     [self.contentView addSubview:lineView];
     
     UIView *libsView = [[UIView alloc] init];
@@ -70,7 +70,7 @@
     
     UITextField *textField = [[UITextField alloc] init];
     textField.layer.cornerRadius = 3.0;
-    textField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    textField.layer.borderColor =TCLightGrayColor.CGColor;
     textField.layer.borderWidth = 0.5;
     textField.font = [UIFont systemFontOfSize:14];
     textField.delegate = self;
@@ -79,7 +79,7 @@
     
     UILabel *deLabel = [[UILabel alloc] init];
     deLabel.font = [UIFont systemFontOfSize:11];
-    deLabel.textColor = TCRGBColor(154, 154, 154);
+    deLabel.textColor = TCGrayColor;
     deLabel.text = @"每个标签字数最多5个字，选择标签与添标签最多三个";
     [self.contentView addSubview:deLabel];
     
@@ -143,7 +143,7 @@
             
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setTitle:str forState:UIControlStateNormal];
-            [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+            [btn setTitleColor:TCBlackColor forState:UIControlStateNormal];
             [_libsView addSubview:btn];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -204,7 +204,7 @@
         [mutableArr addObject:btn.titleLabel.text];
     }else {
         [btn setBackgroundColor:[UIColor whiteColor]];
-        [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+        [btn setTitleColor:TCBlackColor forState:UIControlStateNormal];
         [mutableArr removeObject:btn.titleLabel.text];
     }
     _libsArr = mutableArr;
@@ -233,7 +233,7 @@
                     }else {
                         btn.selected = NO;
                         [btn setBackgroundColor:[UIColor whiteColor]];
-                        [btn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+                        [btn setTitleColor:TCBlackColor forState:UIControlStateNormal];
                     }
                 }
             }

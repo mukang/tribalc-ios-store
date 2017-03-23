@@ -98,14 +98,14 @@
     UILabel *label = [[UILabel alloc] init];
     label.text = @"规格组标题";
     label.font = [UIFont systemFontOfSize:14];
-    label.textColor = TCRGBColor(42, 42, 42);
+    label.textColor = TCBlackColor;
     [headerView addSubview:label];
     
     UITextField *textField = [[UITextField alloc] init];
     textField.placeholder = @"  请输入规格组标题";
     textField.font = [UIFont systemFontOfSize:14];
     textField.layer.cornerRadius = 3.0;
-    textField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    textField.layer.borderColor =TCLightGrayColor.CGColor;
     textField.layer.borderWidth = 0.5;
     [headerView addSubview:textField];
     textField.delegate = self;
@@ -609,7 +609,7 @@
     UIButton *setingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [setingBtn setTitle:@" 批量设置" forState:UIControlStateNormal];
     setingBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [setingBtn setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
+    [setingBtn setTitleColor:TCBlackColor forState:UIControlStateNormal];
     [setingBtn setImage:[UIImage imageNamed:@"batchSeting"] forState:UIControlStateNormal];
     [setingBtn addTarget:self action:@selector(batchSeting) forControlEvents:UIControlEventTouchUpInside];
     [sectionHeaderView addSubview:setingBtn];

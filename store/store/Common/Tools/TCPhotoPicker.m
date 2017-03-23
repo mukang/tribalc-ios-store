@@ -133,7 +133,7 @@
     pickerController.mediaTypes = @[(NSString *)kUTTypeImage];
     pickerController.allowsEditing = self.allowsEditing;
     pickerController.delegate = self;
-    pickerController.navigationBar.tintColor = TCRGBColor(42, 42, 42);
+    pickerController.navigationBar.tintColor = TCBlackColor;
     [sourceController presentViewController:pickerController animated:YES completion:nil];
     self.pickerController = pickerController;
 }

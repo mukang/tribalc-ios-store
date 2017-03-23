@@ -47,34 +47,34 @@
     [self.contentView addSubview:iconImageView];
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.textColor = TCRGBColor(42, 42, 42);
+    nameLabel.textColor = TCBlackColor;
     nameLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.contentView addSubview:nameLabel];
     
     UILabel *markLabel = [[UILabel alloc] init];
-    markLabel.textColor = TCRGBColor(42, 42, 42);
+    markLabel.textColor = TCBlackColor;
     markLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:markLabel];
     
     UILabel *timeTitleLabel = [[UILabel alloc] init];
     timeTitleLabel.text = @"时间";
-    timeTitleLabel.textColor = TCRGBColor(154, 154, 154);
+    timeTitleLabel.textColor = TCGrayColor;
     timeTitleLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:timeTitleLabel];
     
     UILabel *timeLabel = [[UILabel alloc] init];
-    timeLabel.textColor = TCRGBColor(42, 42, 42);
+    timeLabel.textColor = TCBlackColor;
     timeLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:timeLabel];
     
     UILabel *numTitleLabel = [[UILabel alloc] init];
     numTitleLabel.text = @"人数";
-    numTitleLabel.textColor = TCRGBColor(154, 154, 154);
+    numTitleLabel.textColor = TCGrayColor;
     numTitleLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:numTitleLabel];
     
     UILabel *numLabel = [[UILabel alloc] init];
-    numLabel.textColor = TCRGBColor(42, 42, 42);
+    numLabel.textColor = TCBlackColor;
     numLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:numLabel];
     

@@ -111,8 +111,8 @@ TCStoreFacilitiesViewCellDelegate>
 
 - (void)setupSubviews {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView.backgroundColor = TCRGBColor(242, 242, 242);
-    tableView.separatorColor = TCRGBColor(221, 221, 221);
+    tableView.backgroundColor = TCBackgroundColor;
+    tableView.separatorColor = TCSeparatorLineColor;
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerClass:[TCCommonInputViewCell class] forCellReuseIdentifier:@"TCCommonInputViewCell"];
@@ -253,7 +253,7 @@ TCStoreFacilitiesViewCellDelegate>
                     TCCommonSubtitleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonSubtitleViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"经营品类";
                     cell.subtitleLabel.text = [NSString stringWithFormat:@"服务>%@", self.categoryInfo.name];
-                    cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+                    cell.subtitleLabel.textColor = TCBlackColor;
                     cell.subtitleLabel.textAlignment = NSTextAlignmentLeft;
                     currentCell = cell;
                 }
@@ -292,7 +292,7 @@ TCStoreFacilitiesViewCellDelegate>
                     TCCommonSubtitleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonSubtitleViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"主要电话";
                     cell.subtitleLabel.text = self.storeDetailInfo.phone;
-                    cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+                    cell.subtitleLabel.textColor = TCBlackColor;
                     cell.subtitleLabel.textAlignment = NSTextAlignmentLeft;
                     currentCell = cell;
                 }
@@ -329,10 +329,10 @@ TCStoreFacilitiesViewCellDelegate>
                     cell.titleLabel.text = @"门店地址";
                     if (self.storeDetailInfo.address) {
                         cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.storeDetailInfo.province, self.storeDetailInfo.city, self.storeDetailInfo.district, self.storeDetailInfo.address];
-                        cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+                        cell.subtitleLabel.textColor = TCBlackColor;
                     } else {
                         cell.subtitleLabel.text = @"请设置门店地址";
-                        cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+                        cell.subtitleLabel.textColor = TCGrayColor;
                     }
                     currentCell = cell;
                 }
@@ -344,10 +344,10 @@ TCStoreFacilitiesViewCellDelegate>
                     cell.subtitleLabel.textAlignment = NSTextAlignmentLeft;
                     if (self.storeDetailInfo.businessHours) {
                         cell.subtitleLabel.text = self.storeDetailInfo.businessHours;
-                        cell.subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+                        cell.subtitleLabel.textColor = TCBlackColor;
                     } else {
                         cell.subtitleLabel.text = @"请设置营业时间";
-                        cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+                        cell.subtitleLabel.textColor = TCGrayColor;
                     }
                     currentCell = cell;
                 }
@@ -363,7 +363,7 @@ TCStoreFacilitiesViewCellDelegate>
                 {
                     TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
                     cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
-                    cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+                    cell.subtitleLabel.textColor = TCGrayColor;
                     cell.titleLabel.text = @"LOGO";
                     cell.subtitleLabel.text = self.storeDetailInfo.logo ? @"1张" : nil;
                     currentCell = cell;
@@ -373,7 +373,7 @@ TCStoreFacilitiesViewCellDelegate>
                 {
                     TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
                     cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
-                    cell.subtitleLabel.textColor = TCRGBColor(154, 154, 154);
+                    cell.subtitleLabel.textColor = TCGrayColor;
                     cell.titleLabel.text = @"环境图";
                     if (self.storeDetailInfo.pictures.count) {
                         cell.subtitleLabel.text = [NSString stringWithFormat:@"%zd张", self.storeDetailInfo.pictures.count];

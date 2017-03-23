@@ -209,7 +209,7 @@
     [_onSaleBtn addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(154, 154, 154);
+    lineView.backgroundColor = TCGrayColor;
     [_onSaleBtn addSubview:lineView];
     
     _storeBtn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -26,14 +26,14 @@
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
     UILabel *subtitleLabel = [[UILabel alloc] init];
     subtitleLabel.textAlignment = NSTextAlignmentRight;
-    subtitleLabel.textColor = TCRGBColor(42, 42, 42);
+    subtitleLabel.textColor = TCBlackColor;
     subtitleLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:subtitleLabel];
     self.subtitleLabel = subtitleLabel;

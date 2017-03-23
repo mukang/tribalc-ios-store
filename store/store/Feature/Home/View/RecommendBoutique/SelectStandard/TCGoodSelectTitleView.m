@@ -71,7 +71,7 @@
     imageView.layer.cornerRadius = TCRealValue(5);
     imageView.clipsToBounds = YES;
     imageView.layer.borderWidth = TCRealValue(1.5);
-    imageView.layer.borderColor = TCRGBColor(242, 242, 242).CGColor;
+    imageView.layer.borderColor = TCBackgroundColor.CGColor;
     imageView.backgroundColor = [UIColor whiteColor];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     
@@ -89,7 +89,7 @@
 - (UILabel *)getSelectRepertoryLabWithFrame:(CGRect)frame {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.font = [UIFont systemFontOfSize:TCRealValue(12)];
-    label.textColor = TCRGBColor(154, 154, 154);
+    label.textColor = TCGrayColor;
     
     return label;
 }

@@ -117,7 +117,7 @@
     if (_desLabel == nil) {
         _desLabel = [[UILabel alloc] init];
         _desLabel.font = [UIFont systemFontOfSize:14];
-        _desLabel.textColor = TCRGBColor(154, 154, 154);
+        _desLabel.textColor = TCGrayColor;
         _desLabel.numberOfLines = 0;
         _desLabel.textAlignment = NSTextAlignmentCenter;
     }

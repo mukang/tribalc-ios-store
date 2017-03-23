@@ -48,7 +48,7 @@
     [self.contentView addSubview:statusLabel];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(221, 221, 221);
+    lineView.backgroundColor = TCSeparatorLineColor;
     [self.contentView addSubview:lineView];
     
     UIImageView *iconImageView = [[UIImageView alloc] init];
@@ -58,34 +58,34 @@
     [self.contentView addSubview:iconImageView];
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.textColor = TCRGBColor(42, 42, 42);
+    nameLabel.textColor = TCBlackColor;
     nameLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.contentView addSubview:nameLabel];
     
     UILabel *phoneLabel = [[UILabel alloc] init];
-    phoneLabel.textColor = TCRGBColor(42, 42, 42);
+    phoneLabel.textColor = TCBlackColor;
     phoneLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.contentView addSubview:phoneLabel];
     
     UILabel *timeTitleLabel = [[UILabel alloc] init];
     timeTitleLabel.text = @"时间";
-    timeTitleLabel.textColor = TCRGBColor(154, 154, 154);
+    timeTitleLabel.textColor = TCGrayColor;
     timeTitleLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:timeTitleLabel];
     
     UILabel *timeLabel = [[UILabel alloc] init];
-    timeLabel.textColor = TCRGBColor(42, 42, 42);
+    timeLabel.textColor = TCBlackColor;
     timeLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:timeLabel];
     
     UILabel *numTitleLabel = [[UILabel alloc] init];
     numTitleLabel.text = @"人数";
-    numTitleLabel.textColor = TCRGBColor(154, 154, 154);
+    numTitleLabel.textColor = TCGrayColor;
     numTitleLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:numTitleLabel];
     
     UILabel *numLabel = [[UILabel alloc] init];
-    numLabel.textColor = TCRGBColor(42, 42, 42);
+    numLabel.textColor = TCBlackColor;
     numLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:numLabel];
     
@@ -157,10 +157,10 @@
         self.statusLabel.textColor = TCRGBColor(81, 199, 209);
     } else if ([reservation.status isEqualToString:@"FAILURE"]) {
         self.statusLabel.text = @"预定失败";
-        self.statusLabel.textColor = TCRGBColor(154, 154, 154);
+        self.statusLabel.textColor = TCGrayColor;
     } else if ([reservation.status isEqualToString:@"CANNEL"]) {
         self.statusLabel.text = @"预定取消";
-        self.statusLabel.textColor = TCRGBColor(42, 42, 42);
+        self.statusLabel.textColor = TCBlackColor;
     } else {
         self.statusLabel.text = @"预定申请";
         self.statusLabel.textColor = TCRGBColor(241, 68, 68);

@@ -56,7 +56,7 @@
     priceTextField.layer.cornerRadius = 3.0;
     priceTextField.clipsToBounds = YES;
     priceTextField.font = [UIFont systemFontOfSize:14];
-    priceTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    priceTextField.layer.borderColor =TCLightGrayColor.CGColor;
     priceTextField.layer.borderWidth = 0.5;
     [centerView addSubview:priceTextField];
     self.priceTextField = priceTextField;
@@ -73,7 +73,7 @@
     reperotyTextField.clipsToBounds = YES;
     reperotyTextField.delegate = self;
     reperotyTextField.font = [UIFont systemFontOfSize:14];
-    reperotyTextField.layer.borderColor = TCRGBColor(186, 186, 186).CGColor;
+    reperotyTextField.layer.borderColor =TCLightGrayColor.CGColor;
     reperotyTextField.layer.borderWidth = 0.5;
     [centerView addSubview:reperotyTextField];
     self.reperotyTextField = reperotyTextField;
@@ -82,11 +82,11 @@
     desLabel.text = @"您可以只设定价格或只设定库存";
     desLabel.font = [UIFont systemFontOfSize:12];
     desLabel.textAlignment = NSTextAlignmentCenter;
-    desLabel.textColor = TCRGBColor(154, 154, 154);
+    desLabel.textColor = TCGrayColor;
     [centerView addSubview:desLabel];
     
     UIView *heLineView = [[UIView alloc] init];
-    heLineView.backgroundColor = TCRGBColor(154, 154, 154);
+    heLineView.backgroundColor = TCGrayColor;
     [centerView addSubview:heLineView];
     
     UIButton *cancelBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
@@ -96,7 +96,7 @@
     [centerView addSubview:cancelBtn];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(154, 154, 154);
+    lineView.backgroundColor = TCGrayColor;
     [cancelBtn addSubview:lineView];
     
     UIButton *certainBtn = [UIButton buttonWithType:UIButtonTypeCustom];

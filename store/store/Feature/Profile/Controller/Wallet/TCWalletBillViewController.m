@@ -49,7 +49,7 @@
 }
 
 - (void)setupSubviews {
-    self.tableView.backgroundColor = TCRGBColor(242, 242, 242);
+    self.tableView.backgroundColor = TCBackgroundColor;
     self.tableView.tableFooterView = [UIView new];
     
     self.tableView.mj_header = [TCRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
@@ -193,10 +193,10 @@
     NSMutableArray *temp = self.dataList[section];
     TCWalletBill *walletBill = temp[0];
     UIView *view = [[UIView alloc] init];
-    view.backgroundColor = TCRGBColor(242, 242, 242);
+    view.backgroundColor = TCBackgroundColor;
     UILabel *label = [[UILabel alloc] init];
     label.text = walletBill.monthDate;
-    label.textColor = TCRGBColor(42, 42, 42);
+    label.textColor = TCBlackColor;
     label.textAlignment = NSTextAlignmentLeft;
     label.frame = CGRectMake(20, 0, 100, 21);
     [view addSubview:label];

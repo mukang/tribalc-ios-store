@@ -35,13 +35,13 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     UILabel *phoneLabel = [[UILabel alloc] init];
-    phoneLabel.textColor = TCRGBColor(42, 42, 42);
+    phoneLabel.textColor = TCBlackColor;
     phoneLabel.textAlignment = NSTextAlignmentLeft;
     phoneLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:phoneLabel];
     
     UILabel *addressLabel = [[UILabel alloc] init];
-    addressLabel.textColor = TCRGBColor(42, 42, 42);
+    addressLabel.textColor = TCBlackColor;
     addressLabel.textAlignment = NSTextAlignmentLeft;
     addressLabel.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:addressLabel];
@@ -61,7 +61,7 @@
     [self.contentView addSubview:addressButton];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(221, 221, 221);
+    lineView.backgroundColor = TCSeparatorLineColor;
     [self.contentView addSubview:lineView];
     
     self.phoneLabel = phoneLabel;

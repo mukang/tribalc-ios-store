@@ -122,16 +122,16 @@ NSString *const TCWalletPasswordDidChangeNotification = @"TCWalletPasswordDidCha
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = titleLabelText;
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
     MLBPasswordTextField *textField = [[MLBPasswordTextField alloc] init];
     textField.mlb_numberOfDigit = 6;
-    textField.mlb_borderColor = TCRGBColor(221, 221, 221);
+    textField.mlb_borderColor = TCSeparatorLineColor;
     textField.mlb_borderWidth = 0.5;
-    textField.mlb_dotColor = TCRGBColor(42, 42, 42);
+    textField.mlb_dotColor = TCBlackColor;
     textField.mlb_dotRadius = 3.5;
     textField.mlb_delegate = self;
     [self.view addSubview:textField];

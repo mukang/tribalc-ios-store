@@ -26,14 +26,14 @@
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
     UILabel *addressLabel = [[UILabel alloc] init];
     addressLabel.textAlignment = NSTextAlignmentRight;
-    addressLabel.textColor = TCRGBColor(42, 42, 42);
+    addressLabel.textColor = TCBlackColor;
     addressLabel.font = [UIFont systemFontOfSize:12];
     addressLabel.numberOfLines = 0;
     [self.contentView addSubview:addressLabel];

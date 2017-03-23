@@ -29,8 +29,8 @@
 }
 
 - (void)setupNoSelectedStyle {
-    self.layer.borderColor = TCRGBColor(154, 154, 154).CGColor;
-    [self setTitleColor:TCRGBColor(154, 154, 154) forState:UIControlStateNormal];
+    self.layer.borderColor = TCGrayColor.CGColor;
+    [self setTitleColor:TCGrayColor forState:UIControlStateNormal];
 }
 
 - (void)setupSelectedStyle {
@@ -39,8 +39,8 @@
 }
 
 - (void)setupInvalidStyle {
-    self.layer.borderColor = TCRGBColor(242, 242, 242).CGColor;
-    [self setTitleColor:TCRGBColor(242, 242, 242) forState:UIControlStateNormal];
+    self.layer.borderColor = TCBackgroundColor.CGColor;
+    [self setTitleColor:TCBackgroundColor forState:UIControlStateNormal];
 }
 
 - (void)setIsSelected:(BOOL)isSelected {

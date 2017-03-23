@@ -59,8 +59,8 @@ typedef NS_ENUM(NSInteger, TCBusinessHours) {
 
 - (void)setupSubviews {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView.backgroundColor = TCRGBColor(242, 242, 242);
-    tableView.separatorColor = TCRGBColor(221, 221, 221);
+    tableView.backgroundColor = TCBackgroundColor;
+    tableView.separatorColor = TCSeparatorLineColor;
     tableView.rowHeight = 76;
     tableView.dataSource = self;
     tableView.delegate = self;

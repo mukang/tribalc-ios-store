@@ -39,7 +39,7 @@
 
 - (void)setUpViews {
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(186, 186, 186);
+    lineView.backgroundColor =TCLightGrayColor;
     [self.contentView addSubview:lineView];
     
     UIImageView *imageView = [[UIImageView alloc] init];

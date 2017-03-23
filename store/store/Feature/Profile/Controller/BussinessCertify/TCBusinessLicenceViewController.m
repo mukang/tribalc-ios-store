@@ -41,7 +41,7 @@
     
     UILabel *label1 = [[UILabel alloc] init];
     label1.text = @"必须公司营业执照，授权委托书，且内容清晰可辩，必填";
-    label1.textColor = TCRGBColor(154, 154, 154);
+    label1.textColor = TCGrayColor;
     label1.font = [UIFont systemFontOfSize:13];
     label1.numberOfLines = 0;
     [self.view addSubview:label1];
@@ -54,7 +54,7 @@
     
     UILabel *label2 = [[UILabel alloc] init];
     label2.text = @"请您确认拍照权限已开";
-    label2.textColor = TCRGBColor(154, 154, 154);
+    label2.textColor = TCGrayColor;
     label2.font = [UIFont systemFontOfSize:13];
     [self.view addSubview:label2];
     
@@ -66,7 +66,7 @@
     
     UILabel *label3 = [[UILabel alloc] init];
     label3.text = @"本页为必填项";
-    label3.textColor = TCRGBColor(154, 154, 154);
+    label3.textColor = TCGrayColor;
     label3.font = [UIFont systemFontOfSize:13];
     [self.view addSubview:label3];
     
@@ -79,7 +79,7 @@
     UILabel *label = [[UILabel alloc] init];
     label.text = @"公司营业执照上传";
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = TCRGBColor(154, 154, 154);
+    label.textColor = TCGrayColor;
     label.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:label];
     
@@ -88,7 +88,7 @@
     imageView.layer.cornerRadius = 5.0;
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.layer.borderColor = TCRGBColor(154, 154, 154).CGColor;
+    imageView.layer.borderColor = TCGrayColor.CGColor;
     imageView.layer.borderWidth = 0.5;
     self.imageView = imageView;
     

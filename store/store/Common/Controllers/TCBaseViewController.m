@@ -19,7 +19,7 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"TransparentPixel"]];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:TCRGBColor(42, 42, 42)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:TCBlackColor] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.titleTextAttributes = @{
                                                                     NSFontAttributeName : [UIFont systemFontOfSize:16],
                                                                     NSForegroundColorAttributeName : [UIColor whiteColor]

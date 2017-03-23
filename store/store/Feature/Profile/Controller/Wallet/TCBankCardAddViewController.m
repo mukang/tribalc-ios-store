@@ -60,7 +60,7 @@
 - (void)setupSubviews {
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14],
-                                 NSForegroundColorAttributeName: TCRGBColor(154, 154, 154)};
+                                 NSForegroundColorAttributeName: TCGrayColor};
     self.nameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入开户名称" attributes:attributes];
     self.bankNameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请选择银行" attributes:attributes];
     self.cardNumTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入银行卡号" attributes:attributes];

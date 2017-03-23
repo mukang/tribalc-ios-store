@@ -30,7 +30,7 @@
 - (void)setupSubviews {
     UIView *bgView = [[UIView alloc] init];
     bgView.layer.cornerRadius = 2.5;
-    bgView.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+    bgView.layer.borderColor = TCSeparatorLineColor.CGColor;
     bgView.layer.borderWidth = 1;
     [self.contentView addSubview:bgView];
     self.bgView = bgView;
@@ -59,9 +59,9 @@
         self.bgView.backgroundColor = TCRGBColor(252, 108, 38);
         self.bgView.layer.borderColor = TCRGBColor(252, 108, 38).CGColor;
     } else {
-        self.titleLabel.textColor = TCRGBColor(42, 42, 42);
+        self.titleLabel.textColor = TCBlackColor;
         self.bgView.backgroundColor = [UIColor whiteColor];
-        self.bgView.layer.borderColor = TCRGBColor(221, 221, 221).CGColor;
+        self.bgView.layer.borderColor = TCSeparatorLineColor.CGColor;
     }
 }
 

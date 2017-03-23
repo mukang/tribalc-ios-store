@@ -66,7 +66,7 @@
     
     UILabel *label1 = [[UILabel alloc] init];
     label1.text = @"请确保上传身份证与当前注册手机号持有人身份一致";
-    label1.textColor = TCRGBColor(154, 154, 154);
+    label1.textColor = TCGrayColor;
     label1.font = [UIFont systemFontOfSize:13];
     label1.numberOfLines = 0;
     [scrollView addSubview:label1];
@@ -79,7 +79,7 @@
     
     UILabel *label2 = [[UILabel alloc] init];
     label2.text = @"请确保身份证照片拍摄清晰，且尽量匹配相框尺寸";
-    label2.textColor = TCRGBColor(154, 154, 154);
+    label2.textColor = TCGrayColor;
     label2.font = [UIFont systemFontOfSize:13];
     [scrollView addSubview:label2];
     
@@ -91,7 +91,7 @@
     
     UILabel *label3 = [[UILabel alloc] init];
     label3.text = @"本页为必填项";
-    label3.textColor = TCRGBColor(154, 154, 154);
+    label3.textColor = TCGrayColor;
     label3.font = [UIFont systemFontOfSize:13];
     [scrollView addSubview:label3];
     
@@ -105,7 +105,7 @@
     UILabel *frontLabel = [[UILabel alloc] init];
     frontLabel.text = @"身份证正面扫描上传";
     frontLabel.textAlignment = NSTextAlignmentCenter;
-    frontLabel.textColor = TCRGBColor(154, 154, 154);
+    frontLabel.textColor = TCGrayColor;
     frontLabel.font = [UIFont systemFontOfSize:14];
     [scrollView addSubview:frontLabel];
     
@@ -114,7 +114,7 @@
     frontImageView.layer.cornerRadius = 5.0;
     frontImageView.clipsToBounds = YES;
     frontImageView.contentMode = UIViewContentModeScaleAspectFill;
-    frontImageView.layer.borderColor = TCRGBColor(154, 154, 154).CGColor;
+    frontImageView.layer.borderColor = TCGrayColor.CGColor;
     frontImageView.layer.borderWidth = 0.5;
     self.frontImageView = frontImageView;
     
@@ -128,7 +128,7 @@
     UILabel *backLabel = [[UILabel alloc] init];
     backLabel.text = @"身份证反面扫描上传";
     backLabel.textAlignment = NSTextAlignmentCenter;
-    backLabel.textColor = TCRGBColor(154, 154, 154);
+    backLabel.textColor = TCGrayColor;
     backLabel.font = [UIFont systemFontOfSize:14];
     [scrollView addSubview:backLabel];
     
@@ -137,7 +137,7 @@
     backImageView.layer.cornerRadius = 5.0;
     backImageView.clipsToBounds = YES;
     backImageView.contentMode = UIViewContentModeScaleAspectFill;
-    backImageView.layer.borderColor = TCRGBColor(154, 154, 154).CGColor;
+    backImageView.layer.borderColor = TCGrayColor.CGColor;
     backImageView.layer.borderWidth = 0.5;
     self.backImageView = backImageView;
     

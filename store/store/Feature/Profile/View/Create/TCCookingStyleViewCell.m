@@ -35,7 +35,7 @@
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"菜系类型";
-    titleLabel.textColor = TCRGBColor(42, 42, 42);
+    titleLabel.textColor = TCBlackColor;
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:titleLabel];

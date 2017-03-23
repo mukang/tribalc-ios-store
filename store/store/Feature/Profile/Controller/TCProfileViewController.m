@@ -106,8 +106,8 @@ TCPhotoModeViewDelegate>
 - (void)setupSubviews {
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    tableView.backgroundColor = TCRGBColor(242, 242, 242);
-    tableView.separatorColor = TCRGBColor(221, 221, 221);
+    tableView.backgroundColor = TCBackgroundColor;
+    tableView.separatorColor = TCSeparatorLineColor;
     tableView.rowHeight = 54;
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -170,7 +170,7 @@ TCPhotoModeViewDelegate>
         titleColor = [UIColor whiteColor];
     } else {
         self.needsLightContentStatusBar = NO;
-        tintColor = TCRGBColor(42, 42, 42);
+        tintColor = TCBlackColor;
         titleColor = [UIColor clearColor];
     }
     [self.navBar setTintColor:tintColor];

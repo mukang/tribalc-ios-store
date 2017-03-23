@@ -53,7 +53,7 @@
     
     UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont systemFontOfSize:13];
-    label.textColor = TCRGBColor(42, 42, 42);
+    label.textColor = TCBlackColor;
     label.textAlignment = NSTextAlignmentCenter;
     label.text = labelText;
     [self.view addSubview:label];

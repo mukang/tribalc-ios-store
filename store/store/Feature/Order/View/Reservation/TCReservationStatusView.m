@@ -21,7 +21,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = TCRGBColor(242, 242, 242);
+        self.backgroundColor = TCBackgroundColor;
         [self setupSubviews];
         [self setupConstraints];
     }
@@ -33,12 +33,12 @@
     [self addSubview:iconImageView];
     
     UILabel *statusLabel = [[UILabel alloc] init];
-    statusLabel.textColor = TCRGBColor(42, 42, 42);
+    statusLabel.textColor = TCBlackColor;
     statusLabel.font = [UIFont boldSystemFontOfSize:14];
     [self addSubview:statusLabel];
     
     UILabel *noteLabel = [[UILabel alloc] init];
-    noteLabel.textColor = TCRGBColor(154, 154, 154);
+    noteLabel.textColor = TCGrayColor;
     noteLabel.font = [UIFont boldSystemFontOfSize:14];
     noteLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:noteLabel];

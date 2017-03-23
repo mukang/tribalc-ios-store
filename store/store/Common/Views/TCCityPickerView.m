@@ -119,7 +119,7 @@ NSString *const TCCityPickierViewCountryKey = @"TCCityPickierViewCountryKey";
     [containerView addSubview:confirmButton];
     
     UIPickerView *pickerView = [[UIPickerView alloc] init];
-    pickerView.backgroundColor = TCRGBColor(242, 242, 242);
+    pickerView.backgroundColor = TCBackgroundColor;
     pickerView.dataSource = self;
     pickerView.delegate = self;
     pickerView.frame = CGRectMake(0, 40, containerView.width, containerView.height - 40);

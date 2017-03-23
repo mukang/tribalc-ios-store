@@ -23,7 +23,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = TCRGBColor(242, 242, 242);
+        self.backgroundColor = TCBackgroundColor;
         [self setupSubviews];
         [self setupConstraints];
     }
@@ -36,7 +36,7 @@
     [self addSubview:containerView];
     
     UILabel *orderNumLabel = [[UILabel alloc] init];
-    orderNumLabel.textColor = TCRGBColor(42, 42, 42);
+    orderNumLabel.textColor = TCBlackColor;
     orderNumLabel.font = [UIFont systemFontOfSize:14];
     [containerView addSubview:orderNumLabel];
     

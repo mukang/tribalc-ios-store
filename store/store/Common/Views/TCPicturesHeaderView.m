@@ -69,7 +69,7 @@
     UIImageView *lastImageView = nil;
     for (int i=0; i<imageCount; i++) {
         UIImageView *imageView = [[UIImageView alloc] init];
-        imageView.backgroundColor = TCRGBColor(242, 242, 242);
+        imageView.backgroundColor = TCBackgroundColor;
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
         [imageView setTag:i];

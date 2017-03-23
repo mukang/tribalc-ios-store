@@ -104,7 +104,7 @@
     
     UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(0, TCRealValue(10), TCScreenWidth, TCRealValue(45))];
     l.font = [UIFont systemFontOfSize:16];
-    l.textColor = TCRGBColor(42, 42, 42);
+    l.textColor = TCBlackColor;
     l.backgroundColor = [UIColor whiteColor];
     l.textAlignment = NSTextAlignmentLeft;
     [view addSubview:l];

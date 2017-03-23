@@ -147,12 +147,12 @@
         UILabel *label = [[UILabel alloc] init];
         label.text = @"设置主商品";
         label.font = [UIFont systemFontOfSize:15];
-        label.textColor = TCRGBColor(42, 42, 42);
+        label.textColor = TCBlackColor;
         label.textAlignment = NSTextAlignmentCenter;
         [view addSubview:label];
         
         UIView *lineView = [[UIView alloc] init];
-        lineView.backgroundColor = TCRGBColor(186, 186, 186);
+        lineView.backgroundColor =TCLightGrayColor;
         [view addSubview:lineView];
         
         [label mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -64,11 +64,11 @@ static CGFloat const kFilterViewHeight = 108;
     [filterContainerView addSubview:filterItemView];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(221, 221, 221);
+    lineView.backgroundColor = TCSeparatorLineColor;
     [self addSubview:lineView];
     
     UIView *bottomLineView = [[UIView alloc] init];
-    bottomLineView.backgroundColor = TCRGBColor(221, 221, 221);
+    bottomLineView.backgroundColor = TCSeparatorLineColor;
     [self addSubview:bottomLineView];
     
     TCServiceSortView *sortView = [[TCServiceSortView alloc] init];

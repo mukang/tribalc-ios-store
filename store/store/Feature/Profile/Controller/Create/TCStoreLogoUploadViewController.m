@@ -39,7 +39,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     weakSelf = self;
-    self.view.backgroundColor = TCRGBColor(242, 242, 242);
+    self.view.backgroundColor = TCBackgroundColor;
     
     [self setupNavBar];
     [self setupSubviews];
@@ -82,7 +82,7 @@
     
     UILabel *promptLabel = [[UILabel alloc] init];
     promptLabel.text = @"请上传清晰的LOGO图";
-    promptLabel.textColor = TCRGBColor(42, 42, 42);
+    promptLabel.textColor = TCBlackColor;
     promptLabel.textAlignment = NSTextAlignmentCenter;
     promptLabel.font = [UIFont systemFontOfSize:14];
     [self.view addSubview:promptLabel];

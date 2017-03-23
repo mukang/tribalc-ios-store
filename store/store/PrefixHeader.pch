@@ -30,6 +30,13 @@
 // 带透明度的颜色
 #define TCARGBColor(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
+//通用颜色
+#define TCBlackColor TCRGBColor(42, 42, 42)
+#define TCSeparatorLineColor TCRGBColor(221, 221, 221)
+#define TCGrayColor TCRGBColor(154, 154, 154)
+#define TCLightGrayColor TCRGBColor(186,186,186)
+#define TCBackgroundColor TCRGBColor(242,242,242)
+
 /** 屏幕宽度 */
 #define TCScreenWidth [UIScreen mainScreen].bounds.size.width
 

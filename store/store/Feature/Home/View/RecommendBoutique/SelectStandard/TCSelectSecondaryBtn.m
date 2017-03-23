@@ -27,8 +27,8 @@
 }
 
 - (void)setupNoSelectedStyle {
-    [self setTitleColor:TCRGBColor(42, 42, 42) forState:UIControlStateNormal];
-    self.backgroundColor = TCRGBColor(242, 242, 242);
+    [self setTitleColor:TCBlackColor forState:UIControlStateNormal];
+    self.backgroundColor = TCBackgroundColor;
 }
 
 - (void)setupSelectedStyle {
@@ -38,7 +38,7 @@
 
 - (void)setupInvalidStyle {
     [self setTitleColor:TCRGBColor(205, 205, 205) forState:UIControlStateNormal];
-    self.backgroundColor = TCRGBColor(242, 242, 242);
+    self.backgroundColor = TCBackgroundColor;
 }
 
 - (void)setIsSelected:(BOOL)isSelected {

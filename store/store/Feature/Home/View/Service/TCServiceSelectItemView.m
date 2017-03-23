@@ -35,7 +35,7 @@
     [self addSubview:imageView];
     
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.textColor = TCRGBColor(154, 154, 154);
+    titleLabel.textColor = TCGrayColor;
     titleLabel.font = [UIFont systemFontOfSize:14];
     [self addSubview:titleLabel];
     

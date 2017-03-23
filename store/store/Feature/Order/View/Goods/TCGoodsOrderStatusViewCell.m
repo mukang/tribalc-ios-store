@@ -35,7 +35,7 @@
     
     for (int i=0; i<self.totalCount; i++) {
         UILabel *infoLabel = [[UILabel alloc] init];
-        infoLabel.textColor = TCRGBColor(154, 154, 154);
+        infoLabel.textColor = TCGrayColor;
         infoLabel.font = [UIFont systemFontOfSize:12];
         infoLabel.hidden = YES;
         [self.contentView addSubview:infoLabel];

@@ -68,7 +68,7 @@ static CGFloat const duration = 0.25;
     
     CGFloat containerViewH = 182;
     UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, TCScreenHeight, TCScreenWidth, containerViewH)];
-    containerView.backgroundColor = TCRGBColor(242, 242, 242);
+    containerView.backgroundColor = TCBackgroundColor;
     [self addSubview:containerView];
     self.containerView = containerView;
     
@@ -106,13 +106,13 @@ static CGFloat const duration = 0.25;
     NSAttributedString *normalTitle = [[NSAttributedString alloc] initWithString:title
                                                                  attributes:@{
                                                                               NSFontAttributeName: [UIFont systemFontOfSize:14],
-                                                                              NSForegroundColorAttributeName: TCRGBColor(42, 42, 42)
+                                                                              NSForegroundColorAttributeName: TCBlackColor
                                                                               }];
     [button setAttributedTitle:normalTitle forState:UIControlStateNormal];
     NSAttributedString *highlightedTitle = [[NSAttributedString alloc] initWithString:title
                                                                            attributes:@{
                                                                                         NSFontAttributeName: [UIFont systemFontOfSize:14],
-                                                                                        NSForegroundColorAttributeName: TCRGBColor(154, 154, 154)
+                                                                                        NSForegroundColorAttributeName: TCGrayColor
                                                                                         }];
     [button setAttributedTitle:highlightedTitle forState:UIControlStateHighlighted];
     [button setBackgroundColor:[UIColor whiteColor]];

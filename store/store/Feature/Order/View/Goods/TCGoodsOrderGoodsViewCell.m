@@ -44,30 +44,30 @@
     [self.contentView addSubview:goodsImageView];
     
     UILabel *nameLabel = [[UILabel alloc] init];
-    nameLabel.textColor = TCRGBColor(42, 42, 42);
+    nameLabel.textColor = TCBlackColor;
     nameLabel.font = [UIFont systemFontOfSize:12];
     nameLabel.numberOfLines = 2;
     [self.contentView addSubview:nameLabel];
     
     UILabel *priceLabel = [[UILabel alloc] init];
-    priceLabel.textColor = TCRGBColor(42, 42, 42);
+    priceLabel.textColor = TCBlackColor;
     priceLabel.textAlignment = NSTextAlignmentRight;
     priceLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.contentView addSubview:priceLabel];
     
     UILabel *standardLabel = [[UILabel alloc] init];
-    standardLabel.textColor = TCRGBColor(154, 154, 154);
+    standardLabel.textColor = TCGrayColor;
     standardLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:standardLabel];
     
     UILabel *amountLabel = [[UILabel alloc] init];
-    amountLabel.textColor = TCRGBColor(154, 154, 154);
+    amountLabel.textColor = TCGrayColor;
     amountLabel.textAlignment = NSTextAlignmentRight;
     amountLabel.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:amountLabel];
     
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = TCRGBColor(221, 221, 221);
+    lineView.backgroundColor = TCSeparatorLineColor;
     [self.contentView addSubview:lineView];
     
     self.goodsImageView = goodsImageView;
