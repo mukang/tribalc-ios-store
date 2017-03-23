@@ -10,3 +10,5 @@
 
 NSString *const TCBuluoUserLocationCoordinateKey = @"TCBuluoUserLocationCoordinateKey";
 
+NSString *const TCClientUnauthorizedNotification = @"TCClientUnauthorizedNotification";
+

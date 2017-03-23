@@ -162,7 +162,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     request.token = self.currentUserSession.token;
     [request setValue:phone forParam:@"value"];
     [[TCClient client] send:request finish:^(TCClientResponse *response) {
-        if (response.statusCode == 202) {
+        if (response.codeInResponse == 202) {
             if (resultBlock) {
                 TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
             }
@@ -216,7 +216,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut uploadURLString:uploadURLString];
             [request setImageData:imageData];
             [[TCClient client] upload:request progress:progress finish:^(TCClientResponse *response) {
-                if (response.statusCode == 200) {
+                if (response.codeInResponse == 200) {
                     if (resultBlock) {
                         TC_CALL_ASYNC_MQ(resultBlock(YES, uploadInfo, nil));
                     }
@@ -337,7 +337,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             [request setValue:dic[key] forKey:key];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 201) {
+            if (response.codeInResponse == 201) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
@@ -395,7 +395,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             [request setValue:dic[key] forKey:key];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
@@ -425,7 +425,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             [request setValue:dic[key] forKey:key];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 201) {
+            if (response.codeInResponse == 201) {
                 TCStoreInfo *storeInfo = [[TCStoreInfo alloc] initWithObjectDictionary:response.data];
                 TCUserSession *userSession = self.currentUserSession;
                 userSession.storeInfo = storeInfo;
@@ -507,7 +507,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             [request setValue:dic[key] forKey:key];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 TCUserSession *userSession = self.currentUserSession;
                 userSession.storeInfo.name = storeDetailInfo.name;
                 userSession.storeInfo.logo = storeDetailInfo.logo;
@@ -536,7 +536,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         request.token = self.currentUserSession.token;
         [request setValue:name forKey:@"name"];
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 TCUserSession *userSession = self.currentUserSession;
                 userSession.storeInfo.name = name;
                 [self setUserSession:userSession];
@@ -564,7 +564,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         request.token = self.currentUserSession.token;
         [request setValue:linkman forKey:@"linkman"];
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 TCUserSession *userSession = self.currentUserSession;
                 userSession.storeInfo.linkman = linkman;
                 [self setUserSession:userSession];
@@ -595,7 +595,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             [request setValue:dic[key] forParam:key];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 TCUserSession *userSession = self.currentUserSession;
                 userSession.storeInfo.phone = phoneInfo.phone;
                 [self setUserSession:userSession];
@@ -623,7 +623,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         request.token = self.currentUserSession.token;
         [request setValue:logo forKey:@"logo"];
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 TCUserSession *userSession = self.currentUserSession;
                 userSession.storeInfo.logo = logo;
                 [self setUserSession:userSession];
@@ -651,7 +651,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         request.token = self.currentUserSession.token;
         [request setValue:cover forKey:@"cover"];
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 TCUserSession *userSession = self.currentUserSession;
                 userSession.storeInfo.cover = cover;
                 [self setUserSession:userSession];
@@ -684,7 +684,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         }
             
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     
 //                    TCStoreInfo *uploadInfo = [[TCStoreInfo alloc] initWithObjectDictionary:response.data];
@@ -700,161 +700,181 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     } else {
         TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
         if (resultBlock) {
-            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
         }
     }
 }
 
 - (void)fetchGoodsWrapper:(BOOL)isPublished limitSize:(NSUInteger)limitSize sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsMetaWrapper *, NSError *))resultBlock {
-    
-    NSString *published;
-    if (isPublished) {
-        published = @"true";
-    }else {
-        published = @"false";
-    }
-    
-    NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
-    NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
-    NSString *sor = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
-    NSString *apiName = [NSString stringWithFormat:@"goods?me=%@&published=%@%@%@%@",[[TCBuluoApi api] currentUserSession].assigned,published, limitSizePart, sortSkipPart,sor];
-    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
-    request.token = self.currentUserSession.token;
-    [[TCClient client] send:request finish:^(TCClientResponse *response) {
-        if (response.error) {
-            if (resultBlock) {
-                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
-            }
-        } else {
-            TCGoodsMetaWrapper *goodsWrapper = [[TCGoodsMetaWrapper alloc] initWithObjectDictionary:response.data];
-            if (resultBlock) {
-                TC_CALL_ASYNC_MQ(resultBlock(goodsWrapper, nil));
-            }
+    if ([self isUserSessionValid]) {
+        NSString *published;
+        if (isPublished) {
+            published = @"true";
+        }else {
+            published = @"false";
         }
-    }];
+        
+        NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
+        NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
+        NSString *sor = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
+        NSString *apiName = [NSString stringWithFormat:@"goods?me=%@&published=%@%@%@%@",[[TCBuluoApi api] currentUserSession].assigned,published, limitSizePart, sortSkipPart,sor];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.error) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            } else {
+                TCGoodsMetaWrapper *goodsWrapper = [[TCGoodsMetaWrapper alloc] initWithObjectDictionary:response.data];
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(goodsWrapper, nil));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
 }
 
 - (void)fetchGoodsStandardWarpper:(NSUInteger)limitSize category:(NSString *)category sort:(NSString *)sort sortSkip:(NSString *)sortSkip result:(void (^)(TCGoodsStandardWrapper *goodsStandardWrapper, NSError *error))resultBlock {
-    NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
-    NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
-    NSString *sor = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
-    NSString *categoryStr = category ? [NSString stringWithFormat:@"&category=%@",category] : @"";
-    NSString *apiName = [NSString stringWithFormat:@"goods_standards?me=%@%@%@%@%@",[[TCBuluoApi api] currentUserSession].assigned,categoryStr, limitSizePart, sortSkipPart,sor];
-    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
-    request.token = self.currentUserSession.token;
-    [[TCClient client] send:request finish:^(TCClientResponse *response) {
-        if (response.error) {
-            if (resultBlock) {
-                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
-            }
-        } else {
-            TCGoodsStandardWrapper *goodsStandardWarpper = [[TCGoodsStandardWrapper alloc] initWithObjectDictionary:response.data];
-            
-            NSArray *arr = goodsStandardWarpper.content;
-            for (int i = 0; i < arr.count; i++) {
-                TCGoodsStandardMate *goodsStandard = arr[i];
-                NSDictionary *dict = goodsStandard.priceAndRepertoryMap;
-                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dict];
-                for (int j = 0; j < mutableDic.allKeys.count; j++) {
-                    NSString *key = mutableDic.allKeys[j];
-                    NSDictionary *dic = mutableDic[key];
-                    TCGoodsPriceAndRepertory *priceAndRep = [[TCGoodsPriceAndRepertory alloc] initWithObjectDictionary:dic];
-                    mutableDic[key] = priceAndRep;
+    if ([self isUserSessionValid]) {
+        NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
+        NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
+        NSString *sor = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
+        NSString *categoryStr = category ? [NSString stringWithFormat:@"&category=%@",category] : @"";
+        NSString *apiName = [NSString stringWithFormat:@"goods_standards?me=%@%@%@%@%@",[[TCBuluoApi api] currentUserSession].assigned,categoryStr, limitSizePart, sortSkipPart,sor];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.error) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
                 }
-                goodsStandard.priceAndRepertoryMap = mutableDic;
+            } else {
+                TCGoodsStandardWrapper *goodsStandardWarpper = [[TCGoodsStandardWrapper alloc] initWithObjectDictionary:response.data];
+                
+                NSArray *arr = goodsStandardWarpper.content;
+                for (int i = 0; i < arr.count; i++) {
+                    TCGoodsStandardMate *goodsStandard = arr[i];
+                    NSDictionary *dict = goodsStandard.priceAndRepertoryMap;
+                    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:dict];
+                    for (int j = 0; j < mutableDic.allKeys.count; j++) {
+                        NSString *key = mutableDic.allKeys[j];
+                        NSDictionary *dic = mutableDic[key];
+                        TCGoodsPriceAndRepertory *priceAndRep = [[TCGoodsPriceAndRepertory alloc] initWithObjectDictionary:dic];
+                        mutableDic[key] = priceAndRep;
+                    }
+                    goodsStandard.priceAndRepertoryMap = mutableDic;
+                }
+                
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(goodsStandardWarpper, nil));
+                }
             }
-            
-            if (resultBlock) {
-                TC_CALL_ASYNC_MQ(resultBlock(goodsStandardWarpper, nil));
-            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
         }
-    }];
+    }
 }
 
 - (void)createGoods:(TCGoodsMeta *)goods goodsStandardMate:(TCGoodsStandardMate *)goodsStandardMate mainGoodsStandardKey:(NSString *)key result:(void (^)(NSArray *goodsArr, NSError *error))resultBlock {
-    NSString *apiName = [NSString stringWithFormat:@"goods?me=%@",[[TCBuluoApi api] currentUserSession].assigned];
-    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
-    request.token = self.currentUserSession.token;
-    NSDictionary *goodDic = [goods toObjectDictionary];
-    
-    
-    if (goodsStandardMate && key) {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"goods?me=%@",[[TCBuluoApi api] currentUserSession].assigned];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
+        request.token = self.currentUserSession.token;
+        NSDictionary *goodDic = [goods toObjectDictionary];
         
-        NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
         
-        NSDictionary *standardMateDic = [goodsStandardMate toObjectDictionary];
-        for (NSString *key in standardMateDic.allKeys) {
-            if ([standardMateDic[key] isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dic = standardMateDic[key];
-                NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
-                for (NSString *subKey in dic.allKeys) {
-                    if ([dic[subKey] isKindOfClass:[TCGoodsPriceAndRepertory class]]) {
-                        
-                        TCGoodsPriceAndRepertory *priceAndRepertory = dic[subKey];
-                        
-                        [mutableDic setValue:[priceAndRepertory toObjectDictionary]  forKey:subKey];
-                    }else {
-                        [mutableDic setValue:dic[subKey] forKey:subKey];
-                    }
-                }
-                [mutableDictionary setValue:mutableDic forKey:key];
-            }else {
-                [mutableDictionary setValue:standardMateDic[key] forKey:key];
-            }
+        if (goodsStandardMate && key) {
             
-        }
-        [request setValue:mutableDictionary forKey:@"standardMeta"];
-        
-        NSMutableDictionary *goodsMutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
-        for (NSString *key in goodDic.allKeys) {
-            if (![key isEqualToString:@"standardId"]) {
-                [goodsMutableDic setValue:goodDic[key] forKey:key];
-            }
+            NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
             
-        }
-        
-        [request setValue:goodsMutableDic forKey:@"goodsMeta"];
-        [request setValue:key forKey:@"primaryStandardKey"];
-    }else {
-        
-        [request setValue:goodDic forKey:@"goodsMeta"];
-        
-    }
-    
-    [[TCClient client] send:request finish:^(TCClientResponse *response) {
-        if (response.error) {
-            if (resultBlock) {
-                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
-            }
-        }else {
-            NSArray *arr = (NSArray *)response.data;
-            NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
-            if ([arr isKindOfClass:[NSArray class]]) {
-                if (arr.count) {
-                    for (int i = 0; i < arr.count; i++) {
-                        NSDictionary *dic = arr[i];
-                        TCGoodsMeta *good = [[TCGoodsMeta alloc] initWithObjectDictionary:dic];
-                        if (good) {
-                            [mutableArr addObject:good];
+            NSDictionary *standardMateDic = [goodsStandardMate toObjectDictionary];
+            for (NSString *key in standardMateDic.allKeys) {
+                if ([standardMateDic[key] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *dic = standardMateDic[key];
+                    NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
+                    for (NSString *subKey in dic.allKeys) {
+                        if ([dic[subKey] isKindOfClass:[TCGoodsPriceAndRepertory class]]) {
+                            
+                            TCGoodsPriceAndRepertory *priceAndRepertory = dic[subKey];
+                            
+                            [mutableDic setValue:[priceAndRepertory toObjectDictionary]  forKey:subKey];
+                        }else {
+                            [mutableDic setValue:dic[subKey] forKey:subKey];
                         }
                     }
+                    [mutableDictionary setValue:mutableDic forKey:key];
+                }else {
+                    [mutableDictionary setValue:standardMateDic[key] forKey:key];
                 }
                 
-                if (resultBlock && mutableArr.count) {
-                    TC_CALL_ASYNC_MQ(resultBlock(mutableArr, nil));
+            }
+            [request setValue:mutableDictionary forKey:@"standardMeta"];
+            
+            NSMutableDictionary *goodsMutableDic = [NSMutableDictionary dictionaryWithCapacity:0];
+            for (NSString *key in goodDic.allKeys) {
+                if (![key isEqualToString:@"standardId"]) {
+                    [goodsMutableDic setValue:goodDic[key] forKey:key];
+                }
+                
+            }
+            
+            [request setValue:goodsMutableDic forKey:@"goodsMeta"];
+            [request setValue:key forKey:@"primaryStandardKey"];
+        }else {
+            
+            [request setValue:goodDic forKey:@"goodsMeta"];
+            
+        }
+        
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.error) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            }else {
+                NSArray *arr = (NSArray *)response.data;
+                NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
+                if ([arr isKindOfClass:[NSArray class]]) {
+                    if (arr.count) {
+                        for (int i = 0; i < arr.count; i++) {
+                            NSDictionary *dic = arr[i];
+                            TCGoodsMeta *good = [[TCGoodsMeta alloc] initWithObjectDictionary:dic];
+                            if (good) {
+                                [mutableArr addObject:good];
+                            }
+                        }
+                    }
+                    
+                    if (resultBlock && mutableArr.count) {
+                        TC_CALL_ASYNC_MQ(resultBlock(mutableArr, nil));
+                    }else {
+                        if (resultBlock) {
+                            TC_CALL_ASYNC_MQ(resultBlock(nil, nil));
+                        }
+                    }
                 }else {
                     if (resultBlock) {
                         TC_CALL_ASYNC_MQ(resultBlock(nil, nil));
                     }
                 }
-            }else {
-                if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(nil, nil));
-                }
+                
             }
-            
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
         }
-    }];
+    }
 }
 
 - (void)modifyGoodsState:(NSString *)goodsId published:(NSString *)published result:(void (^)(BOOL, NSError *))resultBlock {
@@ -866,7 +886,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         [request setValue:published forKey:@"value"];
         
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
@@ -891,7 +911,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         request.token = self.currentUserSession.token;
         
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 204) {
+            if (response.codeInResponse == 204) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
@@ -916,7 +936,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         request.token = self.currentUserSession.token;
         
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     
                     TCGoodsStandardMate *mate = [[TCGoodsStandardMate alloc] initWithObjectDictionary:response.data];
@@ -948,7 +968,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             [request setValue:dic[key] forKey:key];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
@@ -1006,7 +1026,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             [request setValue:dic[key] forParam:key];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     TCGoodsOrder *goodsOrder = [[TCGoodsOrder alloc] initWithObjectDictionary:response.data];
                     TC_CALL_ASYNC_MQ(resultBlock(YES, goodsOrder, nil));
@@ -1114,7 +1134,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         request.token = self.currentUserSession.token;
         [request setValue:status forParam:@"value"];
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
@@ -1200,7 +1220,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         [request setValue:anOldPassword forParam:@"oldPassword"];
         [request setValue:aNewPassword forParam:@"newPassword"];
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 200) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
@@ -1258,7 +1278,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             [request setValue:dic[key] forParam:key];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 201) {
+            if (response.codeInResponse == 201) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
@@ -1282,7 +1302,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodDelete apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.statusCode == 204) {
+            if (response.codeInResponse == 204) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
