@@ -11,4 +11,5 @@ pod 'AMapSearch-NO-IDFA'
 pod 'AMapLocation-NO-IDFA'
 pod 'UITableView+FDTemplateLayoutCell'
 pod 'EAIntroView', '~> 2.10.0'
+pod 'FLEX', '~> 2.0', :configurations => ['Debug']
 end

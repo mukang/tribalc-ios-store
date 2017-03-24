@@ -24,6 +24,7 @@ PODS:
   - EAIntroView (2.10.0):
     - EARestrictedScrollView (~> 1.1.0)
   - EARestrictedScrollView (1.1.0)
+  - FLEX (2.4.0)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.1.12)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - AMapLocation-NO-IDFA
   - AMapSearch-NO-IDFA
   - EAIntroView (~> 2.10.0)
+  - FLEX (~> 2.0)
   - Masonry
   - MBProgressHUD
   - MJRefresh
@@ -54,6 +56,7 @@ SPEC CHECKSUMS:
   AMapSearch-NO-IDFA: c14f82f9f06533b033da001c94077c50d48cee25
   EAIntroView: 3494b7bbd1212e3a4f7e8d16194a1b00e7b9abb2
   EARestrictedScrollView: b0c2a3f92fb2610bb44d71c5e4893777c89e45ef
+  FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -61,6 +64,6 @@ SPEC CHECKSUMS:
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 2613a0d835596686cd5df3b35bbb412dcbfc4cf7
+PODFILE CHECKSUM: 4a09a597ae8cd924fab4c38c894273b6b534e9ec
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

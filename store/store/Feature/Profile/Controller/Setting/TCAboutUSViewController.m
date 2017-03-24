@@ -7,6 +7,9 @@
 //
 
 #import "TCAboutUSViewController.h"
+#if DEBUG
+#import "FLEXManager.h"
+#endif
 
 @interface TCAboutUSViewController ()
 
@@ -26,6 +29,14 @@
         make.edges.equalTo(self.view);
     }];
     
+    UITapGestureRecognizer *tapG = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+    [self.view addGestureRecognizer:tapG];
+}
+
+- (void)tap {
+#if DEBUG
+    [[FLEXManager sharedManager] showExplorer];
+#endif
 }
 
 #pragma mark - Status Bar
