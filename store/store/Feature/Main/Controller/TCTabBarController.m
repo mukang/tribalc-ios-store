@@ -12,6 +12,7 @@
 #import "TCGoodsViewController.h"
 #import "TCOrderViewController.h"
 #import "TCProfileViewController.h"
+#import "TCLoginViewController.h"
 
 #import "TCFunctions.h"
 #import <EAIntroView/EAIntroView.h>
@@ -24,12 +25,15 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
 
 @end
 
-@implementation TCTabBarController
+@implementation TCTabBarController {
+    __weak TCTabBarController *weakSelf;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    weakSelf = self;
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBar.translucent = NO;
     
@@ -38,9 +42,13 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
     [self addChildController:[[TCOrderViewController alloc] init] title:@"订单" image:@"tabBar_order_normal" selectedImage:@"tabBar_order_selected"];
     [self addChildController:[[TCProfileViewController alloc] init] title:@"店铺" image:@"tabBar_profile_normal" selectedImage:@"tabBar_profile_selected"];
     
-    
+    [self registerNotifications];
     [self handleShowIntroView];
     [self setupAMapServices];
+}
+
+- (void)dealloc {
+    [self removeNotifications];
 }
 
 - (void)addChildController:(UIViewController *)childController title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selecteImage {
@@ -63,6 +71,42 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
     [self addChildViewController:nav];
 }
 
+#pragma mark - Notification
+
+- (void)registerNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleUnauthorizedNotification:)
+                                                 name:TCClientUnauthorizedNotification object:nil];
+}
+
+- (void)removeNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Actions
+
+- (void)handleUnauthorizedNotification:(NSNotification *)notification {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的账号已在其他设备使用，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf handleUserLogout];
+    }];
+    [alertController addAction:action];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)handleUserLogout {
+    [[TCBuluoApi api] logout:^(BOOL success, NSError *error) {
+        [weakSelf showLoginViewController];
+    }];
+}
+
+#pragma mark - Show Login View Controller
+
+- (void)showLoginViewController {
+    TCLoginViewController *vc = [[TCLoginViewController alloc] initWithNibName:@"TCLoginViewController" bundle:[NSBundle mainBundle]];
+    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
+}
 
 #pragma mark - Intro View
 

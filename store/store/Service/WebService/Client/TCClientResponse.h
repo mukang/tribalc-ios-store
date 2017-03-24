@@ -10,10 +10,14 @@
 
 @interface TCClientResponse : NSObject
 
+/** HTTP状态码 */
+@property (nonatomic, readonly) NSInteger statusCode;
+/** 数据库返回数据中的状态码 */
+@property (nonatomic, readonly) NSInteger codeInResponse;
+
 @property (copy, nonatomic, readonly) id data;
 @property (strong, nonatomic, readonly) NSError *error;
-@property (nonatomic, readonly) NSInteger statusCode;
 
-+ (instancetype)responseWithStatusCode:(NSInteger)statusCode data:(id)data orError:(NSError *)error;
++ (instancetype)responseWithStatusCode:(NSInteger)statusCode codeInResponse:(NSInteger)codeInResponse data:(id)data orError:(NSError *)error;
 
 @end

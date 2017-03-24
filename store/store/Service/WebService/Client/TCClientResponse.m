@@ -13,27 +13,29 @@
 
 #pragma mark - Public Methods
 
-+ (instancetype)responseWithStatusCode:(NSInteger)statusCode data:(id)data orError:(NSError *)error {
++ (instancetype)responseWithStatusCode:(NSInteger)statusCode codeInResponse:(NSInteger)codeInResponse data:(id)data orError:(NSError *)error {
     if (!error) {
-        return [[self alloc] initWithStatusCode:statusCode data:data];
+        return [[self alloc] initWithStatusCode:statusCode codeInResponse:codeInResponse data:data];
     } else {
-        return [[self alloc] initWithStatusCode:statusCode error:error];
+        return [[self alloc] initWithStatusCode:statusCode codeInResponse:codeInResponse error:error];
     }
 }
 
 #pragma mark - Private Methods
 
-- (instancetype)initWithStatusCode:(NSInteger)statusCode data:(id)data {
+- (instancetype)initWithStatusCode:(NSInteger)statusCode codeInResponse:(NSInteger)codeInResponse data:(id)data {
     if (self = [super init]) {
         _statusCode = statusCode;
+        _codeInResponse = codeInResponse;
         _data = data;
     }
     return self;
 }
 
-- (instancetype)initWithStatusCode:(NSInteger)statusCode error:(NSError *)error {
+- (instancetype)initWithStatusCode:(NSInteger)statusCode codeInResponse:(NSInteger)codeInResponse error:(NSError *)error {
     if (self = [super init]) {
         _statusCode = statusCode;
+        _codeInResponse = codeInResponse;
         _error = error;
     }
     return self;
