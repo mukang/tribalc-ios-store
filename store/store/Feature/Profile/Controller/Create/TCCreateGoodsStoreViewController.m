@@ -11,10 +11,10 @@
 #import "TCStoreLogoUploadViewController.h"
 #import "TCGoodsStoreSettingViewController.h"
 
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCCommonInputViewCell.h"
-#import "TCCommonSubtitleViewCell.h"
-#import "TCCommonIndicatorViewCell.h"
+#import <TCCommonLibs/TCCommonSubtitleViewCell.h>
+#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
 #import "TCStoreRecommendViewCell.h"
 #import "TCGoodsStoreRecommendViewCell.h"
 

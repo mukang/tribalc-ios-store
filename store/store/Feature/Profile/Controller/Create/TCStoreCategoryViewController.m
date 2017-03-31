@@ -12,7 +12,7 @@
 
 #import "TCStoreCategoryViewCell.h"
 #import "TCStoreCategoryInfo.h"
-#import "NSObject+TCModel.h"
+#import <TCCommonLibs/NSObject+TCModel.h>
 
 @interface TCStoreCategoryViewController () <UITableViewDataSource, UITableViewDelegate, TCStoreCategoryViewCellDelegate>
 

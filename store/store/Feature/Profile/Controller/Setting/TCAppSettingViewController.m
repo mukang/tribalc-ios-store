@@ -10,10 +10,10 @@
 #import "TCSuggestionViewController.h"
 #import "TCAboutUSViewController.h"
 
-#import "TCCommonIndicatorViewCell.h"
+#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
 #import "TCAppNotificationViewCell.h"
 #import "TCAppCacheViewCell.h"
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 
 #import "TCBuluoApi.h"
 #import <SDImageCache.h>

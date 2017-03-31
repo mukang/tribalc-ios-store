@@ -7,7 +7,7 @@
 //
 
 #import "TCGoodsDeliveryView.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/UIImage+Category.h>
 #import "TCDropdownMenu.h"
 
 static CGFloat const duration = 0.25;

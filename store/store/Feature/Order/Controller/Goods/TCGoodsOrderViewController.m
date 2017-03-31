@@ -13,9 +13,9 @@
 #import "TCGoodsOrderHeaderView.h"
 #import "TCGoodsOrderFooterView.h"
 
-#import "TCTabView.h"
-#import "TCRefreshHeader.h"
-#import "TCRefreshFooter.h"
+#import <TCCommonLibs/TCTabView.h>
+#import <TCCommonLibs/TCRefreshHeader.h>
+#import <TCCommonLibs/TCRefreshFooter.h>
 
 #import "TCBuluoApi.h"
 

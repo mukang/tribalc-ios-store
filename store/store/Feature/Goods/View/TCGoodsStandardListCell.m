@@ -9,8 +9,8 @@
 #import "TCGoodsStandardListCell.h"
 #import "TCGoodsStandardMate.h"
 #import "TCGoodStandards.h"
-#import "TCImageURLSynthesizer.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
+#import <TCCommonLibs/UIImage+Category.h>
 #import <UIImageView+WebCache.h>
 
 @interface TCGoodsStandardListCell ()

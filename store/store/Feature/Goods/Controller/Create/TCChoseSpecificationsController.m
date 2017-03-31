@@ -11,7 +11,7 @@
 #import "TCGoodsStandardListCell.h"
 #import "TCGoodsStandardMate.h"
 #import "TCCreateGoodsViewController.h"
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 
 @interface TCChoseSpecificationsController ()<UITableViewDelegate,UITableViewDataSource,TCGoodsStandardListCellDelegate>
 

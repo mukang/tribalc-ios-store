@@ -8,9 +8,9 @@
 
 #import "TCStoreAddressViewController.h"
 
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCCityPickerView.h"
-#import "TCCommonIndicatorViewCell.h"
+#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
 #import "TCStoreSearchAddressViewCell.h"
 
 #import <MAMapKit/MAMapKit.h>

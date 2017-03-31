@@ -14,7 +14,7 @@
 #import "TCProfileViewController.h"
 #import "TCLoginViewController.h"
 
-#import "TCFunctions.h"
+#import <TCCommonLibs/TCFunctions.h>
 #import <EAIntroView/EAIntroView.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 

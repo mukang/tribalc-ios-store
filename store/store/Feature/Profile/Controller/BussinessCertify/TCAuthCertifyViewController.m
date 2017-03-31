@@ -8,13 +8,13 @@
 
 #import "TCAuthCertifyViewController.h"
 #import <Masonry.h>
-#import "TCCommonButton.h"
-#import "TCPhotoModeView.h"
+#import <TCCommonLibs/TCCommonButton.h>
+#import <TCCommonLibs/TCPhotoModeView.h>
 #import "TCPhotoPicker.h"
 #import "TCBuluoApi.h"
 #import "TCIndustryPermitViewController.h"
 #import "TCAuthenticationInfo.h"
-#import "TCImageURLSynthesizer.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
 
 @interface TCAuthCertifyViewController ()<TCPhotoPickerDelegate,TCPhotoModeViewDelegate>
 

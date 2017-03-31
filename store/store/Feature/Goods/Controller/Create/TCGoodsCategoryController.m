@@ -9,7 +9,7 @@
 #import "TCGoodsCategoryController.h"
 #import "TCStoreCategoryIconViewCell.h"
 #import "TCStoreCategoryInfo.h"
-#import "NSObject+TCModel.h"
+#import <TCCommonLibs/NSObject+TCModel.h>
 #import "TCCreateGoodsViewController.h"
 #import "TCChoseSpecificationsController.h"
 

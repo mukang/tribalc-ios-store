@@ -10,7 +10,7 @@
 #import <Masonry.h>
 #import "TCCreateStandardCell.h"
 #import "TCCreatePriceAndRepertoryCell.h"
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCGoodsStandardMate.h"
 #import "TCBatchSetiingView.h"
 #import "TCGoodsStandardDescriptions.h"

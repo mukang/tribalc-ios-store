@@ -13,51 +13,12 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #ifdef __OBJC__
-#import "UIView+Category.h"
+#import <TCCommonLibs/UIView+Category.h>
 #import "MBProgressHUD+Category.h"
 #import "NSObject+TCNomal.h"
 #import <Masonry.h>
-#import "TCConst.h"
+#import <TCCommonLibs/TCDefines.h>
 #endif
-
-
-// 颜色
-#define TCRGBColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
-
-// 随机色
-#define TCRandomColor TCRGBColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
-
-// 带透明度的颜色
-#define TCARGBColor(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
-
-//通用颜色
-#define TCBlackColor TCRGBColor(42, 42, 42)
-#define TCSeparatorLineColor TCRGBColor(221, 221, 221)
-#define TCGrayColor TCRGBColor(154, 154, 154)
-#define TCLightGrayColor TCRGBColor(186,186,186)
-#define TCBackgroundColor TCRGBColor(242,242,242)
-
-/** 屏幕宽度 */
-#define TCScreenWidth [UIScreen mainScreen].bounds.size.width
-
-/** 屏幕高度 */
-#define TCScreenHeight [UIScreen mainScreen].bounds.size.height
-
-#define TCRealValue(value) ((value)/375.0f*TCScreenWidth)
-
-#define TCScreenScale ([UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3)
-
-// 打印输出
-#ifdef DEBUG // 处于开发阶段
-#define TCLog(...) NSLog(__VA_ARGS__)
-#else // 处于发布阶段
-#define TCLog(...)
-#endif
-
-
-#define WeakObj(o) try{}@finally{} __weak typeof(o) o##Weak = o;
-#define StrongObj(o) autoreleasepool{} __strong typeof(o) o = o##Weak;
-
 
 
 #endif /* PrefixHeader_pch */

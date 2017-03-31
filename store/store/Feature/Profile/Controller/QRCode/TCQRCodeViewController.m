@@ -7,7 +7,7 @@
 //
 
 #import "TCQRCodeViewController.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/UIImage+Category.h>
 #import <AVFoundation/AVFoundation.h>
 #import "TCScannerBorder.h"
 #import "TCScannerMaskView.h"

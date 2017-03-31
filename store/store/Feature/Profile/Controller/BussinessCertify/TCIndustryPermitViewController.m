@@ -8,12 +8,12 @@
 
 #import "TCIndustryPermitViewController.h"
 #import <Masonry.h>
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCPhotoPicker.h"
-#import "TCPhotoModeView.h"
+#import <TCCommonLibs/TCPhotoModeView.h>
 #import "TCBuluoApi.h"
 #import "TCAuthenticationInfo.h"
-#import "TCImageURLSynthesizer.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
 
 @interface TCIndustryPermitViewController ()<TCPhotoModeViewDelegate,TCPhotoPickerDelegate>
 

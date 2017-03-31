@@ -13,8 +13,8 @@
 
 #import "TCBuluoApi.h"
 
-#import "TCRefreshHeader.h"
-#import "TCRefreshFooter.h"
+#import <TCCommonLibs/TCRefreshHeader.h>
+#import <TCCommonLibs/TCRefreshFooter.h>
 
 @interface TCWalletBillViewController () <UITableViewDataSource, UITableViewDelegate>
 

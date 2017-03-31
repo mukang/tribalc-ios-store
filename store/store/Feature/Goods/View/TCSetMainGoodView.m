@@ -8,7 +8,7 @@
 
 #import "TCSetMainGoodView.h"
 #import <Masonry.h>
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCSetMainGoodListCell.h"
 #import <UITableView+FDTemplateLayoutCell.h>
 

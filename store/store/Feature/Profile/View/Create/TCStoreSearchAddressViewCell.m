@@ -7,7 +7,7 @@
 //
 
 #import "TCStoreSearchAddressViewCell.h"
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 
 @interface TCStoreSearchAddressViewCell ()
 

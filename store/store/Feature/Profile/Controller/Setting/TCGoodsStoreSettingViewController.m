@@ -12,15 +12,15 @@
 #import "TCStoreAddressViewController.h"
 #import "TCNavigationController.h"
 
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCCommonInputViewCell.h"
-#import "TCCommonSubtitleViewCell.h"
-#import "TCCommonIndicatorViewCell.h"
+#import <TCCommonLibs/TCCommonSubtitleViewCell.h>
+#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
 #import "TCStoreRecommendViewCell.h"
 
 #import "TCBuluoApi.h"
 #import "TCStoreCategoryInfo.h"
-#import "NSObject+TCModel.h"
+#import <TCCommonLibs/NSObject+TCModel.h>
 #import "TCBusinessLicenceViewController.h"
 
 @interface TCGoodsStoreSettingViewController ()

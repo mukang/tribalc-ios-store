@@ -13,8 +13,8 @@
 #import "TCGoodsMeta.h"
 #import "TCBuluoApi.h"
 #import "TCGoodsListCell.h"
-#import "TCRefreshHeader.h"
-#import "TCRefreshFooter.h"
+#import <TCCommonLibs/TCRefreshHeader.h>
+#import <TCCommonLibs/TCRefreshFooter.h>
 #import "TCCreateGoodsViewController.h"
 #import "TCUnCommonView.h"
 #import "TCBusinessLicenceViewController.h"

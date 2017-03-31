@@ -7,8 +7,8 @@
 //
 
 #import "TCStoreSurroundingViewCell.h"
-#import "TCExtendButton.h"
-#import "TCImageURLSynthesizer.h"
+#import <TCCommonLibs/TCExtendButton.h>
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
 #import <UIImageView+WebCache.h>
 
 @interface TCStoreSurroundingViewCell ()

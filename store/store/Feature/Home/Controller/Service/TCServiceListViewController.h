@@ -6,7 +6,7 @@
 //  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import "TCBaseViewController.h"
+#import <TCCommonLibs/TCBaseViewController.h>
 
 typedef NS_ENUM(NSInteger, TCServiceType) {
     TCServiceTypeRepast,

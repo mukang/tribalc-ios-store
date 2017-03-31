@@ -7,19 +7,19 @@
 //
 
 #import "TCCreateGoodsViewController.h"
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCGoodsDetailTitleCell.h"
 #import "TCCommonInputViewCell.h"
-#import "TCCommonSubtitleViewCell.h"
-#import "TCCommonIndicatorViewCell.h"
+#import <TCCommonLibs/TCCommonSubtitleViewCell.h>
+#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
 #import <YYText.h>
 #import "TCCreateGoodsStandardController.h"
 #import "TCGoodsIssueViewController.h"
-#import "TCPhotoModeView.h"
+#import <TCCommonLibs/TCPhotoModeView.h>
 #import "TCPhotoPicker.h"
 #import "TCBuluoApi.h"
-#import "TCImageURLSynthesizer.h"
-#import "TCImagePlayerView.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
+#import <TCCommonLibs/TCImagePlayerView.h>
 #import "TCSetMainGoodCell.h"
 
 @interface TCCreateGoodsViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,YYTextViewDelegate,TCPhotoModeViewDelegate,TCPhotoPickerDelegate,TCGoodsDetailTitleCellDelegate,TCImagePlayerViewDelegate>

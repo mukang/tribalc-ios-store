@@ -16,7 +16,7 @@
 #import "TCServiceRecommendViewCell.h"
 #import "TCServicePromptViewCell.h"
 
-#import "UIImage+Category.h"
+#import <TCCommonLibs/UIImage+Category.h>
 
 #import "TCBuluoApi.h"
 

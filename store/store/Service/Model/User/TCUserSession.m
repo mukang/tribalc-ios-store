@@ -7,7 +7,7 @@
 //
 
 #import "TCUserSession.h"
-#import "NSObject+TCModel.h"
+#import <TCCommonLibs/NSObject+TCModel.h>
 #import "TCStoreInfo.h"
 
 @implementation TCUserSession

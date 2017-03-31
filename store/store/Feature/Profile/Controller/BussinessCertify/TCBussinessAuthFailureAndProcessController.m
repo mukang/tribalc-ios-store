@@ -7,7 +7,7 @@
 //
 
 #import "TCBussinessAuthFailureAndProcessController.h"
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import <Masonry.h>
 #import "TCBusinessLicenceViewController.h"
 

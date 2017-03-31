@@ -14,7 +14,7 @@
 
 #import "TCHomeCommodityTableViewCell.h"
 #import "TCGoodSelectView.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/UIImage+Category.h>
 #import <MBProgressHUD.h>
 
 @interface TCHomeViewController () {

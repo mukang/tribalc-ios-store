@@ -11,8 +11,8 @@
 
 #import "TCReservationViewCell.h"
 
-#import "TCRefreshHeader.h"
-#import "TCRefreshFooter.h"
+#import <TCCommonLibs/TCRefreshHeader.h>
+#import <TCCommonLibs/TCRefreshFooter.h>
 
 #import "TCBuluoApi.h"
 

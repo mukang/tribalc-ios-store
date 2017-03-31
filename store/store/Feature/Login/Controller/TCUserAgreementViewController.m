@@ -7,7 +7,7 @@
 //
 
 #import "TCUserAgreementViewController.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/UIImage+Category.h>
 
 @interface TCUserAgreementViewController ()
 

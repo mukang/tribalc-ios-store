@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TCPicturesHeaderView.h"
+#import <TCCommonLibs/TCPicturesHeaderView.h>
 @class TCDetailStore;
 
 @interface TCServiceHeaderView : UIView

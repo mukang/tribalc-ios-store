@@ -8,7 +8,7 @@
 
 #import "TCGoodsOrderDetailViewController.h"
 
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCGoodsDeliveryView.h"
 #import "TCGoodsOrderAddressViewCell.h"
 #import "TCGoodsOrderPurchaserViewCell.h"
@@ -19,8 +19,8 @@
 
 #import "TCBuluoApi.h"
 
-#import "TCImageURLSynthesizer.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
+#import <TCCommonLibs/UIImage+Category.h>
 #import <UIImageView+WebCache.h>
 
 @interface TCGoodsOrderDetailViewController () <UITableViewDataSource, UITableViewDelegate, TCGoodsDeliveryViewDelegate>

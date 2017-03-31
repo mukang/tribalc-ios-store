@@ -8,7 +8,7 @@
 
 #import "TCReservationDetailViewController.h"
 
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCReservationStoreViewCell.h"
 #import "TCReservationInfoViewCell.h"
 #import "TCReservationAddressViewCell.h"

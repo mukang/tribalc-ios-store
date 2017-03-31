@@ -11,16 +11,16 @@
 #import "TCStoreSurroundingViewController.h"
 #import "TCStoreSettingViewController.h"
 
-#import "TCCommonButton.h"
-#import "TCCommonIndicatorViewCell.h"
-#import "TCCommonSwitchViewCell.h"
+#import <TCCommonLibs/TCCommonButton.h>
+#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
+#import <TCCommonLibs/TCCommonSwitchViewCell.h>
 #import "TCCommonInputViewCell.h"
 #import "TCStoreRecommendViewCell.h"
 #import "TCStoreFacilitiesViewCell.h"
 
 #import "TCBuluoApi.h"
 #import "TCStoreFeature.h"
-#import "NSObject+TCModel.h"
+#import <TCCommonLibs/NSObject+TCModel.h>
 
 @interface TCCreateStoreNextViewController () <UITableViewDataSource, UITableViewDelegate, TCCommonSwitchViewCellDelegate, TCCommonInputViewCellDelegate, TCStoreRecommendViewCellDelegate, TCStoreFacilitiesViewCellDelegate>
 

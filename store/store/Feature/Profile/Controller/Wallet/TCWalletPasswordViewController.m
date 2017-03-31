@@ -10,12 +10,12 @@
 #import "TCBioEditSMSViewController.h"
 
 #import "MLBPasswordTextField.h"
-#import "TCCommonButton.h"
-#import "TCExtendButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
+#import <TCCommonLibs/TCExtendButton.h>
 
-#import "TCFunctions.h"
+#import <TCCommonLibs/TCFunctions.h>
 #import "TCBuluoApi.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/UIImage+Category.h>
 #import <Masonry.h>
 
 NSString *const TCWalletPasswordKey = @"TCWalletPasswordKey";

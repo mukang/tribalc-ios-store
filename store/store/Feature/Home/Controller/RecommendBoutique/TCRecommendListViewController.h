@@ -11,13 +11,13 @@
 #import "TCRecommendInfoViewController.h"
 #import "TCBuluoApi.h"
 #import "TCModelImport.h"
-#import "TCClientConfig.h"
+#import <TCCommonLibs/TCClientConfig.h>
 #import "MJRefresh.h"
 #import "TCRecommendHeader.h"
 #import "UIImageView+WebCache.h"
-#import "TCImageURLSynthesizer.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
 #import "TCRecommendFooter.h"
-#import "TCBaseViewController.h"
+#import <TCCommonLibs/TCBaseViewController.h>
 
 @interface TCRecommendListViewController : TCBaseViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SDWebImageManagerDelegate>
 

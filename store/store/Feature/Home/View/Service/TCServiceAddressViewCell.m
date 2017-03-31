@@ -7,7 +7,7 @@
 //
 
 #import "TCServiceAddressViewCell.h"
-#import "TCExtendButton.h"
+#import <TCCommonLibs/TCExtendButton.h>
 
 @interface TCServiceAddressViewCell ()
 

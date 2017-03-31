@@ -7,7 +7,7 @@
 //
 
 #import "TCLaunchViewController.h"
-#import "TCFunctions.h"
+#import <TCCommonLibs/TCFunctions.h>
 
 NSString *const TCLaunchWindowDidAppearNotification    = @"TCLaunchWindowDidAppearNotification";
 NSString *const TCLaunchWindowDidDisappearNotification = @"TCLaunchWindowDidDisappearNotification";

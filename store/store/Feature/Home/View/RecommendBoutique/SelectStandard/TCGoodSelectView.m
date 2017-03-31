@@ -7,15 +7,15 @@
 //
 
 #import "TCGoodSelectView.h"
-#import "TCImageURLSynthesizer.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
 #import "TCGoodSelectTitleView.h"
 #import "TCBuluoApi.h"
-#import "NSObject+TCModel.h"
+#import <TCCommonLibs/NSObject+TCModel.h>
 #import "TCSelectPrimaryBtn.h"
 #import "TCSelectSecondaryBtn.h"
 #import "TCSelectButton.h"
 #import "TCComponent.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/UIImage+Category.h>
 
 @implementation TCGoodSelectView {
     TCGoodDetail *goodDetail;

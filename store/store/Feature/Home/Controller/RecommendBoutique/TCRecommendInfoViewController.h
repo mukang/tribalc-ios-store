@@ -13,14 +13,14 @@
 #import "TCBuluoApi.h"
 #import "TCModelImport.h"
 #import "TCGoodSelectView.h"
-#import "TCClientConfig.h"
+#import <TCCommonLibs/TCClientConfig.h>
 #import "TCGoodTitleView.h"
-#import "NSObject+TCModel.h"
-#import "TCClientRequestError.h"
+#import <TCCommonLibs/NSObject+TCModel.h>
+#import <TCCommonLibs/TCClientRequestError.h>
 #import "TCGoodShopView.h"
 #import "TCImgPageControl.h"
 #import "TCGoodSelectView.h"
-#import "TCBaseViewController.h"
+#import <TCCommonLibs/TCBaseViewController.h>
 
 
 

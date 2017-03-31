@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TCBaseViewController.h"
+#import <TCCommonLibs/TCBaseViewController.h>
 
 typedef NS_ENUM(NSInteger, TCMessageCodeType) {
     TCMessageCodeTypeBindPhone,       // 绑定手机号

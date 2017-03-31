@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TCBioEditSMSViewController.h"
-#import "TCBaseViewController.h"
+#import <TCCommonLibs/TCBaseViewController.h>
 
 @interface TCBioEditPhoneViewController : TCBaseViewController
 

@@ -10,7 +10,7 @@
 
 #import "TCBusinessHoursViewCell.h"
 
-#import "TCDatePickerView.h"
+#import <TCCommonLibs/TCDatePickerView.h>
 
 typedef NS_ENUM(NSInteger, TCBusinessHours) {
     TCBusinessHoursOpenTime,

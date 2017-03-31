@@ -8,7 +8,7 @@
 
 #import "TCGoodsIssueViewController.h"
 #import "TCCommonInputViewCell.h"
-#import "TCCommonIndicatorViewCell.h"
+#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
 #import <Masonry.h>
 #import "TCGoodsTipsCell.h"
 #import "TCBuluoApi.h"

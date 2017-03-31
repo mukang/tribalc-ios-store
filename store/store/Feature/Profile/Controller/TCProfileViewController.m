@@ -19,12 +19,12 @@
 
 #import "TCProfileHeaderView.h"
 #import "TCProfileViewCell.h"
-#import "TCPhotoModeView.h"
+#import <TCCommonLibs/TCPhotoModeView.h>
 
 #import "TCBuluoApi.h"
 #import "TCPhotoPicker.h"
-#import "UIImage+Category.h"
-#import "TCImageURLSynthesizer.h"
+#import <TCCommonLibs/UIImage+Category.h>
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TCBusinessLicenceViewController.h"

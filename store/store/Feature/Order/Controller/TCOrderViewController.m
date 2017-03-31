@@ -12,7 +12,7 @@
 #import "TCLoginViewController.h"
 #import "TCNavigationController.h"
 
-#import "TCExtendButton.h"
+#import <TCCommonLibs/TCExtendButton.h>
 
 #import "TCBuluoApi.h"
 

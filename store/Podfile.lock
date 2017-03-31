@@ -31,20 +31,44 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - TCCommonLibs (0.4.2):
+    - TCCommonLibs/Category (= 0.4.2)
+    - TCCommonLibs/Controller (= 0.4.2)
+    - TCCommonLibs/DicToModel (= 0.4.2)
+    - TCCommonLibs/Tools (= 0.4.2)
+    - TCCommonLibs/UI (= 0.4.2)
+    - TCCommonLibs/Utility (= 0.4.2)
+    - TCCommonLibs/WebService (= 0.4.2)
+  - TCCommonLibs/Category (0.4.2):
+    - SDWebImage
+    - TCCommonLibs/Utility
+  - TCCommonLibs/Controller (0.4.2):
+    - TCCommonLibs/Category
+  - TCCommonLibs/DicToModel (0.4.2)
+  - TCCommonLibs/Tools (0.4.2):
+    - TCCommonLibs/WebService
+  - TCCommonLibs/UI (0.4.2):
+    - Masonry
+    - MJRefresh
+    - SDWebImage
+    - TCCommonLibs/Category
+    - TCCommonLibs/Tools
+    - TCCommonLibs/Utility
+  - TCCommonLibs/Utility (0.4.2)
+  - TCCommonLibs/WebService (0.4.2):
+    - AFNetworking
+    - TCCommonLibs/Utility
   - UITableView+FDTemplateLayoutCell (1.4)
   - YYText (1.0.7)
 
 DEPENDENCIES:
-  - AFNetworking
   - AMap2DMap-NO-IDFA
   - AMapLocation-NO-IDFA
   - AMapSearch-NO-IDFA
   - EAIntroView (~> 2.10.0)
   - FLEX (~> 2.0)
-  - Masonry
   - MBProgressHUD
-  - MJRefresh
-  - SDWebImage
+  - TCCommonLibs
   - UITableView+FDTemplateLayoutCell
   - YYText
 
@@ -61,9 +85,10 @@ SPEC CHECKSUMS:
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  TCCommonLibs: a8b252896214eff9b877be8cc27d5a80447930dd
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 4a09a597ae8cd924fab4c38c894273b6b534e9ec
+PODFILE CHECKSUM: 3789000860c035945eaf662254fac60d3f5a9b46
 
 COCOAPODS: 1.2.1.beta.1

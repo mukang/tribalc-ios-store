@@ -9,16 +9,16 @@
 #import "TCStoreSurroundingViewController.h"
 #import "TCNavigationController.h"
 
-#import "TCCommonButton.h"
+#import <TCCommonLibs/TCCommonButton.h>
 #import "TCStoreSurroundingViewCell.h"
 
-#import "TCPhotoModeView.h"
+#import <TCCommonLibs/TCPhotoModeView.h>
 #import "TCPhotoPicker.h"
 
 #import "TCBuluoApi.h"
 
-#import "TCImageURLSynthesizer.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
+#import <TCCommonLibs/UIImage+Category.h>
 #import <UIImageView+WebCache.h>
 
 @interface TCStoreSurroundingViewController ()

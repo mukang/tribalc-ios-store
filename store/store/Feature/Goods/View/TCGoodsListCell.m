@@ -7,8 +7,8 @@
 //
 
 #import "TCGoodsListCell.h"
-#import "TCImageURLSynthesizer.h"
-#import "UIImage+Category.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
+#import <TCCommonLibs/UIImage+Category.h>
 #import "TCGoodsMeta.h"
 #import <UIImageView+WebCache.h>
 
