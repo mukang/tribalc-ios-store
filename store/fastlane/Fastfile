@@ -24,7 +24,6 @@ platform :ios do
 
 lane :to_firim do
 
-  sh “git reset —-hard”
   sh "git checkout master”
 
   # 如果你用 pod install
@@ -56,7 +55,6 @@ lane :to_firim do
 end
 
 lane :to_appstore do
-  sh “git reset —-hard”
   sh "git checkout master”
 
   # 如果你用 pod install
