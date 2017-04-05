@@ -5,9 +5,10 @@ module Fastlane
       def self.run(params)
         plist = CFPropertyList::List.new(:file => 'store/Info.plist')
         data = CFPropertyList.native_types(plist.value)
-        version = data['CFBundleVersion']
+        buildVersion = data['CFBundleVersion']
+        version = data['CFBundleShortVersionString']
         sh 'git add .'
-        sh "git commit -m \"[更新]Update build version #{version} \""
+        sh "git commit -m \"[更新]Update Version #{version} Update build version #{buildVersion} \""
         sh "git push origin #{params[:branch]}"
       end
 
