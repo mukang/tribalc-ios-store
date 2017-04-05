@@ -64,15 +64,15 @@ lane :to_appstore do
   # 执行 carthage bootstrap
   # carthage
   # 增加build版本号
-  increment_build_number
+  #increment_build_number
+  
+  increment_build_number_in_plist(target: “store”)
+  increment_version_number_in_plist(
+    target: “store”,
+    version_number: ‘1.0.3’
+    )
   git_increase_build_version(branch: "master")
   # 编译代码
-
-   #increment_build_number_in_plist(target: “individual”)
-   #increment_version_number_in_plist(
-   # target: “individual”,
-   # version_number: ‘1.0.3’
-   # )
   gym(
 	clean: true,
 	scheme: “store”,
