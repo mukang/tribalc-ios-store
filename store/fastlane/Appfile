@@ -1,0 +1,7 @@
+app_identifier "com.buluo-gs.store" # The bundle identifier of your app
+apple_id "wangshuaifeng@buluo-gs.com" # Your Apple email address
+
+team_id "452XNHBVYZ"  # Developer Portal Team ID
+
+# you can even provide different app identifiers, Apple IDs and team names per lane:
+# More information: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Appfile.md
