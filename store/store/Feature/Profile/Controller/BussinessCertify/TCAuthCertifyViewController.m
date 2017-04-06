@@ -7,13 +7,17 @@
 //
 
 #import "TCAuthCertifyViewController.h"
+#import "TCIndustryPermitViewController.h"
+#import "TCIDCardCaptureViewController.h"
+#import "TCNavigationController.h"
+
+#import "TCPhotoPicker.h"
+#import "TCBuluoApi.h"
+#import "TCAuthenticationInfo.h"
+
 #import <Masonry.h>
 #import <TCCommonLibs/TCCommonButton.h>
 #import <TCCommonLibs/TCPhotoModeView.h>
-#import "TCPhotoPicker.h"
-#import "TCBuluoApi.h"
-#import "TCIndustryPermitViewController.h"
-#import "TCAuthenticationInfo.h"
 #import <TCCommonLibs/TCImageURLSynthesizer.h>
 
 @interface TCAuthCertifyViewController ()<TCPhotoPickerDelegate,TCPhotoModeViewDelegate>
@@ -240,9 +244,23 @@
 
 - (void)toChoosePhoto:(UIButton *)btn {
     self.selectedBtn = btn;
-    TCPhotoModeView *photoModeView = [[TCPhotoModeView alloc] initWithController:self];
-    photoModeView.delegate = self;
-    [photoModeView show];
+//    TCPhotoModeView *photoModeView = [[TCPhotoModeView alloc] initWithController:self];
+//    photoModeView.delegate = self;
+//    [photoModeView show];
+    TCIDCardCapturePosition capturePosition;
+    if (btn.tag == 11111) {
+        capturePosition = TCIDCardCapturePositionFront;
+    } else {
+        capturePosition = TCIDCardCapturePositionBack;
+    }
+    TCIDCardCaptureViewController *vc = [[TCIDCardCaptureViewController alloc] initWithCapturePosition:capturePosition];
+    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
+    @WeakObj(self)
+    vc.captureCompletion = ^(UIImage *image) {
+        @StrongObj(self)
+        [self handleUploadImage:image];
+    };
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 
@@ -330,6 +348,54 @@
     [photoPicker dismissPhotoPicker];
     self.photoPicker = nil;
     self.selectedBtn = nil;
+}
+
+- (void)handleUploadImage:(UIImage *)image {
+    [MBProgressHUD showHUD:YES];
+    @WeakObj(self)
+    [[TCBuluoApi api] uploadImage:image progress:nil result:^(BOOL success, TCUploadInfo *uploadInfo, NSError *error) {
+        @StrongObj(self)
+        if (success) {
+            [MBProgressHUD hideHUD:YES];
+            
+            NSString *str = [TCImageURLSynthesizer synthesizeImagePathWithName:uploadInfo.objectKey source:kTCImageSourceOSS];
+            NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.imageArr];
+            if (self.selectedBtn) {
+                if (self.selectedBtn.tag == 11111) {
+                    self.frontImageView.image = image;
+                    if (mutableArr.count == 0) {
+                        [mutableArr addObject:str];
+                    }else if (mutableArr.count == 1) {
+                        [mutableArr insertObject:str atIndex:0];
+                    }else {
+                        [mutableArr replaceObjectAtIndex:0 withObject:str];
+                    }
+                }else {
+                    self.backImageView.image = image;
+                    if (mutableArr.count == 0) {
+                        [mutableArr addObject:str];
+                    }else if (mutableArr.count == 1) {
+                        [mutableArr addObject:str];
+                    }else {
+                        [mutableArr replaceObjectAtIndex:1 withObject:str];
+                    }
+                }
+            }
+            
+            if (self.frontImageView.image && self.backImageView.image) {
+                self.nextBtn.enabled = YES;
+            }
+            
+            
+            //            NSLog(@"%@", [TCImageURLSynthesizer synthesizeImageURLWithPath:str].absoluteString);
+            //            NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.imageArr];
+            //            [mutableArr addObject:str];
+            self.imageArr = mutableArr;
+        } else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"保存失败，%@", reason]];
+        }
+    }];
 }
 
 - (void)next {

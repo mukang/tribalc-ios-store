@@ -13,14 +13,12 @@
 
 + (void)showHUD:(BOOL)animated {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    TCTabBarController *vc = (TCTabBarController *)keyWindow.rootViewController;
-    [MBProgressHUD showHUDAddedTo:vc.view animated:animated];
+    [MBProgressHUD showHUDAddedTo:keyWindow animated:animated];
 }
 
 + (void)hideHUD:(BOOL)animated {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    TCTabBarController *vc = (TCTabBarController *)keyWindow.rootViewController;
-    [MBProgressHUD hideHUDForView:vc.view animated:animated];
+    [MBProgressHUD hideHUDForView:keyWindow animated:animated];
 }
 
 + (void)showHUDWithMessage:(NSString *)message {
@@ -37,10 +35,9 @@
 
 + (void)showHUDWithMessage:(NSString *)message detailsMessage:(NSString *)detailsMessage afterDelay:(CGFloat)delay {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    TCTabBarController *vc = (TCTabBarController *)keyWindow.rootViewController;
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:vc.view];
+    MBProgressHUD *hud = [MBProgressHUD HUDForView:keyWindow];
     if (!hud) {
-        hud = [MBProgressHUD showHUDAddedTo:vc.view animated:YES];
+        hud = [MBProgressHUD showHUDAddedTo:keyWindow animated:YES];
     }
     hud.mode = MBProgressHUDModeText;
     hud.label.text = message;

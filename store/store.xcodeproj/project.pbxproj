@@ -46,6 +46,7 @@
 		7A0E00B01E2E1C4A0028555D /* TCSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E00AF1E2E1C4A0028555D /* TCSettingViewController.m */; };
 		7A17EB9A1E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A17EB991E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m */; };
 		7A17EBDF1E4B32AC005D377C /* TCGoodsOrderViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A17EBDE1E4B32AC005D377C /* TCGoodsOrderViewCell.m */; };
+		7A1A26671E8F5719008CAA20 /* TCIDCardCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A26661E8F5719008CAA20 /* TCIDCardCaptureViewController.m */; };
 		7A1A85411E66D18400BB5EDB /* TCServiceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A85401E66D18400BB5EDB /* TCServiceListCell.m */; };
 		7A1A85731E67C12800BB5EDB /* TCServiceLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A85721E67C12800BB5EDB /* TCServiceLocationViewController.m */; };
 		7A1A85761E67CA1C00BB5EDB /* TCServiceFacilitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1A85751E67CA1C00BB5EDB /* TCServiceFacilitiesViewController.m */; };
@@ -327,6 +328,8 @@
 		7A17EB991E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderChangeInfo.m; sourceTree = "<group>"; };
 		7A17EBDD1E4B32AC005D377C /* TCGoodsOrderViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsOrderViewCell.h; sourceTree = "<group>"; };
 		7A17EBDE1E4B32AC005D377C /* TCGoodsOrderViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsOrderViewCell.m; sourceTree = "<group>"; };
+		7A1A26651E8F5719008CAA20 /* TCIDCardCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCIDCardCaptureViewController.h; sourceTree = "<group>"; };
+		7A1A26661E8F5719008CAA20 /* TCIDCardCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCIDCardCaptureViewController.m; sourceTree = "<group>"; };
 		7A1A853F1E66D18400BB5EDB /* TCServiceListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceListCell.h; sourceTree = "<group>"; };
 		7A1A85401E66D18400BB5EDB /* TCServiceListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceListCell.m; sourceTree = "<group>"; };
 		7A1A85711E67C12800BB5EDB /* TCServiceLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceLocationViewController.h; sourceTree = "<group>"; };
@@ -765,6 +768,8 @@
 				55647F531E4DA9D500E4A0E9 /* TCBussinessAuthFailureAndProcessController.m */,
 				55647F551E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.h */,
 				55647F561E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m */,
+				7A1A26651E8F5719008CAA20 /* TCIDCardCaptureViewController.h */,
+				7A1A26661E8F5719008CAA20 /* TCIDCardCaptureViewController.m */,
 			);
 			path = BussinessCertify;
 			sourceTree = "<group>";
@@ -2070,6 +2075,7 @@
 				7A9988161E24EE3E006175CC /* TCGoodStandards.m in Sources */,
 				7ABCC0F51E2622DE00750E47 /* TCComponent.m in Sources */,
 				7AB5683A1E45B69D0005814A /* TCCreateStoreNextViewController.m in Sources */,
+				7A1A26671E8F5719008CAA20 /* TCIDCardCaptureViewController.m in Sources */,
 				7A9987D91E24E41B006175CC /* MBProgressHUD+Category.m in Sources */,
 				7AFEC4591E52E5D700B0E754 /* TCWalletBill.m in Sources */,
 				5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */,
