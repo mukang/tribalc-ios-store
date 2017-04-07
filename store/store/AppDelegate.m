@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "TCTabBarController.h"
 #import "TCLaunchViewController.h"
+#import "TCNavigationController.h"
+#import "TCUnitySetUpViewController.h"
+
 #import <CoreLocation/CoreLocation.h>
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
@@ -121,5 +124,33 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    if ([url.absoluteString hasPrefix:@"buluostore"]) {
+        [self pushUnitySetUpViewController];
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    if ([url.absoluteString hasPrefix:@"buluostore"]) {
+        [self pushUnitySetUpViewController];
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (void)pushUnitySetUpViewController {
+    TCUnitySetUpViewController *setUpVC = [[TCUnitySetUpViewController alloc] init];
+    setUpVC.hidesBottomBarWhenPushed = YES;
+    TCTabBarController *tabVC = (TCTabBarController *)self.window.rootViewController;
+    TCNavigationController *navVC = tabVC.selectedViewController;
+    if (navVC) {
+        [navVC pushViewController:setUpVC animated:YES];
+    }
+}
 
 @end
