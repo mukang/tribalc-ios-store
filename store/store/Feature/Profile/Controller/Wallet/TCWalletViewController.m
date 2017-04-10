@@ -95,10 +95,6 @@
 
 #pragma mark - Actions
 
-- (IBAction)handleClickRechargeButton:(UIButton *)sender {
-    
-}
-
 - (IBAction)handleClickWithdrawButton:(UIButton *)sender {
     [self btnClickUnifyTips];
 }
