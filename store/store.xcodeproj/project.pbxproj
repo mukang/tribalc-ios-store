@@ -17,6 +17,7 @@
 		550319381E3497A3004522C7 /* TCGoodsStandardDescriptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319371E3497A3004522C7 /* TCGoodsStandardDescriptions.m */; };
 		5503193B1E349838004522C7 /* TCGoodsStandardDescriptionDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5503193A1E349838004522C7 /* TCGoodsStandardDescriptionDetail.m */; };
 		5503194A1E35DDEE004522C7 /* TCCreateGoodsStandardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319491E35DDEE004522C7 /* TCCreateGoodsStandardController.m */; };
+		552D6C2E1E97780800CA4EA3 /* TCUnitySetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552D6C2D1E97780800CA4EA3 /* TCUnitySetUpViewController.m */; };
 		55647E6A1E4B081300E4A0E9 /* TCGoodsMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647E691E4B081300E4A0E9 /* TCGoodsMeta.m */; };
 		55647EBD1E4C159E00E4A0E9 /* TCBatchSetiingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EB01E4C159E00E4A0E9 /* TCBatchSetiingView.m */; };
 		55647EBE1E4C159E00E4A0E9 /* TCCreatePriceAndRepertoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EB21E4C159E00E4A0E9 /* TCCreatePriceAndRepertoryCell.m */; };
@@ -270,6 +271,8 @@
 		5503193A1E349838004522C7 /* TCGoodsStandardDescriptionDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsStandardDescriptionDetail.m; sourceTree = "<group>"; };
 		550319481E35DDEE004522C7 /* TCCreateGoodsStandardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCreateGoodsStandardController.h; sourceTree = "<group>"; };
 		550319491E35DDEE004522C7 /* TCCreateGoodsStandardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCreateGoodsStandardController.m; sourceTree = "<group>"; };
+		552D6C2C1E97780800CA4EA3 /* TCUnitySetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUnitySetUpViewController.h; sourceTree = "<group>"; };
+		552D6C2D1E97780800CA4EA3 /* TCUnitySetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUnitySetUpViewController.m; sourceTree = "<group>"; };
 		55647E681E4B081300E4A0E9 /* TCGoodsMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMeta.h; sourceTree = "<group>"; };
 		55647E691E4B081300E4A0E9 /* TCGoodsMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMeta.m; sourceTree = "<group>"; };
 		55647EAF1E4C159E00E4A0E9 /* TCBatchSetiingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBatchSetiingView.h; sourceTree = "<group>"; };
@@ -1150,6 +1153,8 @@
 			children = (
 				7A2A77411E6D5009000CFAA8 /* TCLaunchViewController.h */,
 				7A2A77421E6D5009000CFAA8 /* TCLaunchViewController.m */,
+				552D6C2C1E97780800CA4EA3 /* TCUnitySetUpViewController.h */,
+				552D6C2D1E97780800CA4EA3 /* TCUnitySetUpViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1951,6 +1956,7 @@
 				7A83529C1E5D360E003A8E76 /* TCServiceHeaderView.m in Sources */,
 				7A9987241E24959F006175CC /* AppDelegate.m in Sources */,
 				55647EC61E4C15D500E4A0E9 /* TCGoodsStandardKeysBtn.m in Sources */,
+				552D6C2E1E97780800CA4EA3 /* TCUnitySetUpViewController.m in Sources */,
 				7ABCC0E51E2622C800750E47 /* TCSelectButton.m in Sources */,
 				7AD866591E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m in Sources */,
 				7AFEC4161E515DE800B0E754 /* TCDropdownMenu.m in Sources */,
