@@ -34,25 +34,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L2X-w3-4OL">
                     <rect key="frame" x="0.0" y="150" width="375" height="57"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noo-J6-oLG">
-                            <rect key="frame" x="187" y="4" width="1" height="49"/>
-                            <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="0.5" id="J7R-L5-HF8"/>
-                            </constraints>
-                        </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyv-gB-Xc0">
-                            <rect key="frame" x="0.0" y="0.0" width="187" height="57"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <state key="normal" title="收货" image="wallet_recharge_button">
-                                <color key="titleColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="handleClickRechargeButton:" destination="-1" eventType="touchUpInside" id="wpc-bD-jdU"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSe-Fo-84a">
-                            <rect key="frame" x="188" y="0.0" width="187" height="57"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <state key="normal" title="提现" image="wallet_withdraw_button">
                                 <color key="titleColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,17 +47,10 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="noo-J6-oLG" firstAttribute="centerX" secondItem="L2X-w3-4OL" secondAttribute="centerX" id="3vl-dI-5ug"/>
-                        <constraint firstItem="uyv-gB-Xc0" firstAttribute="leading" secondItem="L2X-w3-4OL" secondAttribute="leading" id="41g-LM-v2K"/>
-                        <constraint firstItem="noo-J6-oLG" firstAttribute="leading" secondItem="uyv-gB-Xc0" secondAttribute="trailing" id="6yD-Ci-KNO"/>
-                        <constraint firstItem="uSe-Fo-84a" firstAttribute="leading" secondItem="noo-J6-oLG" secondAttribute="trailing" id="BRN-go-h6K"/>
+                        <constraint firstItem="uSe-Fo-84a" firstAttribute="leading" secondItem="L2X-w3-4OL" secondAttribute="leading" id="00c-7L-yFf"/>
                         <constraint firstItem="uSe-Fo-84a" firstAttribute="top" secondItem="L2X-w3-4OL" secondAttribute="top" id="CGp-QK-wSA"/>
                         <constraint firstAttribute="trailing" secondItem="uSe-Fo-84a" secondAttribute="trailing" id="DyU-eT-ciR"/>
-                        <constraint firstItem="noo-J6-oLG" firstAttribute="top" secondItem="L2X-w3-4OL" secondAttribute="top" constant="4" id="ITi-i3-8f4"/>
-                        <constraint firstAttribute="bottom" secondItem="noo-J6-oLG" secondAttribute="bottom" constant="4" id="NC4-d6-NQt"/>
                         <constraint firstAttribute="bottom" secondItem="uSe-Fo-84a" secondAttribute="bottom" id="Qcm-7G-0b6"/>
-                        <constraint firstItem="uyv-gB-Xc0" firstAttribute="top" secondItem="L2X-w3-4OL" secondAttribute="top" id="Unh-g0-fq0"/>
-                        <constraint firstAttribute="bottom" secondItem="uyv-gB-Xc0" secondAttribute="bottom" id="kYk-Xl-Wu6"/>
                         <constraint firstAttribute="height" constant="57" id="uHw-a7-DC2"/>
                     </constraints>
                 </view>
@@ -194,7 +170,6 @@
         <image name="wallet_bank_card_button" width="33" height="33"/>
         <image name="wallet_finance_button" width="33" height="33"/>
         <image name="wallet_password_button" width="33" height="33"/>
-        <image name="wallet_recharge_button" width="25" height="25"/>
         <image name="wallet_statement_button" width="33" height="33"/>
         <image name="wallet_withdraw_button" width="25" height="25"/>
     </resources>
