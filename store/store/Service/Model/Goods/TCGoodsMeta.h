@@ -33,7 +33,8 @@
 
 @property (copy, nonatomic) NSString *thumbnail;
 
-@property (copy, nonatomic) NSString *detail;
+/** 商品详情图片数组 */
+@property (copy, nonatomic) NSArray *detail;
 
 @property (assign, nonatomic) NSInteger saleQuantity;
 

@@ -36,6 +36,8 @@
 		558F6DA41E48196400CB2F81 /* TCGoodsIssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DA31E48196400CB2F81 /* TCGoodsIssueViewController.m */; };
 		558F6DCF1E48C70B00CB2F81 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DCC1E48C70B00CB2F81 /* MGSwipeButton.m */; };
 		558F6DD01E48C70B00CB2F81 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558F6DCE1E48C70B00CB2F81 /* MGSwipeTableCell.m */; };
+		559874941EA49F60007BA9FB /* TCGoodDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559874931EA49F60007BA9FB /* TCGoodDescriptionViewController.m */; };
+		559874971EA4AE79007BA9FB /* TCGoodDescriptionImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 559874961EA4AE79007BA9FB /* TCGoodDescriptionImageCell.m */; };
 		55F9EDD01E52F5E400935ADF /* TCGoodsMetaWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */; };
 		55F9EE4A1E56D14F00935ADF /* TCSetMainGoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */; };
 		55F9EE4D1E56DF4E00935ADF /* TCSetMainGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */; };
@@ -309,6 +311,10 @@
 		558F6DCC1E48C70B00CB2F81 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
 		558F6DCD1E48C70B00CB2F81 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
 		558F6DCE1E48C70B00CB2F81 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
+		559874921EA49F60007BA9FB /* TCGoodDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodDescriptionViewController.h; sourceTree = "<group>"; };
+		559874931EA49F60007BA9FB /* TCGoodDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodDescriptionViewController.m; sourceTree = "<group>"; };
+		559874951EA4AE79007BA9FB /* TCGoodDescriptionImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodDescriptionImageCell.h; sourceTree = "<group>"; };
+		559874961EA4AE79007BA9FB /* TCGoodDescriptionImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodDescriptionImageCell.m; sourceTree = "<group>"; };
 		55F9EDCE1E52F5E400935ADF /* TCGoodsMetaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMetaWrapper.h; sourceTree = "<group>"; };
 		55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMetaWrapper.m; sourceTree = "<group>"; };
 		55F9EE481E56D14F00935ADF /* TCSetMainGoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodView.h; sourceTree = "<group>"; };
@@ -725,6 +731,8 @@
 				550319491E35DDEE004522C7 /* TCCreateGoodsStandardController.m */,
 				558F6DA21E48196400CB2F81 /* TCGoodsIssueViewController.h */,
 				558F6DA31E48196400CB2F81 /* TCGoodsIssueViewController.m */,
+				559874921EA49F60007BA9FB /* TCGoodDescriptionViewController.h */,
+				559874931EA49F60007BA9FB /* TCGoodDescriptionViewController.m */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -754,6 +762,8 @@
 				55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */,
 				55F9EE4E1E570F8400935ADF /* TCSetMainGoodCell.h */,
 				55F9EE4F1E570F8400935ADF /* TCSetMainGoodCell.m */,
+				559874951EA4AE79007BA9FB /* TCGoodDescriptionImageCell.h */,
+				559874961EA4AE79007BA9FB /* TCGoodDescriptionImageCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1859,7 +1869,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B6822E2C0690DDEB666274F9 /* [CP] Copy Pods Resources */ = {
@@ -1928,6 +1938,7 @@
 				7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */,
 				7A9987711E24C820006175CC /* TCPhotoPicker.m in Sources */,
 				7AB568311E45714F0005814A /* TCBusinessHoursViewController.m in Sources */,
+				559874941EA49F60007BA9FB /* TCGoodDescriptionViewController.m in Sources */,
 				7AFEC4581E52E5D700B0E754 /* TCWalletAccount.m in Sources */,
 				7A55F4311E28E91E0018FED3 /* TCProfileHeaderView.m in Sources */,
 				7A9987F01E24E958006175CC /* TCUserSession.m in Sources */,
@@ -2067,6 +2078,7 @@
 				7A9988151E24EE3E006175CC /* TCGoods.m in Sources */,
 				7A55F4201E287F5B0018FED3 /* TCLoginViewController.m in Sources */,
 				7ABCC0E91E2622C800750E47 /* TCGoodTitleView.m in Sources */,
+				559874971EA4AE79007BA9FB /* TCGoodDescriptionImageCell.m in Sources */,
 				7A2BD12D1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m in Sources */,
 				7ABCC0E31E2622C800750E47 /* TCGoodSelectTitleView.m in Sources */,
 				7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */,

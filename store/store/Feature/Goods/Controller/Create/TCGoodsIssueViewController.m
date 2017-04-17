@@ -12,6 +12,7 @@
 #import <Masonry.h>
 #import "TCGoodsTipsCell.h"
 #import "TCBuluoApi.h"
+#import "TCGoodDescriptionViewController.h"
 
 @interface TCGoodsIssueViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,TCGoodsTipsCellDelegate>
 
@@ -164,7 +165,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 2;
+        return 3;
     }else {
         return 1;
     }
@@ -218,7 +219,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         if (indexPath.row == 2) {
-            
+            TCGoodDescriptionViewController *goodDesVC = [[TCGoodDescriptionViewController alloc] init];
+            goodDesVC.doneBlock = ^(NSArray *arr){
+                if ([arr isKindOfClass:[NSArray class]]) {
+                    if (arr.count > 0) {
+                        self.goods.detail = arr;
+                    }
+                }
+            };
+            if ([self.goods.detail isKindOfClass:[NSArray class]]) {
+                if (self.goods.detail.count > 0) {
+                    goodDesVC.urlArr = self.goods.detail;
+                }
+            }
+            [self.navigationController pushViewController:goodDesVC animated:YES];
         }
     }
 }
