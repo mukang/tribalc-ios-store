@@ -21,6 +21,7 @@ xcuserdata/
 *.moved-aside
 *.xcuserstate
 *.DS_Store
+*.mobileprovision
 
 ## Obj-C/Swift specific
 *.hmap
@@ -50,8 +51,8 @@ Carthage/Build
 # For more information about the recommended setup visit:
 # https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
 
-fastlane/report.xml
-fastlane/screenshots
+store/fastlane/report.xml
+store/fastlane/screenshots
 
 #Code Injection
 #
