@@ -55,7 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     weakSelf = self;
     self.hideOriginalNavBar = YES;
     [self loadGoodDetailInfoWithGoodId:mGoodId];
@@ -96,7 +96,7 @@
             if (mGoodDetail.detail.count > 0) {
                 selectGoodInfoSegment.hidden = NO;
                 [mScrollView addSubview:self.detailView];
-                mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.detailView.frame)+10);
+                mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.detailView.frame));
                 return;
             }
         }
@@ -160,8 +160,8 @@
 
 #pragma mark - UI
 - (void)createEntiretyScrollView {
-    mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -20, self.view.width, self.view.height + 20)];
-    mScrollView.contentSize = CGSizeMake(self.view.width, TCRealValue(1500));
+    mScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+//    mScrollView.contentSize = CGSizeMake(self.view.width, TCRealValue(1500));
     mScrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
     [self.view addSubview:mScrollView];
 }
@@ -190,7 +190,7 @@
         if (mGoodDetail.detail.count > 0) {
             selectGoodInfoSegment.hidden = NO;
             [mScrollView addSubview:self.detailView];
-            mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.detailView.frame)+10);
+            mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.detailView.frame));
         }
     }
     
@@ -230,7 +230,7 @@
                 }
             }
         }
-        _detailView.frame = CGRectMake(0, CGRectGetMaxY(selectGoodInfoSegment.frame), TCScreenWidth, currentY);
+        _detailView.frame = CGRectMake(0, CGRectGetMaxY(selectGoodInfoSegment.frame), TCScreenWidth, currentY+10);
         
     }
     return _detailView;
