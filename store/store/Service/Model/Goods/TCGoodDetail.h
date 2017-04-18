@@ -47,7 +47,7 @@
 /** 商品缩略图 */
 @property (copy, nonatomic) NSString *thumbnail;
 /** 图文详情 */
-@property (copy, nonatomic) NSString *detailURL;
+@property (copy, nonatomic) NSArray *detail;
 /** 库存信息 */
 @property (nonatomic) NSInteger repertory;
 /** 简短说明 */

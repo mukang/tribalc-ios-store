@@ -23,7 +23,11 @@
     TCGoodTitleView *goodTitleView;
     UIWebView *textAndImageView;
     UILabel *selectLab;
+    UISegmentedControl *selectGoodInfoSegment;
+    UIView *shopView;
 }
+
+@property (strong, nonatomic) UIView *detailView;
 
 @end
 
@@ -85,7 +89,21 @@
         [goodTitleView setTagLabWithTagArr:goodDetail.tags];
         [self changeViewCoordinates];
         imgPageControl.numberOfPages = goodDetail.pictures.count;
-        [self reloadWebViewWithUrlStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, goodDetail.detailURL]];
+//        [self reloadWebViewWithUrlStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, goodDetail.detailURL]];
+        [_detailView removeFromSuperview];
+        _detailView = nil;
+        if ([mGoodDetail.detail isKindOfClass:[NSArray class]]) {
+            if (mGoodDetail.detail.count > 0) {
+                selectGoodInfoSegment.hidden = NO;
+                [mScrollView addSubview:self.detailView];
+                mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.detailView.frame)+10);
+                return;
+            }
+        }
+        
+        selectGoodInfoSegment.hidden = YES;
+        mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(shopView.frame));
+        
         [self updateSelectedLabel:goodDetail.standardSnapshot];
     }else {
         [self updateSelectedLabel:nil];
@@ -159,18 +177,24 @@
     UIButton *standardSelectBtn = [self createStandardSelectButtonWithFrame:CGRectMake(0, goodTitleView.y + goodTitleView.height + TCRealValue(7.5), self.view.width, TCRealValue(38))];
     [mScrollView addSubview:standardSelectBtn];
     
-    UIView *shopView = [[TCGoodShopView alloc] initWithFrame:CGRectMake(0, standardSelectBtn.y + standardSelectBtn.height + TCRealValue(7.5), self.view.width, TCRealValue(64)) AndShopDetail:mGoodDetail];
+    shopView = [[TCGoodShopView alloc] initWithFrame:CGRectMake(0, standardSelectBtn.y + standardSelectBtn.height + TCRealValue(7.5), self.view.width, TCRealValue(64)) AndShopDetail:mGoodDetail];
     [mScrollView addSubview:shopView];
     
     mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(shopView.frame));
     
-    UISegmentedControl *selectGoodInfoSegment = [self createSelectGoodGraphicAndParameterView:CGRectMake(0, shopView.y + shopView.height, self.view.width, TCRealValue(39))];
-    selectGoodInfoSegment.hidden = YES;
-    [mScrollView addSubview:selectGoodInfoSegment];
+    if ([mGoodDetail.detail isKindOfClass:[NSArray class]]) {
+        if (mGoodDetail.detail.count > 0) {
+            selectGoodInfoSegment = [self createSelectGoodGraphicAndParameterView:CGRectMake(0, shopView.y + shopView.height, self.view.width, TCRealValue(39))];
+            //    selectGoodInfoSegment.hidden = YES;
+            [mScrollView addSubview:selectGoodInfoSegment];
+            [mScrollView addSubview:self.detailView];
+            mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.detailView.frame)+10);
+        }
+    }
     
-    textAndImageView = [self createURLInfoViewWithOrigin:CGPointMake(0, selectGoodInfoSegment.y + selectGoodInfoSegment.height) AndURLStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, mGoodDetail.detailURL]];
-    textAndImageView.hidden = YES;
-    [mScrollView addSubview:textAndImageView];
+//    textAndImageView = [self createURLInfoViewWithOrigin:CGPointMake(0, selectGoodInfoSegment.y + selectGoodInfoSegment.height) AndURLStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, mGoodDetail.detailURL]];
+////    textAndImageView.hidden = YES;
+//    [mScrollView addSubview:textAndImageView];
 
 //    UIView *bottomView = [self createBottomViewWithFrame:CGRectMake(0, self.view.height - TCRealValue(49), self.view.width, TCRealValue(49))];
 //    [self.view addSubview:bottomView];
@@ -179,6 +203,35 @@
     
     [self createBackButton];
 
+}
+
+- (UIView *)detailView {
+    if (_detailView == nil) {
+        _detailView = [[UIView alloc] init];
+        _detailView.backgroundColor = [UIColor whiteColor];
+        CGFloat currentY = 10.0;
+        CGFloat width = TCScreenWidth - 20;
+        for (int i = 0; i < mGoodDetail.detail.count; i++) {
+            NSString *imageUrlStr = mGoodDetail.detail[i];
+            if ([imageUrlStr isKindOfClass:[NSString class]]) {
+                NSArray *arr = [imageUrlStr componentsSeparatedByString:@"="];
+                if (arr.count > 1) {
+                    CGFloat scale = [arr.lastObject floatValue];
+                    CGFloat height = width * scale;
+                    UIImageView *imageView = [[UIImageView alloc] init];
+                    imageView.frame = CGRectMake(10, currentY, width, height);
+                    NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:imageUrlStr];
+                    UIImage *placeholderImage = [UIImage placeholderImageWithSize:CGSizeMake(width, height)];
+                    [imageView sd_setImageWithURL:URL placeholderImage:placeholderImage options:SDWebImageRetryFailed];
+                    [_detailView addSubview:imageView];
+                    currentY += height;
+                }
+            }
+        }
+        _detailView.frame = CGRectMake(0, CGRectGetMaxY(selectGoodInfoSegment.frame), TCScreenWidth, currentY);
+        
+    }
+    return _detailView;
 }
 
 
@@ -424,18 +477,18 @@
 
 
 - (void)touchSegmentedControlAction: (UISegmentedControl *)seg {
-    NSInteger index = seg.selectedSegmentIndex;
-    UIWebView *webView;
-    if (index == 0) {
-        webView = NULL;
-        webView = [self createURLInfoViewWithOrigin:CGPointMake(0, seg.y + seg.height) AndURLStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, mGoodDetail.detailURL]];
-    } else {
-        webView = NULL;
-        webView = [self createURLInfoViewWithOrigin:CGPointMake(0, seg.y + seg.height) AndURLStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, mGoodDetail.detailURL]];
-    }
-    UIScrollView *tempView = (UIScrollView *)[webView.subviews objectAtIndex:0];
-    tempView.scrollEnabled = NO;
-    [mScrollView addSubview:webView];
+//    NSInteger index = seg.selectedSegmentIndex;
+//    UIWebView *webView;
+//    if (index == 0) {
+//        webView = NULL;
+//        webView = [self createURLInfoViewWithOrigin:CGPointMake(0, seg.y + seg.height) AndURLStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, mGoodDetail.detailURL]];
+//    } else {
+//        webView = NULL;
+//        webView = [self createURLInfoViewWithOrigin:CGPointMake(0, seg.y + seg.height) AndURLStr:[NSString stringWithFormat:@"%@%@", TCCLIENT_RESOURCES_BASE_URL, mGoodDetail.detailURL]];
+//    }
+//    UIScrollView *tempView = (UIScrollView *)[webView.subviews objectAtIndex:0];
+//    tempView.scrollEnabled = NO;
+//    [mScrollView addSubview:webView];
 
 
 }
