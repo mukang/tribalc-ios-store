@@ -182,11 +182,13 @@
     
     mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(shopView.frame));
     
+    selectGoodInfoSegment = [self createSelectGoodGraphicAndParameterView:CGRectMake(0, shopView.y + shopView.height, self.view.width, TCRealValue(39))];
+    selectGoodInfoSegment.hidden = YES;
+    [mScrollView addSubview:selectGoodInfoSegment];
+    
     if ([mGoodDetail.detail isKindOfClass:[NSArray class]]) {
         if (mGoodDetail.detail.count > 0) {
-            selectGoodInfoSegment = [self createSelectGoodGraphicAndParameterView:CGRectMake(0, shopView.y + shopView.height, self.view.width, TCRealValue(39))];
-            //    selectGoodInfoSegment.hidden = YES;
-            [mScrollView addSubview:selectGoodInfoSegment];
+            selectGoodInfoSegment.hidden = NO;
             [mScrollView addSubview:self.detailView];
             mScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.detailView.frame)+10);
         }
