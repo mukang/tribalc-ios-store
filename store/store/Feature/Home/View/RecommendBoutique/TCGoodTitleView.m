@@ -116,14 +116,29 @@
 
 #pragma mark - Tag
 - (void)setTagLabWithTagArr:(NSArray *)tags {
-    NSString *tagStr = tags[0];
-    for (int i = 0; i < tags.count; i++) {
-        tagStr = [NSString stringWithFormat:@"%@/%@", tagStr, tags[i]];
+    if ([tags isKindOfClass:[NSArray class]]) {
+        if (tags.count > 0) {
+            NSString *tagStr;
+            for (int i = 0; i < tags.count; i++) {
+                if (i == 0) {
+                    tagStr = tags[0];
+                }else {
+                    tagStr = [NSString stringWithFormat:@"%@/%@", tagStr, tags[i]];
+                }
+            }
+            _tagLab.hidden = NO;
+            tagImgView.hidden = NO;
+            _tagLab.text = tagStr;
+            [_tagLab sizeToFit];
+            [_tagLab setOrigin:CGPointMake(self.width - TCRealValue(20) - _tagLab.width, _priceDecimalLab.y)];
+            tagImgView.origin = CGPointMake(_tagLab.x - TCRealValue(12), _tagLab.y);
+            return;
+        }
     }
-    _tagLab.text = tagStr;
-    [_tagLab sizeToFit];
-    [_tagLab setOrigin:CGPointMake(self.width - TCRealValue(20) - _tagLab.width, _priceDecimalLab.y)];
-    tagImgView.origin = CGPointMake(_tagLab.x - TCRealValue(12), _tagLab.y);
+    
+    _tagLab.hidden = YES;
+    tagImgView.hidden = YES;
+    
 }
 
 - (UILabel *)createTagLabelWithTag:(NSArray *)tags {
