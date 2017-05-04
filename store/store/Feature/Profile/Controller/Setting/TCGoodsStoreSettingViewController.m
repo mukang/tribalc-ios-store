@@ -95,7 +95,7 @@ TCStoreRecommendViewCellDelegate>
                                                           forState:UIControlStateNormal];
 }
 
-- (void)setupSubviews {
+- (void)setupSubviewsWithAuthenticationStatus:(NSString *)authenticationStatus {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.backgroundColor = TCBackgroundColor;
     tableView.separatorColor = TCSeparatorLineColor;
@@ -108,7 +108,7 @@ TCStoreRecommendViewCellDelegate>
     [self.view addSubview:tableView];
     self.tableView = tableView;
     
-    if ([[TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus isEqualToString:@"SUCCESS"]) {
+    if ([authenticationStatus isEqualToString:@"SUCCESS"]) {
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.bottom.right.equalTo(weakSelf.view);
         }];
@@ -134,7 +134,6 @@ TCStoreRecommendViewCellDelegate>
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] fetchStoreDetailInfo:^(TCStoreDetailInfo *storeDetailInfo, NSError *error) {
         if (storeDetailInfo) {
-            [MBProgressHUD hideHUD:YES];
             weakSelf.storeDetailInfo = storeDetailInfo;
             for (TCStoreCategoryInfo *categoryInfo in self.goodsCategoryInfoArray) {
                 if ([categoryInfo.category isEqualToString:storeDetailInfo.category]) {
@@ -142,12 +141,30 @@ TCStoreRecommendViewCellDelegate>
                     break;
                 }
             }
-            [weakSelf setupSubviews];
+            [weakSelf checkAuthenticationStatus];
         } else {
             NSString *reason = error.localizedDescription ?: @"请退出后重试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取店铺信息失败，%@", reason]];
         }
     }];
+}
+
+- (void)checkAuthenticationStatus {
+    NSString *authenticationStatus = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+    if ([authenticationStatus isEqualToString:@"SUCCESS"]) {
+        [MBProgressHUD hideHUD:YES];
+        [self setupSubviewsWithAuthenticationStatus:authenticationStatus];
+    } else {
+        [[TCBuluoApi api] fetchStoreAuthenticationInfo:^(TCAuthenticationInfo *authenticationInfo, NSError *error) {
+            if (authenticationInfo) {
+                [MBProgressHUD hideHUD:YES];
+                [weakSelf setupSubviewsWithAuthenticationStatus:authenticationInfo.authenticationStatus];
+            } else {
+                NSString *reason = error.localizedDescription ?: @"请退出后重试";
+                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取店铺信息失败，%@", reason]];
+            }
+        }];
+    }
 }
 
 #pragma mark - UITableViewDataSource

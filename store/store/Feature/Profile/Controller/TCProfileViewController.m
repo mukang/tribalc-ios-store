@@ -444,7 +444,7 @@ TCPhotoModeViewDelegate>
         @StrongObj(self)
         if (authenticationInfo) {
             [MBProgressHUD hideHUD:YES];
-
+            
             NSString *authStr = authenticationInfo.authenticationStatus;
             if ([authStr isEqualToString:@"NOT_START"]) {
                 TCBusinessLicenceViewController *businessVC = [[TCBusinessLicenceViewController alloc] init];
@@ -455,7 +455,6 @@ TCPhotoModeViewDelegate>
                 bussVc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:bussVc animated:YES];
             }else if ([authStr isEqualToString:@"SUCCESS"]) {
-                [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus = authStr;
                 TCBussinessAuthSuccessController *successVc = [[TCBussinessAuthSuccessController alloc] init];
                 successVc.hidesBottomBarWhenPushed = YES;
                 successVc.authenticationInfo = authenticationInfo;

@@ -14,6 +14,7 @@
 
 @interface TCBankCardAddViewController () <UITextFieldDelegate, TCBankPickerViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *bankNameTextField;
 @property (weak, nonatomic) IBOutlet UIView *bankNameBgView;
@@ -29,6 +30,8 @@
 @property (weak, nonatomic) UIView *pickerBgView;
 @property (weak, nonatomic) TCBankPickerView *bankPickerView;
 
+@property (copy, nonatomic) NSString *bankCardID;
+
 @end
 
 @implementation TCBankCardAddViewController {
@@ -40,21 +43,13 @@
     // Do any additional setup after loading the view from its nib.
     
     weakSelf = self;
+    self.navigationItem.title = @"银行卡绑定";
     
-    [self setupNavBar];
     [self setupSubviews];
 }
 
 - (void)dealloc {
     [self removeGetSMSTimer];
-}
-
-- (void)setupNavBar {
-    self.navigationItem.title = @"银行卡绑定";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(handleClickBackButton:)];
 }
 
 - (void)setupSubviews {
@@ -64,7 +59,7 @@
     self.nameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入开户名称" attributes:attributes];
     self.bankNameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请选择银行" attributes:attributes];
     self.cardNumTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入银行卡号" attributes:attributes];
-    self.phoneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:attributes];
+    self.phoneTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入银行预留手机号" attributes:attributes];
     self.codeTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入手机验证码" attributes:attributes];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapBankNameBgView:)];
@@ -76,6 +71,9 @@
     
     self.confirmButton.layer.cornerRadius = 2.5;
     self.confirmButton.layer.masksToBounds = YES;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapContainerView:)];
+    [self.containerView addGestureRecognizer:tap];
 }
 
 #pragma mark - Status Bar
@@ -107,14 +105,33 @@
 #pragma mark - Actions
 
 - (IBAction)handleClickSendCodeButton:(UIButton *)sender {
-    if (self.phoneTextField.text.length == 0) {
-        [MBProgressHUD showHUDWithMessage:@"请输入手机号"];
+    if (self.nameTextField.text.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请输入开户名称"];
         return;
     }
-    [self startCountDown];
+    if (self.bankNameTextField.text.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请选择银行"];
+        return;
+    }
+    if (self.cardNumTextField.text.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请输入银行卡号"];
+        return;
+    }
+    if (self.phoneTextField.text.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请输入银行预留手机号"];
+        return;
+    }
     
-    [[TCBuluoApi api] fetchVerificationCodeWithPhone:self.phoneTextField.text result:^(BOOL success, NSError *error) {
-        if (error) {
+    [self startCountDown];
+    TCBankCard *bankCard = [[TCBankCard alloc] init];
+    bankCard.userName = self.nameTextField.text;
+    bankCard.bankName = self.bankNameTextField.text;
+    bankCard.bankCardNum = self.cardNumTextField.text;
+    bankCard.phone = self.phoneTextField.text;
+    [[TCBuluoApi api] prepareAddBankCard:bankCard result:^(TCBankCard *card, NSError *error) {
+        if (card) {
+            weakSelf.bankCardID = card.ID;
+        } else {
             [weakSelf stopCountDown];
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"验证码发送失败，%@", reason]];
@@ -136,7 +153,11 @@
         return;
     }
     if (self.phoneTextField.text.length == 0) {
-        [MBProgressHUD showHUDWithMessage:@"请输入手机号"];
+        [MBProgressHUD showHUDWithMessage:@"请输入银行预留手机号"];
+        return;
+    }
+    if (self.bankCardID.length == 0) {
+        [MBProgressHUD showHUDWithMessage:@"请先获取手机验证码"];
         return;
     }
     if (self.codeTextField.text.length == 0) {
@@ -144,13 +165,8 @@
         return;
     }
     
-    TCBankCard *bankCard = [[TCBankCard alloc] init];
-    bankCard.userName = self.nameTextField.text;
-    bankCard.bankName = self.bankNameTextField.text;
-    bankCard.bankCardNum = self.cardNumTextField.text;
-    bankCard.phone = self.phoneTextField.text;
     [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] addBankCard:bankCard withVerificationCode:self.codeTextField.text result:^(BOOL success, NSError *error) {
+    [[TCBuluoApi api] confirmAddBankCardWithID:self.bankCardID verificationCode:self.codeTextField.text result:^(BOOL success, NSError *error) {
         if (success) {
             [MBProgressHUD hideHUD:YES];
             if (weakSelf.bankCardAddBlock) {
@@ -165,20 +181,16 @@
 }
 
 - (void)handleTapBankNameBgView:(UITapGestureRecognizer *)sender {
-    if ([self.nameTextField isFirstResponder]) {
-        [self.nameTextField resignFirstResponder];
-    }
-    if ([self.cardNumTextField isFirstResponder]) {
-        [self.cardNumTextField resignFirstResponder];
-    }
-    if ([self.codeTextField isFirstResponder]) {
-        [self.codeTextField resignFirstResponder];
-    }
+    [self.containerView endEditing:YES];
     [self showPickerView];
 }
 
-- (void)handleClickBackButton:(UIBarButtonItem *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)handleTapPickerBgView:(UITapGestureRecognizer *)sender {
+    [self dismissPickerView];
+}
+
+- (void)handleTapContainerView:(UITapGestureRecognizer *)sender {
+    [self.containerView endEditing:YES];
 }
 
 #pragma mark - picker view
@@ -186,15 +198,18 @@
 - (void)showPickerView {
     
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    UIView *pickerBgView = [[UIView alloc] initWithFrame:keyWindow.bounds];
+    UIView *superView = keyWindow.rootViewController.view;
+    UIView *pickerBgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     pickerBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-    [keyWindow addSubview:pickerBgView];
+    [superView addSubview:pickerBgView];
     self.pickerBgView = pickerBgView;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapPickerBgView:)];
+    [pickerBgView addGestureRecognizer:tap];
     
     TCBankPickerView *bankPickerView = [[[NSBundle mainBundle] loadNibNamed:@"TCBankPickerView" owner:nil options:nil] firstObject];
     bankPickerView.delegate = self;
     bankPickerView.frame = CGRectMake(0, TCScreenHeight, TCScreenWidth, 240);
-    [keyWindow addSubview:bankPickerView];
+    [superView addSubview:bankPickerView];
     self.bankPickerView = bankPickerView;
     
     [UIView animateWithDuration:0.25 animations:^{

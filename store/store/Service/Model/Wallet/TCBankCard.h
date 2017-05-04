@@ -20,6 +20,8 @@
 @property (copy, nonatomic) NSString *bankAddress;
 /** 银行名称 */
 @property (copy, nonatomic) NSString *bankName;
+/** 银行代码 */
+@property (copy, nonatomic) NSString *bankCode;
 /** 银行卡账号 */
 @property (copy, nonatomic) NSString *bankCardNum;
 /** 手机号 */

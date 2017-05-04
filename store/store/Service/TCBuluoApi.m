@@ -1058,8 +1058,10 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
                     TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
                 }
             } else {
-
                 TCAuthenticationInfo *detailInfo = [[TCAuthenticationInfo alloc] initWithObjectDictionary:response.data];
+                TCUserSession *userSession = self.currentUserSession;
+                userSession.storeInfo.authenticationStatus = detailInfo.authenticationStatus;
+                [self setUserSession:userSession];
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(detailInfo, nil));
                 }
@@ -1280,6 +1282,60 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
             if (response.codeInResponse == 201) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
+- (void)prepareAddBankCard:(TCBankCard *)bankCard result:(void (^)(TCBankCard *, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bank_cards", self.currentUserSession.assigned];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
+        request.token = self.currentUserSession.token;
+        NSDictionary *dic = [bankCard toObjectDictionary];
+        for (NSString *key in dic.allKeys) {
+            [request setValue:dic[key] forParam:key];
+        }
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.codeInResponse == 201) {
+                TCBankCard *card = [[TCBankCard alloc] initWithObjectDictionary:response.data];
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(card, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
+}
+
+- (void)confirmAddBankCardWithID:(NSString *)bankCardID verificationCode:(NSString *)verificationCode result:(void (^)(BOOL, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bank_cards/%@", self.currentUserSession.assigned, bankCardID];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [request setValue:verificationCode forKey:@"value"];
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.codeInResponse == 200) {
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
                 }
