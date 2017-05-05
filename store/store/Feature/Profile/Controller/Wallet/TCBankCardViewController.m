@@ -16,7 +16,8 @@
 @interface TCBankCardViewController () <UITableViewDataSource, UITableViewDelegate, TCBankCardViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *dataList;
+@property (weak, nonatomic) IBOutlet UIButton *addBankCardButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 
 @property (copy, nonatomic) NSArray *bankInfoList;
 
@@ -32,9 +33,15 @@
     
     weakSelf = self;
     
-    [self setupNavBar];
     [self setupSubviews];
-    [self loadNetData];
+    if (self.isForWithdraw) {
+        self.navigationItem.title = @"银行卡";
+        self.addBankCardButton.hidden = YES;
+        self.bottomConstraint.constant = 0;
+    } else {
+        [self setupNavBar];
+        [self loadNetData];
+    }
 }
 
 - (void)setupNavBar {
@@ -95,6 +102,16 @@
     cell.bankCard = self.dataList[indexPath.row];
     cell.delegate = self;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isForWithdraw) {
+        TCBankCard *bankCard = self.dataList[indexPath.row];
+        if (self.selectedCompletion) {
+            self.selectedCompletion(bankCard);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - TCBankCardViewCellDelegate

@@ -7,7 +7,16 @@
 //
 
 #import <TCCommonLibs/TCBaseViewController.h>
+@class TCBankCard;
+
+typedef void(^TCBankCardSelectedCompletion)(TCBankCard *bankCard);
 
 @interface TCBankCardViewController : TCBaseViewController
+
+/** 是否是为了提现 */
+@property (nonatomic) BOOL isForWithdraw;
+@property (strong, nonatomic) NSMutableArray *dataList;
+
+@property (copy, nonatomic) TCBankCardSelectedCompletion selectedCompletion;
 
 @end

@@ -20,5 +20,7 @@
 @property (copy, nonatomic) NSString *password;
 /** 最后时间 */
 @property (nonatomic) NSInteger lastTrading;
+/** 银行卡列表 */
+@property (copy, nonatomic) NSArray *bankCards;
 
 @end

@@ -7,7 +7,12 @@
 //
 
 #import "TCWalletAccount.h"
+#import "TCBankCard.h"
 
 @implementation TCWalletAccount
+
++ (NSDictionary *)objectClassInArray {
+    return @{@"bankCards": [TCBankCard class]};
+}
 
 @end

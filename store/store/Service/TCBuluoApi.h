@@ -436,4 +436,13 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
  */
 - (void)deleteBankCard:(NSString *)bankCardID result:(void (^)(BOOL success, NSError *error))resultBlock;
 
+/**
+ 提交银行卡提现请求
+
+ @param amount 总计金额
+ @param bankCardID 银行卡id
+ @param resultBlock 结果回调，success为NO时表示提交申请失败，失败原因见error的code和userInfo
+ */
+- (void)commitWithdrawReqWithAmount:(double)amount bankCardID:(NSString *)bankCardID result:(void (^)(BOOL success, NSError *error))resultBlock;
+
 @end
