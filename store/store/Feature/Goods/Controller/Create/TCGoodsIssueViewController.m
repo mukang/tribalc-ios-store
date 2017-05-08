@@ -270,6 +270,12 @@
     self.currentIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [scrollView endEditing:YES];
+}
+
 #pragma mark - Notifications
 
 - (void)registerNotifications {
