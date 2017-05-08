@@ -70,9 +70,13 @@
 #pragma mark - Load Data
 
 - (void)loadData {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"bankCard" ofType:@"plist"];
-    NSDictionary *banksDic = [NSDictionary dictionaryWithContentsOfFile:path];
-    self.banks = banksDic.allKeys;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"TCBankInfoList" ofType:@"plist"];
+    NSArray *bankInfoList = [NSArray arrayWithContentsOfFile:path];
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:bankInfoList.count];
+    for (NSDictionary *bankInfo in bankInfoList) {
+        [temp addObject:bankInfo[@"name"]];
+    }
+    self.banks = [temp copy];
 }
 
 @end

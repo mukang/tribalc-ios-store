@@ -91,7 +91,6 @@
                     
                     NSString *authStr = authenticationInfo.authenticationStatus;
                     if ([authStr isEqualToString:@"SUCCESS"]) {
-                        [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus = authStr;
                         self.unCommonView.hidden = YES;
                         [self loadDataIsMore:NO];
                     }else {

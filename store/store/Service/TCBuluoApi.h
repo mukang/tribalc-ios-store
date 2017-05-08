@@ -403,7 +403,7 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
 - (void)fetchBankCardList:(void (^)(NSArray *bankCardList, NSError *error))resultBlock;
 
 /**
- 添加银行卡
+ 添加银行卡（弃用接口）
  
  @param bankCard 银行卡信息
  @param verificationCode 手机验证码
@@ -412,11 +412,37 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
 - (void)addBankCard:(TCBankCard *)bankCard withVerificationCode:(NSString *)verificationCode result:(void (^)(BOOL success, NSError *error))resultBlock;
 
 /**
+ 准备添加银行卡信息
+ 
+ @param bankCard 银行卡信息
+ @param resultBlock 结果回调，bankCard为nil时表示添加失败，失败原因见error的code和userInfo
+ */
+- (void)prepareAddBankCard:(TCBankCard *)bankCard result:(void (^)(TCBankCard *card, NSError *error))resultBlock;
+
+/**
+ 确认添加银行卡信息
+ 
+ @param bankCardID 银行卡ID
+ @param verificationCode 验证码
+ @param resultBlock 结果回调，success为NO时表示添加失败，失败原因见error的code和userInfo
+ */
+- (void)confirmAddBankCardWithID:(NSString *)bankCardID verificationCode:(NSString *)verificationCode result:(void (^)(BOOL success, NSError *error))resultBlock;
+
+/**
  删除银行卡
  
  @param bankCardID 银行卡ID
  @param resultBlock 结果回调，success为NO时表示删除失败，失败原因见error的code和userInfo
  */
 - (void)deleteBankCard:(NSString *)bankCardID result:(void (^)(BOOL success, NSError *error))resultBlock;
+
+/**
+ 提交银行卡提现请求
+
+ @param amount 总计金额
+ @param bankCardID 银行卡id
+ @param resultBlock 结果回调，success为NO时表示提交申请失败，失败原因见error的code和userInfo
+ */
+- (void)commitWithdrawReqWithAmount:(double)amount bankCardID:(NSString *)bankCardID result:(void (^)(BOOL success, NSError *error))resultBlock;
 
 @end

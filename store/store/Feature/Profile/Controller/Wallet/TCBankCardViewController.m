@@ -16,7 +16,10 @@
 @interface TCBankCardViewController () <UITableViewDataSource, UITableViewDelegate, TCBankCardViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *dataList;
+@property (weak, nonatomic) IBOutlet UIButton *addBankCardButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
+
+@property (copy, nonatomic) NSArray *bankInfoList;
 
 @end
 
@@ -30,21 +33,25 @@
     
     weakSelf = self;
     
-    [self setupNavBar];
     [self setupSubviews];
-    [self loadNetData];
+    if (self.isForWithdraw) {
+        self.navigationItem.title = @"银行卡";
+        self.addBankCardButton.hidden = YES;
+        self.bottomConstraint.constant = 0;
+    } else {
+        [self setupNavBar];
+        [self loadNetData];
+    }
 }
 
 - (void)setupNavBar {
     self.navigationItem.title = @"银行卡";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(handleClickBackButton:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"管理"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(handleClickEditButton:)];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]}
+                                                          forState:UIControlStateNormal];
 }
 
 - (void)setupSubviews {
@@ -61,13 +68,13 @@
         if (bankCardList) {
             [weakSelf.dataList removeAllObjects];
             [weakSelf.dataList addObjectsFromArray:bankCardList];
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"bankCard" ofType:@"plist"];
-            NSDictionary *banksDic = [NSDictionary dictionaryWithContentsOfFile:path];
             for (TCBankCard *bankCard in weakSelf.dataList) {
-                NSDictionary *bankInfo = banksDic[bankCard.bankName];
-                if (bankInfo) {
-                    bankCard.logo = bankInfo[@"logo"];
-                    bankCard.bgImage = bankInfo[@"bgImage"];
+                for (NSDictionary *bankInfo in weakSelf.bankInfoList) {
+                    if ([bankInfo[@"code"] isEqualToString:bankCard.bankCode]) {
+                        bankCard.logo = bankInfo[@"logo"];
+                        bankCard.bgImage = bankInfo[@"bgImage"];
+                        break;
+                    }
                 }
             }
             [weakSelf.tableView reloadData];
@@ -97,6 +104,16 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isForWithdraw) {
+        TCBankCard *bankCard = self.dataList[indexPath.row];
+        if (self.selectedCompletion) {
+            self.selectedCompletion(bankCard);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark - TCBankCardViewCellDelegate
 
 - (void)bankCardViewCell:(TCBankCardViewCell *)cell didClickDeleteButtonWithBankCard:(TCBankCard *)bankCard {
@@ -113,6 +130,28 @@
 #pragma mark - Actions
 
 - (IBAction)handleClickAddBankCardButton:(UIButton *)sender {
+    NSString *authenticationStatus = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+    if ([authenticationStatus isEqualToString:@"SUCCESS"]) {
+        [weakSelf pushBankCardAddViewController];
+    } else {
+        [MBProgressHUD showHUD:YES];
+        [[TCBuluoApi api] fetchStoreAuthenticationInfo:^(TCAuthenticationInfo *authenticationInfo, NSError *error) {
+            if (authenticationInfo) {
+                if ([authenticationInfo.authenticationStatus isEqualToString:@"SUCCESS"]) {
+                    [MBProgressHUD hideHUD:YES];
+                    [weakSelf pushBankCardAddViewController];
+                } else {
+                    [MBProgressHUD showHUDWithMessage:@"商户认证成功后，才可以添加银行卡"];
+                }
+            } else {
+                NSString *reason = error.localizedDescription ?: @"请稍后再试";
+                [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取信息失败，%@", reason]];
+            }
+        }];
+    }
+}
+
+- (void)pushBankCardAddViewController {
     TCBankCardAddViewController *vc = [[TCBankCardAddViewController alloc] initWithNibName:@"TCBankCardAddViewController" bundle:[NSBundle mainBundle]];
     vc.bankCardAddBlock = ^() {
         [weakSelf loadNetData];
@@ -125,6 +164,9 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(handleClickDoneButton:)];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]}
+                                                          forState:UIControlStateNormal];
+    
     if (self.dataList.count == 0) {
         return;
     }
@@ -139,6 +181,9 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(handleClickEditButton:)];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]}
+                                                          forState:UIControlStateNormal];
+    
     if (self.dataList.count == 0) {
         return;
     }
@@ -162,10 +207,6 @@
     }];
 }
 
-- (void)handleClickBackButton:(UIBarButtonItem *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 #pragma mark - Override Methods
 
 - (NSMutableArray *)dataList {
@@ -173,6 +214,14 @@
         _dataList = [NSMutableArray array];
     }
     return _dataList;
+}
+
+- (NSArray *)bankInfoList {
+    if (_bankInfoList == nil) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"TCBankInfoList" ofType:@"plist"];
+        _bankInfoList = [NSArray arrayWithContentsOfFile:path];
+    }
+    return _bankInfoList;
 }
 
 - (void)didReceiveMemoryWarning {

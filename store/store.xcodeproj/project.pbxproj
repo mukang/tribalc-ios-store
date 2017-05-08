@@ -75,6 +75,8 @@
 		7A41CD731E653B2400645026 /* TCServiceSortView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD721E653B2400645026 /* TCServiceSortView.m */; };
 		7A41CD761E655E3900645026 /* TCServiceSelectItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD751E655E3900645026 /* TCServiceSelectItemView.m */; };
 		7A41CD791E6675B600645026 /* TCServiceFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD781E6675B600645026 /* TCServiceFilterView.m */; };
+		7A455D571EBC7A6B00A2F9ED /* TCPaymentPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A455D551EBC7A6B00A2F9ED /* TCPaymentPasswordView.m */; };
+		7A455D581EBC7A6B00A2F9ED /* TCPaymentPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A455D561EBC7A6B00A2F9ED /* TCPaymentPasswordView.xib */; };
 		7A48B4171E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B4161E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m */; };
 		7A48B41A1E48247800373BF4 /* TCStoreSetMealMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B4191E48247800373BF4 /* TCStoreSetMealMeta.m */; };
 		7A48B41D1E486A6F00373BF4 /* TCStoreSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A48B41C1E486A6F00373BF4 /* TCStoreSettingViewController.m */; };
@@ -106,6 +108,14 @@
 		7A661E621E31BC680080D37D /* TCStoreRecommendViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A661E611E31BC680080D37D /* TCStoreRecommendViewCell.m */; };
 		7A661E681E31C49C0080D37D /* TCGoodsStoreRecommendViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A661E671E31C49C0080D37D /* TCGoodsStoreRecommendViewCell.m */; };
 		7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A661E6A1E31EC250080D37D /* TCCreateStorePromptView.m */; };
+		7A6B845F1EBB148A00814777 /* TCBankCardAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B845E1EBB148A00814777 /* TCBankCardAddViewController.m */; };
+		7A6B84621EBB152C00814777 /* TCBankPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B84611EBB152C00814777 /* TCBankPickerView.m */; };
+		7A6B84651EBB159A00814777 /* TCBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B84641EBB159A00814777 /* TCBankCardViewController.m */; };
+		7A6B84671EBB161000814777 /* TCBankInfoList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A6B84661EBB161000814777 /* TCBankInfoList.plist */; };
+		7A6B84691EBB1CA000814777 /* TCBankCardAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A6B84681EBB1CA000814777 /* TCBankCardAddViewController.xib */; };
+		7A6B846C1EBC1DFA00814777 /* TCWithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B846B1EBC1DFA00814777 /* TCWithdrawViewController.m */; };
+		7A6B846F1EBC20EA00814777 /* TCWithdrawBankCardInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B846E1EBC20EA00814777 /* TCWithdrawBankCardInfoView.m */; };
+		7A6B84721EBC2D4A00814777 /* TCWithdrawAmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B84711EBC2D4A00814777 /* TCWithdrawAmountView.m */; };
 		7A7B60971E30A0A3004971C9 /* TCCreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B60961E30A0A3004971C9 /* TCCreateStoreViewController.m */; };
 		7A7B609A1E30A0B9004971C9 /* TCCreateGoodsStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B60991E30A0B9004971C9 /* TCCreateGoodsStoreViewController.m */; };
 		7A7B60A01E30A609004971C9 /* TCStoreCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7B609F1E30A609004971C9 /* TCStoreCategoryViewController.m */; };
@@ -211,13 +221,9 @@
 		7AFEC4261E52E4EF00B0E754 /* TCWalletBillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4221E52E4EF00B0E754 /* TCWalletBillViewController.m */; };
 		7AFEC4271E52E4EF00B0E754 /* TCWalletBillViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFEC4231E52E4EF00B0E754 /* TCWalletBillViewController.xib */; };
 		7AFEC42A1E52E50F00B0E754 /* TCWalletPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4291E52E50F00B0E754 /* TCWalletPasswordViewController.m */; };
-		7AFEC4311E52E52E00B0E754 /* TCBankCardAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC42C1E52E52E00B0E754 /* TCBankCardAddViewController.m */; };
-		7AFEC4321E52E52E00B0E754 /* TCBankCardAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFEC42D1E52E52E00B0E754 /* TCBankCardAddViewController.xib */; };
-		7AFEC4331E52E52E00B0E754 /* TCBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC42F1E52E52E00B0E754 /* TCBankCardViewController.m */; };
 		7AFEC4341E52E52E00B0E754 /* TCBankCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFEC4301E52E52E00B0E754 /* TCBankCardViewController.xib */; };
 		7AFEC4441E52E56000B0E754 /* TCBankCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4361E52E56000B0E754 /* TCBankCardViewCell.m */; };
 		7AFEC4451E52E56000B0E754 /* TCBankCardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFEC4371E52E56000B0E754 /* TCBankCardViewCell.xib */; };
-		7AFEC4461E52E56000B0E754 /* TCBankPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4391E52E56000B0E754 /* TCBankPickerView.m */; };
 		7AFEC4471E52E56000B0E754 /* TCBankPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFEC43A1E52E56000B0E754 /* TCBankPickerView.xib */; };
 		7AFEC4481E52E56000B0E754 /* TCWalletBillDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC43C1E52E56000B0E754 /* TCWalletBillDetailHeaderView.m */; };
 		7AFEC4491E52E56000B0E754 /* TCWalletBillDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFEC43D1E52E56000B0E754 /* TCWalletBillDetailHeaderView.xib */; };
@@ -231,7 +237,6 @@
 		7AFEC45A1E52E5D700B0E754 /* TCWalletBillWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4561E52E5D700B0E754 /* TCWalletBillWrapper.m */; };
 		7AFEC4601E52E83100B0E754 /* MLBPasswordRenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC45D1E52E83100B0E754 /* MLBPasswordRenderView.m */; };
 		7AFEC4611E52E83100B0E754 /* MLBPasswordTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC45F1E52E83100B0E754 /* MLBPasswordTextField.m */; };
-		7AFEC4631E52F04100B0E754 /* bankCard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AFEC4621E52F04100B0E754 /* bankCard.plist */; };
 		E71BB80DAB52591718DA7767 /* libPods-store.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00C8004B261DE1B413018A3 /* libPods-store.a */; };
 /* End PBXBuildFile section */
 
@@ -382,6 +387,9 @@
 		7A41CD751E655E3900645026 /* TCServiceSelectItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceSelectItemView.m; sourceTree = "<group>"; };
 		7A41CD771E6675B600645026 /* TCServiceFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceFilterView.h; sourceTree = "<group>"; };
 		7A41CD781E6675B600645026 /* TCServiceFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceFilterView.m; sourceTree = "<group>"; };
+		7A455D541EBC7A6B00A2F9ED /* TCPaymentPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPaymentPasswordView.h; sourceTree = "<group>"; };
+		7A455D551EBC7A6B00A2F9ED /* TCPaymentPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPaymentPasswordView.m; sourceTree = "<group>"; };
+		7A455D561EBC7A6B00A2F9ED /* TCPaymentPasswordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCPaymentPasswordView.xib; sourceTree = "<group>"; };
 		7A48B4151E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreFacilitiesViewFlowLayout.h; sourceTree = "<group>"; };
 		7A48B4161E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreFacilitiesViewFlowLayout.m; sourceTree = "<group>"; };
 		7A48B4181E48247800373BF4 /* TCStoreSetMealMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSetMealMeta.h; sourceTree = "<group>"; };
@@ -438,6 +446,20 @@
 		7A661E671E31C49C0080D37D /* TCGoodsStoreRecommendViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsStoreRecommendViewCell.m; sourceTree = "<group>"; };
 		7A661E691E31EC250080D37D /* TCCreateStorePromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCreateStorePromptView.h; sourceTree = "<group>"; };
 		7A661E6A1E31EC250080D37D /* TCCreateStorePromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCreateStorePromptView.m; sourceTree = "<group>"; };
+		7A6B845D1EBB148A00814777 /* TCBankCardAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBankCardAddViewController.h; sourceTree = "<group>"; };
+		7A6B845E1EBB148A00814777 /* TCBankCardAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBankCardAddViewController.m; sourceTree = "<group>"; };
+		7A6B84601EBB152C00814777 /* TCBankPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBankPickerView.h; sourceTree = "<group>"; };
+		7A6B84611EBB152C00814777 /* TCBankPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBankPickerView.m; sourceTree = "<group>"; };
+		7A6B84631EBB159A00814777 /* TCBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBankCardViewController.h; sourceTree = "<group>"; };
+		7A6B84641EBB159A00814777 /* TCBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBankCardViewController.m; sourceTree = "<group>"; };
+		7A6B84661EBB161000814777 /* TCBankInfoList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TCBankInfoList.plist; sourceTree = "<group>"; };
+		7A6B84681EBB1CA000814777 /* TCBankCardAddViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCBankCardAddViewController.xib; sourceTree = "<group>"; };
+		7A6B846A1EBC1DFA00814777 /* TCWithdrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCWithdrawViewController.h; sourceTree = "<group>"; };
+		7A6B846B1EBC1DFA00814777 /* TCWithdrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCWithdrawViewController.m; sourceTree = "<group>"; };
+		7A6B846D1EBC20EA00814777 /* TCWithdrawBankCardInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCWithdrawBankCardInfoView.h; sourceTree = "<group>"; };
+		7A6B846E1EBC20EA00814777 /* TCWithdrawBankCardInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCWithdrawBankCardInfoView.m; sourceTree = "<group>"; };
+		7A6B84701EBC2D4A00814777 /* TCWithdrawAmountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCWithdrawAmountView.h; sourceTree = "<group>"; };
+		7A6B84711EBC2D4A00814777 /* TCWithdrawAmountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCWithdrawAmountView.m; sourceTree = "<group>"; };
 		7A7B60951E30A0A3004971C9 /* TCCreateStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCreateStoreViewController.h; sourceTree = "<group>"; };
 		7A7B60961E30A0A3004971C9 /* TCCreateStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCreateStoreViewController.m; sourceTree = "<group>"; };
 		7A7B60981E30A0B9004971C9 /* TCCreateGoodsStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCreateGoodsStoreViewController.h; sourceTree = "<group>"; };
@@ -644,17 +666,10 @@
 		7AFEC4231E52E4EF00B0E754 /* TCWalletBillViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCWalletBillViewController.xib; sourceTree = "<group>"; };
 		7AFEC4281E52E50F00B0E754 /* TCWalletPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCWalletPasswordViewController.h; sourceTree = "<group>"; };
 		7AFEC4291E52E50F00B0E754 /* TCWalletPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCWalletPasswordViewController.m; sourceTree = "<group>"; };
-		7AFEC42B1E52E52E00B0E754 /* TCBankCardAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBankCardAddViewController.h; sourceTree = "<group>"; };
-		7AFEC42C1E52E52E00B0E754 /* TCBankCardAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBankCardAddViewController.m; sourceTree = "<group>"; };
-		7AFEC42D1E52E52E00B0E754 /* TCBankCardAddViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCBankCardAddViewController.xib; sourceTree = "<group>"; };
-		7AFEC42E1E52E52E00B0E754 /* TCBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBankCardViewController.h; sourceTree = "<group>"; };
-		7AFEC42F1E52E52E00B0E754 /* TCBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBankCardViewController.m; sourceTree = "<group>"; };
 		7AFEC4301E52E52E00B0E754 /* TCBankCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCBankCardViewController.xib; sourceTree = "<group>"; };
 		7AFEC4351E52E56000B0E754 /* TCBankCardViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBankCardViewCell.h; sourceTree = "<group>"; };
 		7AFEC4361E52E56000B0E754 /* TCBankCardViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBankCardViewCell.m; sourceTree = "<group>"; };
 		7AFEC4371E52E56000B0E754 /* TCBankCardViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCBankCardViewCell.xib; sourceTree = "<group>"; };
-		7AFEC4381E52E56000B0E754 /* TCBankPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBankPickerView.h; sourceTree = "<group>"; };
-		7AFEC4391E52E56000B0E754 /* TCBankPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBankPickerView.m; sourceTree = "<group>"; };
 		7AFEC43A1E52E56000B0E754 /* TCBankPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCBankPickerView.xib; sourceTree = "<group>"; };
 		7AFEC43B1E52E56000B0E754 /* TCWalletBillDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCWalletBillDetailHeaderView.h; sourceTree = "<group>"; };
 		7AFEC43C1E52E56000B0E754 /* TCWalletBillDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCWalletBillDetailHeaderView.m; sourceTree = "<group>"; };
@@ -677,7 +692,6 @@
 		7AFEC45D1E52E83100B0E754 /* MLBPasswordRenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBPasswordRenderView.m; sourceTree = "<group>"; };
 		7AFEC45E1E52E83100B0E754 /* MLBPasswordTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBPasswordTextField.h; sourceTree = "<group>"; };
 		7AFEC45F1E52E83100B0E754 /* MLBPasswordTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBPasswordTextField.m; sourceTree = "<group>"; };
-		7AFEC4621E52F04100B0E754 /* bankCard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bankCard.plist; sourceTree = "<group>"; };
 		AF80221D1AF577A91976C738 /* Pods-store.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.debug.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.debug.xcconfig"; sourceTree = "<group>"; };
 		B00C8004B261DE1B413018A3 /* libPods-store.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-store.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54209AED3B5DC0C7B24D243 /* Pods-store.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-store.release.xcconfig"; path = "Pods/Target Support Files/Pods-store/Pods-store.release.xcconfig"; sourceTree = "<group>"; };
@@ -802,7 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				7A1B038C1E35A9E5003258D0 /* citylist.data */,
-				7AFEC4621E52F04100B0E754 /* bankCard.plist */,
+				7A6B84661EBB161000814777 /* TCBankInfoList.plist */,
 			);
 			path = BinaryFiles;
 			sourceTree = "<group>";
@@ -1202,6 +1216,9 @@
 				7AFEC4151E515DE800B0E754 /* TCDropdownMenu.m */,
 				55F9EE521E5EF08B00935ADF /* TCUnCommonView.h */,
 				55F9EE531E5EF08B00935ADF /* TCUnCommonView.m */,
+				7A455D541EBC7A6B00A2F9ED /* TCPaymentPasswordView.h */,
+				7A455D551EBC7A6B00A2F9ED /* TCPaymentPasswordView.m */,
+				7A455D561EBC7A6B00A2F9ED /* TCPaymentPasswordView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1619,12 +1636,14 @@
 				7AFEC4201E52E4EF00B0E754 /* TCWalletBillDetailViewController.xib */,
 				7AFEC4281E52E50F00B0E754 /* TCWalletPasswordViewController.h */,
 				7AFEC4291E52E50F00B0E754 /* TCWalletPasswordViewController.m */,
-				7AFEC42B1E52E52E00B0E754 /* TCBankCardAddViewController.h */,
-				7AFEC42C1E52E52E00B0E754 /* TCBankCardAddViewController.m */,
-				7AFEC42D1E52E52E00B0E754 /* TCBankCardAddViewController.xib */,
-				7AFEC42E1E52E52E00B0E754 /* TCBankCardViewController.h */,
-				7AFEC42F1E52E52E00B0E754 /* TCBankCardViewController.m */,
+				7A6B845D1EBB148A00814777 /* TCBankCardAddViewController.h */,
+				7A6B845E1EBB148A00814777 /* TCBankCardAddViewController.m */,
+				7A6B84681EBB1CA000814777 /* TCBankCardAddViewController.xib */,
+				7A6B84631EBB159A00814777 /* TCBankCardViewController.h */,
+				7A6B84641EBB159A00814777 /* TCBankCardViewController.m */,
 				7AFEC4301E52E52E00B0E754 /* TCBankCardViewController.xib */,
+				7A6B846A1EBC1DFA00814777 /* TCWithdrawViewController.h */,
+				7A6B846B1EBC1DFA00814777 /* TCWithdrawViewController.m */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -1635,8 +1654,8 @@
 				7AFEC4351E52E56000B0E754 /* TCBankCardViewCell.h */,
 				7AFEC4361E52E56000B0E754 /* TCBankCardViewCell.m */,
 				7AFEC4371E52E56000B0E754 /* TCBankCardViewCell.xib */,
-				7AFEC4381E52E56000B0E754 /* TCBankPickerView.h */,
-				7AFEC4391E52E56000B0E754 /* TCBankPickerView.m */,
+				7A6B84601EBB152C00814777 /* TCBankPickerView.h */,
+				7A6B84611EBB152C00814777 /* TCBankPickerView.m */,
 				7AFEC43A1E52E56000B0E754 /* TCBankPickerView.xib */,
 				7AFEC43B1E52E56000B0E754 /* TCWalletBillDetailHeaderView.h */,
 				7AFEC43C1E52E56000B0E754 /* TCWalletBillDetailHeaderView.m */,
@@ -1647,6 +1666,10 @@
 				7AFEC4411E52E56000B0E754 /* TCWalletBillViewCell.h */,
 				7AFEC4421E52E56000B0E754 /* TCWalletBillViewCell.m */,
 				7AFEC4431E52E56000B0E754 /* TCWalletBillViewCell.xib */,
+				7A6B846D1EBC20EA00814777 /* TCWithdrawBankCardInfoView.h */,
+				7A6B846E1EBC20EA00814777 /* TCWithdrawBankCardInfoView.m */,
+				7A6B84701EBC2D4A00814777 /* TCWithdrawAmountView.h */,
+				7A6B84711EBC2D4A00814777 /* TCWithdrawAmountView.m */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -1814,21 +1837,22 @@
 				7AFEC4341E52E52E00B0E754 /* TCBankCardViewController.xib in Resources */,
 				7ABCC0D91E2622C800750E47 /* TCHomeViewController.xib in Resources */,
 				7A53446D1E2F7B7C0053B527 /* TCBioEditPhoneViewController.xib in Resources */,
-				7AFEC4321E52E52E00B0E754 /* TCBankCardAddViewController.xib in Resources */,
 				7A55F4241E287F5B0018FED3 /* TCGetPasswordView.xib in Resources */,
 				7A55F4211E287F5B0018FED3 /* TCLoginViewController.xib in Resources */,
 				7A53446F1E2F7B7C0053B527 /* TCBioEditSMSViewController.xib in Resources */,
 				7A2A77471E6D57D9000CFAA8 /* intro_image_01.png in Resources */,
-				7AFEC4631E52F04100B0E754 /* bankCard.plist in Resources */,
 				7A99872F1E24959F006175CC /* LaunchScreen.storyboard in Resources */,
 				7A55F4321E28E91E0018FED3 /* TCProfileHeaderView.xib in Resources */,
 				7AFEC4471E52E56000B0E754 /* TCBankPickerView.xib in Resources */,
 				7AFEC41D1E52E4D300B0E754 /* TCWalletViewController.xib in Resources */,
+				7A6B84691EBB1CA000814777 /* TCBankCardAddViewController.xib in Resources */,
 				7A1B038E1E35A9E5003258D0 /* citylist.data in Resources */,
 				7A8353041E602344003A8E76 /* order_background.png in Resources */,
 				7A2A77391E6D4D1E000CFAA8 /* HD4.7''.png in Resources */,
+				7A6B84671EBB161000814777 /* TCBankInfoList.plist in Resources */,
 				7A2A77481E6D57D9000CFAA8 /* intro_image_02.png in Resources */,
 				7A8353081E602524003A8E76 /* goods_category_background.png in Resources */,
+				7A455D581EBC7A6B00A2F9ED /* TCPaymentPasswordView.xib in Resources */,
 				7A2A773A1E6D4D1E000CFAA8 /* HD5.5''.png in Resources */,
 				7AFEC44D1E52E56000B0E754 /* TCWalletBillViewCell.xib in Resources */,
 				7AFEC4251E52E4EF00B0E754 /* TCWalletBillDetailViewController.xib in Resources */,
@@ -1953,7 +1977,7 @@
 				7ABCC0E81E2622C800750E47 /* TCGoodShopView.m in Sources */,
 				7A7B60AF1E30BCD5004971C9 /* TCStoreCategoryIconView.m in Sources */,
 				7AFEC4131E51452400B0E754 /* TCGoodsDeliveryView.m in Sources */,
-				7AFEC4331E52E52E00B0E754 /* TCBankCardViewController.m in Sources */,
+				7A6B84651EBB159A00814777 /* TCBankCardViewController.m in Sources */,
 				55647EC11E4C159E00E4A0E9 /* TCGoodsListCell.m in Sources */,
 				7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */,
 				7AD866441E4C189D00686AC2 /* TCGoodsOrderHeaderView.m in Sources */,
@@ -1962,7 +1986,9 @@
 				7AE92B731E2CB1280012B11E /* TCScannerMaskView.m in Sources */,
 				7AFEC4441E52E56000B0E754 /* TCBankCardViewCell.m in Sources */,
 				7A9987EB1E24E7DF006175CC /* TCBuluoApi.m in Sources */,
+				7A6B845F1EBB148A00814777 /* TCBankCardAddViewController.m in Sources */,
 				7AFEC42A1E52E50F00B0E754 /* TCWalletPasswordViewController.m in Sources */,
+				7A6B846C1EBC1DFA00814777 /* TCWithdrawViewController.m in Sources */,
 				7A3571EB1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m in Sources */,
 				7A83529C1E5D360E003A8E76 /* TCServiceHeaderView.m in Sources */,
 				7A9987241E24959F006175CC /* AppDelegate.m in Sources */,
@@ -1986,7 +2012,6 @@
 				7AFEC4261E52E4EF00B0E754 /* TCWalletBillViewController.m in Sources */,
 				7AD866701E4DB15000686AC2 /* TCReservationViewCell.m in Sources */,
 				7A53446C1E2F7B7C0053B527 /* TCBioEditPhoneViewController.m in Sources */,
-				7AFEC4311E52E52E00B0E754 /* TCBankCardAddViewController.m in Sources */,
 				7A48B4321E4B048100373BF4 /* TCGoodsOrderWrapper.m in Sources */,
 				5503192F1E34926C004522C7 /* TCChoseSpecificationsController.m in Sources */,
 				550319351E349779004522C7 /* TCGoodsStandardMate.m in Sources */,
@@ -1998,8 +2023,8 @@
 				55647EBE1E4C159E00E4A0E9 /* TCCreatePriceAndRepertoryCell.m in Sources */,
 				7A55F4331E28E91E0018FED3 /* TCProfileViewCell.m in Sources */,
 				7A9987E31E24E42B006175CC /* NSObject+TCNomal.m in Sources */,
+				7A455D571EBC7A6B00A2F9ED /* TCPaymentPasswordView.m in Sources */,
 				7A48B41A1E48247800373BF4 /* TCStoreSetMealMeta.m in Sources */,
-				7AFEC4461E52E56000B0E754 /* TCBankPickerView.m in Sources */,
 				7A48B41D1E486A6F00373BF4 /* TCStoreSettingViewController.m in Sources */,
 				7A48B42F1E4B030700373BF4 /* TCGoodsOrderItem.m in Sources */,
 				7AFEC4571E52E5D700B0E754 /* TCBankCard.m in Sources */,
@@ -2037,6 +2062,7 @@
 				55647EBF1E4C159E00E4A0E9 /* TCCreateStandardCell.m in Sources */,
 				7ABCC0D81E2622C800750E47 /* TCHomeViewController.m in Sources */,
 				7A53446E1E2F7B7C0053B527 /* TCBioEditSMSViewController.m in Sources */,
+				7A6B84621EBB152C00814777 /* TCBankPickerView.m in Sources */,
 				7AD8666D1E4DB08F00686AC2 /* TCReservationViewController.m in Sources */,
 				7A1A85731E67C12800BB5EDB /* TCServiceLocationViewController.m in Sources */,
 				7A1A85411E66D18400BB5EDB /* TCServiceListCell.m in Sources */,
@@ -2045,6 +2071,7 @@
 				55647F5A1E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m in Sources */,
 				55647EC31E4C159E00E4A0E9 /* TCGoodsTipsCell.m in Sources */,
 				7A5344651E2F6EC50053B527 /* TCInfoEditViewController.m in Sources */,
+				7A6B846F1EBC20EA00814777 /* TCWithdrawBankCardInfoView.m in Sources */,
 				7A9988271E24EFE6006175CC /* TCUserPhoneInfo.m in Sources */,
 				7A8352CC1E5DA44D003A8E76 /* TCServiceAnnotationView.m in Sources */,
 				7ABCC0D41E2622C800750E47 /* TCRecommendListViewController.m in Sources */,
@@ -2084,6 +2111,7 @@
 				7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */,
 				7A41CD791E6675B600645026 /* TCServiceFilterView.m in Sources */,
 				7AF0B4851E64200B00B8F7D6 /* TCServiceListViewController.m in Sources */,
+				7A6B84721EBC2D4A00814777 /* TCWithdrawAmountView.m in Sources */,
 				7AD8665C1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m in Sources */,
 				7AB5683D1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m in Sources */,
 				7AD8664D1E4C71F400686AC2 /* TCGoodsOrderAddressViewCell.m in Sources */,

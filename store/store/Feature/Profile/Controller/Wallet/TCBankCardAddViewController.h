@@ -6,11 +6,11 @@
 //  Copyright © 2016年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <TCCommonLibs/TCBaseViewController.h>
 
 typedef void(^TCBankCardAddBlock)();
 
-@interface TCBankCardAddViewController : UIViewController
+@interface TCBankCardAddViewController : TCBaseViewController
 
 @property (copy, nonatomic) TCBankCardAddBlock bankCardAddBlock;
 

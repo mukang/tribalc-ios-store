@@ -12,6 +12,7 @@
 #import "TCBankCardViewController.h"
 #import "TCQRCodeViewController.h"
 #import "TCNavigationController.h"
+#import "TCWithdrawViewController.h"
 
 #import "TCBuluoApi.h"
 
@@ -96,7 +97,19 @@
 #pragma mark - Actions
 
 - (IBAction)handleClickWithdrawButton:(UIButton *)sender {
-    [self btnClickUnifyTips];
+    if (!self.walletAccount.bankCards.count) {
+        [MBProgressHUD showHUDWithMessage:@"绑定银行卡后才能提现"];
+        return;
+    }
+    if (!self.walletAccount.password) {
+        [MBProgressHUD showHUDWithMessage:@"您还没有设置提现密码，请先设置提现密码"];
+        return;
+    }
+    TCWithdrawViewController *vc = [[TCWithdrawViewController alloc] initWithWalletAccount:self.walletAccount];
+    vc.completionBlock = ^() {
+        [weakSelf fetchNetData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)handleClickBankCardButton:(UIButton *)sender {
@@ -124,7 +137,7 @@
 
 - (IBAction)handleClickPasswordButton:(UIButton *)sender {
     if (!self.walletAccount) {
-        [MBProgressHUD showHUDWithMessage:@"暂时无法设置支付密码"];
+        [MBProgressHUD showHUDWithMessage:@"暂时无法设置密码"];
         return;
     }
     TCWalletPasswordType passwordType;
