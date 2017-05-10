@@ -59,9 +59,6 @@
 		7A1B03941E35D9B6003258D0 /* TCStoreLogoUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03931E35D9B6003258D0 /* TCStoreLogoUploadViewController.m */; };
 		7A1B03971E35F53A003258D0 /* TCStoreSurroundingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B03961E35F53A003258D0 /* TCStoreSurroundingViewController.m */; };
 		7A1B039D1E36083D003258D0 /* TCStoreSurroundingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A1B039C1E36083D003258D0 /* TCStoreSurroundingViewCell.m */; };
-		7A2A77381E6D4D1E000CFAA8 /* HD4.0''.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A77351E6D4D1E000CFAA8 /* HD4.0''.png */; };
-		7A2A77391E6D4D1E000CFAA8 /* HD4.7''.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A77361E6D4D1E000CFAA8 /* HD4.7''.png */; };
-		7A2A773A1E6D4D1E000CFAA8 /* HD5.5''.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A77371E6D4D1E000CFAA8 /* HD5.5''.png */; };
 		7A2A77431E6D5009000CFAA8 /* TCLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2A77421E6D5009000CFAA8 /* TCLaunchViewController.m */; };
 		7A2A77471E6D57D9000CFAA8 /* intro_image_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A77441E6D57D9000CFAA8 /* intro_image_01.png */; };
 		7A2A77481E6D57D9000CFAA8 /* intro_image_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A77451E6D57D9000CFAA8 /* intro_image_02.png */; };
@@ -165,6 +162,9 @@
 		7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988131E24EE3E006175CC /* TCServiceWrapper.m */; };
 		7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988231E24EE4B006175CC /* TCUploadInfo.m */; };
 		7A9988271E24EFE6006175CC /* TCUserPhoneInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9988261E24EFE6006175CC /* TCUserPhoneInfo.m */; };
+		7AB03F1B1EC3067A00DFB037 /* HD4.0''.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB03F181EC3067A00DFB037 /* HD4.0''.png */; };
+		7AB03F1C1EC3067A00DFB037 /* HD4.7''.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB03F191EC3067A00DFB037 /* HD4.7''.png */; };
+		7AB03F1D1EC3067A00DFB037 /* HD5.5''.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB03F1A1EC3067A00DFB037 /* HD5.5''.png */; };
 		7AB568311E45714F0005814A /* TCBusinessHoursViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB568301E45714F0005814A /* TCBusinessHoursViewController.m */; };
 		7AB568341E4572C20005814A /* TCBusinessHoursViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB568331E4572C20005814A /* TCBusinessHoursViewCell.m */; };
 		7AB5683A1E45B69D0005814A /* TCCreateStoreNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB568391E45B69D0005814A /* TCCreateStoreNextViewController.m */; };
@@ -361,9 +361,6 @@
 		7A1B03961E35F53A003258D0 /* TCStoreSurroundingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSurroundingViewController.m; sourceTree = "<group>"; };
 		7A1B039B1E36083D003258D0 /* TCStoreSurroundingViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSurroundingViewCell.h; sourceTree = "<group>"; };
 		7A1B039C1E36083D003258D0 /* TCStoreSurroundingViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSurroundingViewCell.m; sourceTree = "<group>"; };
-		7A2A77351E6D4D1E000CFAA8 /* HD4.0''.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HD4.0''.png"; sourceTree = "<group>"; };
-		7A2A77361E6D4D1E000CFAA8 /* HD4.7''.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HD4.7''.png"; sourceTree = "<group>"; };
-		7A2A77371E6D4D1E000CFAA8 /* HD5.5''.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HD5.5''.png"; sourceTree = "<group>"; };
 		7A2A77411E6D5009000CFAA8 /* TCLaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCLaunchViewController.h; sourceTree = "<group>"; };
 		7A2A77421E6D5009000CFAA8 /* TCLaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCLaunchViewController.m; sourceTree = "<group>"; };
 		7A2A77441E6D57D9000CFAA8 /* intro_image_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_image_01.png; sourceTree = "<group>"; };
@@ -558,6 +555,9 @@
 		7A9988231E24EE4B006175CC /* TCUploadInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUploadInfo.m; sourceTree = "<group>"; };
 		7A9988251E24EFE6006175CC /* TCUserPhoneInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUserPhoneInfo.h; sourceTree = "<group>"; };
 		7A9988261E24EFE6006175CC /* TCUserPhoneInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUserPhoneInfo.m; sourceTree = "<group>"; };
+		7AB03F181EC3067A00DFB037 /* HD4.0''.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HD4.0''.png"; sourceTree = "<group>"; };
+		7AB03F191EC3067A00DFB037 /* HD4.7''.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HD4.7''.png"; sourceTree = "<group>"; };
+		7AB03F1A1EC3067A00DFB037 /* HD5.5''.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HD5.5''.png"; sourceTree = "<group>"; };
 		7AB5682F1E45714F0005814A /* TCBusinessHoursViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBusinessHoursViewController.h; sourceTree = "<group>"; };
 		7AB568301E45714F0005814A /* TCBusinessHoursViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBusinessHoursViewController.m; sourceTree = "<group>"; };
 		7AB568321E4572C20005814A /* TCBusinessHoursViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBusinessHoursViewCell.h; sourceTree = "<group>"; };
@@ -1011,9 +1011,9 @@
 		7A8353001E601218003A8E76 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7A2A77351E6D4D1E000CFAA8 /* HD4.0''.png */,
-				7A2A77361E6D4D1E000CFAA8 /* HD4.7''.png */,
-				7A2A77371E6D4D1E000CFAA8 /* HD5.5''.png */,
+				7AB03F181EC3067A00DFB037 /* HD4.0''.png */,
+				7AB03F191EC3067A00DFB037 /* HD4.7''.png */,
+				7AB03F1A1EC3067A00DFB037 /* HD5.5''.png */,
 				7A2A77441E6D57D9000CFAA8 /* intro_image_01.png */,
 				7A2A77451E6D57D9000CFAA8 /* intro_image_02.png */,
 				7A2A77461E6D57D9000CFAA8 /* intro_image_03.png */,
@@ -1832,11 +1832,11 @@
 			files = (
 				7AFEC4491E52E56000B0E754 /* TCWalletBillDetailHeaderView.xib in Resources */,
 				7AFEC44B1E52E56000B0E754 /* TCWalletBillDetailViewCell.xib in Resources */,
-				7A2A77381E6D4D1E000CFAA8 /* HD4.0''.png in Resources */,
 				7A55F4351E28E96A0018FED3 /* TCProfileViewCell.xib in Resources */,
 				7AFEC4341E52E52E00B0E754 /* TCBankCardViewController.xib in Resources */,
 				7ABCC0D91E2622C800750E47 /* TCHomeViewController.xib in Resources */,
 				7A53446D1E2F7B7C0053B527 /* TCBioEditPhoneViewController.xib in Resources */,
+				7AB03F1D1EC3067A00DFB037 /* HD5.5''.png in Resources */,
 				7A55F4241E287F5B0018FED3 /* TCGetPasswordView.xib in Resources */,
 				7A55F4211E287F5B0018FED3 /* TCLoginViewController.xib in Resources */,
 				7A53446F1E2F7B7C0053B527 /* TCBioEditSMSViewController.xib in Resources */,
@@ -1846,15 +1846,15 @@
 				7AFEC4471E52E56000B0E754 /* TCBankPickerView.xib in Resources */,
 				7AFEC41D1E52E4D300B0E754 /* TCWalletViewController.xib in Resources */,
 				7A6B84691EBB1CA000814777 /* TCBankCardAddViewController.xib in Resources */,
+				7AB03F1B1EC3067A00DFB037 /* HD4.0''.png in Resources */,
 				7A1B038E1E35A9E5003258D0 /* citylist.data in Resources */,
 				7A8353041E602344003A8E76 /* order_background.png in Resources */,
-				7A2A77391E6D4D1E000CFAA8 /* HD4.7''.png in Resources */,
 				7A6B84671EBB161000814777 /* TCBankInfoList.plist in Resources */,
 				7A2A77481E6D57D9000CFAA8 /* intro_image_02.png in Resources */,
 				7A8353081E602524003A8E76 /* goods_category_background.png in Resources */,
 				7A455D581EBC7A6B00A2F9ED /* TCPaymentPasswordView.xib in Resources */,
-				7A2A773A1E6D4D1E000CFAA8 /* HD5.5''.png in Resources */,
 				7AFEC44D1E52E56000B0E754 /* TCWalletBillViewCell.xib in Resources */,
+				7AB03F1C1EC3067A00DFB037 /* HD4.7''.png in Resources */,
 				7AFEC4251E52E4EF00B0E754 /* TCWalletBillDetailViewController.xib in Resources */,
 				7A2A77491E6D57D9000CFAA8 /* intro_image_03.png in Resources */,
 				7A99872C1E24959F006175CC /* Assets.xcassets in Resources */,
