@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addBankCardButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 
+@property (strong, nonatomic) NSMutableArray *dataList;
 @property (copy, nonatomic) NSArray *bankInfoList;
 
 @end
@@ -68,6 +69,7 @@
         if (bankCardList) {
             [weakSelf.dataList removeAllObjects];
             [weakSelf.dataList addObjectsFromArray:bankCardList];
+            weakSelf.walletAccount.bankCards = [NSArray arrayWithArray:weakSelf.dataList];
             for (TCBankCard *bankCard in weakSelf.dataList) {
                 for (NSDictionary *bankInfo in weakSelf.bankInfoList) {
                     if ([bankInfo[@"code"] isEqualToString:bankCard.bankCode]) {
@@ -199,6 +201,7 @@
         if (success) {
             [MBProgressHUD hideHUD:YES];
             [weakSelf.dataList removeObject:bankCard];
+            weakSelf.walletAccount.bankCards = [NSArray arrayWithArray:weakSelf.dataList];
             [weakSelf.tableView reloadData];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
@@ -222,6 +225,13 @@
         _bankInfoList = [NSArray arrayWithContentsOfFile:path];
     }
     return _bankInfoList;
+}
+
+- (void)setWalletAccount:(TCWalletAccount *)walletAccount {
+    _walletAccount = walletAccount;
+    
+    [self.dataList removeAllObjects];
+    [self.dataList addObjectsFromArray:walletAccount.bankCards];
 }
 
 - (void)didReceiveMemoryWarning {

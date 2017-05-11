@@ -44,7 +44,7 @@ NSString *const TCLaunchWindowDidDisappearNotification = @"TCLaunchWindowDidDisa
     launchImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:launchImageView];
     self.launchImageView = launchImageView;
-    
+    /*
     UILabel *versionLabel = [[UILabel alloc] init];
     versionLabel.text = [NSString stringWithFormat:@"%@", TCGetAppVersion()];
     versionLabel.textAlignment = NSTextAlignmentCenter;
@@ -55,6 +55,7 @@ NSString *const TCLaunchWindowDidDisappearNotification = @"TCLaunchWindowDidDisa
     versionLabel.centerY = TCScreenHeight - 50;
     [self.view addSubview:versionLabel];
     self.versionLabel = versionLabel;
+     */
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -87,7 +88,7 @@ NSString *const TCLaunchWindowDidDisappearNotification = @"TCLaunchWindowDidDisa
         weakSelf.launchImageView.frame = frame1;
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.5 delay:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            weakSelf.versionLabel.alpha = 0.0;
+//            weakSelf.versionLabel.alpha = 0.0;
             weakSelf.launchImageView.alpha = 0.0;
             weakSelf.launchImageView.frame = frame2;
         } completion:^(BOOL finished) {

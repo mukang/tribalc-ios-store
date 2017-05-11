@@ -354,7 +354,7 @@
 - (void)handleTapBankCardInfoView:(UITapGestureRecognizer *)sender {
     TCBankCardViewController *vc = [[TCBankCardViewController alloc] initWithNibName:@"TCBankCardViewController" bundle:[NSBundle mainBundle]];
     vc.isForWithdraw = YES;
-    [vc.dataList addObjectsFromArray:self.walletAccount.bankCards];
+    vc.walletAccount = self.walletAccount;
     vc.selectedCompletion = ^(TCBankCard *bankCard) {
         weakSelf.currentBankCard = bankCard;
         weakSelf.bankCardInfoView.bankCard = bankCard;

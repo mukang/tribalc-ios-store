@@ -105,6 +105,10 @@
         [MBProgressHUD showHUDWithMessage:@"您还没有设置提现密码，请先设置提现密码"];
         return;
     }
+    if (!self.walletAccount.balance) {
+        [MBProgressHUD showHUDWithMessage:@"您的钱包余额为0，无法提现"];
+        return;
+    }
     TCWithdrawViewController *vc = [[TCWithdrawViewController alloc] initWithWalletAccount:self.walletAccount];
     vc.completionBlock = ^() {
         [weakSelf fetchNetData];
