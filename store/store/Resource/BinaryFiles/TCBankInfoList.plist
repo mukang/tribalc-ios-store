@@ -122,5 +122,15 @@
 		<key>bgImage</key>
 		<string>bank_bg_01</string>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>北京银行</string>
+		<key>code</key>
+		<string>BOB</string>
+		<key>logo</key>
+		<string>bank_logo_BOB</string>
+		<key>bgImage</key>
+		<string>bank_bg_02</string>
+	</dict>
 </array>
 </plist>
