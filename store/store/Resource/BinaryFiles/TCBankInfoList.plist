@@ -122,35 +122,5 @@
 		<key>bgImage</key>
 		<string>bank_bg_01</string>
 	</dict>
-	<dict>
-		<key>name</key>
-		<string>中国民生银行</string>
-		<key>code</key>
-		<string>CMBC</string>
-		<key>logo</key>
-		<string>bank_logo_CMBC</string>
-		<key>bgImage</key>
-		<string>bank_bg_01</string>
-	</dict>
-	<dict>
-		<key>name</key>
-		<string>招商银行</string>
-		<key>code</key>
-		<string>CMB</string>
-		<key>logo</key>
-		<string>bank_logo_CMB</string>
-		<key>bgImage</key>
-		<string>bank_bg_02</string>
-	</dict>
-	<dict>
-		<key>name</key>
-		<string>广发银行</string>
-		<key>code</key>
-		<string>GDB</string>
-		<key>logo</key>
-		<string>bank_logo_GDB</string>
-		<key>bgImage</key>
-		<string>bank_bg_01</string>
-	</dict>
 </array>
 </plist>
