@@ -16,7 +16,6 @@
 
 #import "TCBuluoApi.h"
 
-#import <TCCommonLibs/TCExtendButton.h>
 #import <TCCommonLibs/TCCommonButton.h>
 #import <TCCommonLibs/UIImage+Category.h>
 #import <TCCommonLibs/TCFunctions.h>
@@ -24,17 +23,15 @@
 #define passwordViewH 400
 #define duration 0.25
 
-@interface TCWithdrawViewController () <UITextFieldDelegate, TCPaymentPasswordViewDelegate>
+@interface TCWithdrawViewController () <UITextFieldDelegate, TCPaymentPasswordViewDelegate, TCWithdrawAmountViewDelegate>
 
 @property (copy, nonatomic) NSArray *bankInfoList;
 @property (strong, nonatomic) TCBankCard *currentBankCard;
+/** 可转出金额 */
+@property (nonatomic) double enabledAmount;
 
 @property (weak, nonatomic) TCWithdrawBankCardInfoView *bankCardInfoView;
 @property (weak, nonatomic) TCWithdrawAmountView *amountView;
-@property (weak, nonatomic) UILabel *promptLabel;
-@property (weak, nonatomic) UILabel *promptAmountLabel;
-@property (weak, nonatomic) TCExtendButton *allWithdrawButton;
-@property (weak, nonatomic) TCExtendButton *withdrawIntroButton;
 @property (weak, nonatomic) TCCommonButton *withdrawButton;
 
 /** 输入框里是否含有小数点 */
@@ -56,6 +53,10 @@
     if (self) {
         weakSelf = self;
         _walletAccount = walletAccount;
+        _enabledAmount = walletAccount.balance - walletAccount.withdrawCharge;
+        if (_enabledAmount < 0.0) {
+            _enabledAmount = 0.0;
+        }
         [self updateBankCardList];
     }
     return self;
@@ -111,51 +112,11 @@
     [bankCardInfoView addGestureRecognizer:bankCardInfoViewTap];
     
     TCWithdrawAmountView *amountView = [[TCWithdrawAmountView alloc] init];
+    amountView.walletAccount = self.walletAccount;
+    amountView.enabledAmount = self.enabledAmount;
     amountView.amountTextField.delegate = self;
+    amountView.delegate = self;
     [self.view addSubview:amountView];
-    
-    UILabel *promptLabel = [[UILabel alloc] init];
-    promptLabel.text = @"可转出金额：";
-    promptLabel.textColor = TCGrayColor;
-    promptLabel.font = [UIFont systemFontOfSize:12];
-    [self.view addSubview:promptLabel];
-    
-    UILabel *promptAmountLabel = [[UILabel alloc] init];
-    NSString *promptAmountStr = [NSString stringWithFormat:@"%0.2f元", self.walletAccount.balance];
-    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:promptAmountStr
-                                                                               attributes:@{
-                                                                                            NSFontAttributeName: [UIFont systemFontOfSize:12]
-                                                                                            }];
-    [attStr addAttribute:NSForegroundColorAttributeName value:TCRGBColor(229, 16, 16) range:NSMakeRange(0, attStr.length - 1)];
-    [attStr addAttribute:NSForegroundColorAttributeName value:TCGrayColor range:NSMakeRange(attStr.length - 1, 1)];
-    promptAmountLabel.attributedText = attStr;
-    [self.view addSubview:promptAmountLabel];
-    
-    TCExtendButton *allWithdrawButton = [TCExtendButton buttonWithType:UIButtonTypeCustom];
-    [allWithdrawButton setAttributedTitle:[[NSAttributedString alloc] initWithString:@"全部提现"
-                                                                            attributes:@{
-                                                                                         NSForegroundColorAttributeName: TCRGBColor(81, 199, 209),
-                                                                                         NSFontAttributeName: [UIFont systemFontOfSize:11]
-                                                                                         }]
-                                   forState:UIControlStateNormal];
-    [allWithdrawButton addTarget:self
-                            action:@selector(handleClickAllWithdrawButton:)
-                  forControlEvents:UIControlEventTouchUpInside];
-    allWithdrawButton.hitTestSlop = UIEdgeInsetsMake(-5, -20, -5, -20);
-    [self.view addSubview:allWithdrawButton];
-    
-    TCExtendButton *withdrawIntroButton = [TCExtendButton buttonWithType:UIButtonTypeCustom];
-    [withdrawIntroButton setAttributedTitle:[[NSAttributedString alloc] initWithString:@"提现说明"
-                                                                            attributes:@{
-                                                                                         NSForegroundColorAttributeName: TCRGBColor(81, 199, 209),
-                                                                                         NSFontAttributeName: [UIFont systemFontOfSize:11]
-                                                                                         }]
-                                   forState:UIControlStateNormal];
-    [withdrawIntroButton addTarget:self
-                            action:@selector(handleClickWithdrawIntroButton:)
-                  forControlEvents:UIControlEventTouchUpInside];
-    withdrawIntroButton.hitTestSlop = UIEdgeInsetsMake(-5, -20, -5, -20);
-    [self.view addSubview:withdrawIntroButton];
     
     TCCommonButton *withdrawButton = [TCCommonButton buttonWithTitle:@"确认提现"
                                                                color:TCCommonButtonColorBlue
@@ -169,10 +130,6 @@
     
     self.bankCardInfoView = bankCardInfoView;
     self.amountView = amountView;
-    self.promptLabel = promptLabel;
-    self.promptAmountLabel = promptAmountLabel;
-    self.allWithdrawButton = allWithdrawButton;
-    self.withdrawIntroButton = withdrawIntroButton;
     self.withdrawButton = withdrawButton;
 }
 
@@ -183,31 +140,15 @@
         make.height.mas_equalTo(61);
     }];
     [self.amountView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.bankCardInfoView.mas_bottom).offset(9);
+        make.top.equalTo(weakSelf.bankCardInfoView.mas_bottom).offset(14);
         make.left.right.equalTo(weakSelf.view);
-        make.height.mas_equalTo(52);
-    }];
-    [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.view).offset(20);
-        make.centerY.equalTo(weakSelf.amountView.mas_bottom).offset(13);
-    }];
-    [self.promptAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.promptLabel.mas_right);
-        make.centerY.equalTo(weakSelf.promptLabel);
-    }];
-    [self.allWithdrawButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.view).offset(-20);
-        make.centerY.equalTo(weakSelf.promptLabel);
+        make.height.mas_equalTo(130);
     }];
     [self.withdrawButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.amountView.mas_bottom).offset(77);
+        make.top.equalTo(weakSelf.amountView.mas_bottom).offset(53);
         make.left.equalTo(weakSelf.view).offset(30);
         make.right.equalTo(weakSelf.view).offset(-30);
         make.height.mas_equalTo(40);
-    }];
-    [self.withdrawIntroButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.view).offset(-20);
-        make.top.equalTo(weakSelf.withdrawButton.mas_bottom).offset(11);
     }];
 }
 
@@ -277,6 +218,23 @@
     return YES;
 }
 
+#pragma mark - TCWithdrawAmountViewDelegate
+
+- (void)didClickAllWithdrawButtonInWithdrawAmountView:(TCWithdrawAmountView *)view {
+    [self dismissKeyboard];
+    
+    self.amountView.amountTextField.text = [NSString stringWithFormat:@"%0.2f", self.enabledAmount];
+    if (self.enabledAmount > 0.0) {
+        if (!self.withdrawButton.enabled) {
+            self.withdrawButton.enabled = YES;
+        }
+    } else {
+        if (self.withdrawButton.enabled) {
+            self.withdrawButton.enabled = NO;
+        }
+    }
+}
+
 #pragma mark - TCPaymentPasswordViewDelegate
 
 - (void)paymentPasswordView:(TCPaymentPasswordView *)view didFilledPassword:(NSString *)password {
@@ -289,24 +247,12 @@
 
 #pragma mark - Actions
 
-- (void)handleClickAllWithdrawButton:(UIButton *)sender {
-    [self dismissKeyboard];
-    self.amountView.amountTextField.text = [NSString stringWithFormat:@"%0.2f", self.walletAccount.balance];
-    if (self.withdrawButton.enabled == NO) {
-        self.withdrawButton.enabled = YES;
-    }
-}
-
-- (void)handleClickWithdrawIntroButton:(UIButton *)sender {
-    [self dismissKeyboard];
-}
-
 - (void)handleClickWithdrawButton:(UIButton *)sender {
     [self dismissKeyboard];
     
     NSString *text = self.amountView.amountTextField.text;
-    if ([text doubleValue] > self.walletAccount.balance) {
-        [MBProgressHUD showHUDWithMessage:@"输入的提现金额超出了钱包余额，请重新输入提现金额"];
+    if ([text doubleValue] > self.enabledAmount) {
+        [MBProgressHUD showHUDWithMessage:@"提现金额已超出可转出金额，请重新输入"];
         return;
     }
     [self showPasswordView];
