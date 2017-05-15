@@ -154,8 +154,8 @@
                 
             }else {
                 self.goods = goodsWrapper.content;
-                [self.onSaleBtn setTitle:[NSString stringWithFormat:@"出售中(%ld)",goodsWrapper.publishedAmount] forState:UIControlStateNormal];
-                [self.storeBtn setTitle:[NSString stringWithFormat:@"仓库中(%ld)",goodsWrapper.unpublishedAmount] forState:UIControlStateNormal];
+                [self.onSaleBtn setTitle:[NSString stringWithFormat:@"出售中(%ld)",(long)goodsWrapper.publishedAmount] forState:UIControlStateNormal];
+                [self.storeBtn setTitle:[NSString stringWithFormat:@"仓库中(%ld)",(long)goodsWrapper.unpublishedAmount] forState:UIControlStateNormal];
                 [self.tableView.mj_header endRefreshing];
                 self.tableView.mj_footer.hidden = NO;
             }

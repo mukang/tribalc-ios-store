@@ -99,6 +99,9 @@
 }
 
 - (void)issue:(UIButton *)btn {
+    
+    [MBProgressHUD showHUD:YES];
+    
     NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
     if (self.currentLibsStr) {
         if (self.currentLibsStr.length) {
@@ -133,8 +136,10 @@
     }
     
     if (self.goods.ID) {
+        
         [[TCBuluoApi api] modifyGoods:self.goods result:^(BOOL success, NSError *error) {
             if (success) {
+                [MBProgressHUD hideHUD:YES];
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"KISSUEORMODIFYGOODS" object:nil];
             }else {
@@ -145,7 +150,7 @@
     }else {
         [[TCBuluoApi api] createGoods:self.goods goodsStandardMate:goodStandMate mainGoodsStandardKey:self.mainGoodsStandardKey result:^(NSArray *goodsArr, NSError *error) {
             if (goodsArr) {
-                NSLog(@"%@",goodsArr);
+                [MBProgressHUD hideHUD:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"KISSUEORMODIFYGOODS" object:nil];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }else {
