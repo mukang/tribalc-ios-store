@@ -143,6 +143,8 @@
             
             if (!goodsWrapper.hasMore) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }else {
+                [self.tableView.mj_footer endRefreshing];
             }
             
             if (isMore) {
