@@ -14,6 +14,8 @@
 @property (copy, nonatomic) NSString *ID;
 /** 账户余额 */
 @property (nonatomic) CGFloat balance;
+/** 单笔转出手续费 */
+@property (nonatomic) double withdrawCharge;
 /** 账户状态 */
 @property (copy, nonatomic) NSString *state;
 /** 密码 MD5 签名 */

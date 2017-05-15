@@ -37,8 +37,13 @@
     
     [self setupNavBar];
     [self setupSubviews];
-    [self fetchNetData];
     [self registerNotifications];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self fetchNetData];
 }
 
 - (void)dealloc {
@@ -111,7 +116,7 @@
     }
     TCWithdrawViewController *vc = [[TCWithdrawViewController alloc] initWithWalletAccount:self.walletAccount];
     vc.completionBlock = ^() {
-        [weakSelf fetchNetData];
+//        [weakSelf fetchNetData];
     };
     [self.navigationController pushViewController:vc animated:YES];
 }
