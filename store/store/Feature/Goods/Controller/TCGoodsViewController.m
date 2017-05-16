@@ -259,12 +259,14 @@
         h.centerX = 25;
         h.centerY = 25;
         h.backgroundColor = [UIColor whiteColor];
+        h.userInteractionEnabled = NO;
         [btn addSubview:h];
         
         UIView *l = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 3, 20)];
         l.centerY = 25;
         l.centerX = 25;
         l.backgroundColor = [UIColor whiteColor];
+        l.userInteractionEnabled = NO;
         [btn addSubview:l];
         self.btn = btn;
     }
