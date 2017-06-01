@@ -159,7 +159,7 @@
         dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
         dateFormatter.dateFormat = @"yyyy-MM-dd";
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:good.createTime/1000];
-        _titleLabel.text = good.title;
+        _titleLabel.text = good.name;
         _storeLabel.text = [NSString stringWithFormat:@"库存  %ld份",good.priceAndRepertory.repertory];
         _priceLabel.text = [NSString stringWithFormat:@"单价  %.2f元",good.priceAndRepertory.salePrice];
         _salesLabel.text = [NSString stringWithFormat:@"销量  %ld",good.saleQuantity];

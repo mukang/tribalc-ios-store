@@ -205,7 +205,7 @@
         for (; k < _cellsArr.count; k++) {
             TCCreatePriceAndRepertoryCell *cell = (TCCreatePriceAndRepertoryCell *)(_cellsArr[k]);
             if ([cell.titleLabel.text isEqualToString:str]) {
-                if (cell.orignPriceTextField.text.length && cell.salePriceTextField.text.length && cell.repertoryTextField.text.length) {
+                if (cell.salePriceTextField.text.length && cell.repertoryTextField.text.length) {
                     TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
                     priceAndRepertory.originPrice = [cell.orignPriceTextField.text doubleValue];
                     priceAndRepertory.salePrice = [cell.salePriceTextField.text doubleValue];
@@ -650,6 +650,10 @@
             return 9.0;
         }
     }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [scrollView endEditing:YES];
 }
 
 #pragma mark UITTextFieldDelegate

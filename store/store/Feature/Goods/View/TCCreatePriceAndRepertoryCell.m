@@ -67,6 +67,7 @@
     _orignPriceTextField.layer.borderWidth = 0.5;
     _orignPriceTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _orignPriceTextField.tag = 1001;
+    _orignPriceTextField.keyboardType = UIKeyboardTypeDecimalPad;
     [self.contentView addSubview:_orignPriceTextField];
     
     _salePriceTextField = [[UITextField alloc] init];
@@ -78,6 +79,7 @@
     _salePriceTextField.layer.borderWidth = 0.5;
     _salePriceTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _salePriceTextField.tag = 1002;
+    _salePriceTextField.keyboardType = UIKeyboardTypeDecimalPad;
     [self.contentView addSubview:_salePriceTextField];
     
     _repertoryTextField = [[UITextField alloc] init];
@@ -89,6 +91,7 @@
     _repertoryTextField.layer.borderWidth = 0.5;
     _repertoryTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _repertoryTextField.tag = 1003;
+    _repertoryTextField.keyboardType = UIKeyboardTypeDecimalPad;
     [self.contentView addSubview:_repertoryTextField];
     
     [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {

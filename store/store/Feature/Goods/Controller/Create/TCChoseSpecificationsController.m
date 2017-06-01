@@ -38,6 +38,14 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    TCGoodsMeta *goodsMeta = [[TCGoodsMeta alloc] init];
+    goodsMeta.category = self.good.category;
+    goodsMeta.standardId = self.good.standardId;
+    self.good = goodsMeta;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"选择商品规格";
@@ -80,6 +88,10 @@
         
     }else {
         self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    }
+    
+    if (indexPath.section == 0) {
+        self.good.standardId = nil;
     }
     
     [self.tabelView reloadData];
@@ -189,7 +201,6 @@
         self.good.standardId = goodsStandardMate.ID;
         createVC.currentGoodsStandardMate = goodsStandardMate;
     }
-    
     createVC.goods = self.good;
     [self.navigationController pushViewController:createVC animated:YES];
     

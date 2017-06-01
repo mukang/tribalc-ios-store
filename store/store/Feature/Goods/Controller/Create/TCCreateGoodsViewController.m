@@ -467,6 +467,7 @@
                 TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
                 cell.titleLabel.text = @"销售价格";
                 cell.placeholder = @"请输入商品销售价格";
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 cell.delegate = self;
                 
                 if (self.goods.priceAndRepertory.salePrice) {
@@ -481,7 +482,7 @@
                     cell.titleLabel.text = @"销售价格";
                     cell.placeholder = @"请输入商品销售价格";
                     cell.delegate = self;
-                    
+                    cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                     if (self.goods.priceAndRepertory.salePrice) {
                         cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.salePrice];
                     }
@@ -492,6 +493,7 @@
                 cell.titleLabel.text = @"原始价格";
                 cell.placeholder = @"请输入商品原始价格";
                 cell.delegate = self;
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory.originPrice) {
                     cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
                 }
@@ -503,6 +505,7 @@
                     cell.titleLabel.text = @"原始价格";
                     cell.placeholder = @"请输入商品原始价格";
                     cell.delegate = self;
+                    cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                     if (self.goods.priceAndRepertory.originPrice) {
                         cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
                     }
@@ -513,6 +516,7 @@
                 cell.titleLabel.text = @"库存量";
                 cell.placeholder = @"请输入商品库存量";
                 cell.delegate = self;
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory.repertory) {
                     cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
                 }
@@ -523,6 +527,7 @@
                     cell.titleLabel.text = @"库存量";
                     cell.placeholder = @"请输入商品库存量";
                     cell.delegate = self;
+                    cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                     if (self.goods.priceAndRepertory.repertory) {
                         cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
                     }
@@ -580,7 +585,7 @@
                 cell.titleLabel.text = @"销售价格";
                 cell.placeholder = @"请输入商品销售价格";
                 cell.delegate = self;
-                
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory.salePrice) {
                     cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.salePrice];
                 }
@@ -591,6 +596,7 @@
                 cell.titleLabel.text = @"原始价格";
                 cell.placeholder = @"请输入商品原始价格";
                 cell.delegate = self;
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory.originPrice) {
                     cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
                 }
@@ -600,6 +606,7 @@
                 cell.titleLabel.text = @"库存量";
                 cell.placeholder = @"请输入商品库存量";
                 cell.delegate = self;
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory.repertory) {
                     cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
                 }
@@ -646,6 +653,9 @@
                     @StrongObj(self)
                     self.currentGoodsStandardMate = goodsStandardMate;
                     self.currentMainGoodsStandardKey = key;
+                    if (self.goods.priceAndRepertory) {
+                        self.goods.priceAndRepertory = nil;
+                    }
                     [self.tableView reloadData];
                 };
                 [self.navigationController pushViewController:createVc animated:YES];
@@ -804,6 +814,18 @@
 
 - (void)next {
     
+    if (!self.goods.name) {
+        [MBProgressHUD showHUDWithMessage:@"请输入商品标题"];
+        return;
+    }
+    
+    if ([self.goods.name isKindOfClass:[NSString class]]) {
+        if (!self.goods.name.length) {
+            [MBProgressHUD showHUDWithMessage:@"请输入商品标题"];
+            return;
+        }
+    }
+    
     NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
     if (self.goods.standardId && self.currentGoodsStandardMate) {
         TCCommonInputViewCell *cell = (TCCommonInputViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
@@ -836,8 +858,31 @@
         if (!self.goods.priceAndRepertory) {
             [MBProgressHUD showHUDWithMessage:@"请输入价格库存信息"];
             return;
+        }else {
+            if (!self.goods.priceAndRepertory.salePrice) {
+                [MBProgressHUD showHUDWithMessage:@"请输入价格"];
+                return;
+            }
+            if (!self.goods.priceAndRepertory.repertory) {
+                [MBProgressHUD showHUDWithMessage:@"请输入库存"];
+                return;
+            }
         }
     }
+    
+    if (self.goods.standardId && self.currentGoodsStandardMate) {
+        if (self.goods.priceAndRepertory) {
+            if (!self.goods.priceAndRepertory.salePrice) {
+                [MBProgressHUD showHUDWithMessage:@"请输入价格"];
+                return;
+            }
+            if (!self.goods.priceAndRepertory.repertory) {
+                [MBProgressHUD showHUDWithMessage:@"请输入库存"];
+                return;
+            }
+        }
+    }
+    
     //设置商品主图
     if (![self.goods.mainPicture isKindOfClass:[NSString class]]) {
         if ([self.goods.pictures isKindOfClass:[NSArray class]]) {

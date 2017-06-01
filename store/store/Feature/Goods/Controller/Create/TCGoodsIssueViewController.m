@@ -203,6 +203,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.titleLabel.text = @"运费";
             cell.placeholder = @"请输入商品运费金额";
+            cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
             if (self.goods.expressFee) {
                 cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.expressFee];
             }
