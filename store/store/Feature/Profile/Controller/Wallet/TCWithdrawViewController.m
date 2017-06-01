@@ -270,7 +270,7 @@
     double amount = [self.amountView.amountTextField.text doubleValue];
     [[TCBuluoApi api] commitWithdrawReqWithAmount:amount bankCardID:self.currentBankCard.ID result:^(BOOL success, NSError *error) {
         if (success) {
-            [MBProgressHUD showHUDWithMessage:@"申请提现成功，资金将在24小时内到账，请注意查收"];
+            [MBProgressHUD showHUDWithMessage:@"申请提现成功，资金将在48小时内到账，请注意查收"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [weakSelf handleClickBackButton:nil];
                 if (weakSelf.completionBlock) {
