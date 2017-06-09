@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,7 +36,7 @@
                     <rect key="frame" x="0.0" y="150" width="375" height="57"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSe-Fo-84a">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="57"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <state key="normal" title="提现" image="wallet_withdraw_button">
                                 <color key="titleColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
@@ -44,14 +45,37 @@
                                 <action selector="handleClickWithdrawButton:" destination="-1" eventType="touchUpInside" id="UTL-J7-ioT"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3p-1n-P32">
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="57"/>
+                            <state key="normal" title="收款" image="wallet_recharge_button">
+                                <color key="titleColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="handleClickCollectButton:" destination="-1" eventType="touchUpInside" id="EWm-7g-zfJ"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zjm-HB-raV">
+                            <rect key="frame" x="187.5" y="17" width="0.5" height="23"/>
+                            <color key="backgroundColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="0.5" id="2QV-GT-4wz"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="uSe-Fo-84a" firstAttribute="leading" secondItem="L2X-w3-4OL" secondAttribute="leading" id="00c-7L-yFf"/>
+                        <constraint firstItem="d3p-1n-P32" firstAttribute="height" secondItem="uSe-Fo-84a" secondAttribute="height" id="7Ta-0j-wK7"/>
+                        <constraint firstItem="d3p-1n-P32" firstAttribute="width" secondItem="uSe-Fo-84a" secondAttribute="width" id="9zl-CW-RXZ"/>
                         <constraint firstItem="uSe-Fo-84a" firstAttribute="top" secondItem="L2X-w3-4OL" secondAttribute="top" id="CGp-QK-wSA"/>
                         <constraint firstAttribute="trailing" secondItem="uSe-Fo-84a" secondAttribute="trailing" id="DyU-eT-ciR"/>
                         <constraint firstAttribute="bottom" secondItem="uSe-Fo-84a" secondAttribute="bottom" id="Qcm-7G-0b6"/>
+                        <constraint firstItem="uSe-Fo-84a" firstAttribute="leading" secondItem="d3p-1n-P32" secondAttribute="trailing" id="cmo-Pp-DCI"/>
+                        <constraint firstItem="Zjm-HB-raV" firstAttribute="top" secondItem="L2X-w3-4OL" secondAttribute="top" constant="17" id="dTa-Bm-296"/>
+                        <constraint firstItem="Zjm-HB-raV" firstAttribute="centerX" secondItem="L2X-w3-4OL" secondAttribute="centerX" id="ePU-Kh-c0f"/>
+                        <constraint firstAttribute="bottom" secondItem="Zjm-HB-raV" secondAttribute="bottom" constant="17" id="iFA-VG-wk2"/>
+                        <constraint firstItem="d3p-1n-P32" firstAttribute="top" secondItem="uSe-Fo-84a" secondAttribute="top" id="nYt-MS-BVN"/>
                         <constraint firstAttribute="height" constant="57" id="uHw-a7-DC2"/>
+                        <constraint firstItem="uSe-Fo-84a" firstAttribute="width" secondItem="L2X-w3-4OL" secondAttribute="width" multiplier="0.5" id="w0a-5H-qxb"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qR-s6-VCU">
@@ -170,6 +194,7 @@
         <image name="wallet_bank_card_button" width="33" height="33"/>
         <image name="wallet_finance_button" width="33" height="33"/>
         <image name="wallet_password_button" width="33" height="33"/>
+        <image name="wallet_recharge_button" width="25" height="25"/>
         <image name="wallet_statement_button" width="33" height="33"/>
         <image name="wallet_withdraw_button" width="25" height="25"/>
     </resources>

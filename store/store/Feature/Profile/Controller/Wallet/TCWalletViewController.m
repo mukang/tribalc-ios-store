@@ -13,6 +13,7 @@
 #import "TCQRCodeViewController.h"
 #import "TCNavigationController.h"
 #import "TCWithdrawViewController.h"
+#import "TCCollectViewController.h"
 
 #import "TCBuluoApi.h"
 
@@ -100,6 +101,12 @@
 }
 
 #pragma mark - Actions
+
+- (IBAction)handleClickCollectButton:(UIButton *)sender {
+    TCCollectViewController *collectVc = [[TCCollectViewController alloc] init];
+    [self.navigationController pushViewController:collectVc animated:YES];
+}
+
 
 - (IBAction)handleClickWithdrawButton:(UIButton *)sender {
     if (!self.walletAccount.bankCards.count) {
