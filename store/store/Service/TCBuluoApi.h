@@ -445,4 +445,13 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
  */
 - (void)commitWithdrawReqWithAmount:(double)amount bankCardID:(NSString *)bankCardID result:(void (^)(BOOL success, NSError *error))resultBlock;
 
+#pragma mark - 系统初始化接口
+
+/**
+ 获取版本信息
+ 
+ @param resultBlock 结果回调
+ */
+- (void)fetchAppVersionInfo:(void(^)(TCAppVersion *versionInfo, NSError *error))resultBlock;
+
 @end

@@ -68,5 +68,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>TCBuluoAppStoreURL</key>
+	<string>https://itunes.apple.com/cn/app/id1212276553</string>
+	<key>TCBuluoAppID</key>
+	<string>1212276553</string>
 </dict>
 </plist>

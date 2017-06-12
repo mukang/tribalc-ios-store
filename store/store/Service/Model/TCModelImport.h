@@ -57,7 +57,8 @@
 #import "TCWalletBill.h"
 #import "TCWalletBillWrapper.h"
 
-
+/*********** 系统初始化相关 ***********/
+#import "TCAppVersion.h"
 
 
 
