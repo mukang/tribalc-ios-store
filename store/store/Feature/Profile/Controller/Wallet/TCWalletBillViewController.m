@@ -23,6 +23,8 @@
 @property (copy, nonatomic) NSString *sortSkip;
 @property (strong, nonatomic) NSMutableArray *dataList;
 
+@property (strong, nonatomic) UIView *noBillView;
+
 @end
 
 @implementation TCWalletBillViewController {
@@ -58,11 +60,42 @@
     
     UINib *nib = [UINib nibWithNibName:@"TCWalletBillViewCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"TCWalletBillViewCell"];
+    
+    self.noBillView = [[UIView alloc] init];
+    self.noBillView.hidden = YES;
+    [self.view addSubview:self.noBillView];
+    
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.image = [UIImage imageNamed:@"noBill"];
+    [self.noBillView addSubview:imageView];
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"暂无收入";
+    label.textColor = TCBlackColor;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:12];
+    [self.noBillView addSubview:label];
+    
+    [self.noBillView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(TCRealValue(165));
+        make.right.left.equalTo(self.view);
+        make.height.equalTo(@(TCRealValue(110)));
+    }];
+    
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.top.equalTo(self.noBillView);
+        make.width.height.equalTo(@(TCRealValue(77)));
+    }];
+    
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.left.equalTo(self.noBillView);
+        make.top.equalTo(imageView.mas_bottom).offset(TCRealValue(13));
+    }];
 }
 
 - (void)loadDataFirstTime {
     [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] fetchWalletBillWrapper:nil count:20 sortSkip:nil result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
+    [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:nil face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
         if (walletBillWrapper) {
             [MBProgressHUD hideHUD:YES];
             weakSelf.sortSkip = walletBillWrapper.nextSkip;
@@ -88,6 +121,11 @@
                 }
             }
             [weakSelf.tableView reloadData];
+            if (weakSelf.dataList.count) {
+                weakSelf.noBillView.hidden = YES;
+            }else {
+                weakSelf.noBillView.hidden = NO;
+            }
         } else {
             [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
         }
@@ -95,7 +133,7 @@
 }
 
 - (void)loadNewData {
-    [[TCBuluoApi api] fetchWalletBillWrapper:nil count:20 sortSkip:nil result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
+    [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:nil face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
         [weakSelf.tableView.mj_header endRefreshing];
         if (walletBillWrapper) {
             weakSelf.sortSkip = walletBillWrapper.nextSkip;
@@ -121,6 +159,12 @@
                 }
             }
             [weakSelf.tableView reloadData];
+            if (weakSelf.dataList.count) {
+                weakSelf.noBillView.hidden = YES;
+            }else {
+                weakSelf.noBillView.hidden = NO;
+            }
+
         } else {
             [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
         }
@@ -128,7 +172,7 @@
 }
 
 - (void)loadOldData {
-    [[TCBuluoApi api] fetchWalletBillWrapper:nil count:20 sortSkip:self.sortSkip result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
+    [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:self.sortSkip face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
         [weakSelf.tableView.mj_footer endRefreshing];
         if (walletBillWrapper) {
             weakSelf.sortSkip = walletBillWrapper.nextSkip;
@@ -153,6 +197,12 @@
                 }
             }
             [weakSelf.tableView reloadData];
+            if (weakSelf.dataList.count) {
+                weakSelf.noBillView.hidden = YES;
+            }else {
+                weakSelf.noBillView.hidden = NO;
+            }
+
         } else {
             [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
         }

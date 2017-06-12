@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TCCommonLibs/TCBaseViewController.h>
 
-@interface TCWalletBillViewController : UIViewController
+@interface TCWalletBillViewController : TCBaseViewController
+
+@property (copy, nonatomic) NSString *tradingType;
+
+@property (copy, nonatomic) NSString *face2face;
 
 @end
