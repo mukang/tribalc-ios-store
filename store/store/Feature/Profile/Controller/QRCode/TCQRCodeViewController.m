@@ -13,6 +13,7 @@
 #import "TCScannerMaskView.h"
 #import "TCScanner.h"
 #import "TCPhotoPicker.h"
+//#import "TCPreparePayViewController.h"
 
 /// 控件间距
 #define kControlMargin  20.0
@@ -54,11 +55,27 @@
     scanner = [TCScanner scanerWithView:self.view scanFrame:scannerBorder.frame completion:^(NSString *stringValue) {
         @StrongObj(self)
         // 完成回调
-//        self.completion();
-        [MBProgressHUD showHUDWithMessage:@"此功能暂未开放，敬请期待！"];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self handleScanerResultWithStr:stringValue];
     }];
-   
+    
+}
+
+- (void)handleScanerResultWithStr:(NSString *)result {
+//    if ([result isKindOfClass:[NSString class]]) {
+//        if ([result hasPrefix:@"pay://"]) {
+//            NSArray *arr = [result componentsSeparatedByString:@"://"];
+//            if (arr.count > 1) {
+//                NSString *storeId = arr[1];
+//                TCPreparePayViewController *preparePayVC = [[TCPreparePayViewController alloc] init];
+//                preparePayVC.fromController = self.fromController;
+//                preparePayVC.storeId =storeId;
+//                [self.navigationController pushViewController:preparePayVC animated:YES];
+//                return;
+//            }
+//        }
+//    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -86,32 +103,6 @@
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(handleClickBackButton:)];
-    
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0,0,115,30)];
-    
-    UIButton *photoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [photoBtn setBackgroundImage:[UIImage imageNamed:@"qrPhotos"] forState:UIControlStateNormal];
-//    [photoBtn setImage:[UIImage imageNamed:@"qrPhotos"] forState:UIControlStateNormal];
-    photoBtn.frame = CGRectMake(15, 0, 30, 30);
-    [rightView addSubview:photoBtn];
-    [photoBtn addTarget:self action:@selector(clickAlbumButton) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [flashBtn setImage:[UIImage imageNamed:@"qrFlashLight"] forState:UIControlStateNormal];
-    [flashBtn setBackgroundImage:[UIImage imageNamed:@"qrFlashLight"] forState:UIControlStateNormal];
-    flashBtn.frame = CGRectMake(50, 0, 30, 30);
-    [rightView addSubview:flashBtn];
-    [flashBtn addTarget:self action:@selector(torchOnFlashBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [moreBtn setImage:[UIImage imageNamed:@"qrMore"] forState:UIControlStateNormal];
-    [moreBtn setBackgroundImage:[UIImage imageNamed:@"qrMore"] forState:UIControlStateNormal];
-
-    moreBtn.frame = CGRectMake(85, 0, 30, 30);
-    [rightView addSubview:moreBtn];
-    
-    navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
-    
 }
 
 
@@ -168,10 +159,12 @@
     [TCScanner scaneImage:image completion:^(NSArray *values) {
         
         if (values.count > 0) {
-            //            self.completionCallBack(values.firstObject);
-            [self dismissViewControllerAnimated:NO completion:^{
-                //                [self clickCloseButton];
-            }];
+            if ([values isKindOfClass:[NSArray class]] && [values.firstObject isKindOfClass:[NSString class]]) {
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [self handleScanerResultWithStr:values.firstObject];
+                }];
+                
+            }
         } else {
             tipLabel.text = @"没有识别到二维码，请选择其他照片";
             
@@ -216,7 +209,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
+    
     [scannerBorder stopScannerAnimating];
     [scanner stopScan];
 }
@@ -241,18 +234,26 @@
     
     [self.view addSubview:tipLabel];
     
-    // 2> 名片按钮
-    UIButton *cardButton = [[UIButton alloc] init];
+    UIButton *photoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [photoBtn setBackgroundImage:[UIImage imageNamed:@"album"] forState:UIControlStateNormal];
+    [self.view addSubview:photoBtn];
+    [photoBtn addTarget:self action:@selector(clickAlbumButton) forControlEvents:UIControlEventTouchUpInside];
     
-    [cardButton setTitle:@"我的二维码" forState:UIControlStateNormal];
-    cardButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    [cardButton setTitleColor:TCRGBColor(88, 191, 200) forState:UIControlStateNormal];
+    UIButton *flashBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [flashBtn setBackgroundImage:[UIImage imageNamed:@"flashLight"] forState:UIControlStateNormal];
+    [self.view addSubview:flashBtn];
+    [flashBtn addTarget:self action:@selector(torchOnFlashBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    [cardButton sizeToFit];
-    cardButton.center = CGPointMake(tipLabel.center.x, CGRectGetMaxY(tipLabel.frame) + kControlMargin);
+    [photoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-(TCRealValue(49)));
+        make.width.height.equalTo(@33);
+        make.centerX.equalTo(self.view).offset(-33);
+    }];
     
-    [self.view addSubview:cardButton];
-    
+    [flashBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.width.height.equalTo(photoBtn);
+        make.centerX.equalTo(self.view).offset(33);
+    }];
 }
 
 /// 准备扫描框
@@ -272,19 +273,23 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)dealloc {
+    NSLog(@"TCQRCodeViewController -- dealloc");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

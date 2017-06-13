@@ -38,7 +38,7 @@
     
 //    [[UIColor colorWithWhite:0.95 alpha:1.0] setStroke];
 //    [[UIColor colorWithWhite:0 alpha:1.0] setStroke];
-    CGContextStrokeRectWithWidth(ctx, CGRectInset(_cropRect, 1, 1), 1);
+//    CGContextStrokeRectWithWidth(ctx, CGRectInset(_cropRect, 1, 1), 1);
 }
 
 @end
