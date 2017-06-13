@@ -274,7 +274,7 @@
     if (_qrImageView == nil) {
         _qrImageView = [[UIImageView alloc] init];
         _qrImageView.backgroundColor = [UIColor redColor];
-        _qrImageView.image = [self generateQRCodeImageWithCodeString:[NSString stringWithFormat:@"pay://%@",[TCBuluoApi api].currentUserSession.assigned] size:CGSizeMake(TCQRWIDTH, TCQRWIDTH)];
+        _qrImageView.image = [self generateQRCodeImageWithCodeString:[NSString stringWithFormat:@"pay://stores/%@",[TCBuluoApi api].currentUserSession.assigned] size:CGSizeMake(TCQRWIDTH, TCQRWIDTH)];
     }
     return _qrImageView;
 }
