@@ -75,6 +75,7 @@
         self.goods = nil;
         [self.tableView reloadData];
         self.tableView.hidden = YES;
+        [self headViewInitNumber];
     }else {
         self.unCommonView.hidden = YES;
         self.btn.hidden = NO;
@@ -98,12 +99,22 @@
                         self.unCommonView.hidden = NO;
                         self.unCommonView.unCommonType = TCUnCommonTypeUnCommon;
                         [self.view bringSubviewToFront:self.btn];
+                        self.goods = nil;
+                        self.goodsWrapper = nil;
+                        [self.tableView reloadData];
+                        self.tableView.hidden = YES;
+                        [self headViewInitNumber];
                     }
                     
                 }else {
                     NSString *reason = error.localizedDescription ?: @"请稍后再试";
                     [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
                     [self.view bringSubviewToFront:self.btn];
+                    self.goods = nil;
+                    self.goodsWrapper = nil;
+                    [self.tableView reloadData];
+                    self.tableView.hidden = YES;
+                    [self headViewInitNumber];
                 }
             }];
         }
@@ -199,6 +210,11 @@
         }
     }];
     
+}
+
+- (void)headViewInitNumber {
+    [self.onSaleBtn setTitle:@"出售中(0)" forState:UIControlStateNormal];
+    [self.storeBtn setTitle:@"仓库中(0)" forState:UIControlStateNormal];
 }
 
 - (void)setUpTopViews {
