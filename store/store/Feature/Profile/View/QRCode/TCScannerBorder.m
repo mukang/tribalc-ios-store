@@ -48,6 +48,10 @@
 - (void)prepareUI {
     self.clipsToBounds = YES;
     
+    self.layer.borderColor = [UIColor greenColor].CGColor;
+    CGFloat scale = TCScreenWidth > 375 ? 3 : 2;
+    self.layer.borderWidth = 1/scale;
+    
     // 图像文件包
 //    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
 //    NSURL *url = [bundle URLForResource:@"HMScanner" withExtension:@"bundle"];

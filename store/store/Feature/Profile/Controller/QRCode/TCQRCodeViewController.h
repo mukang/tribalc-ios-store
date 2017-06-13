@@ -15,4 +15,6 @@ typedef void(^Completion)();
 
 @property (copy, nonatomic) Completion completion;
 
+@property (weak, nonatomic) UIViewController *fromController;
+
 @end
