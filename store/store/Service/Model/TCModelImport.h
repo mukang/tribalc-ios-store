@@ -59,6 +59,9 @@
 
 /*********** 系统初始化相关 ***********/
 #import "TCAppVersion.h"
+#import "TCPromotions.h"
+#import "TCFeatureSwitches.h"
+#import "TCAppInitializationInfo.h"
 
 
 

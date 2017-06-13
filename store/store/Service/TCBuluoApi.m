@@ -1406,6 +1406,24 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 #pragma mark - 系统初始化接口
 
+- (void)fetchAppInitializationInfo:(void (^)(TCAppInitializationInfo *, NSError *))resultBlock {
+    NSString *apiName = [NSString stringWithFormat:@"configs/init?uid=%@&edition=store&os=ios", self.currentUserSession.assigned];
+    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+    request.token = self.currentUserSession.token;
+    [[TCClient client] send:request finish:^(TCClientResponse *response) {
+        if (response.error) {
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+            }
+        } else {
+            TCAppInitializationInfo *info = [[TCAppInitializationInfo alloc] initWithObjectDictionary:response.data];
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(info, nil));
+            }
+        }
+    }];
+}
+
 - (void)fetchAppVersionInfo:(void (^)(TCAppVersion *, NSError *))resultBlock {
     NSString *apiName = @"configs/version?edition=store&os=ios";
     TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];

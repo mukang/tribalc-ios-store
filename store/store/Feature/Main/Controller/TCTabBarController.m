@@ -209,31 +209,46 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
         }
     }
     
-    /** 建议更新 */
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
+    /** 建议更新 */
     NSString *lastVersion = versionInfo.lastVersion;
-    NSString *cachedVersion = [userDefaults objectForKey:TCUserDefaultsKeyAppVersion];
+    NSString *cachedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:TCUserDefaultsKeyAppVersion];
     if (cachedVersion == nil) {
         cachedVersion = currentVersion;
     }
     
-    // 截取lastVersion的前两个数字
-    NSRange range = [lastVersion rangeOfString:@"." options:NSBackwardsSearch];
-    NSString *subStr = [lastVersion substringToIndex:range.location];
+    NSArray *cachedVersionParts = [cachedVersion componentsSeparatedByString:@"."];
+    NSArray *lastVersionParts = [lastVersion componentsSeparatedByString:@"."];
     
-    if ([cachedVersion hasPrefix:subStr]) return;
-    
+    if (cachedVersionParts.count > 1 && lastVersionParts.count > 1) {
+        BOOL update = NO;
+        for (int i=0; i<2; i++) {
+            NSInteger cachedVersionPart = [cachedVersionParts[i] integerValue];
+            NSInteger lastVersionPart = [lastVersionParts[i] integerValue];
+            if (cachedVersionPart < lastVersionPart) {
+                update = YES;
+                break;
+            }
+        }
+        
+        if (update) {
+            [self updateWithVersionInfo:versionInfo];
+            return;
+        }
+    }
+}
+
+- (void)updateWithVersionInfo:(TCAppVersion *)versionInfo {
     NSString *title = @"检查到新版本，是否确认更新？";
     NSString *message = versionInfo.releaseNote.count ? [versionInfo.releaseNote componentsJoinedByString:@"\n"] : nil;
     UIAlertController *vc = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         weakSelf.updateIsShow = NO;
-        [userDefaults setObject:lastVersion forKey:TCUserDefaultsKeyAppVersion];
+        [[NSUserDefaults standardUserDefaults] setObject:versionInfo.lastVersion forKey:TCUserDefaultsKeyAppVersion];
     }];
     UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         weakSelf.updateIsShow = NO;
-        [userDefaults setObject:lastVersion forKey:TCUserDefaultsKeyAppVersion];
+        [[NSUserDefaults standardUserDefaults] setObject:versionInfo.lastVersion forKey:TCUserDefaultsKeyAppVersion];
         NSString *appStoreUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"TCBuluoAppStoreURL"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appStoreUrl]];
     }];

@@ -449,6 +449,13 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
 #pragma mark - 系统初始化接口
 
 /**
+ 查询应用上下文信息
+ 
+ @param resultBlock 结果回调
+ */
+- (void)fetchAppInitializationInfo:(void(^)(TCAppInitializationInfo *info, NSError *error))resultBlock;
+
+/**
  获取版本信息
  
  @param resultBlock 结果回调
