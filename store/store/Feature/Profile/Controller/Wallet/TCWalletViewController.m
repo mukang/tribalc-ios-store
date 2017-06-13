@@ -17,6 +17,8 @@
 
 #import "TCBuluoApi.h"
 
+#import "TCUserDefaultsKeys.h"
+
 @interface TCWalletViewController ()
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *functionButtons;
@@ -109,6 +111,13 @@
 
 
 - (IBAction)handleClickWithdrawButton:(UIButton *)sender {
+    
+    NSNumber *withdraw = [[NSUserDefaults standardUserDefaults] objectForKey:TCUserDefaultsKeySwitchBfWithdraw];
+    if (withdraw && [withdraw boolValue] == NO) {
+        [self btnClickUnifyTips];
+        return;
+    }
+    
     if (!self.walletAccount.bankCards.count) {
         [MBProgressHUD showHUDWithMessage:@"绑定银行卡后才能提现"];
         return;

@@ -10,6 +10,7 @@
 
 extern NSString *const TCLaunchWindowDidAppearNotification;
 extern NSString *const TCLaunchWindowDidDisappearNotification;
+extern NSString *const TCLaunchWindowDidTapAdViewNotification;
 
 @interface TCLaunchViewController : UIViewController
 

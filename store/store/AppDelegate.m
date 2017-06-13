@@ -12,6 +12,10 @@
 #import "TCNavigationController.h"
 #import "TCUnitySetUpViewController.h"
 
+#import "TCBuluoApi.h"
+#import "TCPromotionsManager.h"
+#import "TCUserDefaultsKeys.h"
+
 #import <CoreLocation/CoreLocation.h>
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
@@ -34,10 +38,15 @@
     [self showLaunchWindow];
     application.statusBarHidden = NO;
     
+    // 获取应用初始化信息
+    [self setupAppInitializedInfo];
+    
     [self startLocationAction];
     
     return YES;
 }
+
+#pragma mark - 定位相关
 
 - (void)startLocationAction
 {
@@ -57,18 +66,18 @@
             [_locationManager stopUpdatingLocation];
             [_locationManager startUpdatingLocation];
             
-            [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"isAllowLocal"];
+            [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:TCUserDefaultsKeyAllowLocal];
         }else {
-            [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"isAllowLocal"];
+            [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:TCUserDefaultsKeyAllowLocal];
         }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
-        [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"isAllowLocal"];
+        [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:TCUserDefaultsKeyAllowLocal];
     }else {
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"isAllowLocal"];
+        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:TCUserDefaultsKeyAllowLocal];
     }
 }
 
@@ -87,16 +96,51 @@
     
 }
 
+#pragma mark - 启动视窗相关
+
 /** 显示启动视窗 */
 - (void)showLaunchWindow {
     TCLaunchViewController *launchViewController = [[TCLaunchViewController alloc] init];
     self.launchWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.launchWindow.rootViewController = launchViewController;
-    self.launchWindow.windowLevel = UIWindowLevelNormal;
+    self.launchWindow.windowLevel = UIWindowLevelAlert;
     self.launchWindow.hidden = NO;
     launchViewController.launchWindow = self.launchWindow;
 }
 
+#pragma mark - 初始化信息
+
+- (void)setupAppInitializedInfo {
+    [[TCBuluoApi api] fetchAppInitializationInfo:^(TCAppInitializationInfo *info, NSError *error) {
+        if (info.promotions) {
+            [[TCPromotionsManager sharedManager] storePromotionsAndLoadImageWithPromotions:info.promotions];
+        }
+        if (info.switches) {
+            BOOL recharge = YES, withdraw = YES;
+            recharge = info.switches.bf_recharge;
+            withdraw = info.switches.bf_withdraw;
+            [[NSUserDefaults standardUserDefaults] setObject:@(recharge) forKey:TCUserDefaultsKeySwitchBfRecharge];
+            [[NSUserDefaults standardUserDefaults] setObject:@(withdraw) forKey:TCUserDefaultsKeySwitchBfWithdraw];
+        }
+    }];
+}
+
+#pragma mark - Notification
+
+- (void)registerNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleLaunchWindowDidDisappear)
+                                                 name:TCLaunchWindowDidDisappearNotification object:nil];
+}
+
+#pragma mark - Actions
+
+- (void)handleLaunchWindowDidDisappear {
+    self.launchWindow.rootViewController = nil;
+    self.launchWindow = nil;
+}
+
+#pragma mark - 其它代理方法
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

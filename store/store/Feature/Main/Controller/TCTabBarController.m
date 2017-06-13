@@ -13,6 +13,11 @@
 #import "TCOrderViewController.h"
 #import "TCProfileViewController.h"
 #import "TCLoginViewController.h"
+#import "TCLaunchViewController.h"
+
+#import "TCForceUpdateView.h"
+
+#import "TCUserDefaultsKeys.h"
 
 #import <TCCommonLibs/TCFunctions.h>
 #import <EAIntroView/EAIntroView.h>
@@ -21,7 +26,11 @@
 static NSString *const kAppVersion = @"kAppVersion";
 static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
 
-@interface TCTabBarController ()
+@interface TCTabBarController () <TCForceUpdateViewDelegate>
+
+@property (strong, nonatomic) UIWindow *updateWindow;
+/** 已经显示更新UI，防止重复显示 */
+@property (nonatomic) BOOL updateIsShow;
 
 @end
 
@@ -76,7 +85,14 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
 - (void)registerNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleUnauthorizedNotification:)
-                                                 name:TCClientUnauthorizedNotification object:nil];
+                                                 name:TCClientUnauthorizedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fetchAppVersionInfo)
+                                                 name:TCLaunchWindowDidDisappearNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fetchAppVersionInfo)
+                                                 name:TCClientNeedForceUpdateNotification object:nil];
 }
 
 - (void)removeNotifications {
@@ -148,6 +164,119 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
 - (void)setupAMapServices {
     [AMapServices sharedServices].apiKey = AMapApiKey;
     [AMapServices sharedServices].enableHTTPS = YES;
+}
+
+#pragma mark - 检查版本
+
+- (void)fetchAppVersionInfo {
+    if (self.updateIsShow) {
+        return;
+    }
+    
+    self.updateIsShow = YES;
+    [[TCBuluoApi api] fetchAppVersionInfo:^(TCAppVersion *versionInfo, NSError *error) {
+        if (versionInfo) {
+            [weakSelf checkAppVersionInfo:versionInfo];
+        } else {
+            weakSelf.updateIsShow = NO;
+        }
+    }];
+}
+
+- (void)checkAppVersionInfo:(TCAppVersion *)versionInfo {
+    
+    /** 强制更新 */
+    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *minVersion = versionInfo.minVersion;
+    
+    NSArray *currentVersionParts = [currentVersion componentsSeparatedByString:@"."];
+    NSArray *minVersionParts = [minVersion componentsSeparatedByString:@"."];
+    
+    if (currentVersionParts.count > 2 && minVersionParts.count > 2) {
+        BOOL force = NO;
+        for (int i=0; i<3; i++) {
+            NSInteger currentVersionPart = [currentVersionParts[i] integerValue];
+            NSInteger minVersionPart = [minVersionParts[i] integerValue];
+            if (currentVersionPart < minVersionPart) {
+                force = YES;
+                break;
+            }
+        }
+        
+        if (force) {
+            [self forceUpdateWithVersionInfo:versionInfo];
+            return;
+        }
+    }
+    
+    
+    /** 建议更新 */
+    NSString *lastVersion = versionInfo.lastVersion;
+    NSString *cachedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:TCUserDefaultsKeyAppVersion];
+    if (cachedVersion == nil) {
+        cachedVersion = currentVersion;
+    }
+    
+    NSArray *cachedVersionParts = [cachedVersion componentsSeparatedByString:@"."];
+    NSArray *lastVersionParts = [lastVersion componentsSeparatedByString:@"."];
+    
+    if (cachedVersionParts.count > 1 && lastVersionParts.count > 1) {
+        BOOL update = NO;
+        for (int i=0; i<2; i++) {
+            NSInteger cachedVersionPart = [cachedVersionParts[i] integerValue];
+            NSInteger lastVersionPart = [lastVersionParts[i] integerValue];
+            if (cachedVersionPart < lastVersionPart) {
+                update = YES;
+                break;
+            }
+        }
+        
+        if (update) {
+            [self updateWithVersionInfo:versionInfo];
+            return;
+        }
+    }
+}
+
+- (void)updateWithVersionInfo:(TCAppVersion *)versionInfo {
+    NSString *title = @"检查到新版本，是否确认更新？";
+    NSString *message = versionInfo.releaseNote.count ? [versionInfo.releaseNote componentsJoinedByString:@"\n"] : nil;
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        weakSelf.updateIsShow = NO;
+        [[NSUserDefaults standardUserDefaults] setObject:versionInfo.lastVersion forKey:TCUserDefaultsKeyAppVersion];
+    }];
+    UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        weakSelf.updateIsShow = NO;
+        [[NSUserDefaults standardUserDefaults] setObject:versionInfo.lastVersion forKey:TCUserDefaultsKeyAppVersion];
+        NSString *appStoreUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"TCBuluoAppStoreURL"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appStoreUrl]];
+    }];
+    [vc addAction:cancelAction];
+    [vc addAction:updateAction];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)forceUpdateWithVersionInfo:(TCAppVersion *)versionInfo {
+    UIWindow *updateWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    updateWindow.windowLevel = UIWindowLevelAlert;
+    updateWindow.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.37];
+    updateWindow.hidden = NO;
+    self.updateWindow = updateWindow;
+    
+    TCForceUpdateView *updateView = [[TCForceUpdateView alloc] initWithVersionInfo:versionInfo];
+    updateView.delegate = self;
+    [updateWindow addSubview:updateView];
+    [updateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(updateWindow);
+    }];
+}
+
+#pragma mark - TCForceUpdateViewDelegate
+
+- (void)didClickUpdateButtonInForceUpdateView:(TCForceUpdateView *)view {
+    NSString *appStoreUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"TCBuluoAppStoreURL"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appStoreUrl]];
 }
 
 - (void)didReceiveMemoryWarning {
