@@ -21,6 +21,7 @@ PODS:
     - AMapFoundation-NO-IDFA (~> 1.4)
   - AMapSearch-NO-IDFA (5.1.0):
     - AMapFoundation-NO-IDFA (~> 1.2)
+  - Bugly (2.4.8)
   - EAIntroView (2.10.0):
     - EARestrictedScrollView (~> 1.1.0)
   - EARestrictedScrollView (1.1.0)
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - AMap2DMap-NO-IDFA
   - AMapLocation-NO-IDFA
   - AMapSearch-NO-IDFA
+  - Bugly
   - EAIntroView (~> 2.10.0)
   - FLEX (~> 2.0)
   - MBProgressHUD
@@ -78,6 +80,7 @@ SPEC CHECKSUMS:
   AMapFoundation-NO-IDFA: d1ba541a56737c2048115a745b1dfcbe9901c248
   AMapLocation-NO-IDFA: 9493012d3241a7d551942c7c1e1069b51f295083
   AMapSearch-NO-IDFA: '06085cfcce8862531c16d5dfbe87f7152ce27dac'
+  Bugly: da3c02408c14838d498429320545a8e439392978
   EAIntroView: 3494b7bbd1212e3a4f7e8d16194a1b00e7b9abb2
   EARestrictedScrollView: b0c2a3f92fb2610bb44d71c5e4893777c89e45ef
   FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
@@ -89,6 +92,6 @@ SPEC CHECKSUMS:
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 3789000860c035945eaf662254fac60d3f5a9b46
+PODFILE CHECKSUM: c8314d91b711d433c6545a1f43e37009b7544c12
 
 COCOAPODS: 1.2.1

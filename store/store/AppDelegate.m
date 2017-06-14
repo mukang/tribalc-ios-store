@@ -18,6 +18,10 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+#import <Bugly/Bugly.h>
+
+static NSString *const kBuglyAppID = @"9ed163958b";
+
 @interface AppDelegate ()<CLLocationManagerDelegate>
 
 @end
@@ -40,6 +44,9 @@
     
     // 获取应用初始化信息
     [self setupAppInitializedInfo];
+    
+    // Bugly
+    [Bugly startWithAppId:kBuglyAppID];
     
     [self startLocationAction];
     
