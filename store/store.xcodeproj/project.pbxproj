@@ -44,6 +44,7 @@
 		559E77B91F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77B81F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.m */; };
 		559E77BC1F18BB6A00CDE11D /* TCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77BB1F18BB6A00CDE11D /* TCMessage.m */; };
 		559E77BF1F18BC3300CDE11D /* TCMessageBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77BE1F18BC3300CDE11D /* TCMessageBody.m */; };
+		559E77C51F1C9C6800CDE11D /* TCPayMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77C41F1C9C6800CDE11D /* TCPayMessageCell.m */; };
 		55F9EDD01E52F5E400935ADF /* TCGoodsMetaWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */; };
 		55F9EE4A1E56D14F00935ADF /* TCSetMainGoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */; };
 		55F9EE4D1E56DF4E00935ADF /* TCSetMainGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */; };
@@ -345,6 +346,8 @@
 		559E77BB1F18BB6A00CDE11D /* TCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMessage.m; sourceTree = "<group>"; };
 		559E77BD1F18BC3300CDE11D /* TCMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCMessageBody.h; sourceTree = "<group>"; };
 		559E77BE1F18BC3300CDE11D /* TCMessageBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMessageBody.m; sourceTree = "<group>"; };
+		559E77C31F1C9C6800CDE11D /* TCPayMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPayMessageCell.h; sourceTree = "<group>"; };
+		559E77C41F1C9C6800CDE11D /* TCPayMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPayMessageCell.m; sourceTree = "<group>"; };
 		55F9EDCE1E52F5E400935ADF /* TCGoodsMetaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMetaWrapper.h; sourceTree = "<group>"; };
 		55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMetaWrapper.m; sourceTree = "<group>"; };
 		55F9EE481E56D14F00935ADF /* TCSetMainGoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodView.h; sourceTree = "<group>"; };
@@ -850,6 +853,15 @@
 				558F6DCE1E48C70B00CB2F81 /* MGSwipeTableCell.m */,
 			);
 			path = MGSwipeTableCell;
+			sourceTree = "<group>";
+		};
+		559E77C21F1C9C2B00CDE11D /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				559E77C31F1C9C6800CDE11D /* TCPayMessageCell.h */,
+				559E77C41F1C9C6800CDE11D /* TCPayMessageCell.m */,
+			);
+			path = Message;
 			sourceTree = "<group>";
 		};
 		7A1B038A1E35A9E5003258D0 /* BinaryFiles */ = {
@@ -1439,6 +1451,7 @@
 		7ABCC09C1E2622C800750E47 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				559E77C21F1C9C2B00CDE11D /* Message */,
 				7A8352D91E5ED300003A8E76 /* TCHomeCommodityTableViewCell.h */,
 				7A8352DA1E5ED300003A8E76 /* TCHomeCommodityTableViewCell.m */,
 				7ABCC0AA1E2622C800750E47 /* RecommendBoutique */,
@@ -2148,6 +2161,7 @@
 				7A8E42851E377445003A475B /* TCStoreFeatureViewCell.m in Sources */,
 				7A48B4171E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m in Sources */,
 				7A83528D1E5D3590003A8E76 /* TCServiceDetailViewController.m in Sources */,
+				559E77C51F1C9C6800CDE11D /* TCPayMessageCell.m in Sources */,
 				55647F571E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m in Sources */,
 				558F6DD01E48C70B00CB2F81 /* MGSwipeTableCell.m in Sources */,
 				7AFEC44A1E52E56000B0E754 /* TCWalletBillDetailViewCell.m in Sources */,

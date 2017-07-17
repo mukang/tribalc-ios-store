@@ -26,7 +26,7 @@
 }
 
 + (void)showHUDWithMessage:(NSString *)message afterDelay:(CGFloat)delay{
-    [self showHUDWithMessage:@"温馨提示" detailsMessage:nil afterDelay:delay];
+    [self showHUDWithMessage:@"温馨提示" detailsMessage:message afterDelay:delay];
 }
 
 + (void)showHUDWithMessage:(NSString *)message detailsMessage:(NSString *)detailsMessage {

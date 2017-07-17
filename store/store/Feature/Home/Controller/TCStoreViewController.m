@@ -20,9 +20,9 @@
 #import "TCBankCardViewController.h"
 #import "TCWalletAccount.h"
 #import "TCWithdrawViewController.h"
-#import "TCStoreSettingViewController.h"
+#import "TCAppSettingViewController.h"
 
-@interface TCStoreViewController ()
+@interface TCStoreViewController ()<UITableViewDelegate>
 
 @property (weak, nonatomic) UINavigationBar *navBar;
 
@@ -38,6 +38,8 @@
 
 @property (weak, nonatomic) UILabel *balanceLabel;
 
+@property (weak, nonatomic) UIView *headerView;
+
 @end
 
 @implementation TCStoreViewController
@@ -46,7 +48,7 @@
     [super viewDidLoad];
     [self setupNavBar];
     [self setUpViews];
-    [self loadData];
+    [self fetchData];
 }
 
 - (void)loadData {
@@ -59,20 +61,20 @@
             self.messageArr = messageArr;
             [self.tableView reloadData];
         }else {
-            [MBProgressHUD showHUDWithMessage:@"获取失败" afterDelay:1.0];
+            [MBProgressHUD showHUDWithMessage:@"获取消息失败" afterDelay:1.0];
         }
     }];
 }
 
 - (void)fetchWallatData {
     @WeakObj(self)
-    [MBProgressHUD showHUD:YES];
+//    [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] fetchWalletAccountInfo:^(TCWalletAccount *walletAccount, NSError *error) {
         @StrongObj(self)
         if (walletAccount) {
-            [MBProgressHUD hideHUD:YES];
+//            [MBProgressHUD hideHUD:YES];
             self.walletAccount = walletAccount;
-            NSString *str = [NSString stringWithFormat:@"¥%.2f", walletAccount.balance];
+            NSString *str = [NSString stringWithFormat:@"¥%.2f", self.walletAccount.balance];
             NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:str];
             [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:29] range:NSMakeRange(0, 1)];
             self.balanceLabel.attributedText = attributedStr;
@@ -104,11 +106,29 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self fetchWallatData];
-    
     TCNavigationController *nav = (TCNavigationController *)self.navigationController;
     self.originalInteractivePopGestureEnabled = nav.enableInteractivePopGesture;
     nav.enableInteractivePopGesture = NO;
+}
+
+-(void)fetchData {
+//    [MBProgressHUD showHUD:YES];
+    
+//    dispatch_group_t group = dispatch_group_create();
+//    dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
+        [self loadData];
+//    });
+//    dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
+        [self fetchWallatData];
+//    });
+    
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//        [MBProgressHUD hideHUD:YES];
+//        [self.tableView reloadData];
+//        if (self.walletAccount) {
+//            
+//        }
+//    });
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -116,6 +136,18 @@
     
     TCNavigationController *nav = (TCNavigationController *)self.navigationController;
     nav.enableInteractivePopGesture = self.originalInteractivePopGestureEnabled;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGRect rect = _headerView.frame;
+    NSLog(@"%f",scrollView.contentOffset.y);
+    if (scrollView.contentOffset.y < -rect.size.height) {
+        rect.origin.y = scrollView.contentOffset.y;
+        _headerView.frame = rect;
+    }else {
+//        rect.origin.y = -rect.size.height - scrollView.contentOffset.y - rect.size.height;
+//        _headerView.frame = rect;
+    }
 }
 
 #pragma mark - Private Methods
@@ -146,7 +178,7 @@
 }
 
 - (void)handleClickSettingButton:(UIBarButtonItem *)item {
-    TCStoreSettingViewController *vc = [[TCStoreSettingViewController alloc] init];
+    TCAppSettingViewController *vc = [[TCAppSettingViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -174,8 +206,11 @@
         TCStoreInfo *storeInfo = [[TCBuluoApi api] currentUserSession].storeInfo;
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(238))];
-        _tableView.tableHeaderView = headerView;
+        _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(238), 0, 0, 0);
+        _tableView.delegate = self;
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -TCRealValue(238), self.view.bounds.size.width, TCRealValue(238))];
+        [_tableView addSubview: headerView];
+        _headerView = headerView;
         
         UIImageView *topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(135))];
         [headerView addSubview:topImageView];
@@ -193,7 +228,7 @@
             [iconImageView setImage:[UIImage imageNamed:@"profile_default_avatar_icon"]];
         }
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(75), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(75)-20, 15)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(65), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(75)-20, 15)];
         titleLabel.font = [UIFont systemFontOfSize:12];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.text = @"会员卡余额";
@@ -202,7 +237,7 @@
         UILabel *banlanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(titleLabel.frame), CGRectGetMaxY(titleLabel.frame)+TCRealValue(10), titleLabel.frame.size.width, TCRealValue(40))];
         banlanceLabel.textColor = [UIColor whiteColor];
         banlanceLabel.font = [UIFont systemFontOfSize:42];
-        NSString *str = [NSString stringWithFormat:@"¥%f", storeInfo.balance];
+        NSString *str = [NSString stringWithFormat:@"¥%.2f", storeInfo.balance];
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:str];
         [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:29] range:NSMakeRange(0, 1)];
         banlanceLabel.attributedText = attributedStr;
