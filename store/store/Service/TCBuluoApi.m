@@ -14,6 +14,7 @@
 #import <TCCommonLibs/TCFunctions.h>
 
 NSString *const TCBuluoApiNotificationUserDidLogin = @"TCBuluoApiNotificationUserDidLogin";
+NSString *const TCBuluoApiNotificationUserLoginFailure = @"TCBuluoApiNotificationUserLoginFailure";
 NSString *const TCBuluoApiNotificationUserDidLogout = @"TCBuluoApiNotificationUserDidLogout";
 NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificationUserInfoDidUpdate";
 NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotificationStoreDidCreated";
@@ -108,6 +109,12 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             userSession.storeInfo = storeInfo;
             [self setUserSession:userSession];
             [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserDidLogin object:nil];
+        }else {
+            if (error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserLoginFailure object:nil userInfo:@{@"error": error}];
+            }else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserLoginFailure object:nil];
+            }
         }
     }];
 }
@@ -450,7 +457,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)fetchStoreInfo:(void (^)(TCStoreInfo *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@", self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@?type=store&me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
@@ -1440,6 +1447,39 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             }
         }
     }];
+}
+
+- (void)fetchHomeMessageWithLimit:(NSInteger)limit createDate:(NSInteger)createDate isNew:(NSString *)isNew result:(void (^)(NSArray *, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *limitStr = limit > 0 ? [NSString stringWithFormat:@"limit=%ld",limit] : @"";
+        NSString *createStr = createDate > 0 ? [NSString stringWithFormat:@"&createDate=%ld",createDate] : @"";
+        NSString *isNewStr = isNew ? [NSString stringWithFormat:@"&isNew=%@", isNew] : @"";
+        NSString *apiName = [NSString stringWithFormat:@"mq/%@/homeMessage?%@%@%@", self.currentUserSession.assigned,limitStr,createStr,isNewStr];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.error) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            } else {
+                NSArray *array = response.data;
+                NSMutableArray *temp = [NSMutableArray array];
+                for (NSDictionary *dic in array) {
+                    TCMessage *message = [[TCMessage alloc] initWithObjectDictionary:dic];
+                    [temp addObject:message];
+                }
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock([temp copy], nil));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
 }
 
 @end

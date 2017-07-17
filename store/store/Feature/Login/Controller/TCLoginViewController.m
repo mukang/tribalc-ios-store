@@ -10,6 +10,7 @@
 #import "TCUserAgreementViewController.h"
 
 #import "TCGetPasswordView.h"
+#import "TCStoreViewController.h"
 
 #import <YYText/YYText.h>
 
@@ -48,6 +49,34 @@
     
     [self setupSubviews];
     [self setupConstraints];
+    
+    if (![[TCBuluoApi api] needLogin]) {
+        [self pushToStoreVC];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:TCBuluoApiNotificationUserDidLogin object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginFailure:) name:TCBuluoApiNotificationUserLoginFailure object:nil];
+}
+
+- (void)loginSuccess {
+    if (self == [self.navigationController topViewController]) {
+        [MBProgressHUD hideHUD:YES];
+        [self pushToStoreVC];
+    }
+}
+
+- (void)loginFailure:(NSNotification *)noti {
+    NSDictionary *dic = noti.userInfo;
+    if ([dic isKindOfClass:[NSDictionary class]]) {
+        NSError *err = dic[@"error"];
+        if (err) {
+            NSString *reason = err.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"登录失败，%@", reason]];
+            return;
+        }
+    }
+    
+    [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"登录失败，请稍后再试"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -216,13 +245,18 @@
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] login:phoneInfo result:^(TCUserSession *userSession, NSError *error) {
         if (userSession) {
-            [MBProgressHUD hideHUD:YES];
-            [weakSelf handleTapBackButton:nil];
+//            [MBProgressHUD hideHUD:YES];
+//            [weakSelf handleTapBackButton:nil];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"登录失败，%@", reason]];
         }
     }];
+}
+
+- (void)pushToStoreVC {
+    TCStoreViewController *storeVC = [[TCStoreViewController alloc] init];
+    [self.navigationController pushViewController:storeVC animated:YES];
 }
 
 - (IBAction)handleTapAlipayButton:(UIButton *)sender {

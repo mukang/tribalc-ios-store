@@ -7,7 +7,14 @@
 //
 
 #import "TCStoreInfo.h"
+#import "TCPrivilege.h"
 
 @implementation TCStoreInfo
+
++ (NSDictionary *)objectClassInArray {
+    return @{
+             @"discount": [TCPrivilege class]
+             };
+}
 
 @end

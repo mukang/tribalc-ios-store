@@ -63,6 +63,9 @@
 #import "TCFeatureSwitches.h"
 #import "TCAppInitializationInfo.h"
 
+/*********** 消息 ***********/
+#import "TCMessage.h"
+#import "TCMessageBody.h"
 
 
 

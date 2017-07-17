@@ -15,6 +15,8 @@
 #import "TCBuluoApi.h"
 #import "TCPromotionsManager.h"
 #import "TCUserDefaultsKeys.h"
+#import "TCLoginViewController.h"
+#import "TCNavigationController.h"
 
 #import <CoreLocation/CoreLocation.h>
 
@@ -35,8 +37,11 @@ static NSString *const kBuglyAppID = @"9ed163958b";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    TCTabBarController *tabBarController = [[TCTabBarController alloc] init];
-    self.window.rootViewController = tabBarController;
+//    TCTabBarController *tabBarController = [[TCTabBarController alloc] init];
+//    self.window.rootViewController = tabBarController;
+    TCLoginViewController *vc = [[TCLoginViewController alloc] initWithNibName:@"TCLoginViewController" bundle:[NSBundle mainBundle]];
+    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
     
     [self showLaunchWindow];

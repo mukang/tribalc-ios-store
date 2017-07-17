@@ -24,5 +24,7 @@
 @property (nonatomic) NSInteger lastTrading;
 /** 银行卡列表 */
 @property (copy, nonatomic) NSArray *bankCards;
+/** 账号类型 */
+@property (copy, nonatomic) NSString *accountType;
 
 @end

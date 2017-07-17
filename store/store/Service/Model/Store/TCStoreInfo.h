@@ -27,4 +27,10 @@
 /** 店铺认证状态 - PROCESSING, FAILURE, SUCCESS */
 @property (copy, nonatomic) NSString *authenticationStatus;
 
+@property (copy, nonatomic) NSString *accountType;
+/** 余额 */
+@property (assign, nonatomic) CGFloat balance;
+/** 优惠列表 */
+@property (copy, nonatomic) NSArray *discount;
+
 @end

@@ -10,6 +10,7 @@
 #import "TCModelImport.h"
 
 extern NSString *const TCBuluoApiNotificationUserDidLogin;
+extern NSString *const TCBuluoApiNotificationUserLoginFailure;
 extern NSString *const TCBuluoApiNotificationUserDidLogout;
 extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
 extern NSString *const TCBuluoApiNotificationStoreDidCreated;
@@ -461,5 +462,15 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
  @param resultBlock 结果回调
  */
 - (void)fetchAppVersionInfo:(void(^)(TCAppVersion *versionInfo, NSError *error))resultBlock;
+
+
+/**
+ 获取首页消息
+
+ @param limit 条数
+ @param createDate 创建时间
+ @param isNew 是否获取最新消息
+ */
+- (void)fetchHomeMessageWithLimit:(NSInteger)limit createDate:(NSInteger)createDate isNew:(NSString *)isNew result:(void (^)(NSArray *, NSError *))resultBlock;
 
 @end
