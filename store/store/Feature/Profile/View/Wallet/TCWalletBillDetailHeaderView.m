@@ -12,11 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    self.iconBgView.layer.cornerRadius = 35;
-    self.iconBgView.layer.masksToBounds = YES;
-    self.iconImageView.layer.cornerRadius = 31.75;
-    self.iconImageView.layer.masksToBounds = YES;
+    self.iconImageView.layer.cornerRadius = 28;
 }
 
 /*

@@ -42,6 +42,7 @@
 #import "TCStoreDetailInfo.h"
 
 #import "TCAuthenticationInfo.h"
+#import "TCPrivilege.h"
 
 /********** 订单相关 **********/
 #import "TCGoodsOrderItem.h"
@@ -56,6 +57,8 @@
 #import "TCBankCard.h"
 #import "TCWalletBill.h"
 #import "TCWalletBillWrapper.h"
+#import "TCWithDrawRequest.h"
+#import "TCWithDrawRequestWrapper.h"
 
 /*********** 系统初始化相关 ***********/
 #import "TCAppVersion.h"

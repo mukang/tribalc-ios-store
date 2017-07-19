@@ -8,6 +8,10 @@
 
 #import <TCCommonLibs/TCBaseViewController.h>
 
+@class TCWalletAccount;
+
 @interface TCAppSettingViewController : TCBaseViewController
+
+@property (strong, nonatomic) TCWalletAccount *walletAccount;
 
 @end

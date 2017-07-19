@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,17 +30,6 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg" translatesAutoresizingMaskIntoConstraints="NO" id="J19-BP-Kmt">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-eD-Hhc">
-                    <rect key="frame" x="17" y="26.5" width="31" height="31"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="31" id="UgR-0U-YM9"/>
-                        <constraint firstAttribute="height" constant="31" id="s6R-Tn-DAf"/>
-                    </constraints>
-                    <state key="normal" image="login_back_button"/>
-                    <connections>
-                        <action selector="handleTapBackButton:" destination="-1" eventType="touchUpInside" id="YAD-TW-pYh"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJB-cc-Aq0">
                     <rect key="frame" x="17" y="407" width="341" height="37"/>
                     <constraints>
@@ -174,7 +163,6 @@
             <constraints>
                 <constraint firstItem="EDb-QE-hwk" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="27" id="E6O-65-tD0"/>
                 <constraint firstAttribute="bottom" secondItem="OA5-0s-xUD" secondAttribute="bottom" constant="42" id="JG9-qr-Kfc"/>
-                <constraint firstItem="dU2-eD-Hhc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="17" id="KTN-yn-MXm"/>
                 <constraint firstAttribute="trailing" secondItem="OA5-0s-xUD" secondAttribute="trailing" constant="17" id="Khi-dd-sGb"/>
                 <constraint firstAttribute="bottom" secondItem="eHs-mO-jzq" secondAttribute="bottom" constant="63.5" id="SDb-gp-96D"/>
                 <constraint firstAttribute="trailing" secondItem="CJB-cc-Aq0" secondAttribute="trailing" constant="17" id="VRV-Jt-V2y"/>
@@ -193,7 +181,6 @@
                 <constraint firstAttribute="bottom" secondItem="EDb-QE-hwk" secondAttribute="bottom" constant="63.5" id="sKc-Z7-DMN"/>
                 <constraint firstItem="J19-BP-Kmt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sh2-xd-3OW"/>
                 <constraint firstItem="j8X-tL-iGU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="17" id="wYQ-h0-NFw"/>
-                <constraint firstItem="dU2-eD-Hhc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="26.5" id="wmA-Zs-358"/>
             </constraints>
             <point key="canvasLocation" x="3.5" y="69.5"/>
         </view>
@@ -201,7 +188,6 @@
     <resources>
         <image name="login_account_icon" width="25" height="25"/>
         <image name="login_alipay_icon" width="42" height="42"/>
-        <image name="login_back_button" width="31" height="31"/>
         <image name="login_bg" width="375" height="667"/>
         <image name="login_confirm_button" width="341" height="37"/>
         <image name="login_password_icon" width="25" height="25"/>

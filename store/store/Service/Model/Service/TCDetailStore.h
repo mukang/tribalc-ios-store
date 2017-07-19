@@ -63,4 +63,12 @@
 /** 距离 */
 @property (nonatomic) double distance;
 
+@property (copy, nonatomic) NSArray *sellingPoint;
+
+@property (assign, nonatomic) CGFloat avgprice;
+
+@property (copy, nonatomic) NSString *desc;
+
+@property (copy, nonatomic) NSArray *privilege;
+
 @end

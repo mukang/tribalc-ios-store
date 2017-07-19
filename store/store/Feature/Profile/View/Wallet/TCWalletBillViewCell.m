@@ -8,6 +8,7 @@
 
 #import "TCWalletBillViewCell.h"
 #import "TCWalletBill.h"
+#import "TCWithDrawRequest.h"
 
 @interface TCWalletBillViewCell ()
 
@@ -24,6 +25,15 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)setWithdrawRequest:(TCWithDrawRequest *)withdrawRequest {
+    _withdrawRequest = withdrawRequest;
+    
+//    self.weekdayLabel.text = withdrawRequest.weekday;
+//    self.detailTimeLabel.text = withdrawRequest.detailTime;
+    self.amountLabel.text = [NSString stringWithFormat:@"%0.2f", withdrawRequest.amount];
+    self.titleLabel.text = withdrawRequest.status;
 }
 
 - (void)setWalletBill:(TCWalletBill *)walletBill {

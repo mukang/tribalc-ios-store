@@ -254,7 +254,7 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
 
  @param resultBlock 结果回调，storeDetailInfo为nil时表示获取失败，失败原因见error的code和userInfo
  */
-- (void)fetchStoreDetailInfo:(void (^)(TCStoreDetailInfo *storeDetailInfo, NSError *error))resultBlock;
+- (void)fetchStoreDetailInfo:(void (^)(TCDetailStore *detailStore, NSError *error))resultBlock;
 
 /**
  修改店铺信息（修改全部）
@@ -320,6 +320,7 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
  @param resultBlock 回调
  */
 - (void)fetchStoreAuthenticationInfo:(void (^)(TCAuthenticationInfo *authenticationInfo, NSError *error))resultBlock;
+
 
 #pragma mark - 订单资源
 
@@ -447,6 +448,18 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
  */
 - (void)commitWithdrawReqWithAmount:(double)amount bankCardID:(NSString *)bankCardID result:(void (^)(BOOL success, NSError *error))resultBlock;
 
+
+/**
+ 获取提现记录
+
+ @param accountType 账户类型
+ @param limitSize 条数
+ @param sortSkip 跳过
+ @param sort 排序规则
+ @param resultBlock 结果回调
+ */
+- (void)fetchWithDrawRequestListWithAccountType:(NSString *)accountType limitSize:(NSInteger)limitSize sortSkip:(NSString *)sortSkip sort:(NSString *)sort result:(void (^)(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error))resultBlock;
+
 #pragma mark - 系统初始化接口
 
 /**
@@ -472,5 +485,13 @@ extern NSString *const TCBuluoApiNotificationStoreDidCreated;
  @param isNew 是否获取最新消息
  */
 - (void)fetchHomeMessageWithLimit:(NSInteger)limit createDate:(NSInteger)createDate isNew:(NSString *)isNew result:(void (^)(NSArray *, NSError *))resultBlock;
+
+/**
+ 获取商家优惠信息
+
+ @param active 是否有效
+ @param resultBlock 结果回调
+ */
+- (void)fetchStorePrivilegeWithActive:(NSString *)active result:(void (^)(NSArray *, NSError *))resultBlock;
 
 @end

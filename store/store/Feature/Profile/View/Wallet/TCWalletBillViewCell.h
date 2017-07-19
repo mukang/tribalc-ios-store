@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class TCWalletBill;
+@class TCWithDrawRequest;
 
 @interface TCWalletBillViewCell : UITableViewCell
 
 @property (strong, nonatomic) TCWalletBill *walletBill;
+
+@property (strong, nonatomic) TCWithDrawRequest *withdrawRequest;
 
 @end

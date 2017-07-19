@@ -21,6 +21,7 @@
 #import "TCWalletAccount.h"
 #import "TCWithdrawViewController.h"
 #import "TCAppSettingViewController.h"
+#import "TCPrivilegeViewController.h"
 
 @interface TCStoreViewController ()<UITableViewDelegate>
 
@@ -61,7 +62,8 @@
             self.messageArr = messageArr;
             [self.tableView reloadData];
         }else {
-            [MBProgressHUD showHUDWithMessage:@"获取消息失败" afterDelay:1.0];
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
         }
     }];
 }
@@ -79,7 +81,8 @@
             [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:29] range:NSMakeRange(0, 1)];
             self.balanceLabel.attributedText = attributedStr;
         } else {
-            [MBProgressHUD showHUDWithMessage:@"获取钱包信息失败！"];
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
         }
     }];
 }
@@ -179,6 +182,7 @@
 
 - (void)handleClickSettingButton:(UIBarButtonItem *)item {
     TCAppSettingViewController *vc = [[TCAppSettingViewController alloc] init];
+    vc.walletAccount = self.walletAccount;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -188,7 +192,8 @@
 }
 
 - (void)discount {
-    
+    TCPrivilegeViewController *privilegeVC = [[TCPrivilegeViewController alloc] init];
+    [self.navigationController pushViewController:privilegeVC animated:YES];
 }
 
 - (void)card {
@@ -246,42 +251,42 @@
         
 //        if ([storeInfo.accountType isKindOfClass:[NSString class]]) {
 //            if ([storeInfo.accountType isEqualToString:@"CARD"]) {
-                topImageView.image = [UIImage imageNamed:@"colBg"];
-                CGFloat width = self.view.bounds.size.width / 3;
-                TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"collection" title:@"收款"];
-                [headerView addSubview:colBtn];
-        [colBtn addTarget:self action:@selector(col) forControlEvents:UIControlEventTouchUpInside];
-        
-                TCVerticalImageAndTitleBtn *billBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(colBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"bill" title:@"对账单"];
-                [headerView addSubview:billBtn];
-        [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
-                
-                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"discount" title:@"优惠策略"];
-                [headerView addSubview:discountBtn];
-        [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
-                
-//            }else if ([storeInfo.accountType isEqualToString:@"PROTOCOL"]) {
-//                topImageView.image = [UIImage imageNamed:@"cashBg"];
-//                CGFloat width = self.view.bounds.size.width / 5;
+//                topImageView.image = [UIImage imageNamed:@"colBg"];
+//                CGFloat width = self.view.bounds.size.width / 3;
 //                TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"collection" title:@"收款"];
 //                [headerView addSubview:colBtn];
-//                    [colBtn addTarget:self action:@selector(col) forControlEvents:UIControlEventTouchUpInside];
-//
-//                TCVerticalImageAndTitleBtn *cashBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(colBtn.frame), CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"cash" title:@"提现"];
-//                [headerView addSubview:cashBtn];
-//        [cashBtn addTarget:self action:@selector(cash) forControlEvents:UIControlEventTouchUpInside];
-//
-//                TCVerticalImageAndTitleBtn *cardBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(cashBtn.frame), CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"card" title:@"银行卡"];
-//                [headerView addSubview:cardBtn];
-//        [cardBtn addTarget:self action:@selector(card) forControlEvents:UIControlEventTouchUpInside];
-//
-//                TCVerticalImageAndTitleBtn *billBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(cardBtn.frame), CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"bill" title:@"对账单"];
+//        [colBtn addTarget:self action:@selector(col) forControlEvents:UIControlEventTouchUpInside];
+//        
+//                TCVerticalImageAndTitleBtn *billBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(colBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"bill" title:@"对账单"];
 //                [headerView addSubview:billBtn];
 //        [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
-//
+//                
 //                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"discount" title:@"优惠策略"];
 //                [headerView addSubview:discountBtn];
 //        [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
+        
+//            }else if ([storeInfo.accountType isEqualToString:@"PROTOCOL"]) {
+                topImageView.image = [UIImage imageNamed:@"cashBg"];
+                CGFloat width = self.view.bounds.size.width / 5;
+                TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"collection" title:@"收款"];
+                [headerView addSubview:colBtn];
+                    [colBtn addTarget:self action:@selector(col) forControlEvents:UIControlEventTouchUpInside];
+
+                TCVerticalImageAndTitleBtn *cashBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(colBtn.frame), CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"cash" title:@"提现"];
+                [headerView addSubview:cashBtn];
+        [cashBtn addTarget:self action:@selector(cash) forControlEvents:UIControlEventTouchUpInside];
+
+                TCVerticalImageAndTitleBtn *cardBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(cashBtn.frame), CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"card" title:@"银行卡"];
+                [headerView addSubview:cardBtn];
+        [cardBtn addTarget:self action:@selector(card) forControlEvents:UIControlEventTouchUpInside];
+
+                TCVerticalImageAndTitleBtn *billBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(cardBtn.frame), CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"bill" title:@"对账单"];
+                [headerView addSubview:billBtn];
+        [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
+
+                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"discount" title:@"优惠策略"];
+                [headerView addSubview:discountBtn];
+        [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
 //            }
 //        }
         CGFloat scale = self.view.bounds.size.width > 375.0 ? 3 : 2;

@@ -15,9 +15,9 @@
 /** 优惠类型 */
 @property (copy, nonatomic) NSString *type;
 /** 要满足的金额 */
-@property (assign, nonatomic) double condition;
+@property (assign, nonatomic) CGFloat condition;
 /** 折扣或满减金额 */
-@property (assign, nonatomic) double value;
+@property (assign, nonatomic) CGFloat value;
 /** 商户ID */
 @property (copy, nonatomic) NSString *ownerId;
 /** 可用时段 */

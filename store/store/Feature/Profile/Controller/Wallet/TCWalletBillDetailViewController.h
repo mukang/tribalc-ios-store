@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class TCWalletBill;
+@class TCWithDrawRequest;
 
 @interface TCWalletBillDetailViewController : UIViewController
 
 @property (strong, nonatomic) TCWalletBill *walletBill;
+
+@property (strong, nonatomic) TCWithDrawRequest *withDrawRequest;
 
 @end

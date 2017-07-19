@@ -7,8 +7,15 @@
 //
 
 #import "TCDetailStore.h"
+#import "TCPrivilege.h"
 
 @implementation TCDetailStore
+
++ (NSDictionary *)objectClassInArray {
+    return @{
+             @"privilege": [TCPrivilege class]
+             };
+}
 
 - (void)setCoordinate:(NSArray *)coordinate {
     _coordinate = coordinate;

@@ -47,7 +47,7 @@
 }
 
 - (void)setUpViews {
-    self.view.backgroundColor = TCRGBColor(246, 171, 114);
+    self.view.backgroundColor = TCRGBColor(151, 171, 234);
     
     [self.view addSubview:self.centerView];
     [self.view addSubview:self.btn];

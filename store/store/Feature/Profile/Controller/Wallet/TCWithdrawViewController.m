@@ -69,6 +69,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"提现";
     [self setupSubviews];
+    [self setUpNav];
     [self setupConstraints];
 }
 
@@ -97,6 +98,21 @@
         }
     }
     self.currentBankCard = self.walletAccount.bankCards[0];
+}
+
+- (void)log {
+    
+}
+
+- (void)setUpNav {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:@"提现记录" forState:UIControlStateNormal];
+    btn.frame = CGRectMake(0, 0, 80, 30);
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btn addTarget:self action:@selector(log) forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitleColor:TCBlackColor forState:UIControlStateNormal];
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = rightBtn;
 }
 
 - (void)setupSubviews {

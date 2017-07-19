@@ -15,4 +15,8 @@
 
 @property (copy, nonatomic) NSString *face2face;
 
+@property (assign, nonatomic) BOOL isWithDraw;
+
+@property (copy, nonatomic) NSString *accountType;
+
 @end

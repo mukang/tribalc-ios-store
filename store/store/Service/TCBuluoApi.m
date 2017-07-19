@@ -480,9 +480,9 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
-- (void)fetchStoreDetailInfo:(void (^)(TCStoreDetailInfo *, NSError *))resultBlock {
+- (void)fetchStoreDetailInfo:(void (^)(TCDetailStore *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@?me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/store_detail?type=store&me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
@@ -491,7 +491,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
                     TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
                 }
             } else {
-                TCStoreDetailInfo *detailInfo = [[TCStoreDetailInfo alloc] initWithObjectDictionary:response.data];
+                TCDetailStore *detailInfo = [[TCDetailStore alloc] initWithObjectDictionary:response.data];
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(detailInfo, nil));
                 }
@@ -1411,6 +1411,35 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
+- (void)fetchWithDrawRequestListWithAccountType:(NSString *)accountType limitSize:(NSInteger)limitSize sortSkip:(NSString *)sortSkip sort:(NSString *)sort result:(void (^)(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *accountTypeStr = accountType ? [NSString stringWithFormat:@"&accountType=%@&", accountType] : @"";
+        NSString *limitSizePart = [NSString stringWithFormat:@"limitSize=%zd", limitSize];
+        NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
+        NSString *sortStr = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/withdraws?me=%@%@%@%@%@",self.currentUserSession.assigned, self.currentUserSession.assigned, accountTypeStr, limitSizePart, sortSkipPart,sortStr];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.error) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            } else {
+                TCWithDrawRequestWrapper *withDrawRequestWrapper = [[TCWithDrawRequestWrapper alloc] initWithObjectDictionary:response.data];
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(withDrawRequestWrapper, nil));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
+}
+
 #pragma mark - 系统初始化接口
 
 - (void)fetchAppInitializationInfo:(void (^)(TCAppInitializationInfo *, NSError *))resultBlock {
@@ -1480,6 +1509,38 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
         }
     }
+}
+
+- (void)fetchStorePrivilegeWithActive:(NSString *)active result:(void (^)(NSArray *, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *activeStr = active ? [NSString stringWithFormat:@"&active=%@",active] : @"";
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@/privilege?me=%@%@", self.currentUserSession.assigned,self.currentUserSession.assigned,activeStr];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.error) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            } else {
+                NSArray *array = response.data;
+                NSMutableArray *temp = [NSMutableArray array];
+                for (NSDictionary *dic in array) {
+                    TCPrivilege *privilege = [[TCPrivilege alloc] initWithObjectDictionary:dic];
+                    [temp addObject:privilege];
+                }
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock([temp copy], nil));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
+
 }
 
 @end

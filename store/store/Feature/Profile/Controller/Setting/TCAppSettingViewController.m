@@ -17,6 +17,9 @@
 
 #import "TCBuluoApi.h"
 #import <SDImageCache.h>
+#import "TCStoreDetailViewController.h"
+#import "TCWalletAccount.h"
+#import "TCWalletPasswordViewController.h"
 
 @interface TCAppSettingViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -80,35 +83,52 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    } else {
-        return 3;
-    }
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    
+    if (indexPath.row == 5) {
         TCAppNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppNotificationViewCell" forIndexPath:indexPath];
-        return cell;
-    } else {
+            return cell;
+    }else {
+        TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
-            TCAppCacheViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppCacheViewCell" forIndexPath:indexPath];
-            return cell;
-        } else {
-            TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
-            if (indexPath.row == 1) {
-                cell.titleLabel.text = @"关于我们";
-            } else {
-                cell.titleLabel.text = @"意见反馈";
-            }
-            return cell;
+            cell.titleLabel.text = @"商户信息";
+        } else if (indexPath.row == 1) {
+            cell.titleLabel.text = @"支付密码";
+        } else if (indexPath.row == 2) {
+            cell.titleLabel.text = @"清除缓存";
+        } else if (indexPath.row == 3) {
+            cell.titleLabel.text = @"意见反馈";
+        } else if (indexPath.row == 4) {
+            cell.titleLabel.text = @"检查更新";
         }
+        return cell;
+
     }
+    
+//    if (indexPath.section == 0) {
+//        TCAppNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppNotificationViewCell" forIndexPath:indexPath];
+//        return cell;
+//    } else {
+//        if (indexPath.row == 0) {
+//            TCAppCacheViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppCacheViewCell" forIndexPath:indexPath];
+//            return cell;
+//        } else {
+//            TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
+//            if (indexPath.row == 1) {
+//                cell.titleLabel.text = @"关于我们";
+//            } else {
+//                cell.titleLabel.text = @"意见反馈";
+//            }
+//            return cell;
+//        }
+//    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -123,33 +143,59 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        
-    } else {
-        switch (indexPath.row) {
-            case 0:
-                break;
-            case 1:
+
+    switch (indexPath.row) {
+        case 0:
+            //商家信息
             {
-                TCAboutUSViewController *aboutUs = [[TCAboutUSViewController alloc] init];
-                [self.navigationController pushViewController:aboutUs animated:YES];
+                TCStoreDetailViewController *storeVC = [[TCStoreDetailViewController alloc] init];
+                [self.navigationController pushViewController:storeVC animated:YES];
             }
-                break;
-            case 2:
-            {
-                TCSuggestionViewController *vc = [[TCSuggestionViewController alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-                break;
-                
-            default:
-                break;
+            break;
+        case 1:
+            //支付密码
+            [self handleClickPassword];
+            break;
+        case 2:
+            //清除缓存
+            break;
+        case 3:
+        {
+            TCSuggestionViewController *vc = [[TCSuggestionViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
+            break;
+        case 4:
+        {
+            TCAboutUSViewController *aboutUs = [[TCAboutUSViewController alloc] init];
+            [self.navigationController pushViewController:aboutUs animated:YES];
+        }
+            break;
+        default:
+            break;
     }
 }
 
 
 #pragma mark - Actions
+
+- (void)handleClickPassword {
+    if (!self.walletAccount) {
+        [MBProgressHUD showHUDWithMessage:@"暂时无法设置支付密码"];
+        return;
+    }
+    TCWalletPasswordType passwordType;
+    NSString *oldPassword;
+    if (self.walletAccount.password) {
+        passwordType = TCWalletPasswordTypeResetInputOldPassword;
+        oldPassword = self.walletAccount.password;
+    } else {
+        passwordType = TCWalletPasswordTypeFirstTimeInputPassword;
+    }
+    TCWalletPasswordViewController *vc = [[TCWalletPasswordViewController alloc] initWithPasswordType:passwordType];
+    vc.oldPassword = oldPassword;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (void)handleClickBackButton:(UIBarButtonItem *)sender {
     [self.navigationController popViewControllerAnimated:YES];

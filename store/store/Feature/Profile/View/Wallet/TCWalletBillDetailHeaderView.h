@@ -10,7 +10,9 @@
 
 @interface TCWalletBillDetailHeaderView : UIView
 
-@property (weak, nonatomic) IBOutlet UIView *iconBgView;
+
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (weak, nonatomic) IBOutlet UILabel *moneyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 @end

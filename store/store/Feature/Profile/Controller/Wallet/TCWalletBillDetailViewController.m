@@ -11,6 +11,7 @@
 #import "TCWalletBillDetailHeaderView.h"
 #import "TCWalletBillDetailViewCell.h"
 
+#import "TCWithDrawRequest.h"
 #import "TCWalletBill.h"
 
 @interface TCWalletBillDetailViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -39,11 +40,15 @@
 
 - (void)setupSubviews {
     self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.rowHeight = 66;
+    self.tableView.rowHeight = 25;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableFooterView = [UIView new];
     
     TCWalletBillDetailHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"TCWalletBillDetailHeaderView" owner:nil options:nil] lastObject];
     self.tableView.tableHeaderView = headerView;
+//    headerView.iconImageView
+    headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.walletBill.amount];
+    headerView.statusLabel.text = self.walletBill.title;
     
     UINib *nib = [UINib nibWithNibName:@"TCWalletBillDetailViewCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"TCWalletBillDetailViewCell"];
@@ -52,7 +57,7 @@
 #pragma mark - Status Bar
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 #pragma makr - UITableViewDataSource
@@ -65,19 +70,19 @@
     TCWalletBillDetailViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCWalletBillDetailViewCell" forIndexPath:indexPath];
     switch (indexPath.row) {
         case 0:
-            cell.titleLabel.text = @"流水号";
+            cell.titleLabel.text = @"流水号:";
             cell.detailLabel.text = self.walletBill.ID;
             break;
         case 1:
-            cell.titleLabel.text = @"交易时间";
+            cell.titleLabel.text = @"交易时间:";
             cell.detailLabel.text = self.walletBill.tradingTime;
             break;
         case 2:
-            cell.titleLabel.text = @"交易金额";
+            cell.titleLabel.text = @"交易金额:";
             cell.detailLabel.text = [NSString stringWithFormat:@"%0.2f", self.walletBill.amount];
             break;
         case 3:
-            cell.titleLabel.text = @"商家名称";
+            cell.titleLabel.text = @"会员卡号:";
             cell.detailLabel.text = @"";
             break;
         default:

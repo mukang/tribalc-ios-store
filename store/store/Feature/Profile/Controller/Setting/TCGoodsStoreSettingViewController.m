@@ -132,21 +132,21 @@ TCStoreRecommendViewCellDelegate>
 
 - (void)loadNetData {
     [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] fetchStoreDetailInfo:^(TCStoreDetailInfo *storeDetailInfo, NSError *error) {
-        if (storeDetailInfo) {
-            weakSelf.storeDetailInfo = storeDetailInfo;
-            for (TCStoreCategoryInfo *categoryInfo in self.goodsCategoryInfoArray) {
-                if ([categoryInfo.category isEqualToString:storeDetailInfo.category]) {
-                    self.categoryInfo = categoryInfo;
-                    break;
-                }
-            }
-            [weakSelf checkAuthenticationStatus];
-        } else {
-            NSString *reason = error.localizedDescription ?: @"请退出后重试";
-            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取店铺信息失败，%@", reason]];
-        }
-    }];
+//    [[TCBuluoApi api] fetchStoreDetailInfo:^(TCStoreDetailInfo *storeDetailInfo, NSError *error) {
+//        if (storeDetailInfo) {
+//            weakSelf.storeDetailInfo = storeDetailInfo;
+//            for (TCStoreCategoryInfo *categoryInfo in self.goodsCategoryInfoArray) {
+//                if ([categoryInfo.category isEqualToString:storeDetailInfo.category]) {
+//                    self.categoryInfo = categoryInfo;
+//                    break;
+//                }
+//            }
+//            [weakSelf checkAuthenticationStatus];
+//        } else {
+//            NSString *reason = error.localizedDescription ?: @"请退出后重试";
+//            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取店铺信息失败，%@", reason]];
+//        }
+//    }];
 }
 
 - (void)checkAuthenticationStatus {

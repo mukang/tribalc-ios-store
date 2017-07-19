@@ -95,118 +95,219 @@
 
 - (void)loadDataFirstTime {
     [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:nil face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
-        if (walletBillWrapper) {
-            [MBProgressHUD hideHUD:YES];
-            weakSelf.sortSkip = walletBillWrapper.nextSkip;
-            if (walletBillWrapper.hasMore) {
-                weakSelf.tableView.mj_footer.hidden = NO;
-            }
-            [weakSelf.dataList removeAllObjects];
-            for (TCWalletBill *walletBill in walletBillWrapper.content) {
-                NSMutableArray *temp = [weakSelf.dataList lastObject];
-                if (!temp) {
-                    temp = [NSMutableArray array];
-                    [temp addObject:walletBill];
-                    [weakSelf.dataList addObject:temp];
-                } else {
-                    TCWalletBill *lastBill = [temp lastObject];
-                    if ([walletBill.monthDate isEqualToString:lastBill.monthDate]) {
-                        [temp addObject:walletBill];
+    if (self.isWithDraw) {
+        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:nil sort:nil result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
+            if (withDrawRequestWrapper) {
+                [MBProgressHUD hideHUD:YES];
+                weakSelf.sortSkip = withDrawRequestWrapper.nextSkip;
+                if (withDrawRequestWrapper.hasMore) {
+                    weakSelf.tableView.mj_footer.hidden = NO;
+                }
+                [weakSelf.dataList removeAllObjects];
+                for (TCWithDrawRequest *withDrawRequest in withDrawRequestWrapper.content) {
+                    NSMutableArray *temp = [weakSelf.dataList lastObject];
+                    if (!temp) {
+                        temp = [NSMutableArray array];
+                        [temp addObject:withDrawRequest];
+                        [weakSelf.dataList addObject:temp];
                     } else {
-                        NSMutableArray *newTemp = [NSMutableArray array];
-                        [newTemp addObject:walletBill];
-                        [weakSelf.dataList addObject:newTemp];
+                        [temp addObject:withDrawRequest];
                     }
                 }
+                [weakSelf.tableView reloadData];
+                if (weakSelf.dataList.count) {
+                    weakSelf.noBillView.hidden = YES;
+                }else {
+                    weakSelf.noBillView.hidden = NO;
+                }
+            } else {
+                [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
             }
-            [weakSelf.tableView reloadData];
-            if (weakSelf.dataList.count) {
-                weakSelf.noBillView.hidden = YES;
-            }else {
-                weakSelf.noBillView.hidden = NO;
+        }];
+    }else {
+        [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:nil face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
+            if (walletBillWrapper) {
+                [MBProgressHUD hideHUD:YES];
+                weakSelf.sortSkip = walletBillWrapper.nextSkip;
+                if (walletBillWrapper.hasMore) {
+                    weakSelf.tableView.mj_footer.hidden = NO;
+                }
+                [weakSelf.dataList removeAllObjects];
+                for (TCWalletBill *walletBill in walletBillWrapper.content) {
+                    NSMutableArray *temp = [weakSelf.dataList lastObject];
+                    if (!temp) {
+                        temp = [NSMutableArray array];
+                        [temp addObject:walletBill];
+                        [weakSelf.dataList addObject:temp];
+                    } else {
+                        TCWalletBill *lastBill = [temp lastObject];
+                        if ([walletBill.monthDate isEqualToString:lastBill.monthDate]) {
+                            [temp addObject:walletBill];
+                        } else {
+                            NSMutableArray *newTemp = [NSMutableArray array];
+                            [newTemp addObject:walletBill];
+                            [weakSelf.dataList addObject:newTemp];
+                        }
+                    }
+                }
+                [weakSelf.tableView reloadData];
+                if (weakSelf.dataList.count) {
+                    weakSelf.noBillView.hidden = YES;
+                }else {
+                    weakSelf.noBillView.hidden = NO;
+                }
+            } else {
+                [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
             }
-        } else {
-            [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
-        }
-    }];
+        }];
+    }
+    
 }
 
 - (void)loadNewData {
-    [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:nil face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
-        [weakSelf.tableView.mj_header endRefreshing];
-        if (walletBillWrapper) {
-            weakSelf.sortSkip = walletBillWrapper.nextSkip;
-            if (walletBillWrapper.hasMore) {
-                weakSelf.tableView.mj_footer.hidden = NO;
-            }
-            [weakSelf.dataList removeAllObjects];
-            for (TCWalletBill *walletBill in walletBillWrapper.content) {
-                NSMutableArray *temp = [weakSelf.dataList lastObject];
-                if (!temp) {
-                    temp = [NSMutableArray array];
-                    [temp addObject:walletBill];
-                    [weakSelf.dataList addObject:temp];
-                } else {
-                    TCWalletBill *lastBill = [temp lastObject];
-                    if ([walletBill.monthDate isEqualToString:lastBill.monthDate]) {
+    if (self.isWithDraw) {
+        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:nil sort:nil result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
+            [weakSelf.tableView.mj_header endRefreshing];
+            if (withDrawRequestWrapper) {
+                weakSelf.sortSkip = withDrawRequestWrapper.nextSkip;
+                if (withDrawRequestWrapper.hasMore) {
+                    weakSelf.tableView.mj_footer.hidden = NO;
+                }
+                [weakSelf.dataList removeAllObjects];
+                for (TCWithDrawRequest *walletBill in withDrawRequestWrapper.content) {
+                    NSMutableArray *temp = [weakSelf.dataList lastObject];
+                    if (!temp) {
+                        temp = [NSMutableArray array];
                         [temp addObject:walletBill];
+                        [weakSelf.dataList addObject:temp];
                     } else {
                         NSMutableArray *newTemp = [NSMutableArray array];
                         [newTemp addObject:walletBill];
                         [weakSelf.dataList addObject:newTemp];
                     }
                 }
-            }
-            [weakSelf.tableView reloadData];
-            if (weakSelf.dataList.count) {
-                weakSelf.noBillView.hidden = YES;
-            }else {
-                weakSelf.noBillView.hidden = NO;
+                [weakSelf.tableView reloadData];
+                if (weakSelf.dataList.count) {
+                    weakSelf.noBillView.hidden = YES;
+                }else {
+                    weakSelf.noBillView.hidden = NO;
+                }
+                
+            } else {
+                [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
             }
 
-        } else {
-            [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
-        }
-    }];
+        }];
+    }else {
+        [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:nil face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
+            [weakSelf.tableView.mj_header endRefreshing];
+            if (walletBillWrapper) {
+                weakSelf.sortSkip = walletBillWrapper.nextSkip;
+                if (walletBillWrapper.hasMore) {
+                    weakSelf.tableView.mj_footer.hidden = NO;
+                }
+                [weakSelf.dataList removeAllObjects];
+                for (TCWalletBill *walletBill in walletBillWrapper.content) {
+                    NSMutableArray *temp = [weakSelf.dataList lastObject];
+                    if (!temp) {
+                        temp = [NSMutableArray array];
+                        [temp addObject:walletBill];
+                        [weakSelf.dataList addObject:temp];
+                    } else {
+                        TCWalletBill *lastBill = [temp lastObject];
+                        if ([walletBill.monthDate isEqualToString:lastBill.monthDate]) {
+                            [temp addObject:walletBill];
+                        } else {
+                            NSMutableArray *newTemp = [NSMutableArray array];
+                            [newTemp addObject:walletBill];
+                            [weakSelf.dataList addObject:newTemp];
+                        }
+                    }
+                }
+                [weakSelf.tableView reloadData];
+                if (weakSelf.dataList.count) {
+                    weakSelf.noBillView.hidden = YES;
+                }else {
+                    weakSelf.noBillView.hidden = NO;
+                }
+                
+            } else {
+                [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
+            }
+        }];
+    }
 }
 
 - (void)loadOldData {
-    [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:self.sortSkip face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
-        [weakSelf.tableView.mj_footer endRefreshing];
-        if (walletBillWrapper) {
-            weakSelf.sortSkip = walletBillWrapper.nextSkip;
-            if (!walletBillWrapper.hasMore) {
-                [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-            for (TCWalletBill *walletBill in walletBillWrapper.content) {
-                NSMutableArray *temp = [weakSelf.dataList lastObject];
-                if (!temp) {
-                    temp = [NSMutableArray array];
-                    [temp addObject:walletBill];
-                    [weakSelf.dataList addObject:temp];
-                } else {
-                    TCWalletBill *lastBill = [temp lastObject];
-                    if ([walletBill.monthDate isEqualToString:lastBill.monthDate]) {
+    if (self.isWithDraw) {
+        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:self.sortSkip sort:nil result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
+            [weakSelf.tableView.mj_footer endRefreshing];
+            if (withDrawRequestWrapper) {
+                weakSelf.sortSkip = withDrawRequestWrapper.nextSkip;
+                if (!withDrawRequestWrapper.hasMore) {
+                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
+                for (TCWithDrawRequest *walletBill in withDrawRequestWrapper.content) {
+                    NSMutableArray *temp = [weakSelf.dataList lastObject];
+                    if (!temp) {
+                        temp = [NSMutableArray array];
                         [temp addObject:walletBill];
+                        [weakSelf.dataList addObject:temp];
                     } else {
                         NSMutableArray *newTemp = [NSMutableArray array];
                         [newTemp addObject:walletBill];
                         [weakSelf.dataList addObject:newTemp];
                     }
                 }
-            }
-            [weakSelf.tableView reloadData];
-            if (weakSelf.dataList.count) {
-                weakSelf.noBillView.hidden = YES;
-            }else {
-                weakSelf.noBillView.hidden = NO;
+                [weakSelf.tableView reloadData];
+                if (weakSelf.dataList.count) {
+                    weakSelf.noBillView.hidden = YES;
+                }else {
+                    weakSelf.noBillView.hidden = NO;
+                }
+                
+            } else {
+                [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
             }
 
-        } else {
-            [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
-        }
-    }];
+        }];
+    }else {
+        [[TCBuluoApi api] fetchWalletBillWrapper:self.tradingType count:20 sortSkip:self.sortSkip face2face:self.face2face result:^(TCWalletBillWrapper *walletBillWrapper, NSError *error) {
+            [weakSelf.tableView.mj_footer endRefreshing];
+            if (walletBillWrapper) {
+                weakSelf.sortSkip = walletBillWrapper.nextSkip;
+                if (!walletBillWrapper.hasMore) {
+                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
+                for (TCWalletBill *walletBill in walletBillWrapper.content) {
+                    NSMutableArray *temp = [weakSelf.dataList lastObject];
+                    if (!temp) {
+                        temp = [NSMutableArray array];
+                        [temp addObject:walletBill];
+                        [weakSelf.dataList addObject:temp];
+                    } else {
+                        TCWalletBill *lastBill = [temp lastObject];
+                        if ([walletBill.monthDate isEqualToString:lastBill.monthDate]) {
+                            [temp addObject:walletBill];
+                        } else {
+                            NSMutableArray *newTemp = [NSMutableArray array];
+                            [newTemp addObject:walletBill];
+                            [weakSelf.dataList addObject:newTemp];
+                        }
+                    }
+                }
+                [weakSelf.tableView reloadData];
+                if (weakSelf.dataList.count) {
+                    weakSelf.noBillView.hidden = YES;
+                }else {
+                    weakSelf.noBillView.hidden = NO;
+                }
+                
+            } else {
+                [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
+            }
+        }];
+    }
 }
 
 #pragma mark - Status Bar
@@ -229,7 +330,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TCWalletBillViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCWalletBillViewCell" forIndexPath:indexPath];
     NSMutableArray *temp = self.dataList[indexPath.section];
-    cell.walletBill = temp[indexPath.row];
+    if (self.isWithDraw) {
+        cell.withdrawRequest = temp[indexPath.row];
+    }else {
+        cell.walletBill = temp[indexPath.row];
+    }
+    
     return cell;
 }
 
@@ -255,12 +361,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSMutableArray *temp = self.dataList[indexPath.section];
-    TCWalletBill *walletBill = temp[indexPath.row];
-    
     TCWalletBillDetailViewController *vc = [[TCWalletBillDetailViewController alloc] initWithNibName:@"TCWalletBillDetailViewController" bundle:[NSBundle mainBundle]];
-    vc.walletBill = walletBill;
+
+    NSMutableArray *temp = self.dataList[indexPath.section];
+    if (self.isWithDraw) {
+        TCWithDrawRequest *withDrawRequest = temp[indexPath.row];
+        vc.withDrawRequest = withDrawRequest;
+    }else {
+        TCWalletBill *walletBill = temp[indexPath.row];
+        vc.walletBill = walletBill;
+    }
     [self.navigationController pushViewController:vc animated:YES];
 }
 
