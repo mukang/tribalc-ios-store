@@ -71,7 +71,7 @@
 #pragma mark - Status Bar
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 #pragma mark - YYTextViewDelegate

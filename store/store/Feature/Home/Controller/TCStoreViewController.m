@@ -22,6 +22,8 @@
 #import "TCWithdrawViewController.h"
 #import "TCAppSettingViewController.h"
 #import "TCPrivilegeViewController.h"
+#import "TCHomeMessageWrapper.h"
+#import "TCHomeMessageCell.h"
 
 @interface TCStoreViewController ()<UITableViewDelegate>
 
@@ -41,6 +43,8 @@
 
 @property (weak, nonatomic) UIView *headerView;
 
+@property (strong, nonatomic) TCHomeMessageWrapper *messgaeWrapper;
+
 @end
 
 @implementation TCStoreViewController
@@ -55,11 +59,12 @@
 - (void)loadData {
     @WeakObj(self)
     [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] fetchHomeMessageWithLimit:0 createDate:0 isNew:nil result:^(NSArray *messageArr, NSError *error) {
+    [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullFirstTime count:20 sinceTime:0 result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
         @StrongObj(self)
-        if ([messageArr isKindOfClass:[NSArray class]]) {
+        if (messageWrapper) {
             [MBProgressHUD hideHUD:YES];
-            self.messageArr = messageArr;
+            self.messgaeWrapper = messageWrapper;
+            self.messageArr = messageWrapper.content;
             [self.tableView reloadData];
         }else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
@@ -162,7 +167,7 @@
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
 //    [navBar setShadowImage:[UIImage imageNamed:@"TransparentPixel"]];
 //    [navBar setBackgroundImage:[UIImage imageNamed:@"TransparentPixel"] forBarMetrics:UIBarMetricsDefault];
-    navBar.barTintColor = [UIColor whiteColor];
+//    navBar.barTintColor = [UIColor whiteColor];
 //    UIImage *bgImage = [UIImage imageWithColor:TCARGBColor(255, 255, 255, 1)];
 //    [self.navBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
     [self.view addSubview:navBar];
@@ -202,8 +207,12 @@
 }
 
 - (void)cash {
-    TCWithdrawViewController *withDrawVC = [[TCWithdrawViewController alloc] initWithWalletAccount:self.walletAccount];
-    [self.navigationController pushViewController:withDrawVC animated:YES];
+    if (self.walletAccount) {
+        TCWithdrawViewController *withDrawVC = [[TCWithdrawViewController alloc] initWithWalletAccount:self.walletAccount];
+        [self.navigationController pushViewController:withDrawVC animated:YES];
+    }else {
+        
+    }
 }
 
 - (UITableView *)tableView {
@@ -213,6 +222,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(238), 0, 0, 0);
         _tableView.delegate = self;
+        [_tableView registerClass:[TCHomeMessageCell class] forCellReuseIdentifier:@"TCHomeMessageCell"];
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -TCRealValue(238), self.view.bounds.size.width, TCRealValue(238))];
         [_tableView addSubview: headerView];
         _headerView = headerView;

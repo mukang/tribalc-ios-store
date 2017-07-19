@@ -42,9 +42,6 @@
 		559E77B31F175C8400CDE11D /* TCStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77B21F175C8400CDE11D /* TCStoreViewController.m */; };
 		559E77B61F186A4500CDE11D /* TCPrivilege.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77B51F186A4500CDE11D /* TCPrivilege.m */; };
 		559E77B91F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77B81F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.m */; };
-		559E77BC1F18BB6A00CDE11D /* TCMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77BB1F18BB6A00CDE11D /* TCMessage.m */; };
-		559E77BF1F18BC3300CDE11D /* TCMessageBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77BE1F18BC3300CDE11D /* TCMessageBody.m */; };
-		559E77C51F1C9C6800CDE11D /* TCPayMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77C41F1C9C6800CDE11D /* TCPayMessageCell.m */; };
 		559E77D81F1CE2E100CDE11D /* TCPrivilegeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77D71F1CE2E100CDE11D /* TCPrivilegeViewController.m */; };
 		559E77E01F1DBB0200CDE11D /* TCPrivilegeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77DF1F1DBB0200CDE11D /* TCPrivilegeCell.m */; };
 		559E77E61F1E024C00CDE11D /* TCStoreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77E51F1E024C00CDE11D /* TCStoreDetailViewController.m */; };
@@ -53,6 +50,12 @@
 		559E77F01F1E0E6800CDE11D /* TCStoreDetailPicturesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77EF1F1E0E6800CDE11D /* TCStoreDetailPicturesCell.m */; };
 		559E77F61F1F0DA400CDE11D /* TCWithDrawRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77F51F1F0DA400CDE11D /* TCWithDrawRequest.m */; };
 		559E77F91F1F0E4500CDE11D /* TCWithDrawRequestWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77F81F1F0E4500CDE11D /* TCWithDrawRequestWrapper.m */; };
+		559E78031F1F4B3C00CDE11D /* TCHomeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77FC1F1F4B3C00CDE11D /* TCHomeMessage.m */; };
+		559E78041F1F4B3C00CDE11D /* TCHomeMessageBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E77FE1F1F4B3C00CDE11D /* TCHomeMessageBody.m */; };
+		559E78051F1F4B3C00CDE11D /* TCHomeMessageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E78001F1F4B3C00CDE11D /* TCHomeMessageType.m */; };
+		559E78061F1F4B3C00CDE11D /* TCHomeMessageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E78021F1F4B3C00CDE11D /* TCHomeMessageWrapper.m */; };
+		559E78091F1F4D9900CDE11D /* TCHomeMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E78081F1F4D9900CDE11D /* TCHomeMessageCell.m */; };
+		559E780C1F1F61EC00CDE11D /* TCMessageMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E780B1F1F61EC00CDE11D /* TCMessageMiddleView.m */; };
 		55F9EDD01E52F5E400935ADF /* TCGoodsMetaWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */; };
 		55F9EE4A1E56D14F00935ADF /* TCSetMainGoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */; };
 		55F9EE4D1E56DF4E00935ADF /* TCSetMainGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */; };
@@ -350,12 +353,6 @@
 		559E77B51F186A4500CDE11D /* TCPrivilege.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPrivilege.m; sourceTree = "<group>"; };
 		559E77B71F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCVerticalImageAndTitleBtn.h; sourceTree = "<group>"; };
 		559E77B81F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCVerticalImageAndTitleBtn.m; sourceTree = "<group>"; };
-		559E77BA1F18BB6A00CDE11D /* TCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCMessage.h; sourceTree = "<group>"; };
-		559E77BB1F18BB6A00CDE11D /* TCMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMessage.m; sourceTree = "<group>"; };
-		559E77BD1F18BC3300CDE11D /* TCMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCMessageBody.h; sourceTree = "<group>"; };
-		559E77BE1F18BC3300CDE11D /* TCMessageBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMessageBody.m; sourceTree = "<group>"; };
-		559E77C31F1C9C6800CDE11D /* TCPayMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPayMessageCell.h; sourceTree = "<group>"; };
-		559E77C41F1C9C6800CDE11D /* TCPayMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPayMessageCell.m; sourceTree = "<group>"; };
 		559E77D61F1CE2E100CDE11D /* TCPrivilegeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCPrivilegeViewController.h; path = ../TCPrivilegeViewController.h; sourceTree = "<group>"; };
 		559E77D71F1CE2E100CDE11D /* TCPrivilegeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCPrivilegeViewController.m; path = ../TCPrivilegeViewController.m; sourceTree = "<group>"; };
 		559E77DE1F1DBB0200CDE11D /* TCPrivilegeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPrivilegeCell.h; sourceTree = "<group>"; };
@@ -372,6 +369,18 @@
 		559E77F51F1F0DA400CDE11D /* TCWithDrawRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCWithDrawRequest.m; sourceTree = "<group>"; };
 		559E77F71F1F0E4500CDE11D /* TCWithDrawRequestWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCWithDrawRequestWrapper.h; sourceTree = "<group>"; };
 		559E77F81F1F0E4500CDE11D /* TCWithDrawRequestWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCWithDrawRequestWrapper.m; sourceTree = "<group>"; };
+		559E77FB1F1F4B3C00CDE11D /* TCHomeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessage.h; sourceTree = "<group>"; };
+		559E77FC1F1F4B3C00CDE11D /* TCHomeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessage.m; sourceTree = "<group>"; };
+		559E77FD1F1F4B3C00CDE11D /* TCHomeMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessageBody.h; sourceTree = "<group>"; };
+		559E77FE1F1F4B3C00CDE11D /* TCHomeMessageBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageBody.m; sourceTree = "<group>"; };
+		559E77FF1F1F4B3C00CDE11D /* TCHomeMessageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessageType.h; sourceTree = "<group>"; };
+		559E78001F1F4B3C00CDE11D /* TCHomeMessageType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageType.m; sourceTree = "<group>"; };
+		559E78011F1F4B3C00CDE11D /* TCHomeMessageWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessageWrapper.h; sourceTree = "<group>"; };
+		559E78021F1F4B3C00CDE11D /* TCHomeMessageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageWrapper.m; sourceTree = "<group>"; };
+		559E78071F1F4D9900CDE11D /* TCHomeMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessageCell.h; sourceTree = "<group>"; };
+		559E78081F1F4D9900CDE11D /* TCHomeMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageCell.m; sourceTree = "<group>"; };
+		559E780A1F1F61EC00CDE11D /* TCMessageMiddleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCMessageMiddleView.h; sourceTree = "<group>"; };
+		559E780B1F1F61EC00CDE11D /* TCMessageMiddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMessageMiddleView.m; sourceTree = "<group>"; };
 		55F9EDCE1E52F5E400935ADF /* TCGoodsMetaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMetaWrapper.h; sourceTree = "<group>"; };
 		55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMetaWrapper.m; sourceTree = "<group>"; };
 		55F9EE481E56D14F00935ADF /* TCSetMainGoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodView.h; sourceTree = "<group>"; };
@@ -882,8 +891,10 @@
 		559E77C21F1C9C2B00CDE11D /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				559E77C31F1C9C6800CDE11D /* TCPayMessageCell.h */,
-				559E77C41F1C9C6800CDE11D /* TCPayMessageCell.m */,
+				559E78071F1F4D9900CDE11D /* TCHomeMessageCell.h */,
+				559E78081F1F4D9900CDE11D /* TCHomeMessageCell.m */,
+				559E780A1F1F61EC00CDE11D /* TCMessageMiddleView.h */,
+				559E780B1F1F61EC00CDE11D /* TCMessageMiddleView.m */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -926,6 +937,21 @@
 				559E77EF1F1E0E6800CDE11D /* TCStoreDetailPicturesCell.m */,
 			);
 			path = StoreDetail;
+			sourceTree = "<group>";
+		};
+		559E77FA1F1F4B1F00CDE11D /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				559E77FB1F1F4B3C00CDE11D /* TCHomeMessage.h */,
+				559E77FC1F1F4B3C00CDE11D /* TCHomeMessage.m */,
+				559E77FD1F1F4B3C00CDE11D /* TCHomeMessageBody.h */,
+				559E77FE1F1F4B3C00CDE11D /* TCHomeMessageBody.m */,
+				559E77FF1F1F4B3C00CDE11D /* TCHomeMessageType.h */,
+				559E78001F1F4B3C00CDE11D /* TCHomeMessageType.m */,
+				559E78011F1F4B3C00CDE11D /* TCHomeMessageWrapper.h */,
+				559E78021F1F4B3C00CDE11D /* TCHomeMessageWrapper.m */,
+			);
+			path = Message;
 			sourceTree = "<group>";
 		};
 		7A1B038A1E35A9E5003258D0 /* BinaryFiles */ = {
@@ -1066,10 +1092,6 @@
 				7A40CE0A1E3851F20049A8EF /* TCStoreFeature.m */,
 				559E77B41F186A4500CDE11D /* TCPrivilege.h */,
 				559E77B51F186A4500CDE11D /* TCPrivilege.m */,
-				559E77BA1F18BB6A00CDE11D /* TCMessage.h */,
-				559E77BB1F18BB6A00CDE11D /* TCMessage.m */,
-				559E77BD1F18BC3300CDE11D /* TCMessageBody.h */,
-				559E77BE1F18BC3300CDE11D /* TCMessageBody.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1358,6 +1380,7 @@
 			children = (
 				7A9987F41E24EAF0006175CC /* TCModelImport.h */,
 				7A9987F51E24EAF0006175CC /* TCModelImport.m */,
+				559E77FA1F1F4B1F00CDE11D /* Message */,
 				7AA4C7FE1EEE7EA800D7ABBA /* App */,
 				7AFEC44E1E52E5D700B0E754 /* Wallet */,
 				7A48B4291E4B02B000373BF4 /* Order */,
@@ -2115,7 +2138,6 @@
 				7A40CE0B1E3851F20049A8EF /* TCStoreFeature.m in Sources */,
 				7A55F4231E287F5B0018FED3 /* TCGetPasswordView.m in Sources */,
 				7A1B03941E35D9B6003258D0 /* TCStoreLogoUploadViewController.m in Sources */,
-				559E77BF1F18BC3300CDE11D /* TCMessageBody.m in Sources */,
 				7ABCC0E11E2622C800750E47 /* TCRecommendFooter.m in Sources */,
 				7A7B60A01E30A609004971C9 /* TCStoreCategoryViewController.m in Sources */,
 				7AD8667F1E4DE00C00686AC2 /* TCReservationStatusView.m in Sources */,
@@ -2188,6 +2210,7 @@
 				7A99875F1E2497D5006175CC /* TCNavigationController.m in Sources */,
 				7AD866531E4C828600686AC2 /* TCGoodsOrderGoodsViewCell.m in Sources */,
 				7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */,
+				559E78061F1F4B3C00CDE11D /* TCHomeMessageWrapper.m in Sources */,
 				7AFEC4481E52E56000B0E754 /* TCWalletBillDetailHeaderView.m in Sources */,
 				7AFEC4261E52E4EF00B0E754 /* TCWalletBillViewController.m in Sources */,
 				7AD866701E4DB15000686AC2 /* TCReservationViewCell.m in Sources */,
@@ -2207,6 +2230,7 @@
 				7A9987E31E24E42B006175CC /* NSObject+TCNomal.m in Sources */,
 				7A455D571EBC7A6B00A2F9ED /* TCPaymentPasswordView.m in Sources */,
 				7A48B41A1E48247800373BF4 /* TCStoreSetMealMeta.m in Sources */,
+				559E78031F1F4B3C00CDE11D /* TCHomeMessage.m in Sources */,
 				7A48B41D1E486A6F00373BF4 /* TCStoreSettingViewController.m in Sources */,
 				7A48B42F1E4B030700373BF4 /* TCGoodsOrderItem.m in Sources */,
 				7AFEC4571E52E5D700B0E754 /* TCBankCard.m in Sources */,
@@ -2236,7 +2260,6 @@
 				7A8E42851E377445003A475B /* TCStoreFeatureViewCell.m in Sources */,
 				7A48B4171E48199100373BF4 /* TCStoreFacilitiesViewFlowLayout.m in Sources */,
 				7A83528D1E5D3590003A8E76 /* TCServiceDetailViewController.m in Sources */,
-				559E77C51F1C9C6800CDE11D /* TCPayMessageCell.m in Sources */,
 				55647F571E4DB20600E4A0E9 /* TCBussinessAuthSuccessController.m in Sources */,
 				558F6DD01E48C70B00CB2F81 /* MGSwipeTableCell.m in Sources */,
 				7AFEC44A1E52E56000B0E754 /* TCWalletBillDetailViewCell.m in Sources */,
@@ -2264,6 +2287,7 @@
 				7ABCC0D41E2622C800750E47 /* TCRecommendListViewController.m in Sources */,
 				7A0E00AA1E2E17DF0028555D /* TCAppCacheViewCell.m in Sources */,
 				7A17EB9A1E4B1D8F005D377C /* TCGoodsOrderChangeInfo.m in Sources */,
+				559E78091F1F4D9900CDE11D /* TCHomeMessageCell.m in Sources */,
 				7AAEAA141EEFCE63004E7EF9 /* TCPromotionsManager.m in Sources */,
 				550319231E31BE27004522C7 /* TCGoodsCategoryController.m in Sources */,
 				55F9EE541E5EF08B00935ADF /* TCUnCommonView.m in Sources */,
@@ -2276,7 +2300,9 @@
 				7AAEAA101EEFCDCE004E7EF9 /* TCPromotions.m in Sources */,
 				7A99881D1E24EE3E006175CC /* TCMarkStore.m in Sources */,
 				55647EC21E4C159E00E4A0E9 /* TCGoodsStandardListCell.m in Sources */,
+				559E78051F1F4B3C00CDE11D /* TCHomeMessageType.m in Sources */,
 				7A53445C1E2F4E930053B527 /* TCInfoViewCell.m in Sources */,
+				559E780C1F1F61EC00CDE11D /* TCMessageMiddleView.m in Sources */,
 				7A7B60A61E30B168004971C9 /* TCStoreCategoryViewCell.m in Sources */,
 				7A9988171E24EE3E006175CC /* TCGoodsWrapper.m in Sources */,
 				559E77E01F1DBB0200CDE11D /* TCPrivilegeCell.m in Sources */,
@@ -2309,7 +2335,6 @@
 				7AD8665C1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m in Sources */,
 				7AB5683D1E45BA8A0005814A /* TCStoreFacilitiesViewCell.m in Sources */,
 				7AD8664D1E4C71F400686AC2 /* TCGoodsOrderAddressViewCell.m in Sources */,
-				559E77BC1F18BB6A00CDE11D /* TCMessage.m in Sources */,
 				7A0E00A71E2E17030028555D /* TCAppSettingViewController.m in Sources */,
 				55647EC01E4C159E00E4A0E9 /* TCGoodsDetailTitleCell.m in Sources */,
 				7ABCC0E61E2622C800750E47 /* TCSelectPrimaryBtn.m in Sources */,
@@ -2318,6 +2343,7 @@
 				7AB5683A1E45B69D0005814A /* TCCreateStoreNextViewController.m in Sources */,
 				7A1A26671E8F5719008CAA20 /* TCIDCardCaptureViewController.m in Sources */,
 				7A9987D91E24E41B006175CC /* MBProgressHUD+Category.m in Sources */,
+				559E78041F1F4B3C00CDE11D /* TCHomeMessageBody.m in Sources */,
 				7AFEC4591E52E5D700B0E754 /* TCWalletBill.m in Sources */,
 				5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */,
 				559E77EA1F1E069000CDE11D /* TCStoreDetailLogoCell.m in Sources */,

@@ -19,7 +19,7 @@ PODS:
   - AMapFoundation-NO-IDFA (1.4.0)
   - AMapLocation-NO-IDFA (2.4.0):
     - AMapFoundation-NO-IDFA (~> 1.4)
-  - AMapSearch-NO-IDFA (5.1.0):
+  - AMapSearch-NO-IDFA (5.2.1):
     - AMapFoundation-NO-IDFA (~> 1.2)
   - Bugly (2.4.8)
   - EAIntroView (2.10.0):
@@ -32,31 +32,31 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
-  - TCCommonLibs (0.4.7):
-    - TCCommonLibs/Category (= 0.4.7)
-    - TCCommonLibs/Controller (= 0.4.7)
-    - TCCommonLibs/DicToModel (= 0.4.7)
-    - TCCommonLibs/Tools (= 0.4.7)
-    - TCCommonLibs/UI (= 0.4.7)
-    - TCCommonLibs/Utility (= 0.4.7)
-    - TCCommonLibs/WebService (= 0.4.7)
-  - TCCommonLibs/Category (0.4.7):
+  - TCCommonLibs (0.4.12):
+    - TCCommonLibs/Category (= 0.4.12)
+    - TCCommonLibs/Controller (= 0.4.12)
+    - TCCommonLibs/DicToModel (= 0.4.12)
+    - TCCommonLibs/Tools (= 0.4.12)
+    - TCCommonLibs/UI (= 0.4.12)
+    - TCCommonLibs/Utility (= 0.4.12)
+    - TCCommonLibs/WebService (= 0.4.12)
+  - TCCommonLibs/Category (0.4.12):
     - SDWebImage
     - TCCommonLibs/Utility
-  - TCCommonLibs/Controller (0.4.7):
+  - TCCommonLibs/Controller (0.4.12):
     - TCCommonLibs/Category
-  - TCCommonLibs/DicToModel (0.4.7)
-  - TCCommonLibs/Tools (0.4.7):
+  - TCCommonLibs/DicToModel (0.4.12)
+  - TCCommonLibs/Tools (0.4.12):
     - TCCommonLibs/WebService
-  - TCCommonLibs/UI (0.4.7):
+  - TCCommonLibs/UI (0.4.12):
     - Masonry
     - MJRefresh
     - SDWebImage
     - TCCommonLibs/Category
     - TCCommonLibs/Tools
     - TCCommonLibs/Utility
-  - TCCommonLibs/Utility (0.4.7)
-  - TCCommonLibs/WebService (0.4.7):
+  - TCCommonLibs/Utility (0.4.12)
+  - TCCommonLibs/WebService (0.4.12):
     - AFNetworking
     - TCCommonLibs/Utility
   - UITableView+FDTemplateLayoutCell (1.6)
@@ -79,7 +79,7 @@ SPEC CHECKSUMS:
   AMap2DMap-NO-IDFA: 01c80e7e93568617b1b1b452cfec71f974f5bc8a
   AMapFoundation-NO-IDFA: d1ba541a56737c2048115a745b1dfcbe9901c248
   AMapLocation-NO-IDFA: 9493012d3241a7d551942c7c1e1069b51f295083
-  AMapSearch-NO-IDFA: 06085cfcce8862531c16d5dfbe87f7152ce27dac
+  AMapSearch-NO-IDFA: ec04c2c15ef278803234d959328acda14c2c3c5d
   Bugly: da3c02408c14838d498429320545a8e439392978
   EAIntroView: 3494b7bbd1212e3a4f7e8d16194a1b00e7b9abb2
   EARestrictedScrollView: b0c2a3f92fb2610bb44d71c5e4893777c89e45ef
@@ -88,7 +88,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  TCCommonLibs: 33ea52d6198b2d05ed530f3276549bd0ea3d8c6e
+  TCCommonLibs: 9ede6edaf68f08555b8fb3413a47dcecd807aefe
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 

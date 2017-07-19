@@ -193,7 +193,7 @@ NSString *const TCWalletPasswordDidChangeNotification = @"TCWalletPasswordDidCha
 #pragma mark - Status Bar
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 //#pragma mark - MLBPasswordTextFieldDelegate

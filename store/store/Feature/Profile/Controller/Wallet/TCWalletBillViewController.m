@@ -96,7 +96,7 @@
 - (void)loadDataFirstTime {
     [MBProgressHUD showHUD:YES];
     if (self.isWithDraw) {
-        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:nil sort:nil result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
+        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:nil sort:@"time,desc" result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
             if (withDrawRequestWrapper) {
                 [MBProgressHUD hideHUD:YES];
                 weakSelf.sortSkip = withDrawRequestWrapper.nextSkip;
@@ -166,7 +166,7 @@
 
 - (void)loadNewData {
     if (self.isWithDraw) {
-        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:nil sort:nil result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
+        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:nil sort:@"time,desc" result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
             [weakSelf.tableView.mj_header endRefreshing];
             if (withDrawRequestWrapper) {
                 weakSelf.sortSkip = withDrawRequestWrapper.nextSkip;
@@ -240,7 +240,7 @@
 
 - (void)loadOldData {
     if (self.isWithDraw) {
-        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:self.sortSkip sort:nil result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
+        [[TCBuluoApi api] fetchWithDrawRequestListWithAccountType:self.accountType limitSize:20 sortSkip:self.sortSkip sort:@"time,desc" result:^(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error) {
             [weakSelf.tableView.mj_footer endRefreshing];
             if (withDrawRequestWrapper) {
                 weakSelf.sortSkip = withDrawRequestWrapper.nextSkip;

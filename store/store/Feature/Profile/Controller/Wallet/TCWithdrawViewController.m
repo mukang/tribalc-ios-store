@@ -19,6 +19,7 @@
 #import <TCCommonLibs/TCCommonButton.h>
 #import <TCCommonLibs/UIImage+Category.h>
 #import <TCCommonLibs/TCFunctions.h>
+#import "TCWalletBillViewController.h"
 
 #define passwordViewH 400
 #define duration 0.25
@@ -88,20 +89,25 @@
 #pragma mark - Private Methods
 
 - (void)updateBankCardList {
-    for (TCBankCard *bankCard in self.walletAccount.bankCards) {
-        for (NSDictionary *bankInfo in self.bankInfoList) {
-            if ([bankInfo[@"code"] isEqualToString:bankCard.bankCode]) {
-                bankCard.logo = bankInfo[@"logo"];
-                bankCard.bgImage = bankInfo[@"bgImage"];
-                break;
+    if ([self.walletAccount.bankCards isKindOfClass:[NSArray class]] && self.walletAccount.bankCards.count > 0) {
+        for (TCBankCard *bankCard in self.walletAccount.bankCards) {
+            for (NSDictionary *bankInfo in self.bankInfoList) {
+                if ([bankInfo[@"code"] isEqualToString:bankCard.bankCode]) {
+                    bankCard.logo = bankInfo[@"logo"];
+                    bankCard.bgImage = bankInfo[@"bgImage"];
+                    break;
+                }
             }
         }
+        self.currentBankCard = self.walletAccount.bankCards[0];
     }
-    self.currentBankCard = self.walletAccount.bankCards[0];
 }
 
 - (void)log {
-    
+    TCWalletBillViewController *walletBillVC = [[TCWalletBillViewController alloc] init];
+    walletBillVC.isWithDraw = YES;
+    walletBillVC.accountType = self.walletAccount.accountType;
+    [self.navigationController pushViewController:walletBillVC animated:YES];
 }
 
 - (void)setUpNav {
