@@ -26,7 +26,7 @@
 
 @property (copy, nonatomic) NSString *body;
 
-@property (copy, nonatomic) NSString *description;
+//@property (copy, nonatomic) NSString *description;
 
 @property (assign, nonatomic) int64_t applicationTime;
 

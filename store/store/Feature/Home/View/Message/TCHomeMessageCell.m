@@ -61,10 +61,25 @@
     if (_homeMessage != homeMessage) {
         _homeMessage = homeMessage;
         
+        self.titleLabel.text = homeMessage.messageBody.homeMessageType.homeMessageTypeCategory;
+        
         TCMessageType type = homeMessage.messageBody.homeMessageType.type;
+        if (type == TCMessageTypeAccountWalletPayment || type == TCMessageTypeAccountWalletRecharge) {
+            self.titleIcon.image = [UIImage imageNamed:@"walletAssistantIcon"];
+        }else if (type == TCMessageTypeCreditEnable || type == TCMessageTypeCreditDisable || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillPayment) {
+            self.titleIcon.image = [UIImage imageNamed:@"creditAssistantIcon"];
+        }else if (type == TCMessageTypeRentCheckIn || type == TCMessageTypeRentBillGeneration || type == TCMessageTypeRentBillPayment) {
+            self.titleIcon.image = [UIImage imageNamed:@"apartmentAssistantIcon"];
+        }else if (type == TCMessageTypeTenantRecharge || type == TCMessageTypeTenantWithdraw) {
+            self.titleIcon.image = [UIImage imageNamed:@"storeAssistantIcon"];
+        }else if (type == TCMessageTypeCompaniesAdmin || type == TCMessageTypeCompaniesRentBillGeneration || type == TCMessageTypeCompaniesRentBillPayment) {
+            self.titleIcon.image = [UIImage imageNamed:@"bussinessAssistantIcon"];
+        }
+        
         if (type == TCMessageTypeAccountWalletPayment || type == TCMessageTypeAccountWalletRecharge || type == TCMessageTypeTenantRecharge || type == TCMessageTypeTenantWithdraw) {
             [self.currentView removeFromSuperview];
             [self.middleView addSubview:self.moneyMiddleView];
+            self.moneyMiddleView.homeMessage = homeMessage;
             [self.middleView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(@102);
             }];
@@ -72,6 +87,7 @@
         }else if (type == TCMessageTypeCreditEnable || type == TCMessageTypeCreditDisable || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillPayment) {
             [self.currentView removeFromSuperview];
             [self.middleView addSubview:self.extendCreditMiddleView];
+            self.extendCreditMiddleView.homeMessage = homeMessage;
             [self.middleView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(@102);
             }];
@@ -79,6 +95,7 @@
         }else if (type == TCMessageTypeRentCheckIn) {
             [self.currentView removeFromSuperview];
             [self.middleView addSubview:self.onlyMainTitleMiddleView];
+            self.onlyMainTitleMiddleView.homeMessage = homeMessage;
             [self.middleView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(@62);
             }];
@@ -86,6 +103,7 @@
         }else {
             [self.currentView removeFromSuperview];
             [self.middleView addSubview:self.subTitleMiddleView];
+            self.subTitleMiddleView.homeMessage = homeMessage;
             [self.middleView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.equalTo(@143);
             }];
@@ -97,6 +115,7 @@
 }
 
 - (void)setUpViews {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.topBgView];
     [self.contentView addSubview:self.lineView1];
     [self.contentView addSubview:self.titleIcon];

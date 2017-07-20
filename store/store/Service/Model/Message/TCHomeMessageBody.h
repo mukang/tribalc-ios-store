@@ -16,7 +16,7 @@
 /** 消息主体 */
 @property (copy, nonatomic) NSString *body;
 /** 消息描述 */
-@property (copy, nonatomic) NSString *description;
+//@property (copy, nonatomic) NSString *description;
 /** 还款日期 */
 @property (nonatomic) int64_t repaymentTime;
 /** 还款金额 */

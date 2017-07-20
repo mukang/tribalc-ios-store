@@ -24,8 +24,11 @@
 #import "TCPrivilegeViewController.h"
 #import "TCHomeMessageWrapper.h"
 #import "TCHomeMessageCell.h"
+#import <UITableView+FDTemplateLayoutCell.h>
+#import <TCCommonLibs/TCRefreshHeader.h>
+#import <TCCommonLibs/TCRefreshFooter.h>
 
-@interface TCStoreViewController ()<UITableViewDelegate>
+@interface TCStoreViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) UINavigationBar *navBar;
 
@@ -45,6 +48,8 @@
 
 @property (strong, nonatomic) TCHomeMessageWrapper *messgaeWrapper;
 
+@property (assign, nonatomic) int64_t sinceTime;
+
 @end
 
 @implementation TCStoreViewController
@@ -53,7 +58,7 @@
     [super viewDidLoad];
     [self setupNavBar];
     [self setUpViews];
-    [self fetchData];
+    [self firstLoadData];
 }
 
 - (void)loadData {
@@ -66,6 +71,9 @@
             self.messgaeWrapper = messageWrapper;
             self.messageArr = messageWrapper.content;
             [self.tableView reloadData];
+            if (messageWrapper.hasMore) {
+                self.tableView.mj_footer.hidden = NO;
+            }
         }else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
@@ -92,6 +100,27 @@
     }];
 }
 
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.messageArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TCHomeMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageCell" forIndexPath:indexPath];
+    cell.homeMessage = self.messageArr[indexPath.row];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [tableView fd_heightForCellWithIdentifier:@"TCHomeMessageCell" configuration:^(TCHomeMessageCell *cell) {
+        cell.homeMessage = self.messageArr[indexPath.row];
+    }];
+}
 
 
 - (void)setUpViews {
@@ -119,7 +148,52 @@
     nav.enableInteractivePopGesture = NO;
 }
 
--(void)fetchData {
+- (void)loadNewData {
+    @WeakObj(self)
+    TCHomeMessage *firstMessage = (TCHomeMessage *)self.messageArr.firstObject;
+    [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullFirstTime count:20 sinceTime:firstMessage.createDate result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
+        @StrongObj(self)
+        [self.tableView.mj_header endRefreshing];
+        if (messageWrapper) {
+            self.messgaeWrapper = messageWrapper;
+            if (messageWrapper.hasMore) {
+                self.tableView.mj_footer.hidden = NO;
+            }
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:self.messageArr];
+//            [arr addObjectsFromArray:messageWrapper.content];
+            [arr insertObjects:messageWrapper.content atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messageWrapper.content.count-1)]];
+            self.messageArr = arr;
+            [self.tableView reloadData];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+        }
+    }];
+}
+
+- (void)loadOldData {
+    @WeakObj(self)
+    TCHomeMessage *lastMessage = (TCHomeMessage *)self.messageArr.lastObject;
+    [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullFirstTime count:20 sinceTime:lastMessage.createDate result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
+        @StrongObj(self)
+        [self.tableView.mj_footer endRefreshing];
+        if (messageWrapper) {
+            self.messgaeWrapper = messageWrapper;
+            if (!messageWrapper.hasMore) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:self.messageArr];
+            [arr addObjectsFromArray:messageWrapper.content];
+            self.messageArr = arr;
+            [self.tableView reloadData];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+        }
+    }];
+}
+
+-(void)firstLoadData {
 //    [MBProgressHUD showHUD:YES];
     
 //    dispatch_group_t group = dispatch_group_create();
@@ -222,9 +296,15 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(238), 0, 0, 0);
         _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.mj_header = [TCRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+        _tableView.mj_footer = [TCRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOldData)];
+        _tableView.mj_footer.hidden = YES;
         [_tableView registerClass:[TCHomeMessageCell class] forCellReuseIdentifier:@"TCHomeMessageCell"];
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -TCRealValue(238), self.view.bounds.size.width, TCRealValue(238))];
         [_tableView addSubview: headerView];
+        headerView.backgroundColor = [UIColor whiteColor];
         _headerView = headerView;
         
         UIImageView *topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(135))];
