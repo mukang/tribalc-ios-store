@@ -86,6 +86,10 @@
     [self removeNotifications];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 #pragma mark - Private Methods
 
 - (void)updateBankCardList {
@@ -113,7 +117,7 @@
 - (void)setUpNav {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"提现记录" forState:UIControlStateNormal];
-    btn.frame = CGRectMake(0, 0, 80, 30);
+    btn.frame = CGRectMake(0, 0, 60, 30);
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
     [btn addTarget:self action:@selector(log) forControlEvents:UIControlEventTouchUpInside];
     [btn setTitleColor:TCBlackColor forState:UIControlStateNormal];

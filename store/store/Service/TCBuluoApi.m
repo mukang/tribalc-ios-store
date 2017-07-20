@@ -1414,10 +1414,10 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 - (void)fetchWithDrawRequestListWithAccountType:(NSString *)accountType limitSize:(NSInteger)limitSize sortSkip:(NSString *)sortSkip sort:(NSString *)sort result:(void (^)(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *accountTypeStr = accountType ? [NSString stringWithFormat:@"&accountType=%@&", accountType] : @"";
-        NSString *limitSizePart = [NSString stringWithFormat:@"limitSize=%zd", limitSize];
+        NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
         NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
         NSString *sortStr = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
-        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/withdraws?me=%@%@%@%@%@",self.currentUserSession.assigned, self.currentUserSession.assigned, accountTypeStr, limitSizePart, sortSkipPart,sortStr];
+        NSString *apiName = [NSString stringWithFormat:@"wallet/wallets/%@/withdraws?me=%@%@%@%@%@",self.currentUserSession.assigned, self.currentUserSession.assigned, accountTypeStr, limitSizePart, sortSkipPart,sortStr];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {

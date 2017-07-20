@@ -63,6 +63,22 @@
         
         self.titleLabel.text = homeMessage.messageBody.homeMessageType.homeMessageTypeCategory;
         
+        NSString *dateStr;
+        NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:homeMessage.createDate/1000];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MM-dd"];
+        NSString *str1 = [formatter stringFromDate:[NSDate date]];
+        NSString *str2 = [formatter stringFromDate:createDate];
+        if ([str1 isEqualToString:str2]) {
+            [formatter setDateFormat:@"HH:mm"];
+            dateStr = [formatter stringFromDate:createDate];
+        }else {
+            [formatter setDateFormat:@"MM-dd HH:mm"];
+            dateStr = [formatter stringFromDate:createDate];
+        }
+        
+        self.timeLabel.text = dateStr;
+        
         TCMessageType type = homeMessage.messageBody.homeMessageType.type;
         if (type == TCMessageTypeAccountWalletPayment || type == TCMessageTypeAccountWalletRecharge) {
             self.titleIcon.image = [UIImage imageNamed:@"walletAssistantIcon"];
@@ -159,7 +175,7 @@
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel);
-        make.top.equalTo(self.titleLabel.mas_bottom);
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(2);
         make.height.equalTo(@10);
     }];
     

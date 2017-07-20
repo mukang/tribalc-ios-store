@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"优惠策略";
     self.view.backgroundColor = kBackGroundColor;
     [self loadData];
     [self.view addSubview:self.tableView];
