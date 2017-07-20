@@ -10,6 +10,10 @@
 
 @implementation TCHomeMessageBody
 
++ (NSDictionary *)replacedKeyFromPropertyName {
+    return @{@"desc":@"description"};
+}
+
 + (NSDictionary *)objectClassInDictionary {
     return @{
              @"homeMessageType":[TCHomeMessageType class]

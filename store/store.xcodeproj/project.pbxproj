@@ -56,6 +56,7 @@
 		559E78061F1F4B3C00CDE11D /* TCHomeMessageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E78021F1F4B3C00CDE11D /* TCHomeMessageWrapper.m */; };
 		559E78091F1F4D9900CDE11D /* TCHomeMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E78081F1F4D9900CDE11D /* TCHomeMessageCell.m */; };
 		559E780C1F1F61EC00CDE11D /* TCMessageMiddleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E780B1F1F61EC00CDE11D /* TCMessageMiddleView.m */; };
+		559E780F1F209C9B00CDE11D /* TCHomeCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E780E1F209C9B00CDE11D /* TCHomeCoverView.m */; };
 		55F9EDD01E52F5E400935ADF /* TCGoodsMetaWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */; };
 		55F9EE4A1E56D14F00935ADF /* TCSetMainGoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */; };
 		55F9EE4D1E56DF4E00935ADF /* TCSetMainGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */; };
@@ -381,6 +382,8 @@
 		559E78081F1F4D9900CDE11D /* TCHomeMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageCell.m; sourceTree = "<group>"; };
 		559E780A1F1F61EC00CDE11D /* TCMessageMiddleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCMessageMiddleView.h; sourceTree = "<group>"; };
 		559E780B1F1F61EC00CDE11D /* TCMessageMiddleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMessageMiddleView.m; sourceTree = "<group>"; };
+		559E780D1F209C9B00CDE11D /* TCHomeCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeCoverView.h; sourceTree = "<group>"; };
+		559E780E1F209C9B00CDE11D /* TCHomeCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeCoverView.m; sourceTree = "<group>"; };
 		55F9EDCE1E52F5E400935ADF /* TCGoodsMetaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMetaWrapper.h; sourceTree = "<group>"; };
 		55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMetaWrapper.m; sourceTree = "<group>"; };
 		55F9EE481E56D14F00935ADF /* TCSetMainGoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodView.h; sourceTree = "<group>"; };
@@ -895,6 +898,8 @@
 				559E78081F1F4D9900CDE11D /* TCHomeMessageCell.m */,
 				559E780A1F1F61EC00CDE11D /* TCMessageMiddleView.h */,
 				559E780B1F1F61EC00CDE11D /* TCMessageMiddleView.m */,
+				559E780D1F209C9B00CDE11D /* TCHomeCoverView.h */,
+				559E780E1F209C9B00CDE11D /* TCHomeCoverView.m */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -2279,6 +2284,7 @@
 				7A8E42821E3757E3003A475B /* TCCookingStyleViewCell.m in Sources */,
 				551CF25F1EE7A89200281637 /* TCCollectViewController.m in Sources */,
 				55647F5A1E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m in Sources */,
+				559E780F1F209C9B00CDE11D /* TCHomeCoverView.m in Sources */,
 				55647EC31E4C159E00E4A0E9 /* TCGoodsTipsCell.m in Sources */,
 				7A5344651E2F6EC50053B527 /* TCInfoEditViewController.m in Sources */,
 				7A6B846F1EBC20EA00814777 /* TCWithdrawBankCardInfoView.m in Sources */,

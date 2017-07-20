@@ -53,43 +53,94 @@
     _homeMessage = homeMessage;
     
     if (self.style == TCMessageMiddleViewStyleOnlyMainTitle) {
-        self.mainTitleLabel.text = homeMessage.body;
+        self.rightSubTitleLabel.hidden = YES;
+        if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeRentCheckIn) {
+            NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:homeMessage.messageBody.body];
+            NSTextAttachment *attch = [[NSTextAttachment alloc] init];
+            attch.image = [UIImage imageNamed:@"hi"];
+            attch.bounds = CGRectMake(5, -4, 17, 17);
+            NSAttributedString *string = [NSAttributedString attributedStringWithAttachment:attch];
+            [att appendAttributedString:string];
+            self.mainTitleLabel.attributedText = att;
+        }else {
+            self.mainTitleLabel.text = homeMessage.messageBody.body;
+        }
     }else if (self.style == TCMessageMiddleViewStyleMoneyView) {
-        NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:homeMessage.avatar];
+        self.rightSubTitleLabel.hidden = YES;
+        NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:homeMessage.messageBody.avatar];
         [self.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
-        self.moneyLabel.text = [NSString stringWithFormat:@"%.2f",homeMessage.repaymentAmount];
-        self.moneyDesLabel.text = homeMessage.description;
-        if (homeMessage.applicationTime) {
-            self.moneySubTitleLabel.text = [NSString stringWithFormat:@"申请日期:%@",[self.dataFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:homeMessage.applicationTime/1000]]];
+        self.moneyLabel.text = [NSString stringWithFormat:@"%.2f",homeMessage.messageBody.repaymentAmount];
+        self.moneyDesLabel.text = homeMessage.messageBody.desc;
+        if (homeMessage.messageBody.applicationTime) {
+            self.moneySubTitleLabel.text = [NSString stringWithFormat:@"申请日期:%@",[self.dataFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:homeMessage.messageBody.applicationTime/1000]]];
+        }else {
+            self.moneySubTitleLabel.text = nil;
         }
     }else if (self.style == TCMessageMiddleViewStyleSubTitleMiddleView) {
-        self.mainTitleLabel.text = homeMessage.body;
-        self.leftSubTitleLabel.text = homeMessage.description;
-        self.secondSubTitleLabel.text = [NSString stringWithFormat:@"缴费周期：第%ld期",(long)homeMessage.periodicity];
+        self.rightSubTitleLabel.hidden = YES;
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:homeMessage.messageBody.body];
+        NSTextAttachment *attch = [[NSTextAttachment alloc] init];
+        attch.bounds = CGRectMake(5, -4, 17, 17);
+        if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCompaniesRentBillPayment || homeMessage.messageBody.homeMessageType.type == TCMessageTypeRentBillPayment) {
+            attch.image = [UIImage imageNamed:@"finished"];
+            NSAttributedString *str = [NSAttributedString attributedStringWithAttachment:attch];
+            [att appendAttributedString:str];
+            self.mainTitleLabel.attributedText = att;
+        }else if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCompaniesRentBillGeneration || homeMessage.messageBody.homeMessageType.type == TCMessageTypeRentBillGeneration) {
+            attch.image = [UIImage imageNamed:@"warning"];
+            NSAttributedString *str = [NSAttributedString attributedStringWithAttachment:attch];
+            [att appendAttributedString:str];
+            self.mainTitleLabel.attributedText = att;
+        }else {
+            self.mainTitleLabel.text = homeMessage.messageBody.body;
+        }
+        self.leftSubTitleLabel.text = homeMessage.messageBody.desc;
+        self.secondSubTitleLabel.text = [NSString stringWithFormat:@"缴费周期：第%ld期",(long)homeMessage.messageBody.periodicity];
         NSString *moneyTitle = @"缴费金额";
         if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeRentBillGeneration || homeMessage.messageBody.homeMessageType.type == TCMessageTypeRentBillPayment) {
             moneyTitle = @"房租金额";
         }else if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCompaniesRentBillPayment || homeMessage.messageBody.homeMessageType.type == TCMessageTypeCompaniesRentBillGeneration) {
             moneyTitle = @"企业租金";
         }
-        if (homeMessage.repaymentTime) {
-            self.thirdSubTitleLabel.text = [NSString stringWithFormat:@"缴费日期:%@",[self.dataFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:homeMessage.repaymentTime/1000]]];
-            self.fourSubTitleLabel.text = [NSString stringWithFormat:@"%@%.2f",moneyTitle,homeMessage.repaymentAmount];
+        if (homeMessage.messageBody.repaymentTime) {
+            self.thirdSubTitleLabel.text = [NSString stringWithFormat:@"缴费日期:%@",[self.dataFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:homeMessage.messageBody.repaymentTime/1000]]];
+            self.fourSubTitleLabel.text = [NSString stringWithFormat:@"%@%.2f",moneyTitle,homeMessage.messageBody.repaymentAmount];
         }else {
-            self.thirdSubTitleLabel.text = [NSString stringWithFormat:@"%@%.2f",moneyTitle,homeMessage.repaymentAmount];
+            self.thirdSubTitleLabel.text = [NSString stringWithFormat:@"%@%.2f",moneyTitle,homeMessage.messageBody.repaymentAmount];
+            self.fourSubTitleLabel.text = nil;
         }
     }else if (self.style == TCMessageMiddleViewStyleExtendCreditMiddleView) {
-        self.mainTitleLabel.text = homeMessage.body;
-        if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditEnable) {
-            self.leftSubTitleLabel.text = homeMessage.description;
-        }else if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditBillGeneration) {
-            self.leftSubTitleLabel.text = [NSString stringWithFormat:@"还款日:%@",[self.dataFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:homeMessage.repaymentTime/1000]]];
-            self.rightSubTitleLabel.text = [NSString stringWithFormat:@"应还金额:%.2f",homeMessage.repaymentAmount];
-        }else if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditBillPayment) {
-            self.leftSubTitleLabel.text = [NSString stringWithFormat:@"应还金额:%.2f",homeMessage.repaymentAmount];
+        
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc] initWithString:homeMessage.messageBody.body];
+        NSTextAttachment *attch = [[NSTextAttachment alloc] init];
+        attch.bounds = CGRectMake(5, -4, 17, 17);
+        if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditBillPayment) {
+            attch.image = [UIImage imageNamed:@"finished"];
+            NSAttributedString *str = [NSAttributedString attributedStringWithAttachment:attch];
+            [att appendAttributedString:str];
+            self.mainTitleLabel.attributedText = att;
         }else if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditDisable) {
-            self.leftSubTitleLabel.text = homeMessage.description;
-            self.secondSubTitleLabel.text = [NSString stringWithFormat:@"欠款金额:%.2f",homeMessage.repaymentAmount];
+            attch.image = [UIImage imageNamed:@"disabled"];
+            NSAttributedString *str = [NSAttributedString attributedStringWithAttachment:attch];
+            [att appendAttributedString:str];
+            self.mainTitleLabel.attributedText = att;
+        }else {
+            self.mainTitleLabel.text = homeMessage.messageBody.body;
+        }
+        if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditEnable) {
+            self.leftSubTitleLabel.text = homeMessage.messageBody.desc;
+            self.rightSubTitleLabel.hidden = YES;
+        }else if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditBillGeneration) {
+            self.leftSubTitleLabel.text = [NSString stringWithFormat:@"还款日:%@",[self.dataFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:homeMessage.messageBody.repaymentTime/1000]]];
+            self.rightSubTitleLabel.hidden = NO;
+            self.rightSubTitleLabel.text = [NSString stringWithFormat:@"应还金额:%.2f",homeMessage.messageBody.repaymentAmount];
+        }else if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditBillPayment) {
+            self.rightSubTitleLabel.hidden = YES;
+            self.leftSubTitleLabel.text = [NSString stringWithFormat:@"应还金额:%.2f",homeMessage.messageBody.repaymentAmount];
+        }else if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeCreditDisable) {
+            self.leftSubTitleLabel.text = homeMessage.messageBody.desc;
+            self.rightSubTitleLabel.hidden = YES;
+            self.secondSubTitleLabel.text = [NSString stringWithFormat:@"欠款金额:%.2f",homeMessage.messageBody.repaymentAmount];
         }
     }
 }

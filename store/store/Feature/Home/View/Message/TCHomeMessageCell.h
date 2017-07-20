@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @class TCHomeMessage;
+
+@protocol TCHomeMessageCellDelegate <NSObject>
+
+- (void)didClickMoreActionBtnWithMessageCell:(UITableViewCell *)cell;
+
+@end
+
 @interface TCHomeMessageCell : UITableViewCell
 
 @property (strong, nonatomic) TCHomeMessage *homeMessage;
+
+@property (weak, nonatomic) id <TCHomeMessageCellDelegate>delegate;
 
 @end

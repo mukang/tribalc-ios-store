@@ -24,20 +24,4 @@
 /** 是否过期 */
 @property (nonatomic) BOOL expire;
 
-@property (copy, nonatomic) NSString *body;
-
-//@property (copy, nonatomic) NSString *description;
-
-@property (assign, nonatomic) int64_t applicationTime;
-
-@property (assign, nonatomic) int64_t repaymentTime;
-
-@property (assign, nonatomic) CGFloat repaymentAmount;
-
-@property (assign, nonatomic) NSInteger periodicity;
-
-@property (copy, nonatomic) NSString *referenceId;
-
-@property (copy, nonatomic) NSString *avatar;
-
 @end

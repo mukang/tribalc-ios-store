@@ -16,7 +16,7 @@
 /** 消息主体 */
 @property (copy, nonatomic) NSString *body;
 /** 消息描述 */
-//@property (copy, nonatomic) NSString *description;
+@property (copy, nonatomic) NSString *desc;
 /** 还款日期 */
 @property (nonatomic) int64_t repaymentTime;
 /** 还款金额 */
@@ -25,5 +25,8 @@
 @property (nonatomic) NSInteger periodicity;
 /** 关联信息ID */
 @property (copy, nonatomic) NSString *referenceId;
+/** 头像 */
+@property (copy, nonatomic) NSString *avatar;
 
+@property (assign, nonatomic) int64_t applicationTime;
 @end

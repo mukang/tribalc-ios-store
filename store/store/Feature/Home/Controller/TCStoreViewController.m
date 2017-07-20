@@ -27,8 +27,9 @@
 #import <UITableView+FDTemplateLayoutCell.h>
 #import <TCCommonLibs/TCRefreshHeader.h>
 #import <TCCommonLibs/TCRefreshFooter.h>
+#import "TCHomeCoverView.h"
 
-@interface TCStoreViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TCStoreViewController ()<UITableViewDelegate,UITableViewDataSource,TCHomeMessageCellDelegate,TCHomeCoverViewDelegate>
 
 @property (weak, nonatomic) UINavigationBar *navBar;
 
@@ -49,6 +50,8 @@
 @property (strong, nonatomic) TCHomeMessageWrapper *messgaeWrapper;
 
 @property (assign, nonatomic) int64_t sinceTime;
+
+@property (strong, nonatomic) TCHomeCoverView *coverView;
 
 @end
 
@@ -100,6 +103,57 @@
     }];
 }
 
+#pragma mark TCHomeCoverViewDelegate
+
+- (void)didClickNeverShowMessage:(TCHomeMessage *)message {
+    @WeakObj(self)
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] ignoreAParticularTypeHomeMessageByMessageType:message.messageBody.homeMessageType.homeMessageTypeEnum result:^(BOOL success, NSError *error) {
+       @StrongObj(self)
+        if (success) {
+            self.coverView.hidden = YES;
+            [MBProgressHUD showHUDWithMessage:@"忽略成功" afterDelay:0.5];
+            [self loadData];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+        }
+    }];
+}
+
+- (void)didClickOverLookMessage:(TCHomeMessage *)message currentCell:(TCHomeMessageCell *)cell{
+    @WeakObj(self)
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] ignoreAHomeMessageByMessageID:message.ID result:^(BOOL success, NSError *error) {
+        @StrongObj(self)
+        if (success) {
+            self.coverView.hidden = YES;
+            [MBProgressHUD hideHUD:YES];
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:self.messageArr];
+            [arr removeObject:message];
+            self.messageArr = arr;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            NSArray *indexPathArr = [NSArray arrayWithObjects:indexPath, nil];
+            [self.tableView deleteRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"忽略失败，%@", reason]];
+        }
+    }];
+}
+
+#pragma mark TCHomeMessageCellDelegate
+
+- (void)didClickMoreActionBtnWithMessageCell:(UITableViewCell *)cell {
+    TCHomeMessageCell *messageCell = (TCHomeMessageCell *)cell;
+    CGRect rect = [messageCell convertRect:messageCell.bounds toView:self.navigationController.view];
+    NSLog(@"%@", NSStringFromCGRect(rect));
+    self.coverView.rect = rect;
+    self.coverView.currentCell = (TCHomeMessageCell *)cell;
+    self.coverView.homeMessage = messageCell.homeMessage;
+    self.coverView.hidden = NO;
+}
+
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -113,6 +167,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TCHomeMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageCell" forIndexPath:indexPath];
     cell.homeMessage = self.messageArr[indexPath.row];
+    cell.delegate = self;
     return cell;
 }
 
@@ -159,9 +214,8 @@
             if (messageWrapper.hasMore) {
                 self.tableView.mj_footer.hidden = NO;
             }
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:self.messageArr];
-//            [arr addObjectsFromArray:messageWrapper.content];
-            [arr insertObjects:messageWrapper.content atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, messageWrapper.content.count-1)]];
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:messageWrapper.content];
+            [arr addObjectsFromArray:self.messageArr];
             self.messageArr = arr;
             [self.tableView reloadData];
         }else {
@@ -222,13 +276,13 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGRect rect = _headerView.frame;
-    NSLog(@"%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y < -rect.size.height) {
+//    NSLog(@"%@-----", NSStringFromCGRect(rect));
+//    NSLog(@"%f",scrollView.contentOffset.y);
+    if ((NSInteger)scrollView.contentOffset.y <= (NSInteger)-rect.size.height) {
         rect.origin.y = scrollView.contentOffset.y;
         _headerView.frame = rect;
     }else {
-//        rect.origin.y = -rect.size.height - scrollView.contentOffset.y - rect.size.height;
-//        _headerView.frame = rect;
+
     }
 }
 
@@ -239,11 +293,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
-//    [navBar setShadowImage:[UIImage imageNamed:@"TransparentPixel"]];
-//    [navBar setBackgroundImage:[UIImage imageNamed:@"TransparentPixel"] forBarMetrics:UIBarMetricsDefault];
-//    navBar.barTintColor = [UIColor whiteColor];
-//    UIImage *bgImage = [UIImage imageWithColor:TCARGBColor(255, 255, 255, 1)];
-//    [self.navBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
     [self.view addSubview:navBar];
     
     UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:[[TCBuluoApi api] currentUserSession].storeInfo.name];
@@ -287,6 +336,23 @@
     }else {
         
     }
+}
+
+- (void)tap {
+    self.coverView.hidden = YES;
+    self.coverView.homeMessage = nil;
+}
+
+- (TCHomeCoverView *)coverView {
+    if (_coverView == nil) {
+        _coverView = [[TCHomeCoverView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, TCScreenHeight)];
+        _coverView.hidden = YES;
+        _coverView.delegate = self;
+        UITapGestureRecognizer *tapG = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+        [_coverView addGestureRecognizer:tapG];
+        [self.navigationController.view addSubview:_coverView];
+    }
+    return _coverView;
 }
 
 - (UITableView *)tableView {

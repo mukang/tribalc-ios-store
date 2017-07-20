@@ -114,6 +114,12 @@
     }
 }
 
+- (void)btnClick {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didClickMoreActionBtnWithMessageCell:)]) {
+        [self.delegate didClickMoreActionBtnWithMessageCell:self];
+    }
+}
+
 - (void)setUpViews {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.topBgView];
@@ -271,7 +277,9 @@
     if (_moreActionBtn == nil) {
         _moreActionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_moreActionBtn setTitle:@"···" forState:UIControlStateNormal];
+        [_moreActionBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -20)];
         [_moreActionBtn setTitleColor:TCGrayColor forState:UIControlStateNormal];
+        [_moreActionBtn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _moreActionBtn;
 }
