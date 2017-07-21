@@ -17,8 +17,4 @@
              };
 }
 
-+ (NSDictionary *)objectClassInArray {
-    return @{@"messageBody": [TCHomeMessageBody class]};
-}
-
 @end

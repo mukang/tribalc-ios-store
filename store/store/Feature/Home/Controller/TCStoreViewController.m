@@ -389,7 +389,7 @@
             [iconImageView setImage:[UIImage imageNamed:@"profile_default_avatar_icon"]];
         }
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(65), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(75)-20, 15)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(50), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(60)-10, 15)];
         titleLabel.font = [UIFont systemFontOfSize:12];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.text = @"会员卡余额";
@@ -397,7 +397,7 @@
         
         UILabel *banlanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(titleLabel.frame), CGRectGetMaxY(titleLabel.frame)+TCRealValue(10), titleLabel.frame.size.width, TCRealValue(40))];
         banlanceLabel.textColor = [UIColor whiteColor];
-        banlanceLabel.font = [UIFont systemFontOfSize:42];
+        banlanceLabel.font = [UIFont systemFontOfSize:TCRealValue(42)];
         NSString *str = [NSString stringWithFormat:@"¥%.2f", storeInfo.balance];
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:str];
         [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:29] range:NSMakeRange(0, 1)];
