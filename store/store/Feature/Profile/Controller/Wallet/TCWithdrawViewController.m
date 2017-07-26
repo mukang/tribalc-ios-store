@@ -347,7 +347,7 @@
 #pragma mark - Password View
 
 - (void)showPasswordView {
-    UIView *superView = self.tabBarController.view;
+    UIView *superView = self.navigationController.view;
     UIView *bgView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     bgView.backgroundColor = TCARGBColor(0, 0, 0, 0);
     [superView addSubview:bgView];

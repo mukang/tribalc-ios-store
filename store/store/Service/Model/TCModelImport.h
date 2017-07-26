@@ -43,6 +43,7 @@
 
 #import "TCAuthenticationInfo.h"
 #import "TCPrivilege.h"
+#import "TCPrivilegeWrapper.h"
 
 /********** 订单相关 **********/
 #import "TCGoodsOrderItem.h"

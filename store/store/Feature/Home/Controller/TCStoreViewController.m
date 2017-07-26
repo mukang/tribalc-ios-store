@@ -388,7 +388,7 @@
         } else {
             [iconImageView setImage:[UIImage imageNamed:@"profile_default_avatar_icon"]];
         }
-        
+
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(50), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(60)-10, 15)];
         titleLabel.font = [UIFont systemFontOfSize:12];
         titleLabel.textColor = [UIColor whiteColor];

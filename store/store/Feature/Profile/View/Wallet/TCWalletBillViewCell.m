@@ -9,6 +9,7 @@
 #import "TCWalletBillViewCell.h"
 #import "TCWalletBill.h"
 #import "TCWithDrawRequest.h"
+#import <UIImageView+WebCache.h>
 
 @interface TCWalletBillViewCell ()
 
@@ -30,10 +31,26 @@
 - (void)setWithdrawRequest:(TCWithDrawRequest *)withdrawRequest {
     _withdrawRequest = withdrawRequest;
     
-//    self.weekdayLabel.text = withdrawRequest.weekday;
-//    self.detailTimeLabel.text = withdrawRequest.detailTime;
+    self.weekdayLabel.text = withdrawRequest.weekday;
+    self.detailTimeLabel.text = withdrawRequest.detailTime;
     self.amountLabel.text = [NSString stringWithFormat:@"%0.2f", withdrawRequest.amount];
-    self.titleLabel.text = withdrawRequest.status;
+    NSString *statusStr;
+    if ([withdrawRequest.status isEqualToString:@"CREATED"]) {
+        statusStr = @"已创建";
+    }else if ([withdrawRequest.status isEqualToString:@"COMMITTED"]) {
+        statusStr = @"已提交";
+    }else if ([withdrawRequest.status isEqualToString:@"PAYED"]) {
+        statusStr = @"已支付";
+    }else if ([withdrawRequest.status isEqualToString:@"FINISHED"]) {
+        statusStr = @"已完成";
+    }else if ([withdrawRequest.status isEqualToString:@"FAILURE"]) {
+        statusStr = @"已失败";
+    }else if ([withdrawRequest.status isEqualToString:@"REJECTED"]) {
+        statusStr = @"已驳回";
+    }
+    self.titleLabel.text = statusStr;
+    NSString *urlStr = [NSString stringWithFormat:@"http://pictures.buluo-gs.com/%@/icon.jpg?t=%ld",withdrawRequest.ownerId,(long)[[NSDate date] timeIntervalSince1970]];
+    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
 }
 
 - (void)setWalletBill:(TCWalletBill *)walletBill {
@@ -43,6 +60,10 @@
     self.detailTimeLabel.text = walletBill.detailTime;
     self.amountLabel.text = [NSString stringWithFormat:@"%0.2f", walletBill.amount];
     self.titleLabel.text = walletBill.title;
+    
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://pictures.buluo-gs.com/%@/icon.jpg?t=%ld",walletBill.annotherId,(long)[[NSDate date] timeIntervalSince1970]];
+    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

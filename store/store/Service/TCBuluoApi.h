@@ -488,7 +488,7 @@ typedef NS_ENUM(NSInteger, TCDataListPullType) {
  @param active 是否有效
  @param resultBlock 结果回调
  */
-- (void)fetchStorePrivilegeWithActive:(NSString *)active result:(void (^)(NSArray *, NSError *))resultBlock;
+- (void)fetchStorePrivilegeWithActive:(NSString *)active result:(void (^)(TCPrivilegeWrapper *, NSError *))resultBlock;
 
 #pragma mark - 消息服务
 

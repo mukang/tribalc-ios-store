@@ -111,7 +111,14 @@
                         [temp addObject:withDrawRequest];
                         [weakSelf.dataList addObject:temp];
                     } else {
-                        [temp addObject:withDrawRequest];
+                        TCWithDrawRequest *lastWithDrawRequest = [temp lastObject];
+                        if ([withDrawRequest.monthDate isEqualToString:lastWithDrawRequest.monthDate]) {
+                            [temp addObject:withDrawRequest];
+                        } else {
+                            NSMutableArray *newTemp = [NSMutableArray array];
+                            [newTemp addObject:withDrawRequest];
+                            [weakSelf.dataList addObject:newTemp];
+                        }
                     }
                 }
                 [weakSelf.tableView reloadData];
@@ -174,16 +181,21 @@
                     weakSelf.tableView.mj_footer.hidden = NO;
                 }
                 [weakSelf.dataList removeAllObjects];
-                for (TCWithDrawRequest *walletBill in withDrawRequestWrapper.content) {
+                for (TCWithDrawRequest *withDrawRequest in withDrawRequestWrapper.content) {
                     NSMutableArray *temp = [weakSelf.dataList lastObject];
                     if (!temp) {
                         temp = [NSMutableArray array];
-                        [temp addObject:walletBill];
+                        [temp addObject:withDrawRequest];
                         [weakSelf.dataList addObject:temp];
                     } else {
-                        NSMutableArray *newTemp = [NSMutableArray array];
-                        [newTemp addObject:walletBill];
-                        [weakSelf.dataList addObject:newTemp];
+                        TCWithDrawRequest *lastWithDrawRequest = [temp lastObject];
+                        if ([withDrawRequest.monthDate isEqualToString:lastWithDrawRequest.monthDate]) {
+                            [temp addObject:withDrawRequest];
+                        } else {
+                            NSMutableArray *newTemp = [NSMutableArray array];
+                            [newTemp addObject:withDrawRequest];
+                            [weakSelf.dataList addObject:newTemp];
+                        }
                     }
                 }
                 [weakSelf.tableView reloadData];
@@ -192,7 +204,6 @@
                 }else {
                     weakSelf.noBillView.hidden = NO;
                 }
-                
             } else {
                 [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
             }
@@ -247,16 +258,21 @@
                 if (!withDrawRequestWrapper.hasMore) {
                     [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
                 }
-                for (TCWithDrawRequest *walletBill in withDrawRequestWrapper.content) {
+                for (TCWithDrawRequest *withDrawRequest in withDrawRequestWrapper.content) {
                     NSMutableArray *temp = [weakSelf.dataList lastObject];
                     if (!temp) {
                         temp = [NSMutableArray array];
-                        [temp addObject:walletBill];
+                        [temp addObject:withDrawRequest];
                         [weakSelf.dataList addObject:temp];
                     } else {
-                        NSMutableArray *newTemp = [NSMutableArray array];
-                        [newTemp addObject:walletBill];
-                        [weakSelf.dataList addObject:newTemp];
+                        TCWithDrawRequest *lastWithDrawRequest = [temp lastObject];
+                        if ([withDrawRequest.monthDate isEqualToString:lastWithDrawRequest.monthDate]) {
+                            [temp addObject:withDrawRequest];
+                        } else {
+                            NSMutableArray *newTemp = [NSMutableArray array];
+                            [newTemp addObject:withDrawRequest];
+                            [weakSelf.dataList addObject:newTemp];
+                        }
                     }
                 }
                 [weakSelf.tableView reloadData];
@@ -265,7 +281,6 @@
                 }else {
                     weakSelf.noBillView.hidden = NO;
                 }
-                
             } else {
                 [MBProgressHUD showHUDWithMessage:@"获取订单失败！"];
             }
@@ -347,15 +362,22 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSMutableArray *temp = self.dataList[section];
-    TCWalletBill *walletBill = temp[0];
+    
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = TCBackgroundColor;
     UILabel *label = [[UILabel alloc] init];
-    label.text = walletBill.monthDate;
+    
     label.textColor = TCBlackColor;
     label.textAlignment = NSTextAlignmentLeft;
     label.frame = CGRectMake(20, 0, 100, 21);
     [view addSubview:label];
+    if (self.isWithDraw) {
+        TCWithDrawRequest *withDrawRequest = temp[0];
+        label.text = withDrawRequest.monthDate;
+        return view;
+    }
+    TCWalletBill *walletBill = temp[0];
+    label.text = walletBill.monthDate;
     return view;
 }
 

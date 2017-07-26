@@ -22,4 +22,13 @@
 
 @property (assign, nonatomic) CGFloat amount;
 
+/** 月份信息 */
+@property (copy, nonatomic) NSString *monthDate;
+/** 周信息 */
+@property (copy, nonatomic) NSString *weekday;
+/** 日期时间 */
+@property (copy, nonatomic) NSString *detailTime;
+/** 交易具体日期时间 */
+@property (copy, nonatomic) NSString *tradingTime;
+
 @end

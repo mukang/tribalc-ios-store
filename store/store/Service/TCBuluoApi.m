@@ -457,7 +457,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)fetchStoreInfo:(void (^)(TCStoreInfo *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@?type=store&me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@?me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
@@ -1166,7 +1166,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)fetchWalletAccountInfo:(void (^)(TCWalletAccount *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"wallets/%@", self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@?me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
@@ -1387,7 +1387,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)commitWithdrawReqWithAmount:(double)amount bankCardID:(NSString *)bankCardID result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/withdraw", self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/withdraws", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
         request.token = self.currentUserSession.token;
         [request setValue:[NSNumber numberWithDouble:amount] forParam:@"amount"];
@@ -1417,7 +1417,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         NSString *limitSizePart = [NSString stringWithFormat:@"&limitSize=%zd", limitSize];
         NSString *sortSkipPart = sortSkip ? [NSString stringWithFormat:@"&sortSkip=%@", sortSkip] : @"";
         NSString *sortStr = sort ? [NSString stringWithFormat:@"&sort=%@",sort] : @"";
-        NSString *apiName = [NSString stringWithFormat:@"wallet/wallets/%@/withdraws?me=%@%@%@%@%@",self.currentUserSession.assigned, self.currentUserSession.assigned, accountTypeStr, limitSizePart, sortSkipPart,sortStr];
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/withdraws?me=%@%@%@%@%@",self.currentUserSession.assigned, self.currentUserSession.assigned, accountTypeStr, limitSizePart, sortSkipPart,sortStr];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
@@ -1478,7 +1478,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }];
 }
 
-- (void)fetchStorePrivilegeWithActive:(NSString *)active result:(void (^)(NSArray *, NSError *))resultBlock {
+- (void)fetchStorePrivilegeWithActive:(NSString *)active result:(void (^)(TCPrivilegeWrapper *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *activeStr = active ? [NSString stringWithFormat:@"&active=%@",active] : @"";
         NSString *apiName = [NSString stringWithFormat:@"stores/%@/privilege?me=%@%@", self.currentUserSession.assigned,self.currentUserSession.assigned,activeStr];
@@ -1490,14 +1490,9 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
                     TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
                 }
             } else {
-                NSArray *array = response.data;
-                NSMutableArray *temp = [NSMutableArray array];
-                for (NSDictionary *dic in array) {
-                    TCPrivilege *privilege = [[TCPrivilege alloc] initWithObjectDictionary:dic];
-                    [temp addObject:privilege];
-                }
+                TCPrivilegeWrapper *privilegeWrapper = [[TCPrivilegeWrapper alloc] initWithObjectDictionary:response.data];
                 if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock([temp copy], nil));
+                    TC_CALL_ASYNC_MQ(resultBlock(privilegeWrapper, nil));
                 }
             }
         }];

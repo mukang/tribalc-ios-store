@@ -37,11 +37,11 @@
 - (void)loadData {
     @WeakObj(self)
     [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] fetchStorePrivilegeWithActive:@"false" result:^(NSArray *privilegeList, NSError *error) {
+    [[TCBuluoApi api] fetchStorePrivilegeWithActive:@"false" result:^(TCPrivilegeWrapper *privilegWrappper, NSError *error) {
         @StrongObj(self)
-        if ([privilegeList isKindOfClass:[NSArray class]]) {
+        if (privilegWrappper) {
             [MBProgressHUD hideHUD:YES];
-            self.privileges = privilegeList;
+            self.privileges = privilegWrappper.privileges;
             [self.tableView reloadData];
         }else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";

@@ -19,6 +19,7 @@
 		5503194A1E35DDEE004522C7 /* TCCreateGoodsStandardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 550319491E35DDEE004522C7 /* TCCreateGoodsStandardController.m */; };
 		551CF25F1EE7A89200281637 /* TCCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 551CF25E1EE7A89200281637 /* TCCollectViewController.m */; };
 		552D6C2E1E97780800CA4EA3 /* TCUnitySetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 552D6C2D1E97780800CA4EA3 /* TCUnitySetUpViewController.m */; };
+		5546F9571F27487400E9A9B0 /* TCPrivilegeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5546F9561F27487400E9A9B0 /* TCPrivilegeWrapper.m */; };
 		55647E6A1E4B081300E4A0E9 /* TCGoodsMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647E691E4B081300E4A0E9 /* TCGoodsMeta.m */; };
 		55647EBD1E4C159E00E4A0E9 /* TCBatchSetiingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EB01E4C159E00E4A0E9 /* TCBatchSetiingView.m */; };
 		55647EBE1E4C159E00E4A0E9 /* TCCreatePriceAndRepertoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EB21E4C159E00E4A0E9 /* TCCreatePriceAndRepertoryCell.m */; };
@@ -308,6 +309,8 @@
 		551CF25E1EE7A89200281637 /* TCCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCCollectViewController.m; sourceTree = "<group>"; };
 		552D6C2C1E97780800CA4EA3 /* TCUnitySetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUnitySetUpViewController.h; sourceTree = "<group>"; };
 		552D6C2D1E97780800CA4EA3 /* TCUnitySetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCUnitySetUpViewController.m; sourceTree = "<group>"; };
+		5546F9551F27487400E9A9B0 /* TCPrivilegeWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPrivilegeWrapper.h; sourceTree = "<group>"; };
+		5546F9561F27487400E9A9B0 /* TCPrivilegeWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPrivilegeWrapper.m; sourceTree = "<group>"; };
 		55647E681E4B081300E4A0E9 /* TCGoodsMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMeta.h; sourceTree = "<group>"; };
 		55647E691E4B081300E4A0E9 /* TCGoodsMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMeta.m; sourceTree = "<group>"; };
 		55647EAF1E4C159E00E4A0E9 /* TCBatchSetiingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBatchSetiingView.h; sourceTree = "<group>"; };
@@ -1097,6 +1100,8 @@
 				7A40CE0A1E3851F20049A8EF /* TCStoreFeature.m */,
 				559E77B41F186A4500CDE11D /* TCPrivilege.h */,
 				559E77B51F186A4500CDE11D /* TCPrivilege.m */,
+				5546F9551F27487400E9A9B0 /* TCPrivilegeWrapper.h */,
+				5546F9561F27487400E9A9B0 /* TCPrivilegeWrapper.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -2149,6 +2154,7 @@
 				7ABCC0E41E2622C800750E47 /* TCGoodSelectView.m in Sources */,
 				7A83529F1E5D360E003A8E76 /* TCServiceRecommendViewCell.m in Sources */,
 				7AAEAA171EEFCFE8004E7EF9 /* TCLaunchViewController.m in Sources */,
+				5546F9571F27487400E9A9B0 /* TCPrivilegeWrapper.m in Sources */,
 				558F6DCF1E48C70B00CB2F81 /* MGSwipeButton.m in Sources */,
 				7A8352A51E5D3713003A8E76 /* TCDetailStore.m in Sources */,
 				7A8352A21E5D36E5003A8E76 /* TCServiceDetail.m in Sources */,
