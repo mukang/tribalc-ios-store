@@ -49,8 +49,10 @@
         statusStr = @"已驳回";
     }
     self.titleLabel.text = statusStr;
-    NSString *urlStr = [NSString stringWithFormat:@"http://pictures.buluo-gs.com/%@/icon.jpg?t=%ld",withdrawRequest.ownerId,(long)[[NSDate date] timeIntervalSince1970]];
-    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
+    if ([withdrawRequest.ownerId isKindOfClass:[NSString class]]) {
+        NSString *urlStr = [NSString stringWithFormat:@"http://pictures.buluo-gs.com/%@/icon.jpg?t=%ld",withdrawRequest.ownerId,(long)[[NSDate date] timeIntervalSince1970]];
+        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
+    }
 }
 
 - (void)setWalletBill:(TCWalletBill *)walletBill {
@@ -61,9 +63,10 @@
     self.amountLabel.text = [NSString stringWithFormat:@"%0.2f", walletBill.amount];
     self.titleLabel.text = walletBill.title;
     
-    
-    NSString *urlStr = [NSString stringWithFormat:@"http://pictures.buluo-gs.com/%@/icon.jpg?t=%ld",walletBill.annotherId,(long)[[NSDate date] timeIntervalSince1970]];
-    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
+    if ([walletBill.annotherId isKindOfClass:[NSString class]]) {
+        NSString *urlStr = [NSString stringWithFormat:@"http://pictures.buluo-gs.com/%@/icon.jpg?t=%ld",walletBill.annotherId,(long)[[NSDate date] timeIntervalSince1970]];
+        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -217,7 +217,12 @@
             NSMutableArray *arr = [NSMutableArray arrayWithArray:messageWrapper.content];
             [arr addObjectsFromArray:self.messageArr];
             self.messageArr = arr;
-            [self.tableView reloadData];
+//            [self.tableView reloadData];
+            NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
+            for (int i = 0; i < messageWrapper.content.count; i++) {
+                [mutableArr addObject: [NSIndexPath indexPathForRow:i inSection:0]];
+            }
+            [self.tableView insertRowsAtIndexPaths:mutableArr withRowAnimation:UITableViewRowAnimationRight];
         }else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
@@ -405,23 +410,23 @@
         [topImageView addSubview:banlanceLabel];
         self.balanceLabel = banlanceLabel;
         
-//        if ([storeInfo.accountType isKindOfClass:[NSString class]]) {
-//            if ([storeInfo.accountType isEqualToString:@"CARD"]) {
-//                topImageView.image = [UIImage imageNamed:@"colBg"];
-//                CGFloat width = self.view.bounds.size.width / 3;
-//                TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"collection" title:@"收款"];
-//                [headerView addSubview:colBtn];
-//        [colBtn addTarget:self action:@selector(col) forControlEvents:UIControlEventTouchUpInside];
-//        
-//                TCVerticalImageAndTitleBtn *billBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(colBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"bill" title:@"对账单"];
-//                [headerView addSubview:billBtn];
-//        [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
-//                
-//                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"discount" title:@"优惠策略"];
-//                [headerView addSubview:discountBtn];
-//        [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
+        if ([storeInfo.accountType isKindOfClass:[NSString class]]) {
+            if ([storeInfo.accountType isEqualToString:@"CARD"]) {
+                topImageView.image = [UIImage imageNamed:@"colBg"];
+                CGFloat width = self.view.bounds.size.width / 3;
+                TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"collection" title:@"收款"];
+                [headerView addSubview:colBtn];
+        [colBtn addTarget:self action:@selector(col) forControlEvents:UIControlEventTouchUpInside];
         
-//            }else if ([storeInfo.accountType isEqualToString:@"PROTOCOL"]) {
+                TCVerticalImageAndTitleBtn *billBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(colBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"bill" title:@"对账单"];
+                [headerView addSubview:billBtn];
+        [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
+                
+                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"discount" title:@"优惠策略"];
+                [headerView addSubview:discountBtn];
+        [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
+        
+            }else if ([storeInfo.accountType isEqualToString:@"PROTOCOL"]) {
                 topImageView.image = [UIImage imageNamed:@"cashBg"];
                 CGFloat width = self.view.bounds.size.width / 5;
                 TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame), width, TCRealValue(103)) imageName:@"collection" title:@"收款"];
@@ -443,8 +448,8 @@
                 TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, TCRealValue(103)) imageName:@"discount" title:@"优惠策略"];
                 [headerView addSubview:discountBtn];
         [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
-//            }
-//        }
+            }
+        }
         CGFloat scale = self.view.bounds.size.width > 375.0 ? 3 : 2;
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, TCRealValue(238)-0.5, self.view.bounds.size.width, 1/scale)];
         lineView.backgroundColor = TCLightGrayColor;

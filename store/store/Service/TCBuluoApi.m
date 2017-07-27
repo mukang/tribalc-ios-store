@@ -457,7 +457,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)fetchStoreInfo:(void (^)(TCStoreInfo *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"stores/%@?me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"stores/%@?type=store&me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
