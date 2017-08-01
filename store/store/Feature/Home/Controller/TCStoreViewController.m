@@ -413,12 +413,8 @@
         iconImageView.layer.borderColor = [UIColor whiteColor].CGColor;
         iconImageView.layer.borderWidth = 2.0;
         [topImageView addSubview:iconImageView];
-        if (storeInfo.logo) {
-            NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:storeInfo.logo];
-            [iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
-        } else {
-            [iconImageView setImage:[UIImage imageNamed:@"profile_default_avatar_icon"]];
-        }
+        NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:storeInfo.ID needTimestamp:YES];
+        [iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
 
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(50), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(60)-10, 15)];
         titleLabel.font = [UIFont systemFontOfSize:12];
