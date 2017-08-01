@@ -9,6 +9,7 @@
 #import "TCStoreDetailLogoCell.h"
 #import <TCCommonLibs/TCImageURLSynthesizer.h>
 #import <UIImageView+WebCache.h>
+#import "TCDetailStore.h"
 
 @interface TCStoreDetailLogoCell ()
 
@@ -25,13 +26,11 @@
     return self;
 }
 
-- (void)setLogo:(NSString *)logo {
-    if (_logo != logo) {
-        _logo = logo;
-        
-        NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:logo];
-        [self.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
-    }
+- (void)setDetailStore:(TCDetailStore *)detailStore {
+    _detailStore = detailStore;
+    
+    NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:detailStore.ID needTimestamp:YES];
+    [self.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
 }
 
 - (void)setUpViews {

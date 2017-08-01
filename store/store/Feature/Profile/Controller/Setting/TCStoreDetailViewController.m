@@ -76,7 +76,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         TCStoreDetailLogoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCStoreDetailLogoCell" forIndexPath:indexPath];
-        cell.logo = self.detailStore.logo;
+        cell.detailStore = self.detailStore;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else if (indexPath.row == 10) {

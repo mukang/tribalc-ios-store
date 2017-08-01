@@ -22,6 +22,9 @@
 
 #import <Bugly/Bugly.h>
 
+#import <SDImageCache.h>
+#import <SDImageCacheConfig.h>
+
 static NSString *const kBuglyAppID = @"9ed163958b";
 
 @interface AppDelegate ()<CLLocationManagerDelegate>
@@ -43,6 +46,9 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
+    
+    // 设置图片缓存时间
+    [SDImageCache sharedImageCache].config.maxCacheAge = 60 * 60 * 24;
     
     [self showLaunchWindow];
     application.statusBarHidden = NO;

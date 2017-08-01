@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TCDetailStore;
 
 @interface TCStoreDetailLogoCell : UITableViewCell
 
-@property (copy, nonatomic) NSString *logo;
+@property (strong, nonatomic) TCDetailStore *detailStore;
 
 @end
