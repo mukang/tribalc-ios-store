@@ -1307,6 +1307,36 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
+- (void)prepareAddBankCard:(TCBankCard *)bankCard walletID:(NSString *)walletID result:(void (^)(TCBankCard *, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bank_cards?me=%@", walletID, self.currentUserSession.assigned];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
+        request.token = self.currentUserSession.token;
+        NSDictionary *dic = [bankCard toObjectDictionary];
+        for (NSString *key in dic.allKeys) {
+            [request setValue:dic[key] forParam:key];
+        }
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.codeInResponse == 201) {
+                TCBankCard *card = [[TCBankCard alloc] initWithObjectDictionary:response.data];
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(card, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
+}
+
+
 - (void)prepareAddBankCard:(TCBankCard *)bankCard result:(void (^)(TCBankCard *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bank_cards?me=%@", self.currentUserSession.assigned,self.currentUserSession.assigned];
@@ -1336,9 +1366,9 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
-- (void)confirmAddBankCardWithID:(NSString *)bankCardID verificationCode:(NSString *)verificationCode result:(void (^)(BOOL, NSError *))resultBlock {
+- (void)confirmAddBankCardWithID:(NSString *)bankCardID verificationCode:(NSString *)verificationCode walletID:(NSString *)walletID result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bank_cards/%@?me=%@", self.currentUserSession.assigned, bankCardID,self.currentUserSession.assigned];
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bank_cards/%@?me=%@", walletID, bankCardID, self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
         request.token = self.currentUserSession.token;
         [request setValue:verificationCode forKey:@"value"];
@@ -1360,6 +1390,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         }
     }
 }
+
 
 - (void)deleteBankCard:(NSString *)bankCardID result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
@@ -1515,10 +1546,10 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
                 apiName = [NSString stringWithFormat:@"members/%@/homeMessages?limit=%zd", self.currentUserSession.assigned, count];
                 break;
             case TCDataListPullOlderList:
-                apiName = [NSString stringWithFormat:@"members/%@/homeMessages?limit=%zd&sinceTime=%zd&isNew=false", self.currentUserSession.assigned, count, sinceTime];
+                apiName = [NSString stringWithFormat:@"members/%@/homeMessages?limit=%zd&sinceTime=%lld&isNew=false", self.currentUserSession.assigned, count, sinceTime];
                 break;
             case TCDataListPullNewerList:
-                apiName = [NSString stringWithFormat:@"members/%@/homeMessages?limit=%zd&sinceTime=%zd&isNew=true", self.currentUserSession.assigned, count, sinceTime];
+                apiName = [NSString stringWithFormat:@"members/%@/homeMessages?limit=%zd&sinceTime=%lld&isNew=true", self.currentUserSession.assigned, count, sinceTime];
                 break;
                 
             default:

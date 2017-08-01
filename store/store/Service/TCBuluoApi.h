@@ -426,6 +426,15 @@ typedef NS_ENUM(NSInteger, TCDataListPullType) {
  @param bankCard 银行卡信息
  @param resultBlock 结果回调，bankCard为nil时表示添加失败，失败原因见error的code和userInfo
  */
+- (void)prepareAddBankCard:(TCBankCard *)bankCard walletID:(NSString *)walletID result:(void (^)(TCBankCard *card, NSError *error))resultBlock;
+
+
+/**
+ 准备添加银行卡信息
+ 
+ @param bankCard 银行卡信息
+ @param resultBlock 结果回调，bankCard为nil时表示添加失败，失败原因见error的code和userInfo
+ */
 - (void)prepareAddBankCard:(TCBankCard *)bankCard result:(void (^)(TCBankCard *card, NSError *error))resultBlock;
 
 /**
@@ -435,7 +444,8 @@ typedef NS_ENUM(NSInteger, TCDataListPullType) {
  @param verificationCode 验证码
  @param resultBlock 结果回调，success为NO时表示添加失败，失败原因见error的code和userInfo
  */
-- (void)confirmAddBankCardWithID:(NSString *)bankCardID verificationCode:(NSString *)verificationCode result:(void (^)(BOOL success, NSError *error))resultBlock;
+- (void)confirmAddBankCardWithID:(NSString *)bankCardID verificationCode:(NSString *)verificationCode walletID:(NSString *)walletID result:(void (^)(BOOL success, NSError *error))resultBlock;
+
 
 /**
  删除银行卡

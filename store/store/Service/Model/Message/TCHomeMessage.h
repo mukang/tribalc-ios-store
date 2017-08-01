@@ -14,9 +14,9 @@
 /** id */
 @property (copy, nonatomic) NSString *ID;
 /** 消息创建日期 */
-@property (nonatomic) int64_t createDate;
+@property (nonatomic) int64_t createTime;
 /** 消息过期日期 */
-@property (nonatomic) int64_t expireDate;
+@property (nonatomic) int64_t expireTime;
 /** 首页消息体 */
 @property (strong, nonatomic) TCHomeMessageBody *messageBody;
 /** 拥有者，为 null 时为公共消息 */

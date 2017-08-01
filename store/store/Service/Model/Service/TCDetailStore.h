@@ -71,4 +71,6 @@
 
 @property (copy, nonatomic) NSArray *privilege;
 
+@property (copy, nonatomic) NSString *email;
+
 @end

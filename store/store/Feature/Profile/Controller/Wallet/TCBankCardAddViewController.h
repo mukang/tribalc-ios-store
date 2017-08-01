@@ -12,6 +12,7 @@ typedef void(^TCBankCardAddBlock)();
 
 @interface TCBankCardAddViewController : TCBaseViewController
 
+@property (copy, nonatomic) NSString *walletID;
 @property (copy, nonatomic) TCBankCardAddBlock bankCardAddBlock;
 
 @end

@@ -127,7 +127,7 @@
                 break;
                 case 6:
                 cell.textLabel.text = @"邮        箱";
-                cell.detailTextLabel.text = self.detailStore.phone;
+                cell.detailTextLabel.text = self.detailStore.email;
                 break;
             case 7:
                 cell.textLabel.text = @"营业时间:";
@@ -163,6 +163,7 @@
         
         TCCommonButton *btn = [TCCommonButton buttonWithTitle:@"确认绑定" color:TCCommonButtonColorBlue target:self action:@selector(bang)];
         btn.frame = CGRectMake(30, 63, self.view.bounds.size.width-60, 40);
+        btn.hidden = YES;
         [footerView addSubview:btn];
         
         [self.view addSubview:_tableView];
