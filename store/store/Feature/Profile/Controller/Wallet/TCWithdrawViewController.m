@@ -357,6 +357,7 @@
     TCPaymentPasswordView *passwordView = [[NSBundle mainBundle] loadNibNamed:@"TCPaymentPasswordView" owner:nil options:nil].lastObject;
     passwordView.frame = CGRectMake(0, TCScreenHeight, TCScreenWidth, passwordViewH);
     passwordView.delegate = self;
+    passwordView.textField.centerX = passwordView.width / 2;
     [bgView addSubview:passwordView];
     self.passwordView = passwordView;
     

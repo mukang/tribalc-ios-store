@@ -10,6 +10,7 @@
 #import "TCWalletBill.h"
 #import "TCWithDrawRequest.h"
 #import <UIImageView+WebCache.h>
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
 
 @interface TCWalletBillViewCell ()
 
@@ -26,6 +27,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.iconImageView.clipsToBounds = YES;
+    self.iconImageView.layer.cornerRadius = 21;
 }
 
 - (void)setWithdrawRequest:(TCWithDrawRequest *)withdrawRequest {
@@ -50,8 +53,8 @@
     }
     self.titleLabel.text = statusStr;
     if ([withdrawRequest.ownerId isKindOfClass:[NSString class]]) {
-        NSString *urlStr = [NSString stringWithFormat:@"http://pictures.buluo-gs.com/%@/icon.jpg?t=%ld",withdrawRequest.ownerId,(long)[[NSDate date] timeIntervalSince1970]];
-        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
+        NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:withdrawRequest.ownerId needTimestamp:NO];
+        [self.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
     }
 }
 
@@ -63,9 +66,9 @@
     self.amountLabel.text = [NSString stringWithFormat:@"%0.2f", walletBill.amount];
     self.titleLabel.text = walletBill.title;
     
-    if ([walletBill.annotherId isKindOfClass:[NSString class]]) {
-        NSString *urlStr = [NSString stringWithFormat:@"http://pictures.buluo-gs.com/%@/icon.jpg?t=%ld",walletBill.annotherId,(long)[[NSDate date] timeIntervalSince1970]];
-        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
+    if ([walletBill.anotherId isKindOfClass:[NSString class]]) {
+        NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:walletBill.anotherId needTimestamp:NO];
+        [self.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
     }
 }
 

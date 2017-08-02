@@ -29,6 +29,11 @@
 #import <TCCommonLibs/TCRefreshFooter.h>
 #import "TCHomeCoverView.h"
 #import "TCBankCardAddViewController.h"
+#import "TCHomeMessageSubTitleCell.h"
+#import "TCHomeMessageMoneyMiddleCell.h"
+#import "TCHomeMessageExtendCreditMiddleCell.h"
+#import "TCHomeMessageOnlyMainTitleMiddleCell.h"
+#import "TCWalletPasswordViewController.h"
 
 @interface TCStoreViewController ()<UITableViewDelegate,UITableViewDataSource,TCHomeMessageCellDelegate,TCHomeCoverViewDelegate>
 
@@ -63,6 +68,8 @@
     [self setupNavBar];
     [self setUpViews];
     [self firstLoadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWallatData) name:TCWalletPasswordDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWallatData) name:@"TCWalletBankCardDidChange" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -251,19 +258,41 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TCHomeMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageCell" forIndexPath:indexPath];
-    cell.homeMessage = self.messageArr[indexPath.row];
+    
+    TCHomeMessage *message = self.messageArr[indexPath.row];
+    TCMessageType type = message.messageBody.homeMessageType.type;
+    TCHomeMessageCell *cell;
+    if (type == TCMessageTypeAccountWalletPayment || type == TCMessageTypeAccountWalletRecharge || type == TCMessageTypeTenantRecharge || type == TCMessageTypeTenantWithdraw) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageMoneyMiddleCell" forIndexPath:indexPath];
+    }else if (type == TCMessageTypeCreditEnable || type == TCMessageTypeCreditDisable || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillPayment) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageExtendCreditMiddleCell" forIndexPath:indexPath];
+    }else if (type == TCMessageTypeRentCheckIn) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageOnlyMainTitleMiddleCell" forIndexPath:indexPath];
+    }else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageSubTitleCell" forIndexPath:indexPath];
+    }
+    
+    cell.homeMessage = message;
     cell.delegate = self;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView fd_heightForCellWithIdentifier:@"TCHomeMessageCell" configuration:^(TCHomeMessageCell *cell) {
-        cell.homeMessage = self.messageArr[indexPath.row];
-    }];
+    
+    TCHomeMessage *message = self.messageArr[indexPath.row];
+    TCMessageType type = message.messageBody.homeMessageType.type;
+    CGFloat scale = TCScreenWidth > 375.0 ? 3 : 2;
+    CGFloat baseH = 80+4*(1/scale);
+    if (type == TCMessageTypeAccountWalletPayment || type == TCMessageTypeAccountWalletRecharge || type == TCMessageTypeTenantRecharge || type == TCMessageTypeTenantWithdraw) {
+        return baseH+102;
+    }else if (type == TCMessageTypeCreditEnable || type == TCMessageTypeCreditDisable || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillPayment) {
+        return baseH+102;
+    }else if (type == TCMessageTypeRentCheckIn) {
+        return baseH+143;
+    }else {
+        return baseH+62;
+    }
 }
-
-
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -333,13 +362,30 @@
 
 - (void)card {
     TCBankCardViewController *bankCardVC = [[TCBankCardViewController alloc] init];
+    bankCardVC.walletAccount = self.walletAccount;
     [self.navigationController pushViewController:bankCardVC animated:YES];
 }
 
 - (void)cash {
     if (self.walletAccount) {
+        
+        if (![self.walletAccount.password isKindOfClass:[NSString class]]) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您还没有设置密码，是否要设置密码？" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+                [self setPassword];
+            }];
+            [alertController addAction:cancelAction];
+            [alertController addAction:deleteAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+            return;
+        }
+        
         if ([self.walletAccount.bankCards isKindOfClass:[NSArray class]] && self.walletAccount.bankCards.count > 0) {
             TCWithdrawViewController *withDrawVC = [[TCWithdrawViewController alloc] initWithWalletAccount:self.walletAccount];
+            withDrawVC.completionBlock = ^{
+                [self fetchWallatData];
+            };
             [self.navigationController pushViewController:withDrawVC animated:YES];
         }else {
             //提示绑定银行卡
@@ -356,6 +402,12 @@
     }else {
         
     }
+}
+
+- (void)setPassword {
+    TCWalletPasswordType passwordType = TCWalletPasswordTypeFirstTimeInputPassword;
+    TCWalletPasswordViewController *vc = [[TCWalletPasswordViewController alloc] initWithPasswordType:passwordType];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)addBankCard {
@@ -399,6 +451,10 @@
         _tableView.mj_footer = [TCRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOldData)];
         _tableView.mj_footer.hidden = YES;
         [_tableView registerClass:[TCHomeMessageCell class] forCellReuseIdentifier:@"TCHomeMessageCell"];
+        [_tableView registerClass:[TCHomeMessageOnlyMainTitleMiddleCell class] forCellReuseIdentifier:@"TCHomeMessageOnlyMainTitleMiddleCell"];
+        [_tableView registerClass:[TCHomeMessageSubTitleCell class] forCellReuseIdentifier:@"TCHomeMessageSubTitleCell"];
+        [_tableView registerClass:[TCHomeMessageExtendCreditMiddleCell class] forCellReuseIdentifier:@"TCHomeMessageExtendCreditMiddleCell"];
+        [_tableView registerClass:[TCHomeMessageMoneyMiddleCell class] forCellReuseIdentifier:@"TCHomeMessageMoneyMiddleCell"];
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -TCRealValue(238), self.view.bounds.size.width, TCRealValue(238))];
         [_tableView addSubview: headerView];
         headerView.backgroundColor = [UIColor whiteColor];

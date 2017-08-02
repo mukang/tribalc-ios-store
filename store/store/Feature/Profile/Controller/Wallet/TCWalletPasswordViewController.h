@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TCCommonLibs/TCBaseViewController.h>
 
 typedef NS_ENUM(NSInteger, TCWalletPasswordType) {
     TCWalletPasswordTypeFirstTimeInputPassword,      // 首次 - 输入密码
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSInteger, TCWalletPasswordType) {
 extern NSString *const TCWalletPasswordKey;
 extern NSString *const TCWalletPasswordDidChangeNotification;
 
-@interface TCWalletPasswordViewController : UIViewController
+@interface TCWalletPasswordViewController : TCBaseViewController
 
 @property (nonatomic, readonly) TCWalletPasswordType passwordType;
 /** 旧密码 */

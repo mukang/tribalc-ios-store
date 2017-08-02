@@ -155,6 +155,7 @@
 
 - (void)pushBankCardAddViewController {
     TCBankCardAddViewController *vc = [[TCBankCardAddViewController alloc] initWithNibName:@"TCBankCardAddViewController" bundle:[NSBundle mainBundle]];
+    vc.walletID = self.walletAccount.ID;
     vc.bankCardAddBlock = ^() {
         [weakSelf loadNetData];
     };
@@ -203,6 +204,7 @@
             [weakSelf.dataList removeObject:bankCard];
             weakSelf.walletAccount.bankCards = [NSArray arrayWithArray:weakSelf.dataList];
             [weakSelf.tableView reloadData];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"TCWalletBankCardDidChange" object:nil];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"银行卡删除失败，%@", reason]];

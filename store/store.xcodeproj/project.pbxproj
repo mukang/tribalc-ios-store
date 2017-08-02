@@ -22,6 +22,10 @@
 		5546F9571F27487400E9A9B0 /* TCPrivilegeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5546F9561F27487400E9A9B0 /* TCPrivilegeWrapper.m */; };
 		5546F95B1F3036CC00E9A9B0 /* TCBankCardAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5546F9591F3036CC00E9A9B0 /* TCBankCardAddViewController.m */; };
 		5546F95C1F3036CC00E9A9B0 /* TCBankCardAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5546F95A1F3036CC00E9A9B0 /* TCBankCardAddViewController.xib */; };
+		5546F9711F3076BB00E9A9B0 /* TCHomeMessageExtendCreditMiddleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5546F96A1F3076BB00E9A9B0 /* TCHomeMessageExtendCreditMiddleCell.m */; };
+		5546F9721F3076BB00E9A9B0 /* TCHomeMessageMoneyMiddleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5546F96C1F3076BB00E9A9B0 /* TCHomeMessageMoneyMiddleCell.m */; };
+		5546F9731F3076BB00E9A9B0 /* TCHomeMessageOnlyMainTitleMiddleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5546F96E1F3076BB00E9A9B0 /* TCHomeMessageOnlyMainTitleMiddleCell.m */; };
+		5546F9741F3076BB00E9A9B0 /* TCHomeMessageSubTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5546F9701F3076BB00E9A9B0 /* TCHomeMessageSubTitleCell.m */; };
 		55647E6A1E4B081300E4A0E9 /* TCGoodsMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647E691E4B081300E4A0E9 /* TCGoodsMeta.m */; };
 		55647EBD1E4C159E00E4A0E9 /* TCBatchSetiingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EB01E4C159E00E4A0E9 /* TCBatchSetiingView.m */; };
 		55647EBE1E4C159E00E4A0E9 /* TCCreatePriceAndRepertoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55647EB21E4C159E00E4A0E9 /* TCCreatePriceAndRepertoryCell.m */; };
@@ -314,6 +318,14 @@
 		5546F9581F3036CC00E9A9B0 /* TCBankCardAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBankCardAddViewController.h; sourceTree = "<group>"; };
 		5546F9591F3036CC00E9A9B0 /* TCBankCardAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBankCardAddViewController.m; sourceTree = "<group>"; };
 		5546F95A1F3036CC00E9A9B0 /* TCBankCardAddViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCBankCardAddViewController.xib; sourceTree = "<group>"; };
+		5546F9691F3076BB00E9A9B0 /* TCHomeMessageExtendCreditMiddleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessageExtendCreditMiddleCell.h; sourceTree = "<group>"; };
+		5546F96A1F3076BB00E9A9B0 /* TCHomeMessageExtendCreditMiddleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageExtendCreditMiddleCell.m; sourceTree = "<group>"; };
+		5546F96B1F3076BB00E9A9B0 /* TCHomeMessageMoneyMiddleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessageMoneyMiddleCell.h; sourceTree = "<group>"; };
+		5546F96C1F3076BB00E9A9B0 /* TCHomeMessageMoneyMiddleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageMoneyMiddleCell.m; sourceTree = "<group>"; };
+		5546F96D1F3076BB00E9A9B0 /* TCHomeMessageOnlyMainTitleMiddleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessageOnlyMainTitleMiddleCell.h; sourceTree = "<group>"; };
+		5546F96E1F3076BB00E9A9B0 /* TCHomeMessageOnlyMainTitleMiddleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageOnlyMainTitleMiddleCell.m; sourceTree = "<group>"; };
+		5546F96F1F3076BB00E9A9B0 /* TCHomeMessageSubTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCHomeMessageSubTitleCell.h; sourceTree = "<group>"; };
+		5546F9701F3076BB00E9A9B0 /* TCHomeMessageSubTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCHomeMessageSubTitleCell.m; sourceTree = "<group>"; };
 		55647E681E4B081300E4A0E9 /* TCGoodsMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMeta.h; sourceTree = "<group>"; };
 		55647E691E4B081300E4A0E9 /* TCGoodsMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMeta.m; sourceTree = "<group>"; };
 		55647EAF1E4C159E00E4A0E9 /* TCBatchSetiingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBatchSetiingView.h; sourceTree = "<group>"; };
@@ -897,6 +909,14 @@
 		559E77C21F1C9C2B00CDE11D /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				5546F9691F3076BB00E9A9B0 /* TCHomeMessageExtendCreditMiddleCell.h */,
+				5546F96A1F3076BB00E9A9B0 /* TCHomeMessageExtendCreditMiddleCell.m */,
+				5546F96B1F3076BB00E9A9B0 /* TCHomeMessageMoneyMiddleCell.h */,
+				5546F96C1F3076BB00E9A9B0 /* TCHomeMessageMoneyMiddleCell.m */,
+				5546F96D1F3076BB00E9A9B0 /* TCHomeMessageOnlyMainTitleMiddleCell.h */,
+				5546F96E1F3076BB00E9A9B0 /* TCHomeMessageOnlyMainTitleMiddleCell.m */,
+				5546F96F1F3076BB00E9A9B0 /* TCHomeMessageSubTitleCell.h */,
+				5546F9701F3076BB00E9A9B0 /* TCHomeMessageSubTitleCell.m */,
 				559E78071F1F4D9900CDE11D /* TCHomeMessageCell.h */,
 				559E78081F1F4D9900CDE11D /* TCHomeMessageCell.m */,
 				559E780A1F1F61EC00CDE11D /* TCMessageMiddleView.h */,
@@ -2151,6 +2171,7 @@
 				7ABCC0E11E2622C800750E47 /* TCRecommendFooter.m in Sources */,
 				7A7B60A01E30A609004971C9 /* TCStoreCategoryViewController.m in Sources */,
 				7AD8667F1E4DE00C00686AC2 /* TCReservationStatusView.m in Sources */,
+				5546F9711F3076BB00E9A9B0 /* TCHomeMessageExtendCreditMiddleCell.m in Sources */,
 				7ABCC0E41E2622C800750E47 /* TCGoodSelectView.m in Sources */,
 				7A83529F1E5D360E003A8E76 /* TCServiceRecommendViewCell.m in Sources */,
 				5546F95B1F3036CC00E9A9B0 /* TCBankCardAddViewController.m in Sources */,
@@ -2180,6 +2201,7 @@
 				55647F501E4DA9B400E4A0E9 /* TCBusinessLicenceViewController.m in Sources */,
 				7A1B039D1E36083D003258D0 /* TCStoreSurroundingViewCell.m in Sources */,
 				7A48B4281E4B004F00373BF4 /* TCGoodsOrderViewController.m in Sources */,
+				5546F9721F3076BB00E9A9B0 /* TCHomeMessageMoneyMiddleCell.m in Sources */,
 				7A48B42C1E4B02DB00373BF4 /* TCGoodsOrder.m in Sources */,
 				7A41CD6D1E651BDB00645026 /* TCServiceTabBar.m in Sources */,
 				558F6DA41E48196400CB2F81 /* TCGoodsIssueViewController.m in Sources */,
@@ -2193,6 +2215,7 @@
 				559E77E61F1E024C00CDE11D /* TCStoreDetailViewController.m in Sources */,
 				7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */,
 				7AD866441E4C189D00686AC2 /* TCGoodsOrderHeaderView.m in Sources */,
+				5546F9731F3076BB00E9A9B0 /* TCHomeMessageOnlyMainTitleMiddleCell.m in Sources */,
 				7A0E00B01E2E1C4A0028555D /* TCSettingViewController.m in Sources */,
 				7AFEC41C1E52E4D300B0E754 /* TCWalletViewController.m in Sources */,
 				7AD753351EC9A020007632A2 /* TCWithdrawViewController.m in Sources */,
@@ -2356,6 +2379,7 @@
 				7A1A26671E8F5719008CAA20 /* TCIDCardCaptureViewController.m in Sources */,
 				7A9987D91E24E41B006175CC /* MBProgressHUD+Category.m in Sources */,
 				559E78041F1F4B3C00CDE11D /* TCHomeMessageBody.m in Sources */,
+				5546F9741F3076BB00E9A9B0 /* TCHomeMessageSubTitleCell.m in Sources */,
 				7AFEC4591E52E5D700B0E754 /* TCWalletBill.m in Sources */,
 				5503191F1E30D2BE004522C7 /* TCAuthenticationInfo.m in Sources */,
 				559E77EA1F1E069000CDE11D /* TCStoreDetailLogoCell.m in Sources */,

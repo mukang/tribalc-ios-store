@@ -10,7 +10,7 @@
 
 @implementation TCWalletBill
 
-- (void)setCreateTime:(NSInteger)createTime {
+- (void)setCreateTime:(int64_t)createTime {
     _createTime = createTime;
     
     NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:(createTime / 1000)];

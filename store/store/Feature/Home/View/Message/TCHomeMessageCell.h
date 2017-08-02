@@ -18,7 +18,11 @@
 
 @interface TCHomeMessageCell : UITableViewCell
 
+@property (strong, nonatomic) UIView *middleView;
+
 @property (strong, nonatomic) TCHomeMessage *homeMessage;
+
+@property (strong, nonatomic) NSDateFormatter *dataFormatter;
 
 @property (weak, nonatomic) id <TCHomeMessageCellDelegate>delegate;
 
