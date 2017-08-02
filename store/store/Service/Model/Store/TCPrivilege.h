@@ -23,8 +23,8 @@
 /** 可用时段 */
 @property (copy, nonatomic) NSArray *activityTime;
 /** 开始时间 */
-@property (assign, nonatomic) NSInteger startDate;
+@property (assign, nonatomic) int64_t startDate;
 /** 结束时间 */
-@property (assign, nonatomic) NSInteger endDate;
+@property (assign, nonatomic) int64_t endDate;
 
 @end

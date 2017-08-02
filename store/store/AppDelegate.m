@@ -24,10 +24,23 @@
 
 #import <SDImageCache.h>
 #import <SDImageCacheConfig.h>
+#import "TCForceUpdateView.h"
 
+#import "TCUserDefaultsKeys.h"
+
+#import <TCCommonLibs/TCFunctions.h>
+#import <EAIntroView/EAIntroView.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+
+static NSString *const kAppVersion = @"kAppVersion";
+static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
 static NSString *const kBuglyAppID = @"9ed163958b";
 
-@interface AppDelegate ()<CLLocationManagerDelegate>
+@interface AppDelegate ()<CLLocationManagerDelegate,TCForceUpdateViewDelegate>
+
+@property (strong, nonatomic) UIWindow *updateWindow;
+/** 已经显示更新UI，防止重复显示 */
+@property (nonatomic) BOOL updateIsShow;
 
 @end
 
@@ -60,6 +73,12 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     [Bugly startWithAppId:kBuglyAppID];
     
     [self startLocationAction];
+    
+    [self registerNotifications];
+    
+    [self handleShowIntroView];
+    
+    [self setupAMapServices];
     
     return YES;
 }
@@ -143,20 +162,222 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     }];
 }
 
-#pragma mark - Notification
-
-- (void)registerNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleLaunchWindowDidDisappear)
-                                                 name:TCLaunchWindowDidDisappearNotification object:nil];
-}
-
 #pragma mark - Actions
 
 - (void)handleLaunchWindowDidDisappear {
     self.launchWindow.rootViewController = nil;
     self.launchWindow = nil;
 }
+
+#pragma mark - Notification
+
+- (void)registerNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleLaunchWindowDidDisappear)
+                                                 name:TCLaunchWindowDidDisappearNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleUnauthorizedNotification:)
+                                                 name:TCClientUnauthorizedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fetchAppVersionInfo)
+                                                 name:TCLaunchWindowDidDisappearNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fetchAppVersionInfo)
+                                                 name:TCClientNeedForceUpdateNotification object:nil];
+}
+
+- (void)removeNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Actions
+
+- (void)handleUnauthorizedNotification:(NSNotification *)notification {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您的账号已在其他设备使用，请重新登录" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self handleUserLogout];
+    }];
+    [alertController addAction:action];
+    [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)handleUserLogout {
+    @WeakObj(self)
+    [[TCBuluoApi api] logout:^(BOOL success, NSError *error) {
+        @StrongObj(self)
+        [self showLoginViewController];
+    }];
+}
+
+#pragma mark - Show Login View Controller
+
+- (void)showLoginViewController {
+//    TCLoginViewController *vc = [[TCLoginViewController alloc] initWithNibName:@"TCLoginViewController" bundle:[NSBundle mainBundle]];
+//    TCNavigationController *nav = [[TCNavigationController alloc] initWithRootViewController:vc];
+//    [self presentViewController:nav animated:YES completion:nil];
+    TCNavigationController *nav = (TCNavigationController *)self.window.rootViewController;
+    [nav popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark - Intro View
+
+/**
+ 判断是否要显示引导页
+ */
+- (void)handleShowIntroView {
+    if (![self isFirstLaunch]) return;
+    
+    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:3];
+    for (int i=0; i<3; i++) {
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"intro_image_%02zd", i+1] ofType:@"png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.window.bounds];
+        imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+        EAIntroPage *introPage = [EAIntroPage pageWithCustomView:imageView];
+        [tempArray addObject:introPage];
+    }
+    EAIntroView *introView = [[EAIntroView alloc] initWithFrame:self.window.bounds andPages:tempArray];
+    introView.skipButton.hidden = YES;
+    introView.pageControl.hidden = YES;
+    introView.scrollView.bounces = NO;
+    [introView showInView:self.window animateDuration:0];
+}
+
+- (BOOL)isFirstLaunch {
+    NSString *appVersion = [[NSUserDefaults standardUserDefaults] objectForKey:kAppVersion];
+    NSString *currentAppVersion = TCGetAppVersion();
+    if (appVersion == nil || ![appVersion isEqualToString:currentAppVersion]) {
+        [[NSUserDefaults standardUserDefaults] setObject:currentAppVersion forKey:kAppVersion];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+#pragma mark - AMapServices
+
+- (void)setupAMapServices {
+    [AMapServices sharedServices].apiKey = AMapApiKey;
+    [AMapServices sharedServices].enableHTTPS = YES;
+}
+
+#pragma mark - 检查版本
+
+- (void)fetchAppVersionInfo {
+    if (self.updateIsShow) {
+        return;
+    }
+    
+    self.updateIsShow = YES;
+    @WeakObj(self)
+    [[TCBuluoApi api] fetchAppVersionInfo:^(TCAppVersion *versionInfo, NSError *error) {
+        @StrongObj(self)
+        if (versionInfo) {
+            [self checkAppVersionInfo:versionInfo];
+        } else {
+            self.updateIsShow = NO;
+        }
+    }];
+}
+
+- (void)checkAppVersionInfo:(TCAppVersion *)versionInfo {
+    
+    /** 强制更新 */
+    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *minVersion = versionInfo.minVersion;
+    
+    NSArray *currentVersionParts = [currentVersion componentsSeparatedByString:@"."];
+    NSArray *minVersionParts = [minVersion componentsSeparatedByString:@"."];
+    
+    if (currentVersionParts.count > 2 && minVersionParts.count > 2) {
+        BOOL force = NO;
+        for (int i=0; i<3; i++) {
+            NSInteger currentVersionPart = [currentVersionParts[i] integerValue];
+            NSInteger minVersionPart = [minVersionParts[i] integerValue];
+            if (currentVersionPart < minVersionPart) {
+                force = YES;
+                break;
+            }
+        }
+        
+        if (force) {
+            [self forceUpdateWithVersionInfo:versionInfo];
+            return;
+        }
+    }
+    
+    
+    /** 建议更新 */
+    NSString *lastVersion = versionInfo.lastVersion;
+    NSString *cachedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:TCUserDefaultsKeyAppVersion];
+    if (cachedVersion == nil) {
+        cachedVersion = currentVersion;
+    }
+    
+    NSArray *cachedVersionParts = [cachedVersion componentsSeparatedByString:@"."];
+    NSArray *lastVersionParts = [lastVersion componentsSeparatedByString:@"."];
+    
+    if (cachedVersionParts.count > 1 && lastVersionParts.count > 1) {
+        BOOL update = NO;
+        for (int i=0; i<2; i++) {
+            NSInteger cachedVersionPart = [cachedVersionParts[i] integerValue];
+            NSInteger lastVersionPart = [lastVersionParts[i] integerValue];
+            if (cachedVersionPart < lastVersionPart) {
+                update = YES;
+                break;
+            }
+        }
+        
+        if (update) {
+            [self updateWithVersionInfo:versionInfo];
+            return;
+        }
+    }
+}
+
+- (void)updateWithVersionInfo:(TCAppVersion *)versionInfo {
+    NSString *title = @"检查到新版本，是否确认更新？";
+    NSString *message = versionInfo.releaseNote.count ? [versionInfo.releaseNote componentsJoinedByString:@"\n"] : nil;
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        self.updateIsShow = NO;
+        [[NSUserDefaults standardUserDefaults] setObject:versionInfo.lastVersion forKey:TCUserDefaultsKeyAppVersion];
+    }];
+    UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.updateIsShow = NO;
+        [[NSUserDefaults standardUserDefaults] setObject:versionInfo.lastVersion forKey:TCUserDefaultsKeyAppVersion];
+        NSString *appStoreUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"TCBuluoAppStoreURL"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appStoreUrl]];
+    }];
+    [vc addAction:cancelAction];
+    [vc addAction:updateAction];
+    [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)forceUpdateWithVersionInfo:(TCAppVersion *)versionInfo {
+    UIWindow *updateWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    updateWindow.windowLevel = UIWindowLevelAlert;
+    updateWindow.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.37];
+    updateWindow.hidden = NO;
+    self.updateWindow = updateWindow;
+    
+    TCForceUpdateView *updateView = [[TCForceUpdateView alloc] initWithVersionInfo:versionInfo];
+    updateView.delegate = self;
+    [updateWindow addSubview:updateView];
+    [updateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(updateWindow);
+    }];
+}
+
+#pragma mark - TCForceUpdateViewDelegate
+
+- (void)didClickUpdateButtonInForceUpdateView:(TCForceUpdateView *)view {
+    NSString *appStoreUrl = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"TCBuluoAppStoreURL"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appStoreUrl]];
+}
+
+
 
 #pragma mark - 其它代理方法
 

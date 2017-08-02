@@ -167,9 +167,6 @@
             self.messgaeWrapper = messageWrapper;
             self.messageArr = messageWrapper.content;
             [self.tableView reloadData];
-            if (messageWrapper.hasMore) {
-                self.tableView.mj_footer.hidden = NO;
-            }
         }else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
@@ -447,8 +444,21 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.mj_header = [TCRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-        _tableView.mj_footer = [TCRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOldData)];
+        
+        MJRefreshAutoNormalFooter *refreshFooter = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadOldData)];
+        refreshFooter.stateLabel.textColor = TCGrayColor;
+        refreshFooter.stateLabel.font = [UIFont systemFontOfSize:14];
+        refreshFooter.automaticallyHidden = YES;
+        [refreshFooter setTitle:@"-我是有底线的-" forState:MJRefreshStateNoMoreData];
+        _tableView.mj_footer = refreshFooter;
+        
+        MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+        refreshHeader.stateLabel.textColor = TCBlackColor;
+        refreshHeader.stateLabel.font = [UIFont systemFontOfSize:14];
+        refreshHeader.lastUpdatedTimeLabel.textColor = TCBlackColor;
+        refreshHeader.lastUpdatedTimeLabel.font = [UIFont systemFontOfSize:14];
+        _tableView.mj_header = refreshHeader;
+        
         _tableView.mj_footer.hidden = YES;
         [_tableView registerClass:[TCHomeMessageCell class] forCellReuseIdentifier:@"TCHomeMessageCell"];
         [_tableView registerClass:[TCHomeMessageOnlyMainTitleMiddleCell class] forCellReuseIdentifier:@"TCHomeMessageOnlyMainTitleMiddleCell"];
