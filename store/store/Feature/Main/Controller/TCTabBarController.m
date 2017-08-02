@@ -197,7 +197,9 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
         for (int i=0; i<3; i++) {
             NSInteger currentVersionPart = [currentVersionParts[i] integerValue];
             NSInteger minVersionPart = [minVersionParts[i] integerValue];
-            if (currentVersionPart < minVersionPart) {
+            if (currentVersionPart > minVersionPart) {
+                break;
+            } else if (currentVersionPart < minVersionPart) {
                 force = YES;
                 break;
             }
@@ -225,7 +227,9 @@ static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
         for (int i=0; i<2; i++) {
             NSInteger cachedVersionPart = [cachedVersionParts[i] integerValue];
             NSInteger lastVersionPart = [lastVersionParts[i] integerValue];
-            if (cachedVersionPart < lastVersionPart) {
+            if (cachedVersionPart > lastVersionPart) {
+                break;
+            } else if (cachedVersionPart < lastVersionPart) {
                 update = YES;
                 break;
             }
