@@ -10,7 +10,7 @@
 #import "TCHomeMessage.h"
 #import "TCMessageMiddleView.h"
 
-#define kScale (TCScreenWidth > 375 ? 3 : 2)
+#define kScale (TCScreenWidth > 375 ? 3.0 : 2.0)
 
 @interface TCHomeMessageCell ()
 
@@ -229,7 +229,7 @@
 - (UIView *)lineView4 {
     if (_lineView4 == nil) {
         _lineView4 = [[UIView alloc] init];
-        _lineView4.backgroundColor = TCSeparatorLineColor;
+        _lineView4.backgroundColor = TCBackgroundColor;
     }
     return _lineView4;
 }
@@ -247,7 +247,7 @@
 - (UIView *)lineView3 {
     if (_lineView3 == nil) {
         _lineView3 = [[UIView alloc] init];
-        _lineView3.backgroundColor = TCSeparatorLineColor;
+        _lineView3.backgroundColor = TCBackgroundColor;
     }
     return _lineView3;
 }
@@ -263,7 +263,7 @@
 - (UIView *)lineView2 {
     if (_lineView2 == nil) {
         _lineView2 = [[UIView alloc] init];
-        _lineView2.backgroundColor = TCSeparatorLineColor;
+        _lineView2.backgroundColor = TCBackgroundColor;
     }
     return _lineView2;
 }
@@ -309,7 +309,7 @@
 - (UIView *)lineView1 {
     if (_lineView1 == nil) {
         _lineView1 = [[UIView alloc] init];
-        _lineView1.backgroundColor = TCSeparatorLineColor;
+        _lineView1.backgroundColor = TCBackgroundColor;
     }
     return _lineView1;
 }
