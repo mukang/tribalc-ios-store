@@ -73,4 +73,6 @@
 
 @property (copy, nonatomic) NSString *email;
 
+@property (copy, nonatomic) NSString *serviceLine;
+
 @end

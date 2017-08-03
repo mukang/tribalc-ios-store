@@ -136,6 +136,11 @@
     }];
 }
 
+- (void)loadNewDataAndWalletData {
+    [self loadNewData];
+    [self fetchWallatData];
+}
+
 -(void)firstLoadData {
     //    [MBProgressHUD showHUD:YES];
     
@@ -176,11 +181,9 @@
 
 - (void)fetchWallatData {
     @WeakObj(self)
-//    [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] fetchWalletAccountInfo:^(TCWalletAccount *walletAccount, NSError *error) {
         @StrongObj(self)
         if (walletAccount) {
-//            [MBProgressHUD hideHUD:YES];
             self.walletAccount = walletAccount;
             NSString *str = [NSString stringWithFormat:@"¥%.2f", self.walletAccount.balance];
             NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:str];
@@ -452,7 +455,7 @@
         [refreshFooter setTitle:@"-我是有底线的-" forState:MJRefreshStateNoMoreData];
         _tableView.mj_footer = refreshFooter;
         
-        MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+        MJRefreshNormalHeader *refreshHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewDataAndWalletData)];
         refreshHeader.stateLabel.textColor = TCBlackColor;
         refreshHeader.stateLabel.font = [UIFont systemFontOfSize:14];
         refreshHeader.lastUpdatedTimeLabel.textColor = TCBlackColor;
@@ -482,7 +485,7 @@
         NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:storeInfo.ID needTimestamp:YES];
         [iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
 
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(50), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(60)-10, 15)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(45), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(55)-10, 15)];
         titleLabel.font = [UIFont systemFontOfSize:12];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.text = @"会员卡余额";
@@ -538,7 +541,7 @@
         [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
             }
         }
-        CGFloat scale = self.view.bounds.size.width > 375.0 ? 3 : 2;
+        CGFloat scale = self.view.bounds.size.width > 375.0 ? 3.0 : 2.0;
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, TCRealValue(238)-0.5, self.view.bounds.size.width, 1/scale)];
         lineView.backgroundColor = TCLightGrayColor;
         [headerView addSubview:lineView];

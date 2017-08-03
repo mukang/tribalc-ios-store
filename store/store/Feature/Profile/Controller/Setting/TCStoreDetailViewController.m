@@ -123,7 +123,7 @@
                 break;
                 case 5:
                 cell.textLabel.text = @"电        话:";
-                cell.detailTextLabel.text = self.detailStore.phone;
+                cell.detailTextLabel.text = self.detailStore.serviceLine;
                 break;
                 case 6:
                 cell.textLabel.text = @"邮        箱";
