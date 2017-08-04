@@ -51,14 +51,20 @@
         }
         
         if ([privilege.activityTime isKindOfClass:[NSArray class]] && privilege.activityTime.count == 2) {
-            NSInteger startTime = [(NSNumber *)privilege.activityTime[0] integerValue];
-            NSInteger endTime = [(NSNumber *)privilege.activityTime[1] integerValue];
-            NSInteger startH = startTime / 3600;
-            NSInteger startM = (startTime % 3600) / 60;
-            NSInteger endH = endTime / 3600;
-            NSInteger endM = (endTime % 3600) / 60;
             
-            self.privilegeTimeLabel.text = [NSString stringWithFormat:@"(使用时间:每天%02ld:%02ld-%02ld:%02ld)",(long)startH,(long)startM,(long)endH,(long)endM];
+            int64_t startSecond = 0, endSecond = 0, hour = 0, minute = 0;
+            startSecond = [[privilege.activityTime firstObject] longLongValue];
+            endSecond = [[privilege.activityTime lastObject] longLongValue];
+            
+            hour = startSecond / 3600;
+            minute = (startSecond / 60) % 60;
+            NSString *startStr = [NSString stringWithFormat:@"%02lld:%02lld", hour, minute];
+            
+            hour = endSecond / 3600;
+            minute = (endSecond / 60) % 60;
+            NSString *endStr = (startSecond < endSecond) ? [NSString stringWithFormat:@"%02lld:%02lld", hour, minute] : [NSString stringWithFormat:@"次日%02lld:%02lld", hour, minute];
+            
+            self.privilegeTimeLabel.text = [NSString stringWithFormat:@"（有效时间：每天%@-%@）", startStr, endStr];
         }
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
