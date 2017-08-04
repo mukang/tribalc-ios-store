@@ -138,8 +138,7 @@
     [self.navigationController pushViewController:walletBillVC animated:YES];
 }
 
-
-- (void)save {
+- (void)saveImage {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, TCRealValue(520))];
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake((TCScreenWidth-205)/2, TCRealValue(50), 205, 500)];
     [view addSubview:titleView];
@@ -207,6 +206,43 @@
             });
         }
     }];
+
+}
+
+
+- (void)setAuth {
+    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        
+        [[UIApplication sharedApplication] openURL:url];
+        
+    }
+}
+
+- (void)save {
+    
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusRestricted) { // 因为家长控制, 导致应用无法方法相册(跟用户的选择没有关系)
+        [MBProgressHUD showHUDWithMessage:@"因为系统原因, 无法访问相册" afterDelay:1.0];
+    } else if (status == PHAuthorizationStatusDenied) { // 用户拒绝当前应用访问相册(用户当初点击了"不允许")
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您还没允许海托邦商户版访问相册" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            [self setAuth];
+        }];
+        [alertController addAction:cancelAction];
+        [alertController addAction:deleteAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else if (status == PHAuthorizationStatusAuthorized) { // 用户允许当前应用访问相册(用户当初点击了"好")
+        [self saveImage];
+    } else if (status == PHAuthorizationStatusNotDetermined) { // 用户还没有做出选择
+        // 弹框请求用户授权
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if (status == PHAuthorizationStatusAuthorized) { // 用户点击了好
+                [self saveImage];
+            }
+        }];
+    }
 }
 
 - (UIButton *)saveBtn {
