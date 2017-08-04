@@ -295,7 +295,9 @@ static NSString *const kBuglyAppID = @"9ed163958b";
         for (int i=0; i<3; i++) {
             NSInteger currentVersionPart = [currentVersionParts[i] integerValue];
             NSInteger minVersionPart = [minVersionParts[i] integerValue];
-            if (currentVersionPart < minVersionPart) {
+            if (currentVersionPart > minVersionPart) {
+                break;
+            } else if (currentVersionPart < minVersionPart) {
                 force = YES;
                 break;
             }
@@ -323,7 +325,9 @@ static NSString *const kBuglyAppID = @"9ed163958b";
         for (int i=0; i<2; i++) {
             NSInteger cachedVersionPart = [cachedVersionParts[i] integerValue];
             NSInteger lastVersionPart = [lastVersionParts[i] integerValue];
-            if (cachedVersionPart < lastVersionPart) {
+            if (cachedVersionPart > lastVersionPart) {
+                break;
+            } else if (cachedVersionPart < lastVersionPart) {
                 update = YES;
                 break;
             }
