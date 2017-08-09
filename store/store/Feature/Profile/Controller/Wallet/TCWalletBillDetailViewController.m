@@ -13,6 +13,9 @@
 
 #import "TCWithDrawRequest.h"
 #import "TCWalletBill.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
+#import <UIImageView+WebCache.h>
+#import "TCBuluoApi.h"
 
 @interface TCWalletBillDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -46,7 +49,8 @@
     
     TCWalletBillDetailHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"TCWalletBillDetailHeaderView" owner:nil options:nil] lastObject];
     self.tableView.tableHeaderView = headerView;
-//    headerView.iconImageView
+    NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:[TCBuluoApi api].currentUserSession.assigned needTimestamp:YES];
+    [headerView.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
     headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.walletBill.amount];
     headerView.statusLabel.text = self.walletBill.title;
     
@@ -63,7 +67,7 @@
 #pragma makr - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -80,10 +84,6 @@
         case 2:
             cell.titleLabel.text = @"交易金额:";
             cell.detailLabel.text = [NSString stringWithFormat:@"%0.2f", self.walletBill.amount];
-            break;
-        case 3:
-            cell.titleLabel.text = @"会员卡号:";
-            cell.detailLabel.text = @"";
             break;
         default:
             break;

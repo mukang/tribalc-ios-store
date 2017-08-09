@@ -67,7 +67,6 @@
     [super viewDidLoad];
     [self setupNavBar];
     [self setUpViews];
-    [self firstLoadData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWallatData) name:TCWalletPasswordDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWallatData) name:@"TCWalletBankCardDidChange" object:nil];
 }
@@ -78,6 +77,8 @@
     TCNavigationController *nav = (TCNavigationController *)self.navigationController;
     self.originalInteractivePopGestureEnabled = nav.enableInteractivePopGesture;
     nav.enableInteractivePopGesture = NO;
+    
+    [self loadNewDataAndWalletData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -97,6 +98,7 @@
         [self.tableView.mj_header endRefreshing];
         if (messageWrapper) {
             if ([messageWrapper.content isKindOfClass:[NSArray class]] && messageWrapper.content.count>0) {
+                self.tableView.mj_footer.hidden = NO;
                 NSMutableArray *mutableA = [NSMutableArray arrayWithArray:messageWrapper.content];
                 [mutableA addObjectsFromArray:self.messageArr];
                 self.messageArr = mutableA;
@@ -141,43 +143,35 @@
     [self fetchWallatData];
 }
 
--(void)firstLoadData {
-    //    [MBProgressHUD showHUD:YES];
-    
-    //    dispatch_group_t group = dispatch_group_create();
-    //    dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
-    [self loadData];
-    //    });
-    //    dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
-    [self fetchWallatData];
-    //    });
-    
-    //    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-    //        [MBProgressHUD hideHUD:YES];
-    //        [self.tableView reloadData];
-    //        if (self.walletAccount) {
-    //
-    //        }
-    //    });
-}
+//-(void)firstLoadData {
+//    [self loadData];
+//    [self fetchWallatData];
+//}
 
-
-- (void)loadData {
-    @WeakObj(self)
-    [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullFirstTime count:20 sinceTime:0 result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
-        @StrongObj(self)
-        if (messageWrapper) {
-            [MBProgressHUD hideHUD:YES];
-            self.messgaeWrapper = messageWrapper;
-            self.messageArr = messageWrapper.content;
-            [self.tableView reloadData];
-        }else {
-            NSString *reason = error.localizedDescription ?: @"请稍后再试";
-            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
-        }
-    }];
-}
+//- (void)loadData {
+//    @WeakObj(self)
+//    [MBProgressHUD showHUD:YES];
+//    [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullFirstTime count:20 sinceTime:0 result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
+//        @StrongObj(self)
+//        if (messageWrapper) {
+//            [MBProgressHUD hideHUD:YES];
+//            self.messgaeWrapper = messageWrapper;
+//            if (!messageWrapper.hasMore) {
+//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+//            }
+//            if ([messageWrapper.content isKindOfClass:[NSArray class]] && messageWrapper.content.count > 0) {
+//                self.tableView.mj_footer.hidden = NO;
+//            }else {
+//                self.tableView.mj_footer.hidden = YES;
+//            }
+//            self.messageArr = messageWrapper.content;
+//            [self.tableView reloadData];
+//        }else {
+//            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+//            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+//        }
+//    }];
+//}
 
 - (void)fetchWallatData {
     @WeakObj(self)
@@ -206,7 +200,9 @@
         if (success) {
             self.coverView.hidden = YES;
             [MBProgressHUD showHUDWithMessage:@"忽略成功" afterDelay:0.5];
-            [self loadData];
+            self.messageArr = nil;
+            self.tableView.mj_footer.hidden = YES;
+            [self loadNewData];
         }else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
@@ -225,6 +221,9 @@
             NSMutableArray *arr = [NSMutableArray arrayWithArray:self.messageArr];
             [arr removeObject:message];
             self.messageArr = arr;
+            if (self.messageArr.count == 0) {
+                self.tableView.mj_footer.hidden = YES;
+            }
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             NSArray *indexPathArr = [NSArray arrayWithObjects:indexPath, nil];
             [self.tableView deleteRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationFade];
@@ -485,7 +484,7 @@
         NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:storeInfo.ID needTimestamp:YES];
         [iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
 
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(45), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(55)-10, 15)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(35), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(45)-10, 15)];
         titleLabel.font = [UIFont systemFontOfSize:12];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.text = @"会员卡余额";
@@ -493,10 +492,10 @@
         
         UILabel *banlanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(titleLabel.frame), CGRectGetMaxY(titleLabel.frame)+TCRealValue(10), titleLabel.frame.size.width, TCRealValue(40))];
         banlanceLabel.textColor = [UIColor whiteColor];
-        banlanceLabel.font = [UIFont systemFontOfSize:TCRealValue(42)];
+        banlanceLabel.font = [UIFont systemFontOfSize:TCRealValue(39)];
         NSString *str = [NSString stringWithFormat:@"¥%.2f", storeInfo.balance];
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:str];
-        [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:29] range:NSMakeRange(0, 1)];
+        [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:27] range:NSMakeRange(0, 1)];
         banlanceLabel.attributedText = attributedStr;
         [topImageView addSubview:banlanceLabel];
         self.balanceLabel = banlanceLabel;
@@ -552,6 +551,10 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
+}
+
+- (void)dealloc {
+    NSLog(@"-- TCStoreViewController dealloc --");
 }
 
 - (void)didReceiveMemoryWarning {
