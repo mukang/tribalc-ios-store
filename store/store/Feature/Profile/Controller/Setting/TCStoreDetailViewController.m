@@ -135,7 +135,7 @@
                 break;
             case 8:
                 cell.textLabel.text = @"人        均:";
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f元",self.detailStore.avgprice];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f元",self.detailStore.avgprice];
                 break;
             case 9:
                 cell.textLabel.text = @"标        签:";

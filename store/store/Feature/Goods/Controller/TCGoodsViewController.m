@@ -242,7 +242,7 @@
         make.width.equalTo(@(TCScreenWidth/2.0));
         make.height.equalTo(@(TCRealValue(41)));
     }];
-    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2.0 : 3.0;
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_onSaleBtn);
         make.right.equalTo(_onSaleBtn);

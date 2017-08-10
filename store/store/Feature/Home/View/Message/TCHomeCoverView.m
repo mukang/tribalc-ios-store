@@ -77,7 +77,7 @@
         make.height.equalTo(@(TCRealValue(42)));
     }];
     
-    CGFloat scale = TCScreenWidth > 375 ? 3 : 2;
+    CGFloat scale = TCScreenWidth > 375 ? 3.0 : 2.0;
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.overlookBtn);
         make.top.equalTo(self.overlookBtn.mas_bottom);

@@ -93,6 +93,10 @@
 - (void)loadNewData {
     @WeakObj(self)
     TCHomeMessage *firstMessage = (TCHomeMessage *)self.messageArr.firstObject;
+    if (!firstMessage) {
+        [self firstLoadData];
+        return;
+    }
     [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullNewerList count:20 sinceTime:firstMessage.createTime result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
         @StrongObj(self)
         [self.tableView.mj_header endRefreshing];
@@ -143,35 +147,38 @@
     [self fetchWallatData];
 }
 
-//-(void)firstLoadData {
-//    [self loadData];
-//    [self fetchWallatData];
-//}
+-(void)firstLoadData {
+    [self loadData];
+    [self fetchWallatData];
+}
 
-//- (void)loadData {
-//    @WeakObj(self)
-//    [MBProgressHUD showHUD:YES];
-//    [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullFirstTime count:20 sinceTime:0 result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
-//        @StrongObj(self)
-//        if (messageWrapper) {
-//            [MBProgressHUD hideHUD:YES];
-//            self.messgaeWrapper = messageWrapper;
-//            if (!messageWrapper.hasMore) {
-//                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-//            }
-//            if ([messageWrapper.content isKindOfClass:[NSArray class]] && messageWrapper.content.count > 0) {
-//                self.tableView.mj_footer.hidden = NO;
-//            }else {
-//                self.tableView.mj_footer.hidden = YES;
-//            }
-//            self.messageArr = messageWrapper.content;
-//            [self.tableView reloadData];
-//        }else {
-//            NSString *reason = error.localizedDescription ?: @"请稍后再试";
-//            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
-//        }
-//    }];
-//}
+- (void)loadData {
+    @WeakObj(self)
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullFirstTime count:20 sinceTime:0 result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
+        @StrongObj(self)
+        if (self.tableView.mj_header.isRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+        }
+        if (messageWrapper) {
+            [MBProgressHUD hideHUD:YES];
+            self.messgaeWrapper = messageWrapper;
+            if (!messageWrapper.hasMore) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            if ([messageWrapper.content isKindOfClass:[NSArray class]] && messageWrapper.content.count > 0) {
+                self.tableView.mj_footer.hidden = NO;
+            }else {
+                self.tableView.mj_footer.hidden = YES;
+            }
+            self.messageArr = messageWrapper.content;
+            [self.tableView reloadData];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+        }
+    }];
+}
 
 - (void)fetchWallatData {
     @WeakObj(self)
@@ -280,7 +287,7 @@
     
     TCHomeMessage *message = self.messageArr[indexPath.row];
     TCMessageType type = message.messageBody.homeMessageType.type;
-    CGFloat scale = TCScreenWidth > 375.0 ? 3 : 2;
+    CGFloat scale = TCScreenWidth > 375.0 ? 3.0 : 2.0;
     CGFloat baseH = 80+4*(1/scale);
     if (type == TCMessageTypeAccountWalletPayment || type == TCMessageTypeAccountWalletRecharge || type == TCMessageTypeTenantRecharge || type == TCMessageTypeTenantWithdraw) {
         return baseH+102;

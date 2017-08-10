@@ -95,40 +95,23 @@
     if (indexPath.row == 5) {
         TCAppNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppNotificationViewCell" forIndexPath:indexPath];
             return cell;
-    }else {
+    }else if(indexPath.row == 2) {
+        TCAppCacheViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppCacheViewCell" forIndexPath:indexPath];
+        return cell;
+    }else{
         TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"商户信息";
         } else if (indexPath.row == 1) {
             cell.titleLabel.text = @"支付密码";
-        } else if (indexPath.row == 2) {
-            cell.titleLabel.text = @"清除缓存";
         } else if (indexPath.row == 3) {
             cell.titleLabel.text = @"意见反馈";
         } else if (indexPath.row == 4) {
-            cell.titleLabel.text = @"检查更新";
+            cell.titleLabel.text = @"关于我们";
         }
         return cell;
 
     }
-    
-//    if (indexPath.section == 0) {
-//        TCAppNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppNotificationViewCell" forIndexPath:indexPath];
-//        return cell;
-//    } else {
-//        if (indexPath.row == 0) {
-//            TCAppCacheViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppCacheViewCell" forIndexPath:indexPath];
-//            return cell;
-//        } else {
-//            TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
-//            if (indexPath.row == 1) {
-//                cell.titleLabel.text = @"关于我们";
-//            } else {
-//                cell.titleLabel.text = @"意见反馈";
-//            }
-//            return cell;
-//        }
-//    }
 }
 
 #pragma mark - UITableViewDelegate

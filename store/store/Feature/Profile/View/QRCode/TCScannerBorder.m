@@ -49,7 +49,7 @@
     self.clipsToBounds = YES;
     
     self.layer.borderColor = [UIColor greenColor].CGColor;
-    CGFloat scale = TCScreenWidth > 375 ? 3 : 2;
+    CGFloat scale = TCScreenWidth > 375 ? 3.0 : 2.0;
     self.layer.borderWidth = 1/scale;
     
     // 图像文件包
