@@ -10,10 +10,10 @@
 
 @implementation TCWithDrawRequest
 
-- (void)setCreateTime:(int64_t)createTime {
-    _createTime = createTime;
+- (void)setTime:(int64_t)time {
+    _time = time;
     
-    NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:(createTime / 1000)];
+    NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:(time / 1000)];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday fromDate:createDate];
