@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = TCRGBColor(239, 245, 245);
+    self.title = @"商户信息";
     [self loadData];
 }
 

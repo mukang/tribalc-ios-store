@@ -51,9 +51,13 @@
     self.tableView.tableHeaderView = headerView;
     NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:[TCBuluoApi api].currentUserSession.assigned needTimestamp:YES];
     [headerView.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
-    headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.walletBill.amount];
-    headerView.statusLabel.text = self.walletBill.title;
-    
+    if (self.isWithDraw) {
+        headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.withDrawRequest.amount];
+        headerView.statusLabel.text = self.withDrawRequest.status;
+    }else {
+        headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.walletBill.amount];
+        headerView.statusLabel.text = self.walletBill.title;
+    }
     UINib *nib = [UINib nibWithNibName:@"TCWalletBillDetailViewCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"TCWalletBillDetailViewCell"];
 }
@@ -75,15 +79,27 @@
     switch (indexPath.row) {
         case 0:
             cell.titleLabel.text = @"流水号:";
-            cell.detailLabel.text = self.walletBill.ID;
+            if (self.isWithDraw) {
+                cell.detailLabel.text = self.withDrawRequest.ID;
+            }else {
+                cell.detailLabel.text = self.walletBill.ID;
+            }
             break;
         case 1:
             cell.titleLabel.text = @"交易时间:";
-            cell.detailLabel.text = self.walletBill.tradingTime;
+            if (self.isWithDraw) {
+                cell.detailLabel.text = self.withDrawRequest.tradingTime;
+            }else {
+                cell.detailLabel.text = self.walletBill.tradingTime;
+            }
             break;
         case 2:
             cell.titleLabel.text = @"交易金额:";
-            cell.detailLabel.text = [NSString stringWithFormat:@"%0.2f", self.walletBill.amount];
+            if (self.isWithDraw) {
+                cell.detailLabel.text = [NSString stringWithFormat:@"%0.2f", self.withDrawRequest.amount];
+            }else {
+                cell.detailLabel.text = [NSString stringWithFormat:@"%0.2f", self.walletBill.amount];
+            }
             break;
         default:
             break;
