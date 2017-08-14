@@ -49,7 +49,13 @@
     
     TCWalletBillDetailHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"TCWalletBillDetailHeaderView" owner:nil options:nil] lastObject];
     self.tableView.tableHeaderView = headerView;
-    NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:[TCBuluoApi api].currentUserSession.assigned needTimestamp:YES];
+    NSURL *URL;
+    if (self.isWithDraw) {
+        URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:self.withDrawRequest.ownerId needTimestamp:YES];
+    }else {
+        URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:self.walletBill.anotherId needTimestamp:YES];
+    }
+    
     [headerView.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
     if (self.isWithDraw) {
         headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.withDrawRequest.amount];
