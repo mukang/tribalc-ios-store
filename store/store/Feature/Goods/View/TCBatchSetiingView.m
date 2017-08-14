@@ -146,7 +146,7 @@
         make.height.equalTo(@15);
     }];
     
-    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2.0 : 3.0;
     
     [heLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(centerView);

@@ -72,7 +72,7 @@
 - (UITableView *)tableView {
     if (_tableView == nil) {
         CGFloat width = self.view.bounds.size.width;
-        CGFloat scale = width > 375.0 ? 3 : 2;
+        CGFloat scale = width > 375.0 ? 3.0 : 2.0;
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate = self;

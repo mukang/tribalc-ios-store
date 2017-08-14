@@ -384,7 +384,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TCWalletBillDetailViewController *vc = [[TCWalletBillDetailViewController alloc] initWithNibName:@"TCWalletBillDetailViewController" bundle:[NSBundle mainBundle]];
-
+    vc.isWithDraw = self.isWithDraw;
     NSMutableArray *temp = self.dataList[indexPath.section];
     if (self.isWithDraw) {
         TCWithDrawRequest *withDrawRequest = temp[indexPath.row];

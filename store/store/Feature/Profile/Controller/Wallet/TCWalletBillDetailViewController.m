@@ -13,6 +13,9 @@
 
 #import "TCWithDrawRequest.h"
 #import "TCWalletBill.h"
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
+#import <UIImageView+WebCache.h>
+#import "TCBuluoApi.h"
 
 @interface TCWalletBillDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -46,10 +49,21 @@
     
     TCWalletBillDetailHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"TCWalletBillDetailHeaderView" owner:nil options:nil] lastObject];
     self.tableView.tableHeaderView = headerView;
-//    headerView.iconImageView
-    headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.walletBill.amount];
-    headerView.statusLabel.text = self.walletBill.title;
+    NSURL *URL;
+    if (self.isWithDraw) {
+        URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:self.withDrawRequest.ownerId needTimestamp:YES];
+    }else {
+        URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:self.walletBill.anotherId needTimestamp:YES];
+    }
     
+    [headerView.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
+    if (self.isWithDraw) {
+        headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.withDrawRequest.amount];
+        headerView.statusLabel.text = self.withDrawRequest.status;
+    }else {
+        headerView.moneyLabel.text = [NSString stringWithFormat:@"%.2f",self.walletBill.amount];
+        headerView.statusLabel.text = self.walletBill.title;
+    }
     UINib *nib = [UINib nibWithNibName:@"TCWalletBillDetailViewCell" bundle:[NSBundle mainBundle]];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"TCWalletBillDetailViewCell"];
 }
@@ -63,7 +77,7 @@
 #pragma makr - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -71,19 +85,27 @@
     switch (indexPath.row) {
         case 0:
             cell.titleLabel.text = @"流水号:";
-            cell.detailLabel.text = self.walletBill.ID;
+            if (self.isWithDraw) {
+                cell.detailLabel.text = self.withDrawRequest.ID;
+            }else {
+                cell.detailLabel.text = self.walletBill.ID;
+            }
             break;
         case 1:
             cell.titleLabel.text = @"交易时间:";
-            cell.detailLabel.text = self.walletBill.tradingTime;
+            if (self.isWithDraw) {
+                cell.detailLabel.text = self.withDrawRequest.tradingTime;
+            }else {
+                cell.detailLabel.text = self.walletBill.tradingTime;
+            }
             break;
         case 2:
             cell.titleLabel.text = @"交易金额:";
-            cell.detailLabel.text = [NSString stringWithFormat:@"%0.2f", self.walletBill.amount];
-            break;
-        case 3:
-            cell.titleLabel.text = @"会员卡号:";
-            cell.detailLabel.text = @"";
+            if (self.isWithDraw) {
+                cell.detailLabel.text = [NSString stringWithFormat:@"%0.2f", self.withDrawRequest.amount];
+            }else {
+                cell.detailLabel.text = [NSString stringWithFormat:@"%0.2f", self.walletBill.amount];
+            }
             break;
         default:
             break;

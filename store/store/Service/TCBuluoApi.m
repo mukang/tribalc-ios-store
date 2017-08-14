@@ -1541,6 +1541,9 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 - (void)fetchHomeMessageWrapperByPullType:(TCDataListPullType)pullType count:(NSInteger)count sinceTime:(int64_t)sinceTime result:(void (^)(TCHomeMessageWrapper *, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = nil;
+        if (sinceTime == 0) {
+            pullType = TCDataListPullFirstTime;
+        }
         switch (pullType) {
             case TCDataListPullFirstTime:
                 apiName = [NSString stringWithFormat:@"members/%@/homeMessages?limit=%zd", self.currentUserSession.assigned, count];

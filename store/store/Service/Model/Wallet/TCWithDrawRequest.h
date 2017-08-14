@@ -14,11 +14,11 @@
 
 @property (copy, nonatomic) NSString *ownerId;
 
-@property (assign, nonatomic) int64_t createTime;
+@property (assign, nonatomic) int64_t time;
 
 @property (copy, nonatomic) NSString *status;
 
-@property (copy, nonatomic) NSString *bankcardNum;
+@property (copy, nonatomic) NSString *accountNumber;
 
 @property (assign, nonatomic) CGFloat amount;
 

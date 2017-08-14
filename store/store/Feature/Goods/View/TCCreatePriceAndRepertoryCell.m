@@ -100,7 +100,7 @@
         make.width.equalTo(@30);
         make.height.equalTo(@28);
     }];
-    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2 : 3;
+    CGFloat scale = [UIScreen mainScreen].bounds.size.width <= 375.0 ? 2.0 : 3.0;
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(deleteBtn.mas_bottom);
         make.left.right.equalTo(self.contentView);

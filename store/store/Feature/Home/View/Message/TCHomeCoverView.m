@@ -77,7 +77,7 @@
         make.height.equalTo(@(TCRealValue(42)));
     }];
     
-    CGFloat scale = TCScreenWidth > 375 ? 3 : 2;
+    CGFloat scale = TCScreenWidth > 375 ? 3.0 : 2.0;
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.overlookBtn);
         make.top.equalTo(self.overlookBtn.mas_bottom);
@@ -109,7 +109,7 @@
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageV.frame)+10, 0, 200, TCRealValue(42))];
         label.text = @"不再接受此动态";
-        label.font = [UIFont systemFontOfSize:12];
+        label.font = [UIFont systemFontOfSize:14];
         label.textColor = TCBlackColor;
         [_neverBtn addSubview:label];
     }
@@ -126,7 +126,7 @@
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imageV.frame)+10, 0, 200, TCRealValue(42))];
         label.text = @"忽略这条动态";
-        label.font = [UIFont systemFontOfSize:12];
+        label.font = [UIFont systemFontOfSize:14];
         label.textColor = TCBlackColor;
         [_overlookBtn addSubview:label];
     }

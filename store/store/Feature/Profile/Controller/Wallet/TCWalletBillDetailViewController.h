@@ -16,4 +16,6 @@
 
 @property (strong, nonatomic) TCWithDrawRequest *withDrawRequest;
 
+@property (assign, nonatomic) BOOL isWithDraw;
+
 @end
