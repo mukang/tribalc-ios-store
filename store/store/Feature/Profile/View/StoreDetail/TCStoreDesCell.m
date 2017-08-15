@@ -69,7 +69,7 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = TCBlackColor;
         _titleLabel.font = [UIFont systemFontOfSize:16];
-        _titleLabel.text = @"介    绍:";
+        _titleLabel.text = @"介        绍:";
     }
     return _titleLabel;
 }

@@ -79,7 +79,7 @@
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.text = @"介    绍";
+        _titleLabel.text = @"环  境  图:";
         _titleLabel.textColor = TCBlackColor;
         _titleLabel.font = [UIFont systemFontOfSize:16];
     }
