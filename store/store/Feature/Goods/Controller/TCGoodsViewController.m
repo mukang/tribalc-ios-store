@@ -45,11 +45,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = nil;
     self.first = YES;
+    self.title = @"商品管理";
     [self setUpTopViews];
     [self setCreatBtn];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSelf) name:@"KISSUEORMODIFYGOODS" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -20,6 +20,8 @@
 #import "TCStoreDetailViewController.h"
 #import "TCWalletAccount.h"
 #import "TCWalletPasswordViewController.h"
+#import "TCAppGoodsManageCell.h"
+#import "TCUserDefaultsKeys.h"
 
 @interface TCAppSettingViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -57,6 +59,7 @@
     [tableView registerClass:[TCAppNotificationViewCell class] forCellReuseIdentifier:@"TCAppNotificationViewCell"];
     [tableView registerClass:[TCAppCacheViewCell class] forCellReuseIdentifier:@"TCAppCacheViewCell"];
     [tableView registerClass:[TCCommonIndicatorViewCell class] forCellReuseIdentifier:@"TCCommonIndicatorViewCell"];
+    [tableView registerClass:[TCAppGoodsManageCell class] forCellReuseIdentifier:@"TCAppGoodsManageCell"];
     [self.view addSubview:tableView];
     
     TCCommonButton *logouButton = [TCCommonButton buttonWithTitle:@"退出" target:self action:@selector(handleClickLogoutButton:)];
@@ -87,12 +90,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 5) {
+    if (indexPath.row == 6) {
+        TCAppGoodsManageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppGoodsManageCell" forIndexPath:indexPath];
+        return cell;
+    }else if (indexPath.row == 5) {
         TCAppNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppNotificationViewCell" forIndexPath:indexPath];
             return cell;
     }else if(indexPath.row == 2) {
@@ -198,6 +204,7 @@
 - (void)handleUserLogout {
     [self.navigationController popToRootViewControllerAnimated:YES];
     [[TCBuluoApi api] logout:nil];
+    [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:TCUserDefaultsKeySwitchGoodManage];
 }
 
 - (void)didReceiveMemoryWarning {

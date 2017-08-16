@@ -33,4 +33,5 @@
 /** 优惠列表 */
 @property (copy, nonatomic) NSArray *discount;
 
+
 @end

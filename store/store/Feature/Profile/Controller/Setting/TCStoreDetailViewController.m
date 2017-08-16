@@ -112,6 +112,7 @@
                 cell.detailTextLabel.text = self.detailStore.name;
                 break;
                 case 2:
+                cell.textLabel.text = @"类        型:";
                 cell.detailTextLabel.text = self.detailStore.category;
                 break;
                 case 3:

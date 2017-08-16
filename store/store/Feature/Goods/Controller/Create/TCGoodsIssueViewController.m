@@ -13,6 +13,7 @@
 #import "TCGoodsTipsCell.h"
 #import "TCBuluoApi.h"
 #import "TCGoodDescriptionViewController.h"
+#import "TCStoreViewController.h"
 
 @interface TCGoodsIssueViewController ()<UITableViewDelegate,UITableViewDataSource,TCCommonInputViewCellDelegate,TCGoodsTipsCellDelegate>
 
@@ -140,7 +141,10 @@
         [[TCBuluoApi api] modifyGoods:self.goods result:^(BOOL success, NSError *error) {
             if (success) {
                 [MBProgressHUD hideHUD:YES];
-                [self.navigationController popToRootViewControllerAnimated:YES];
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+                TCStoreViewController *storeVC = self.navigationController.viewControllers[1];
+                [self.navigationController popToViewController:storeVC animated:YES];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"KISSUEORMODIFYGOODS" object:nil];
             }else {
                 NSString *reason = error.localizedDescription ?: @"请稍后再试";
@@ -152,7 +156,9 @@
             if (goodsArr) {
                 [MBProgressHUD hideHUD:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"KISSUEORMODIFYGOODS" object:nil];
-                [self.navigationController popToRootViewControllerAnimated:YES];
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+                TCStoreViewController *storeVC = self.navigationController.viewControllers[1];
+                [self.navigationController popToViewController:storeVC animated:YES];
             }else {
                 NSString *reason = error.localizedDescription ?: @"请稍后再试";
                 [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"加载失败，%@", reason]];

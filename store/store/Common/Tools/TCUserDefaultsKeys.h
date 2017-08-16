@@ -17,6 +17,8 @@
 #define TCUserDefaultsKeySwitchBfRecharge     @"TCUserDefaultsKeySwitchBfRecharge"
 /** 宝付提现功能开关 */
 #define TCUserDefaultsKeySwitchBfWithdraw     @"TCUserDefaultsKeySwitchBfWithdraw"
+/** 商品管理开关 */
+#define TCUserDefaultsKeySwitchGoodManage     @"TCUserDefaultsKeySwitchGoodManage"
 
 
 #endif /* TCUserDefaultsKeys_h */

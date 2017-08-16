@@ -307,17 +307,17 @@
             NSMutableArray *mutableArr = [NSMutableArray arrayWithArray:self.goods.pictures];
             [mutableArr addObject:[TCImageURLSynthesizer synthesizeImagePathWithName:uploadInfo.objectKey source:kTCImageSourceOSS]];
             self.goods.pictures = mutableArr;
-            [_imagePlayerView setPictures:mutableArr isLocal:NO];
+            [self.imagePlayerView setPictures:mutableArr isLocal:NO];
             self.deleteBtn.hidden = NO;
             self.setMainPhotoBtn.hidden = NO;
-            if (_chosePhotoBtn.centerX == self.view.centerX) {
-                [_chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            if (self.chosePhotoBtn.centerX == self.view.centerX) {
+                [self.chosePhotoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.tableView.tableHeaderView).offset(20);
                     make.bottom.equalTo(self.tableView.tableHeaderView).offset(-20);
                     make.width.equalTo(@(TCRealValue(42)));
                     make.height.equalTo(@(TCRealValue(42)));
                 }];
-                [_chosePhotoBtn setImage:[UIImage imageNamed:@"addPhoto"] forState:UIControlStateNormal];
+                [self.chosePhotoBtn setImage:[UIImage imageNamed:@"addPhoto"] forState:UIControlStateNormal];
                 [self.view setNeedsUpdateConstraints];
                 [self.view updateConstraintsIfNeeded];
                 [self.view layoutIfNeeded];

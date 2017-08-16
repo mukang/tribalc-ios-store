@@ -40,14 +40,14 @@
     [self addSubview:titleLabel];
     
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(self.frame.size.height*21/103);
+        make.top.equalTo(self).offset(self.frame.size.height*10.0/TCRealValue(78));
         make.centerX.equalTo(self);
-        make.width.height.equalTo(@(self.frame.size.height*28/103));
+        make.width.height.equalTo(@(self.frame.size.height*28.0/TCRealValue(78)));
     }];
     
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.top.equalTo(imageView.mas_bottom).offset(self.frame.size.height*12/103);
+        make.top.equalTo(imageView.mas_bottom).offset(self.frame.size.height*12.0/TCRealValue(78));
     }];
 }
 
