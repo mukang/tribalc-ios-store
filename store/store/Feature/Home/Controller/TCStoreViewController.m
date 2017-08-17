@@ -593,15 +593,15 @@
                 [headerView addSubview:billBtn];
                 [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
                 
-                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"discount" title:@"优惠策略"];
+                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"home_discount_manage" title:@"优惠策略"];
                 [headerView addSubview:discountBtn];
                 [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
-                TCVerticalImageAndTitleBtn *goodsBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(discountBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"discount" title:@"商品管理"];
+                TCVerticalImageAndTitleBtn *goodsBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(discountBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"home_good_manage" title:@"商品管理"];
                 goodsBtn.hidden = YES;
                 [headerView addSubview:goodsBtn];
                 self.cardGoodManageBtn = goodsBtn;
                 [goodsBtn addTarget:self action:@selector(goods) forControlEvents:UIControlEventTouchUpInside];
-                TCVerticalImageAndTitleBtn *orderBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(goodsBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"discount" title:@"我的订单"];
+                TCVerticalImageAndTitleBtn *orderBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(goodsBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"home_order_manage" title:@"我的订单"];
                 orderBtn.hidden = YES;
                 [headerView addSubview:orderBtn];
                 self.cardOrderManageBtn = orderBtn;
@@ -630,7 +630,7 @@
                 [headerView addSubview:billBtn];
                 [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
 
-                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"discount" title:@"优惠策略"];
+                TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"home_discount_manage" title:@"优惠策略"];
                 [headerView addSubview:discountBtn];
                 [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
                 
