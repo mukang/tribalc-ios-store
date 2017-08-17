@@ -33,7 +33,7 @@
 
 - (void)setupSubviews {
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.text = @"商品管理";
+    titleLabel.text = @"线上模式";
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.textColor = TCBlackColor;
     titleLabel.font = [UIFont systemFontOfSize:16];

@@ -95,24 +95,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 6) {
+    if (indexPath.row == 1) {
         TCAppGoodsManageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppGoodsManageCell" forIndexPath:indexPath];
         return cell;
-    }else if (indexPath.row == 5) {
+    }else if (indexPath.row == 6) {
         TCAppNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppNotificationViewCell" forIndexPath:indexPath];
             return cell;
-    }else if(indexPath.row == 2) {
+    }else if(indexPath.row == 3) {
         TCAppCacheViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppCacheViewCell" forIndexPath:indexPath];
         return cell;
     }else{
         TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"商户信息";
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             cell.titleLabel.text = @"支付密码";
-        } else if (indexPath.row == 3) {
-            cell.titleLabel.text = @"意见反馈";
         } else if (indexPath.row == 4) {
+            cell.titleLabel.text = @"意见反馈";
+        } else if (indexPath.row == 5) {
             cell.titleLabel.text = @"关于我们";
         }
         return cell;
@@ -141,20 +141,20 @@
                 [self.navigationController pushViewController:storeVC animated:YES];
             }
             break;
-        case 1:
+        case 2:
             //支付密码
             [self handleClickPassword];
             break;
-        case 2:
+        case 3:
             //清除缓存
             break;
-        case 3:
+        case 4:
         {
             TCSuggestionViewController *vc = [[TCSuggestionViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case 4:
+        case 5:
         {
             TCAboutUSViewController *aboutUs = [[TCAboutUSViewController alloc] init];
             [self.navigationController pushViewController:aboutUs animated:YES];
