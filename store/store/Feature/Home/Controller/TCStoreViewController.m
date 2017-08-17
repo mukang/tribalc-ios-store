@@ -106,7 +106,7 @@
     @WeakObj(self)
     TCHomeMessage *firstMessage = (TCHomeMessage *)self.messageArr.firstObject;
     if (!firstMessage) {
-        [self firstLoadData];
+        [self loadData];
         return;
     }
     [[TCBuluoApi api] fetchHomeMessageWrapperByPullType:TCDataListPullNewerList count:20 sinceTime:firstMessage.createTime result:^(TCHomeMessageWrapper *messageWrapper, NSError *error) {
@@ -314,6 +314,8 @@
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    [self updateNavigationBar];
     CGRect rect = _headerView.frame;
     if ((NSInteger)scrollView.contentOffset.y <= (NSInteger)-rect.size.height) {
         rect.origin.y = scrollView.contentOffset.y;
@@ -321,6 +323,41 @@
     }else {
 
     }
+}
+
+#pragma mark - Navigation Bar
+
+- (void)updateNavigationBar {
+    CGFloat offsetY = self.tableView.contentOffset.y;
+    CGFloat alpha = (offsetY+TCRealValue(302)) / TCRealValue(199-64);
+    if (alpha > 1.0) alpha = 1.0;
+    if (alpha < 0.0) alpha = 0.0;
+    [self updateNavigationBarWithAlpha:alpha];
+}
+
+- (void)updateNavigationBarWithAlpha:(CGFloat)alpha {
+    UIColor *tintColor = nil;
+    UIColor *titleColor = nil;
+//    NSString *imageStr;
+    if (alpha > 0.7) {
+//        imageStr = @"profile_nav_setting_item";
+        tintColor = TCBlackColor;
+        titleColor = TCBlackColor;
+    } else {
+//        imageStr = @"profile_nav_setting_item";
+        tintColor = [UIColor whiteColor];
+        titleColor = [UIColor whiteColor];
+    }
+    [self.navBar setTintColor:tintColor];
+    self.navBar.titleTextAttributes = @{
+                                        NSFontAttributeName : [UIFont systemFontOfSize:16],
+                                        NSForegroundColorAttributeName : titleColor
+                                        };
+//    self.navItem.rightBarButtonItem.image = [UIImage imageNamed:imageStr];
+    UIImage *bgImage = [UIImage imageWithColor:[UIColor colorWithWhite:1.0 alpha:alpha]];
+    UIImage *shadowImage = [UIImage imageWithColor:TCARGBColor(221, 221, 221, alpha)];
+    [self.navBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
+    [self.navBar setShadowImage:shadowImage];
 }
 
 #pragma mark - Private Methods
@@ -351,8 +388,8 @@
     TCStoreInfo *storeInfo = [[TCBuluoApi api] currentUserSession].storeInfo;
     if ([storeInfo.accountType isKindOfClass:[NSString class]]) {
         if ([storeInfo.accountType isEqualToString:@"CARD"]) {
-            _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(238), 0, 0, 0);
-            _headerView.frame = CGRectMake(0, -TCRealValue(238), self.view.bounds.size.width, TCRealValue(238));
+            _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302), 0, 0, 0);
+            _headerView.frame = CGRectMake(0, -TCRealValue(302), self.view.bounds.size.width, TCRealValue(302));
             
             CGFloat width = self.view.bounds.size.width / 3.0;
             if ([value isEqualToValue:@YES]) {
@@ -376,13 +413,14 @@
             
         }else if ([storeInfo.accountType isEqualToString:@"PROTOCOL"]) {
             if ([value isEqualToValue:@YES]) {
-                _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(238-103+88+59), 0, 0, 0);
-                _headerView.frame = CGRectMake(0, -TCRealValue(238-103+88+59), self.view.bounds.size.width, TCRealValue(238-103+88+59));
+                _tableView.contentOffset = CGPointMake(0, -(TCRealValue(302-103+88+59)));
+                _headerView.frame = CGRectMake(0, -TCRealValue(302-103+88+59), self.view.bounds.size.width, TCRealValue(302-103+88+59));
+                _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302-103+88+59), 0, 0, 0);
                 self.protocolDownView.hidden = NO;
             }else {
                 self.protocolDownView.hidden = YES;
-                _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(238), 0, 0, 0);
-                _headerView.frame = CGRectMake(0, -TCRealValue(238), self.view.bounds.size.width, TCRealValue(238));
+                _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302), 0, 0, 0);
+                _headerView.frame = CGRectMake(0, -TCRealValue(302), self.view.bounds.size.width, TCRealValue(302));
             }
             
             CGRect rect = _downLineView.frame;
@@ -399,10 +437,9 @@
 }
 
 - (void)setUpViews {
-    [self.view addSubview:self.tableView];
+    [self.view insertSubview:self.tableView belowSubview:self.navBar];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(64);
-        make.left.right.bottom.equalTo(self.view);
+        make.top.left.right.bottom.equalTo(self.view);
     }];
 }
 
@@ -518,7 +555,7 @@
         TCStoreInfo *storeInfo = [[TCBuluoApi api] currentUserSession].storeInfo;
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(238), 0, 0, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302), 0, 0, 0);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -543,15 +580,15 @@
         [_tableView registerClass:[TCHomeMessageSubTitleCell class] forCellReuseIdentifier:@"TCHomeMessageSubTitleCell"];
         [_tableView registerClass:[TCHomeMessageExtendCreditMiddleCell class] forCellReuseIdentifier:@"TCHomeMessageExtendCreditMiddleCell"];
         [_tableView registerClass:[TCHomeMessageMoneyMiddleCell class] forCellReuseIdentifier:@"TCHomeMessageMoneyMiddleCell"];
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -TCRealValue(238), self.view.bounds.size.width, TCRealValue(238))];
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, -TCRealValue(302), self.view.bounds.size.width, TCRealValue(302))];
         [_tableView addSubview: headerView];
         headerView.backgroundColor = [UIColor whiteColor];
         _headerView = headerView;
         
-        UIImageView *topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(135))];
+        UIImageView *topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(199))];
         [headerView addSubview:topImageView];
         
-        UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(TCRealValue(58), (TCRealValue(135)-TCRealValue(70))/2, TCRealValue(70), TCRealValue(70))];
+        UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(TCRealValue(58), ((TCRealValue(135)-TCRealValue(70))/2)+64, TCRealValue(70), TCRealValue(70))];
         iconImageView.layer.cornerRadius = TCRealValue(70)/2;
         iconImageView.clipsToBounds = YES;
         iconImageView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -560,7 +597,7 @@
         NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:storeInfo.ID needTimestamp:YES];
         [iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
 
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(35), TCRealValue(35), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(45)-10, 15)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(iconImageView.frame)+TCRealValue(35), TCRealValue(35+64), self.view.frame.size.width-CGRectGetMaxX(iconImageView.frame)-TCRealValue(45)-10, 15)];
         titleLabel.font = [UIFont systemFontOfSize:12];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.text = @"会员卡余额";
@@ -579,7 +616,7 @@
         NSValue *value = [[NSUserDefaults standardUserDefaults] objectForKey:TCUserDefaultsKeySwitchGoodManage];
         if ([storeInfo.accountType isKindOfClass:[NSString class]]) {
             if ([storeInfo.accountType isEqualToString:@"CARD"]) {
-                topImageView.image = [UIImage imageNamed:@"colBg"];
+                topImageView.image = [UIImage imageNamed:@"home_top_col"];
                 
                 CGFloat width = self.view.bounds.size.width / 3;
                 if ([value isEqualToValue:@YES]) {
@@ -612,7 +649,7 @@
                 }
         
             }else if ([storeInfo.accountType isEqualToString:@"PROTOCOL"]) {
-                topImageView.image = [UIImage imageNamed:@"cashBg"];
+                topImageView.image = [UIImage imageNamed:@"home_top_cash"];
                 CGFloat width = self.view.bounds.size.width / 5;
                 TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame)+TCRealValue(10), width, TCRealValue(78)) imageName:@"collection" title:@"收款"];
                 [headerView addSubview:colBtn];
@@ -666,8 +703,8 @@
                 orderManageBtn.frame = CGRectMake(CGRectGetMaxX(goodsManageBtn.frame), goodsManageBtn.frame.origin.y, TCScreenWidth/2, goodsManageBtn.frame.size.height);
                 
                 if ([value isEqualToValue:@YES]) {
-                    _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(238-103+88+59), 0, 0, 0);
-                    _headerView.frame = CGRectMake(0, -TCRealValue(238-103+88+59), self.view.bounds.size.width, TCRealValue(238-103+88+59));
+                    _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302-103+88+59), 0, 0, 0);
+                    _headerView.frame = CGRectMake(0, -TCRealValue(302-103+88+59), self.view.bounds.size.width, TCRealValue(302-103+88+59));
                     _protocolDownView.hidden = NO;
                 }
                 
