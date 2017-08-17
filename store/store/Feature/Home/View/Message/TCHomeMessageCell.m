@@ -88,43 +88,9 @@
             self.titleIcon.image = [UIImage imageNamed:@"storeAssistantIcon"];
         }else if (type == TCMessageTypeCompaniesAdmin || type == TCMessageTypeCompaniesRentBillGeneration || type == TCMessageTypeCompaniesRentBillPayment) {
             self.titleIcon.image = [UIImage imageNamed:@"bussinessAssistantIcon"];
+        }else if (type == TCMessageTypeAccountRegister) {
+            self.titleIcon.image = [UIImage imageNamed:@"accountAssistantIcon"];
         }
-        
-//        if (type == TCMessageTypeAccountWalletPayment || type == TCMessageTypeAccountWalletRecharge || type == TCMessageTypeTenantRecharge || type == TCMessageTypeTenantWithdraw) {
-//            [self.currentView removeFromSuperview];
-//            [self.middleView addSubview:self.moneyMiddleView];
-//            self.moneyMiddleView.homeMessage = homeMessage;
-//            [self.middleView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.equalTo(@102);
-//            }];
-//            self.currentView = self.moneyMiddleView;
-//        }else if (type == TCMessageTypeCreditEnable || type == TCMessageTypeCreditDisable || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillPayment) {
-//            [self.currentView removeFromSuperview];
-//            [self.middleView addSubview:self.extendCreditMiddleView];
-//            self.extendCreditMiddleView.homeMessage = homeMessage;
-//            [self.middleView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.equalTo(@102);
-//            }];
-//            self.currentView = self.extendCreditMiddleView;
-//        }else if (type == TCMessageTypeRentCheckIn) {
-//            [self.currentView removeFromSuperview];
-//            [self.middleView addSubview:self.onlyMainTitleMiddleView];
-//            self.onlyMainTitleMiddleView.homeMessage = homeMessage;
-//            [self.middleView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.equalTo(@62);
-//            }];
-//            self.currentView = self.onlyMainTitleMiddleView;
-//        }else {
-//            [self.currentView removeFromSuperview];
-//            [self.middleView addSubview:self.subTitleMiddleView];
-//            self.subTitleMiddleView.homeMessage = homeMessage;
-//            [self.middleView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.equalTo(@143);
-//            }];
-//            self.currentView = self.subTitleMiddleView;
-//        }
-//        [self setNeedsUpdateConstraints];
-//        [self updateConstraintsIfNeeded];
     }
 }
 

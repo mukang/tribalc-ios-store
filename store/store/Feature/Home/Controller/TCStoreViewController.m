@@ -284,7 +284,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageMoneyMiddleCell" forIndexPath:indexPath];
     }else if (type == TCMessageTypeCreditEnable || type == TCMessageTypeCreditDisable || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillPayment) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageExtendCreditMiddleCell" forIndexPath:indexPath];
-    }else if (type == TCMessageTypeRentCheckIn) {
+    }else if (type == TCMessageTypeRentCheckIn || type == TCMessageTypeAccountRegister) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageOnlyMainTitleMiddleCell" forIndexPath:indexPath];
     }else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"TCHomeMessageSubTitleCell" forIndexPath:indexPath];
@@ -305,10 +305,10 @@
         return baseH+102;
     }else if (type == TCMessageTypeCreditEnable || type == TCMessageTypeCreditDisable || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillGeneration || type == TCMessageTypeCreditBillPayment) {
         return baseH+102;
-    }else if (type == TCMessageTypeRentCheckIn) {
-        return baseH+143;
-    }else {
+    }else if (type == TCMessageTypeRentCheckIn || type == TCMessageTypeAccountRegister) {
         return baseH+62;
+    }else {
+        return baseH+143;
     }
 }
 

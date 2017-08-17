@@ -56,7 +56,7 @@
     if (_mainTitleLabel == nil) {
         _mainTitleLabel = [[UILabel alloc] init];
         _mainTitleLabel.textColor = [UIColor blackColor];
-        _mainTitleLabel.font = [UIFont systemFontOfSize:15];
+        _mainTitleLabel.font = [UIFont boldSystemFontOfSize:15];
     }
     return _mainTitleLabel;
 }
