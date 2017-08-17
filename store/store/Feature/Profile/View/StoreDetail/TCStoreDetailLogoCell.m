@@ -29,7 +29,7 @@
 - (void)setDetailStore:(TCDetailStore *)detailStore {
     _detailStore = detailStore;
     
-    NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:detailStore.ID needTimestamp:YES];
+    NSURL *URL = [TCImageURLSynthesizer synthesizeAvatarImageURLWithUserID:detailStore.ID needTimestamp:NO];
     [self.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
 }
 
