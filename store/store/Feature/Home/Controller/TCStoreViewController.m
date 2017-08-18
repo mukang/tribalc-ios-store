@@ -599,7 +599,7 @@
         UILabel *banlanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(titleLabel.frame), CGRectGetMaxY(titleLabel.frame)+TCRealValue(10), titleLabel.frame.size.width, TCRealValue(40))];
         banlanceLabel.textColor = [UIColor whiteColor];
         banlanceLabel.font = [UIFont systemFontOfSize:TCRealValue(39)];
-        NSString *str = [NSString stringWithFormat:@"¥%.2f", storeInfo.balance];
+        NSString *str = [NSString stringWithFormat:@"¥%.2f", 0.00];
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:str];
         [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:27] range:NSMakeRange(0, 1)];
         banlanceLabel.attributedText = attributedStr;
