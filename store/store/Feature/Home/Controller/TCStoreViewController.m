@@ -337,23 +337,12 @@
 
 - (void)updateNavigationBarWithAlpha:(CGFloat)alpha {
     UIColor *tintColor = nil;
-    UIColor *titleColor = nil;
-//    NSString *imageStr;
     if (alpha > 0.7) {
-//        imageStr = @"profile_nav_setting_item";
         tintColor = TCBlackColor;
-        titleColor = TCBlackColor;
     } else {
-//        imageStr = @"profile_nav_setting_item";
         tintColor = [UIColor whiteColor];
-        titleColor = [UIColor whiteColor];
     }
     [self.navBar setTintColor:tintColor];
-    self.navBar.titleTextAttributes = @{
-                                        NSFontAttributeName : [UIFont systemFontOfSize:16],
-                                        NSForegroundColorAttributeName : titleColor
-                                        };
-//    self.navItem.rightBarButtonItem.image = [UIImage imageNamed:imageStr];
     UIImage *bgImage = [UIImage imageWithColor:[UIColor colorWithWhite:1.0 alpha:alpha]];
     UIImage *shadowImage = [UIImage imageWithColor:TCARGBColor(221, 221, 221, alpha)];
     [self.navBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
@@ -370,6 +359,10 @@
     [self.view addSubview:navBar];
     
     UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:[[TCBuluoApi api] currentUserSession].storeInfo.name];
+    navBar.titleTextAttributes = @{
+                                        NSFontAttributeName : [UIFont systemFontOfSize:16],
+                                        NSForegroundColorAttributeName : TCBlackColor
+                                        };
 
     UIBarButtonItem *settingItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"profile_nav_setting_item"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                     style:UIBarButtonItemStylePlain
