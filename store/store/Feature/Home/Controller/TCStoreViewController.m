@@ -337,23 +337,12 @@
 
 - (void)updateNavigationBarWithAlpha:(CGFloat)alpha {
     UIColor *tintColor = nil;
-    UIColor *titleColor = nil;
-//    NSString *imageStr;
     if (alpha > 0.7) {
-//        imageStr = @"profile_nav_setting_item";
         tintColor = TCBlackColor;
-        titleColor = TCBlackColor;
     } else {
-//        imageStr = @"profile_nav_setting_item";
         tintColor = [UIColor whiteColor];
-        titleColor = [UIColor whiteColor];
     }
     [self.navBar setTintColor:tintColor];
-    self.navBar.titleTextAttributes = @{
-                                        NSFontAttributeName : [UIFont systemFontOfSize:16],
-                                        NSForegroundColorAttributeName : titleColor
-                                        };
-//    self.navItem.rightBarButtonItem.image = [UIImage imageNamed:imageStr];
     UIImage *bgImage = [UIImage imageWithColor:[UIColor colorWithWhite:1.0 alpha:alpha]];
     UIImage *shadowImage = [UIImage imageWithColor:TCARGBColor(221, 221, 221, alpha)];
     [self.navBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
@@ -370,6 +359,10 @@
     [self.view addSubview:navBar];
     
     UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:[[TCBuluoApi api] currentUserSession].storeInfo.name];
+    navBar.titleTextAttributes = @{
+                                        NSFontAttributeName : [UIFont systemFontOfSize:16],
+                                        NSForegroundColorAttributeName : TCBlackColor
+                                        };
 
     UIBarButtonItem *settingItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"profile_nav_setting_item"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                                                     style:UIBarButtonItemStylePlain
@@ -606,7 +599,7 @@
         UILabel *banlanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(titleLabel.frame), CGRectGetMaxY(titleLabel.frame)+TCRealValue(10), titleLabel.frame.size.width, TCRealValue(40))];
         banlanceLabel.textColor = [UIColor whiteColor];
         banlanceLabel.font = [UIFont systemFontOfSize:TCRealValue(39)];
-        NSString *str = [NSString stringWithFormat:@"¥%.2f", storeInfo.balance];
+        NSString *str = [NSString stringWithFormat:@"¥%.2f", 0.00];
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:str];
         [attributedStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:27] range:NSMakeRange(0, 1)];
         banlanceLabel.attributedText = attributedStr;
