@@ -44,6 +44,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
     [containerView addSubview:imageView];
     
     UILabel *nameLabel = [[UILabel alloc] init];
@@ -77,7 +78,8 @@
 - (void)setupConstraints {
     __weak typeof(self) weakSelf = self;
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(weakSelf.contentView);
+        make.top.equalTo(weakSelf.contentView);
+        make.bottom.equalTo(weakSelf.contentView).offset(-9);
         make.left.equalTo(weakSelf.contentView.mas_left).with.offset(20);
         make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-20);
     }];
