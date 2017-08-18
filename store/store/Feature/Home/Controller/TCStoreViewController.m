@@ -617,7 +617,7 @@
         if ([storeInfo.accountType isKindOfClass:[NSString class]]) {
             if ([storeInfo.accountType isEqualToString:@"CARD"]) {
                 topImageView.image = [UIImage imageNamed:@"home_top_col"];
-                
+                titleLabel.text = @"会员卡余额";
                 CGFloat width = self.view.bounds.size.width / 3;
                 if ([value isEqualToValue:@YES]) {
                     width = self.view.bounds.size.width / 5;
@@ -650,6 +650,7 @@
         
             }else if ([storeInfo.accountType isEqualToString:@"PROTOCOL"]) {
                 topImageView.image = [UIImage imageNamed:@"home_top_cash"];
+                titleLabel.text = @"可提现金额";
                 CGFloat width = self.view.bounds.size.width / 5;
                 TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame)+TCRealValue(10), width, TCRealValue(78)) imageName:@"collection" title:@"收款"];
                 [headerView addSubview:colBtn];
