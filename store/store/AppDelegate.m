@@ -428,8 +428,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
 - (void)pushUnitySetUpViewController {
     TCUnitySetUpViewController *setUpVC = [[TCUnitySetUpViewController alloc] init];
     setUpVC.hidesBottomBarWhenPushed = YES;
-    TCTabBarController *tabVC = (TCTabBarController *)self.window.rootViewController;
-    TCNavigationController *navVC = tabVC.selectedViewController;
+    TCNavigationController *navVC = (TCNavigationController *)self.window.rootViewController;
     if (navVC) {
         [navVC pushViewController:setUpVC animated:YES];
     }
