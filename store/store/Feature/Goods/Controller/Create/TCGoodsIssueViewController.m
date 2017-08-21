@@ -47,6 +47,7 @@
 }
 
 - (void)setUpViews {
+    self.title = @"发布商品";
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.delegate = self;
     tableView.dataSource = self;
