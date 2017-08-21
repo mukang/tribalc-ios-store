@@ -40,6 +40,7 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     UIImageView *goodsImageView = [[UIImageView alloc] init];
+    goodsImageView.clipsToBounds = YES;
     goodsImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:goodsImageView];
     
