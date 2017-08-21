@@ -80,10 +80,10 @@
     [self.view addSubview:tabView];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(TCScreenWidth, 109);
-    layout.minimumLineSpacing = 9;
+    layout.itemSize = CGSizeMake(TCScreenWidth, 118);
+    layout.minimumLineSpacing = 0;
     layout.headerReferenceSize = CGSizeMake(TCScreenWidth, 49);
-    layout.footerReferenceSize = CGSizeMake(TCScreenWidth, 18);
+    layout.footerReferenceSize = CGSizeMake(TCScreenWidth, 9);
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     collectionView.backgroundColor = TCBackgroundColor;
