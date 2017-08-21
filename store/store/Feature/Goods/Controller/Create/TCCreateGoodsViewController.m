@@ -49,7 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"发布商品";
+    self.title = @"创建商品";
  
     [self setUpViews];
 }
