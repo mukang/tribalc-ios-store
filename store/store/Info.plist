@@ -66,6 +66,10 @@
 	<string>1212276553</string>
 	<key>TCBuluoAppStoreURL</key>
 	<string>https://itunes.apple.com/cn/app/id1212276553</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
