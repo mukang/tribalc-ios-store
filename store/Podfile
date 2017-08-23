@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'  # 官方库
-source 'http://dev.buluo-gs.com/gitlab/root/tribalc-ios-specs.git'   # 私有库
+source 'http://gitlab.buluo-gs.com/iOS/podspec.git'   # 私有库
 platform :ios, '8.0'
 target 'store' do
 pod 'TCCommonLibs'
