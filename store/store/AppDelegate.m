@@ -80,22 +80,38 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     
     [self setupAMapServices];
     
-    [self setUpPush:launchOptions];
+    if (![[TCBuluoApi api] needLogin]) {
+        [self setUpPush:launchOptions];
+    }
     
     return YES;
 }
 
 #pragma mark - 推送
 
-- (void)setUpPush:(NSDictionary *)launchOptions {
+- (void)setUpAPNS {
     [[XGSetting getInstance] enableDebug:YES];
     [XGPush startApp:2200265540 appKey:@"IJ3Z6631AHGT"];
+    [self registerAPNS];
+}
+
+- (void)deleteAPNS {
+    [XGPush unRegisterDevice:^{
+        NSLog(@"XGPush unRegister success");
+    } errorCallback:^{
+        NSLog(@"XGPush unRegister fail");
+    }];
+}
+
+- (void)setUpPush:(NSDictionary *)launchOptions {
+    
+    [[XGSetting getInstance] enableDebug:YES];
+    [XGPush startApp:2200265540 appKey:@"IJ3Z6631AHGT"];
+    [self registerAPNS];
     
     [XGPush isPushOn:^(BOOL isPushOn) {
         NSLog(@"[XGDemo] Push Is %@", isPushOn ? @"ON" : @"OFF");
     }];
-    
-    [self registerAPNS];
     
     [XGPush handleLaunching:launchOptions successCallback:^{
         NSLog(@"[XGDemo] Handle launching success");
@@ -106,7 +122,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    NSString *deviceTokenStr = [XGPush registerDevice:deviceToken account:nil successCallback:^{
+    NSString *deviceTokenStr = [XGPush registerDevice:deviceToken account:[TCBuluoApi api].currentUserSession.assigned successCallback:^{
         NSLog(@"XGPush register push success");
     } errorCallback:^{
         NSLog(@"XGPush register push error");
@@ -191,7 +207,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
         [self registerPush8to9];
     } else {
         // before iOS 8
-        [self registerPushBefore8];
+//        [self registerPushBefore8];
     }
 #else
     if (sysVer < 8) {
@@ -223,10 +239,6 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
-}
-
-- (void)registerPushBefore8{
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
 }
 
 
@@ -332,6 +344,11 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchAppVersionInfo)
                                                  name:TCClientNeedForceUpdateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setUpAPNS) name:TCBuluoApiNotificationUserDidLogin object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deleteAPNS) name:TCBuluoApiNotificationUserDidLogout object:nil];
+    
 }
 
 - (void)removeNotifications {
