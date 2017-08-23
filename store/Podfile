@@ -12,4 +12,5 @@ pod 'UITableView+FDTemplateLayoutCell'
 pod 'EAIntroView', '~> 2.10.0'
 pod 'FLEX', '~> 2.0', :configurations => ['Debug']
 pod 'Bugly'
+pod 'QQ_XGPush'
 end

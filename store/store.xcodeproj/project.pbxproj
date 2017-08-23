@@ -405,6 +405,7 @@
 		55E6A3B61F42D32800FB4404 /* TCPrivilegeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPrivilegeViewController.m; sourceTree = "<group>"; };
 		55E6A3B81F42E19600FB4404 /* TCAppGoodsManageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppGoodsManageCell.h; sourceTree = "<group>"; };
 		55E6A3B91F42E19600FB4404 /* TCAppGoodsManageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppGoodsManageCell.m; sourceTree = "<group>"; };
+		55E6A3E11F4BDDC000FB4404 /* store.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = store.entitlements; sourceTree = "<group>"; };
 		55F9EDCE1E52F5E400935ADF /* TCGoodsMetaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMetaWrapper.h; sourceTree = "<group>"; };
 		55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMetaWrapper.m; sourceTree = "<group>"; };
 		55F9EE481E56D14F00935ADF /* TCSetMainGoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodView.h; sourceTree = "<group>"; };
@@ -1225,6 +1226,7 @@
 		7A99871E1E24959F006175CC /* store */ = {
 			isa = PBXGroup;
 			children = (
+				55E6A3E11F4BDDC000FB4404 /* store.entitlements */,
 				7A9987221E24959F006175CC /* AppDelegate.h */,
 				7A9987231E24959F006175CC /* AppDelegate.m */,
 				7A9987551E2497A4006175CC /* Common */,
@@ -2009,6 +2011,14 @@
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = 452XNHBVYZ;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					7A9987341E24959F006175CC = {
 						CreatedOnToolsVersion = 8.2;
@@ -2545,6 +2555,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = store/store.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: kang mu (3KD2Q352NW)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: kang mu (3KD2Q352NW)";
 				CURRENT_PROJECT_VERSION = 5;
@@ -2568,6 +2579,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = store/store.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou Tribal Commune Technology Co., Ltd. (452XNHBVYZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou Tribal Commune Technology Co., Ltd. (452XNHBVYZ)";
 				CURRENT_PROJECT_VERSION = 5;
