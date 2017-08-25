@@ -10,7 +10,6 @@
 #import "TCModelImport.h"
 
 extern NSString *const TCBuluoApiNotificationUserDidLogin;
-extern NSString *const TCBuluoApiNotificationUserLoginFailure;
 extern NSString *const TCBuluoApiNotificationUserDidLogout;
 extern NSString *const TCBuluoApiNotificationUserInfoDidUpdate;
 extern NSString *const TCBuluoApiNotificationStoreDidCreated;
@@ -262,12 +261,12 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  */
 - (void)createStore:(TCStoreDetailInfo *)storeDetailInfo result:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
-///**
-// 获取店铺基本信息
-//
-// @param resultBlock 结果回调，storeInfo为nil时表示获取失败，失败原因见error的code和userInfo
-// */
-//- (void)fetchStoreInfo:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
+/**
+ 获取店铺基本信息
+
+ @param resultBlock 结果回调，storeInfo为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchStoreInfo:(void (^)(TCStoreInfo *storeInfo, NSError *error))resultBlock;
 
 /**
  获取店铺详细信息
@@ -573,8 +572,39 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  */
 - (void)ignoreAParticularTypeHomeMessageByMessageType:(NSString *)messageType result:(void(^)(BOOL success, NSError *error))resultBlock;
 
-- (void)fetchMessageManagementList:(void (^)(NSArray *, NSError *))resultBlock;
+/**
+ 获取用户消息类型开闭状态列表
+ 
+ @param resultBlock 结果回调
+ */
+- (void)fetchMessageManagementList:(void(^)(NSArray *messageManagementList, NSError *error))resultBlock;
 
-- (void)modifyMessageState:(BOOL)open messageType:(NSString *)messageType reuslt:(void (^)(BOOL, NSError *))resultBlock;
+/**
+ 修改用户消息类型开闭状态
+ 
+ @param open 开闭状态
+ @param messageType 消息类型
+ @param resultBlock 结果回调
+ */
+- (void)modifyMessageState:(BOOL)open messageType:(NSString *)messageType reuslt:(void(^)(BOOL success, NSError *error))resultBlock;
+
+#pragma mark - 认证信息
+
+/**
+ 微信登录
+ 
+ @param code 微信code
+ @param resultBlock 结果回调
+ */
+- (void)loginByWechatCode:(NSString *)code result:(void (^)(BOOL isBind, TCUserSession *userSession, NSError *error))resultBlock;
+
+/**
+ 微信绑定
+ 
+ @param code 微信code
+ @param userID 用户id
+ @param resultBlock 结果回调
+ */
+- (void)bindWechatByWechatCode:(NSString *)code userID:(NSString *)userID result:(void (^)(BOOL success, NSError *error))resultBlock;
 
 @end
