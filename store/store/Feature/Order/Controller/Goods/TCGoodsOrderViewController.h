@@ -10,4 +10,6 @@
 
 @interface TCGoodsOrderViewController : TCBaseViewController
 
+@property (copy, nonatomic) NSDictionary *unReadNumDictionary;
+
 @end

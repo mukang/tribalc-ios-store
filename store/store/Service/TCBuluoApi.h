@@ -388,6 +388,14 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  */
 - (void)changeReservationStatus:(NSString *)status reservationID:(NSString *)reservationID result:(void (^)(BOOL success, NSError *error))resultBlock;
 
+/**
+ 获取订单详情
+ 
+ @param orderID 订单id
+ @param resultBlock 结果回调，order为nil时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)fetchOrderDetailWithOrderID:(NSString *)orderID result:(void (^)(TCGoodsOrder *order, NSError *))resultBlock;
+
 #pragma mark - 钱包资源
 
 /**
@@ -490,6 +498,14 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  */
 - (void)fetchWithDrawRequestListWithAccountType:(NSString *)accountType limitSize:(NSInteger)limitSize sortSkip:(NSString *)sortSkip sort:(NSString *)sort result:(void (^)(TCWithDrawRequestWrapper *withDrawRequestWrapper, NSError *error))resultBlock;
 
+/**
+ 获取提现详情
+ 
+ @param requestId 提现申请id
+ @param resultBlock 结果回调
+ */
+- (void)fetchWithDrawRequestDetailWithRequestId:(NSString *)requestId result:(void (^)(TCWithDrawRequest *withDrawRequest, NSError *error))resultBlock;
+
 #pragma mark - 系统初始化接口
 
 /**
@@ -541,5 +557,19 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  @param resultBlock 结果回调
  */
 - (void)ignoreAParticularTypeHomeMessageByMessageType:(NSString *)messageType result:(void(^)(BOOL success, NSError *error))resultBlock;
+
+/**
+ 获取未读消息数
+ 
+ @param resultBlock 结果回调
+ */
+- (void)fetchUnReadPushMessageNumberWithResult:(void(^)(NSDictionary *unreadNumDic, NSError *error))resultBlock;
+
+/**
+ 阅读了某一类消息
+ 
+ @param resultBlock 结果回调
+ */
+- (void)postHasReadMessageType:(NSString *)type result:(void(^)(BOOL success, NSError *error))resultBlock;
 
 @end
