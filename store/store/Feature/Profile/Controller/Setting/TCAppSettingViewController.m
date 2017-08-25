@@ -9,6 +9,7 @@
 #import "TCAppSettingViewController.h"
 #import "TCSuggestionViewController.h"
 #import "TCAboutUSViewController.h"
+#import "TCMessageManagementViewController.h"
 
 #import <TCCommonLibs/TCCommonIndicatorViewCell.h>
 #import "TCAppNotificationViewCell.h"
@@ -90,7 +91,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,6 +115,8 @@
             cell.titleLabel.text = @"意见反馈";
         } else if (indexPath.row == 5) {
             cell.titleLabel.text = @"关于我们";
+        } else if (indexPath.row == 7) {
+            cell.titleLabel.text = @"消息管理";
         }
         return cell;
 
@@ -158,6 +161,12 @@
         {
             TCAboutUSViewController *aboutUs = [[TCAboutUSViewController alloc] init];
             [self.navigationController pushViewController:aboutUs animated:YES];
+        }
+            break;
+        case 7:
+        {
+            TCMessageManagementViewController *vc = [[TCMessageManagementViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:
