@@ -542,4 +542,20 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  */
 - (void)ignoreAParticularTypeHomeMessageByMessageType:(NSString *)messageType result:(void(^)(BOOL success, NSError *error))resultBlock;
 
+/**
+ 获取用户消息类型开闭状态列表
+ 
+ @param resultBlock 结果回调
+ */
+- (void)fetchMessageManagementList:(void(^)(NSArray *messageManagementList, NSError *error))resultBlock;
+
+/**
+ 修改用户消息类型开闭状态
+ 
+ @param open 开闭状态
+ @param messageType 消息类型
+ @param resultBlock 结果回调
+ */
+- (void)modifyMessageState:(BOOL)open messageType:(NSString *)messageType reuslt:(void(^)(BOOL success, NSError *error))resultBlock;
+
 @end

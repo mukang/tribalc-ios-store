@@ -1659,5 +1659,61 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
+- (void)fetchMessageManagementList:(void (^)(NSArray *, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"members/%@/homeMessages/types/state?appType=STORE&isAgent=false", self.currentUserSession.assigned];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.codeInResponse == 200) {
+                NSArray *array = response.data;
+                NSMutableArray *temp = [NSMutableArray arrayWithCapacity:array.count];
+                for (NSDictionary *dic in array) {
+                    TCMessageManagement *messageManagement = [[TCMessageManagement alloc] initWithObjectDictionary:dic];
+                    [temp addObject:messageManagement];
+                }
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock([temp copy], nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
+}
+
+- (void)modifyMessageState:(BOOL)open messageType:(NSString *)messageType reuslt:(void (^)(BOOL, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"members/%@/homeMessages/types/%@/state", self.currentUserSession.assigned, messageType];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [request setValue:(open ? @"true" : @"false") forParam:@"value"];
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.codeInResponse == 200) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
+
 
 @end

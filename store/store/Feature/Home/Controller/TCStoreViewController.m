@@ -9,7 +9,6 @@
 #import "TCStoreViewController.h"
 #import "TCNavigationController.h"
 #import "TCCollectViewController.h"
-#import "TCSettingViewController.h"
 #import "TCStoreInfo.h"
 #import "TCBuluoApi.h"
 #import "TCVerticalImageAndTitleBtn.h"
