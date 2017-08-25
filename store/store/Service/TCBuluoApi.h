@@ -573,5 +573,8 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  */
 - (void)ignoreAParticularTypeHomeMessageByMessageType:(NSString *)messageType result:(void(^)(BOOL success, NSError *error))resultBlock;
 
+- (void)fetchMessageManagementList:(void (^)(NSArray *, NSError *))resultBlock;
+
+- (void)modifyMessageState:(BOOL)open messageType:(NSString *)messageType reuslt:(void (^)(BOOL, NSError *))resultBlock;
 
 @end
