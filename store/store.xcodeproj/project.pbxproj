@@ -186,6 +186,9 @@
 		7AA117811F4FD4F800903445 /* TCMessageManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA117801F4FD4F800903445 /* TCMessageManagement.m */; };
 		7AA117841F4FD59900903445 /* TCMessageManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA117831F4FD59900903445 /* TCMessageManagementViewController.m */; };
 		7AA117871F4FD5AB00903445 /* TCMessageManagementViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA117861F4FD5AB00903445 /* TCMessageManagementViewCell.m */; };
+		7AA1178B1F4FD89900903445 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1178A1F4FD89900903445 /* WXApiManager.m */; };
+		7AA1178E1F500F9300903445 /* TCBindPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA1178D1F500F9300903445 /* TCBindPhoneViewController.m */; };
+		7AA117911F50109100903445 /* TCNumberTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA117901F50109100903445 /* TCNumberTextField.m */; };
 		7AA4C8011EEE7EBD00D7ABBA /* TCAppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4C8001EEE7EBD00D7ABBA /* TCAppVersion.m */; };
 		7AA4C8081EEE809200D7ABBA /* TCForceUpdateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4C8071EEE809200D7ABBA /* TCForceUpdateView.m */; };
 		7AAEAA0E1EEFCDCE004E7EF9 /* TCAppInitializationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAEAA071EEFCDCE004E7EF9 /* TCAppInitializationInfo.m */; };
@@ -639,6 +642,12 @@
 		7AA117831F4FD59900903445 /* TCMessageManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMessageManagementViewController.m; sourceTree = "<group>"; };
 		7AA117851F4FD5AB00903445 /* TCMessageManagementViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCMessageManagementViewCell.h; sourceTree = "<group>"; };
 		7AA117861F4FD5AB00903445 /* TCMessageManagementViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMessageManagementViewCell.m; sourceTree = "<group>"; };
+		7AA117891F4FD89900903445 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		7AA1178A1F4FD89900903445 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		7AA1178C1F500F9300903445 /* TCBindPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCBindPhoneViewController.h; sourceTree = "<group>"; };
+		7AA1178D1F500F9300903445 /* TCBindPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCBindPhoneViewController.m; sourceTree = "<group>"; };
+		7AA1178F1F50109100903445 /* TCNumberTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCNumberTextField.h; sourceTree = "<group>"; };
+		7AA117901F50109100903445 /* TCNumberTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCNumberTextField.m; sourceTree = "<group>"; };
 		7AA4C7FF1EEE7EBD00D7ABBA /* TCAppVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppVersion.h; sourceTree = "<group>"; };
 		7AA4C8001EEE7EBD00D7ABBA /* TCAppVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppVersion.m; sourceTree = "<group>"; };
 		7AA4C8051EEE803F00D7ABBA /* TCUserDefaultsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCUserDefaultsKeys.h; sourceTree = "<group>"; };
@@ -1103,6 +1112,8 @@
 				7A55F4191E287F5B0018FED3 /* TCLoginViewController.xib */,
 				7A55F41A1E287F5B0018FED3 /* TCUserAgreementViewController.h */,
 				7A55F41B1E287F5B0018FED3 /* TCUserAgreementViewController.m */,
+				7AA1178C1F500F9300903445 /* TCBindPhoneViewController.h */,
+				7AA1178D1F500F9300903445 /* TCBindPhoneViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1377,6 +1388,7 @@
 		7A9987BF1E24C881006175CC /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7AA117881F4FD89900903445 /* Wechat */,
 				7AFEC45B1E52E83100B0E754 /* MLBPasswordTextField */,
 				558F6DCA1E48C70B00CB2F81 /* MGSwipeTableCell */,
 			);
@@ -1414,6 +1426,8 @@
 				7AA4C8071EEE809200D7ABBA /* TCForceUpdateView.m */,
 				559E77B71F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.h */,
 				559E77B81F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.m */,
+				7AA1178F1F50109100903445 /* TCNumberTextField.h */,
+				7AA117901F50109100903445 /* TCNumberTextField.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1505,6 +1519,15 @@
 				7A9988231E24EE4B006175CC /* TCUploadInfo.m */,
 			);
 			path = Upload;
+			sourceTree = "<group>";
+		};
+		7AA117881F4FD89900903445 /* Wechat */ = {
+			isa = PBXGroup;
+			children = (
+				7AA117891F4FD89900903445 /* WXApiManager.h */,
+				7AA1178A1F4FD89900903445 /* WXApiManager.m */,
+			);
+			path = Wechat;
 			sourceTree = "<group>";
 		};
 		7AA4C7FE1EEE7EA800D7ABBA /* App */ = {
@@ -2197,6 +2220,7 @@
 				7ABCC0E11E2622C800750E47 /* TCRecommendFooter.m in Sources */,
 				7A7B60A01E30A609004971C9 /* TCStoreCategoryViewController.m in Sources */,
 				7AD8667F1E4DE00C00686AC2 /* TCReservationStatusView.m in Sources */,
+				7AA1178E1F500F9300903445 /* TCBindPhoneViewController.m in Sources */,
 				7AA117871F4FD5AB00903445 /* TCMessageManagementViewCell.m in Sources */,
 				5546F9711F3076BB00E9A9B0 /* TCHomeMessageExtendCreditMiddleCell.m in Sources */,
 				7ABCC0E41E2622C800750E47 /* TCGoodSelectView.m in Sources */,
@@ -2214,6 +2238,7 @@
 				7A0E00AD1E2E17F50028555D /* TCAppNotificationViewCell.m in Sources */,
 				7AE92B761E2CB1350012B11E /* TCQRCodeViewController.m in Sources */,
 				7A9988141E24EE3E006175CC /* TCGoodDetail.m in Sources */,
+				7AA1178B1F4FD89900903445 /* WXApiManager.m in Sources */,
 				559E77F91F1F0E4500CDE11D /* TCWithDrawRequestWrapper.m in Sources */,
 				7A83529B1E5D360E003A8E76 /* TCServiceFacilityView.m in Sources */,
 				55647F4F1E4DA9B400E4A0E9 /* TCAuthCertifyViewController.m in Sources */,
@@ -2392,6 +2417,7 @@
 				7AAEAA0E1EEFCDCE004E7EF9 /* TCAppInitializationInfo.m in Sources */,
 				7AAEAA111EEFCDCE004E7EF9 /* TCPromotionsWrapper.m in Sources */,
 				7A661E6B1E31EC250080D37D /* TCCreateStorePromptView.m in Sources */,
+				7AA117911F50109100903445 /* TCNumberTextField.m in Sources */,
 				7A41CD791E6675B600645026 /* TCServiceFilterView.m in Sources */,
 				7AF0B4851E64200B00B8F7D6 /* TCServiceListViewController.m in Sources */,
 				7AD8665C1E4D6D7300686AC2 /* TCGoodsOrderPriceViewCell.m in Sources */,

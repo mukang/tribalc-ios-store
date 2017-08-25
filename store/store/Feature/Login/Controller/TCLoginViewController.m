@@ -7,18 +7,21 @@
 //
 
 #import "TCLoginViewController.h"
+#import "TCStoreViewController.h"
 #import "TCUserAgreementViewController.h"
+#import "TCBindPhoneViewController.h"
 
 #import "TCGetPasswordView.h"
-#import "TCStoreViewController.h"
 
 #import <YYText/YYText.h>
+#import <WechatOpenSDK/WXApi.h>
 
 #import "TCBuluoApi.h"
+#import "WXApiManager.h"
 
 #import "MBProgressHUD+Category.h"
 
-@interface TCLoginViewController () <UITextFieldDelegate, TCGetPasswordViewDelegate>
+@interface TCLoginViewController () <UITextFieldDelegate, TCGetPasswordViewDelegate, WXApiManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *accountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -26,11 +29,17 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (nonatomic, weak) TCGetPasswordView *getPasswordView;
 @property (nonatomic, weak) YYLabel *noticeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *wechatButton;
+@property (weak, nonatomic) IBOutlet UILabel *otherLoginLabel;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accountViewTopConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alipayButtonBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *wechatButtonBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *otherLabelBottomConstraint;
+
+/** 微信唯一标示符 */
+@property (copy, nonatomic) NSString *wechatState;
+/** 微信code */
+@property (copy, nonatomic) NSString *wechatCode;
 
 @end
 
@@ -38,10 +47,13 @@
     __weak TCLoginViewController *weakSelf;
 }
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     weakSelf = self;
+    self.hideOriginalNavBar = YES;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapViewGesture:)];
     tapGesture.cancelsTouchesInView = NO;
@@ -53,39 +65,9 @@
     if (![[TCBuluoApi api] needLogin]) {
         [self pushToStoreVC];
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:TCBuluoApiNotificationUserDidLogin object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginFailure:) name:TCBuluoApiNotificationUserLoginFailure object:nil];
 }
 
-- (void)loginSuccess {
-    if (self == [self.navigationController topViewController]) {
-        [MBProgressHUD hideHUD:YES];
-        [self pushToStoreVC];
-    }
-}
-
-- (void)loginFailure:(NSNotification *)noti {
-    NSDictionary *dic = noti.userInfo;
-    if ([dic isKindOfClass:[NSDictionary class]]) {
-        NSError *err = dic[@"error"];
-        if (err) {
-            NSString *reason = err.localizedDescription ?: @"请稍后再试";
-            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"登录失败，%@", reason]];
-            return;
-        }
-    }
-    
-    [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"登录失败，请稍后再试"]];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    if (self.navigationController) {
-        self.navigationController.navigationBarHidden = YES;
-    }
-}
+#pragma mark - Private Methods
 
 - (void)setupSubviews {
     
@@ -136,7 +118,6 @@
 - (void)setupConstraints {
     // constraint
     self.accountViewTopConstraint.constant = TCRealValue(305);
-    self.alipayButtonBottomConstraint.constant = TCRealValue(63.5);
     self.wechatButtonBottomConstraint.constant = TCRealValue(63.5);
     self.otherLabelBottomConstraint.constant = TCRealValue(42);
     
@@ -214,8 +195,7 @@
     
 }
 
-
-#pragma mark - button action
+#pragma mark - Actions
 
 - (IBAction)handleTapBackButton:(UIButton *)sender {
     [self hideKeyboard];
@@ -245,8 +225,10 @@
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] login:phoneInfo result:^(TCUserSession *userSession, NSError *error) {
         if (userSession) {
-//            [MBProgressHUD hideHUD:YES];
-//            [weakSelf handleTapBackButton:nil];
+            [MBProgressHUD hideHUD:YES];
+            if (weakSelf == [weakSelf.navigationController topViewController]) {
+                [weakSelf pushToStoreVC];
+            }
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"登录失败，%@", reason]];
@@ -259,12 +241,39 @@
     [self.navigationController pushViewController:storeVC animated:YES];
 }
 
-- (IBAction)handleTapAlipayButton:(UIButton *)sender {
-    NSLog(@"支付宝登录");
+- (IBAction)handleTapWechatButton:(UIButton *)sender {
+    [WXApiManager sharedManager].delegate = self;
+    self.wechatState = [NSString stringWithFormat:@"buluo-gs-%d", arc4random()];
+    
+    SendAuthReq *req = [[SendAuthReq alloc] init];
+    req.scope = @"snsapi_userinfo";
+    req.state = self.wechatState;
+    [WXApi sendReq:req];
 }
 
-- (IBAction)handleTapWechatButton:(UIButton *)sender {
-    NSLog(@"微信登录");
+- (void)handleWechatLogin {
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] loginByWechatCode:self.wechatCode result:^(BOOL isBind, TCUserSession *userSession, NSError *error) {
+        if (error) {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"登录失败，%@", reason]];
+        } else {
+            [MBProgressHUD hideHUD:YES];
+            if (isBind) {
+                if (weakSelf == [weakSelf.navigationController topViewController]) {
+                    [weakSelf pushToStoreVC];
+                }
+            } else {
+                [weakSelf handleShowBindPhoneViewController];
+            }
+        }
+    }];
+}
+
+- (void)handleShowBindPhoneViewController {
+    TCBindPhoneViewController *vc = [[TCBindPhoneViewController alloc] init];
+    vc.wechatCode = self.wechatCode;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)handleTapViewGesture:(UITapGestureRecognizer *)gesture {

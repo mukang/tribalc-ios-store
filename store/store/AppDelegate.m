@@ -27,6 +27,7 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "XGPush.h"
 #import "XGSetting.h"
+#import "WXApiManager.h"
 
 static NSString *const kAppVersion = @"kAppVersion";
 static NSString *const AMapApiKey = @"f6e6be9c7571a38102e25077d81a960a";
@@ -68,6 +69,9 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     
     // 获取应用初始化信息
     [self setupAppInitializedInfo];
+    
+    // wechat
+    [WXApi registerApp:kWXAppID];
     
     // Bugly
     [Bugly startWithAppId:kBuglyAppID];

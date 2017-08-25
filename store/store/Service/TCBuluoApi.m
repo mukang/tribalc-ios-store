@@ -14,7 +14,6 @@
 #import <TCCommonLibs/TCFunctions.h>
 
 NSString *const TCBuluoApiNotificationUserDidLogin = @"TCBuluoApiNotificationUserDidLogin";
-NSString *const TCBuluoApiNotificationUserLoginFailure = @"TCBuluoApiNotificationUserLoginFailure";
 NSString *const TCBuluoApiNotificationUserDidLogout = @"TCBuluoApiNotificationUserDidLogout";
 NSString *const TCBuluoApiNotificationUserInfoDidUpdate = @"TCBuluoApiNotificationUserInfoDidUpdate";
 NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotificationStoreDidCreated";
@@ -102,23 +101,6 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
-- (void)fetchStoreInfoWithID:(NSString *)ID {
-    [self fetchStoreInfo:^(TCStoreInfo *storeInfo, NSError *error) {
-        if (storeInfo) {
-            TCUserSession *userSession = self.currentUserSession;
-            userSession.storeInfo = storeInfo;
-            [self setUserSession:userSession];
-            [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserDidLogin object:nil];
-        }else {
-            if (error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserLoginFailure object:nil userInfo:@{@"error": error}];
-            }else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserLoginFailure object:nil];
-            }
-        }
-    }];
-}
-
 #pragma mark - 用户资源
 
 - (void)login:(TCUserPhoneInfo *)phoneInfo result:(void (^)(TCUserSession *, NSError *))resultBlock {
@@ -129,21 +111,30 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         [request setValue:dic[key] forParam:key];
     }
     [[TCClient client] send:request finish:^(TCClientResponse *response) {
-        TCUserSession *userSession = nil;
-        NSError *error = response.error;
-        if (error) {
+        if (response.error) {
             [self setUserSession:nil];
-        } else {
-            userSession = [[TCUserSession alloc] initWithObjectDictionary:response.data];
-            [self setUserSession:userSession];
-            [self fetchStoreInfoWithID:userSession.assigned];
-        }
-        if (resultBlock) {
-            if (error) {
-                TC_CALL_ASYNC_MQ(resultBlock(nil, error));
-            } else {
-                TC_CALL_ASYNC_MQ(resultBlock(userSession, nil));
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
             }
+        } else {
+            TCUserSession *userSession = [[TCUserSession alloc] initWithObjectDictionary:response.data];
+            [self setUserSession:userSession];
+            [self fetchStoreInfo:^(TCStoreInfo *storeInfo, NSError *error) {
+                if (storeInfo) {
+                    TCLog(@"%@", [NSThread currentThread]);
+                    TCUserSession *session = self.currentUserSession;
+                    session.storeInfo = storeInfo;
+                    [self setUserSession:session];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserDidLogin object:nil];
+                    if (resultBlock) {
+                        resultBlock(session, nil);
+                    }
+                } else {
+                    if (resultBlock) {
+                        resultBlock(nil, error);
+                    }
+                }
+            }];
         }
     }];
 }
@@ -1712,6 +1703,60 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
         }
     }
+}
+
+#pragma mark - 认证信息
+
+- (void)loginByWechatCode:(NSString *)code result:(void (^)(BOOL, TCUserSession *, NSError *))resultBlock {
+    NSString *apiName = @"wechat/login";
+    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
+    [request setValue:code forParam:@"code"];
+    [request setValue:@"STORE" forParam:@"memberType"];
+    [[TCClient client] send:request finish:^(TCClientResponse *response) {
+        if (response.codeInResponse == 200) {
+            TCUserSession *userSession = [[TCUserSession alloc] initWithObjectDictionary:response.data];
+            [self setUserSession:userSession];
+            [self fetchStoreInfo:^(TCStoreInfo *storeInfo, NSError *error) {
+                if (storeInfo) {
+                    TCLog(@"%@", [NSThread currentThread]);
+                    TCUserSession *session = self.currentUserSession;
+                    session.storeInfo = storeInfo;
+                    [self setUserSession:session];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:TCBuluoApiNotificationUserDidLogin object:nil];
+                    if (resultBlock) {
+                        resultBlock(YES, session, nil);
+                    }
+                } else {
+                    if (resultBlock) {
+                        resultBlock(NO, nil, error);
+                    }
+                }
+            }];
+        } else {
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(NO, nil, response.error));
+            }
+        }
+    }];
+}
+
+- (void)bindWechatByWechatCode:(NSString *)code userID:(NSString *)userID result:(void (^)(BOOL, NSError *))resultBlock {
+    NSString *apiName = @"wechat/bind";
+    TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
+    [request setValue:code forParam:@"code"];
+    [request setValue:userID forParam:@"memberId"];
+    [request setValue:@"STORE" forParam:@"memberType"];
+    [[TCClient client] send:request finish:^(TCClientResponse *response) {
+        if (response.codeInResponse == 200) {
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+            }
+        } else {
+            if (resultBlock) {
+                TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+            }
+        }
+    }];
 }
 
 
