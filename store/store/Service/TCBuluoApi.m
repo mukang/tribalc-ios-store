@@ -1661,172 +1661,6 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
-- (void)ignoreAHomeMessageByMessageID:(NSString *)messageID result:(void (^)(BOOL, NSError *))resultBlock {
-    if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"members/%@/homeMessages/%@/state", self.currentUserSession.assigned, messageID];
-        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
-        request.token = self.currentUserSession.token;
-        [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.codeInResponse == 200) {
-                if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
-                }
-            } else {
-                if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
-                }
-            }
-        }];
-    } else {
-        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
-        if (resultBlock) {
-            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
-        }
-    }
-}
-
-- (void)ignoreAParticularTypeHomeMessageByMessageType:(NSString *)messageType result:(void (^)(BOOL, NSError *))resultBlock {
-    if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"members/%@/homeMessageTypeShield/%@", self.currentUserSession.assigned, messageType];
-        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
-        request.token = self.currentUserSession.token;
-        [[TCClient client] send:request finish:^(TCClientResponse *response) {
-            if (response.codeInResponse == 200) {
-                if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
-                }
-            } else {
-                if (resultBlock) {
-                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
-                }
-            }
-        }];
-    } else {
-        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
-        if (resultBlock) {
-            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 - (void)fetchUnReadPushMessageNumberWithResult:(void(^)(NSDictionary *unreadNumDic, NSError *error))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"members/%@/xgMessages/count", self.currentUserSession.assigned];
@@ -1881,5 +1715,54 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
         }
     }
 }
+
+- (void)ignoreAHomeMessageByMessageID:(NSString *)messageID result:(void (^)(BOOL, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"members/%@/homeMessages/%@/state", self.currentUserSession.assigned, messageID];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.codeInResponse == 200) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
+- (void)ignoreAParticularTypeHomeMessageByMessageType:(NSString *)messageType result:(void (^)(BOOL, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"members/%@/homeMessageTypeShield/%@", self.currentUserSession.assigned, messageType];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPut apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.codeInResponse == 200) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(YES, nil));
+                }
+            } else {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(NO, response.error));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(NO, sessionError));
+        }
+    }
+}
+
 
 @end

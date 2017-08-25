@@ -543,6 +543,21 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
 - (void)fetchHomeMessageWrapperByPullType:(TCDataListPullType)pullType count:(NSInteger)count sinceTime:(int64_t)sinceTime result:(void(^)(TCHomeMessageWrapper *messageWrapper, NSError *error))resultBlock;
 
 /**
+ 获取未读消息数
+ 
+ @param resultBlock 结果回调
+ */
+- (void)fetchUnReadPushMessageNumberWithResult:(void(^)(NSDictionary *unreadNumDic, NSError *error))resultBlock;
+
+/**
+ 阅读了某一类消息
+ 
+ @param resultBlock 结果回调
+ */
+- (void)postHasReadMessageType:(NSString *)type result:(void(^)(BOOL success, NSError *error))resultBlock;
+
+
+/**
  忽略某一条消息
  
  @param messageID 消息ID
@@ -558,67 +573,5 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  */
 - (void)ignoreAParticularTypeHomeMessageByMessageType:(NSString *)messageType result:(void(^)(BOOL success, NSError *error))resultBlock;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- 获取未读消息数
- 
- @param resultBlock 结果回调
- */
-- (void)fetchUnReadPushMessageNumberWithResult:(void(^)(NSDictionary *unreadNumDic, NSError *error))resultBlock;
-
-/**
- 阅读了某一类消息
- 
- @param resultBlock 结果回调
- */
-- (void)postHasReadMessageType:(NSString *)type result:(void(^)(BOOL success, NSError *error))resultBlock;
 
 @end
