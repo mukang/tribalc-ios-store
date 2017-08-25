@@ -65,6 +65,8 @@
 		559E780F1F209C9B00CDE11D /* TCHomeCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E780E1F209C9B00CDE11D /* TCHomeCoverView.m */; };
 		55E6A3B71F42D32800FB4404 /* TCPrivilegeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E6A3B61F42D32800FB4404 /* TCPrivilegeViewController.m */; };
 		55E6A3BA1F42E19600FB4404 /* TCAppGoodsManageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E6A3B91F42E19600FB4404 /* TCAppGoodsManageCell.m */; };
+		55E6A3E41F4EC24000FB4404 /* TCTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E6A3E31F4EC24000FB4404 /* TCTabView.m */; };
+		55E6A3E71F4EC28300FB4404 /* TCTabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E6A3E61F4EC28300FB4404 /* TCTabButton.m */; };
 		55F9EDD01E52F5E400935ADF /* TCGoodsMetaWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */; };
 		55F9EE4A1E56D14F00935ADF /* TCSetMainGoodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE491E56D14F00935ADF /* TCSetMainGoodView.m */; };
 		55F9EE4D1E56DF4E00935ADF /* TCSetMainGoodListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9EE4C1E56DF4E00935ADF /* TCSetMainGoodListCell.m */; };
@@ -411,6 +413,10 @@
 		55E6A3B81F42E19600FB4404 /* TCAppGoodsManageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCAppGoodsManageCell.h; sourceTree = "<group>"; };
 		55E6A3B91F42E19600FB4404 /* TCAppGoodsManageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCAppGoodsManageCell.m; sourceTree = "<group>"; };
 		55E6A3E11F4BDDC000FB4404 /* store.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = store.entitlements; sourceTree = "<group>"; };
+		55E6A3E21F4EC24000FB4404 /* TCTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCTabView.h; sourceTree = "<group>"; };
+		55E6A3E31F4EC24000FB4404 /* TCTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCTabView.m; sourceTree = "<group>"; };
+		55E6A3E51F4EC28300FB4404 /* TCTabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCTabButton.h; sourceTree = "<group>"; };
+		55E6A3E61F4EC28300FB4404 /* TCTabButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCTabButton.m; sourceTree = "<group>"; };
 		55F9EDCE1E52F5E400935ADF /* TCGoodsMetaWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsMetaWrapper.h; sourceTree = "<group>"; };
 		55F9EDCF1E52F5E400935ADF /* TCGoodsMetaWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsMetaWrapper.m; sourceTree = "<group>"; };
 		55F9EE481E56D14F00935ADF /* TCSetMainGoodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCSetMainGoodView.h; sourceTree = "<group>"; };
@@ -1409,6 +1415,8 @@
 		7A9987D61E24E401006175CC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				55E6A3E21F4EC24000FB4404 /* TCTabView.h */,
+				55E6A3E31F4EC24000FB4404 /* TCTabView.m */,
 				7A661E5A1E31B3B40080D37D /* TCCommonInputViewCell.h */,
 				7A661E5B1E31B3B40080D37D /* TCCommonInputViewCell.m */,
 				7A1B03871E359EAB003258D0 /* TCCityPickerView.h */,
@@ -1428,6 +1436,8 @@
 				559E77B81F18A9C200CDE11D /* TCVerticalImageAndTitleBtn.m */,
 				7AA1178F1F50109100903445 /* TCNumberTextField.h */,
 				7AA117901F50109100903445 /* TCNumberTextField.m */,
+				55E6A3E51F4EC28300FB4404 /* TCTabButton.h */,
+				55E6A3E61F4EC28300FB4404 /* TCTabButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2216,6 +2226,7 @@
 				7A7B609A1E30A0B9004971C9 /* TCCreateGoodsStoreViewController.m in Sources */,
 				7A40CE0B1E3851F20049A8EF /* TCStoreFeature.m in Sources */,
 				7A55F4231E287F5B0018FED3 /* TCGetPasswordView.m in Sources */,
+				55E6A3E41F4EC24000FB4404 /* TCTabView.m in Sources */,
 				7A1B03941E35D9B6003258D0 /* TCStoreLogoUploadViewController.m in Sources */,
 				7ABCC0E11E2622C800750E47 /* TCRecommendFooter.m in Sources */,
 				7A7B60A01E30A609004971C9 /* TCStoreCategoryViewController.m in Sources */,
@@ -2365,6 +2376,7 @@
 				7AFEC4611E52E83100B0E754 /* MLBPasswordTextField.m in Sources */,
 				7A8E42821E3757E3003A475B /* TCCookingStyleViewCell.m in Sources */,
 				551CF25F1EE7A89200281637 /* TCCollectViewController.m in Sources */,
+				55E6A3E71F4EC28300FB4404 /* TCTabButton.m in Sources */,
 				55647F5A1E4DBA8000E4A0E9 /* TCStoreAuthSuccessCell.m in Sources */,
 				559E780F1F209C9B00CDE11D /* TCHomeCoverView.m in Sources */,
 				55647EC31E4C159E00E4A0E9 /* TCGoodsTipsCell.m in Sources */,

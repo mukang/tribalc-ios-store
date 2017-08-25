@@ -13,7 +13,7 @@
 #import "TCGoodsOrderHeaderView.h"
 #import "TCGoodsOrderFooterView.h"
 
-#import <TCCommonLibs/TCTabView.h>
+#import "TCTabView.h"
 #import <TCCommonLibs/TCRefreshHeader.h>
 #import <TCCommonLibs/TCRefreshFooter.h>
 
@@ -28,6 +28,8 @@
 @property (copy, nonatomic) NSString *sortSkip;
 
 @property (strong, nonatomic) NSMutableArray *dataList;
+
+@property (weak, nonatomic) TCTabView *tabView;
 
 @end
 
@@ -47,12 +49,20 @@
     
     [self setupSubviews];
     [self loadNewData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTabViewUnreadNum:) name:@"TCFetchUnReadMessageNumber" object:nil];
 }
 
 #pragma mark - Private Methods
 
+- (void)updateTabViewUnreadNum:(NSNotification *)noti {
+    NSDictionary *dic = noti.userInfo;
+    if ([dic isKindOfClass:[NSDictionary class]]) {
+        self.tabView.unreadNumDic = dic;
+    }
+}
+
 - (void)setupSubviews {
-    TCTabView *tabView = [[TCTabView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, 40) titleArr:@[@"全部", @"待付款", @"待发货", @"待收货", @"已完成"]];
+    TCTabView *tabView = [[TCTabView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, 40) titleArr:@[@"    全部", @"待付款", @"待发货", @"待收货", @"已完成"]];
     tabView.tapBlock = ^(NSInteger index) {
         switch (index) {
             case 0:
@@ -77,6 +87,10 @@
         }
         [weakSelf loadNewData];
     };
+    if (self.unReadNumDictionary) {
+        tabView.unreadNumDic = self.unReadNumDictionary;
+    }
+    self.tabView = tabView;
     [self.view addSubview:tabView];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -103,8 +117,22 @@
     }];
 }
 
+- (void)postHasReadmessage {
+    if ([self.currentStatus isEqualToString:@"DELIVERY"]) {
+        @WeakObj(self)
+        [[TCBuluoApi api] postHasReadMessageType:self.currentStatus result:^(BOOL success, NSError *error) {
+            @StrongObj(self)
+        }];
+    }
+}
+
 - (void)loadNewData {
     [MBProgressHUD showHUD:YES];
+    
+    if ([self.currentStatus isEqualToString: @"DELIVERY"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TCClearUnreadNum" object:nil userInfo:@{@"index":@3,@"type":@"ORDER_SETTLE"}];
+    }
+    
     [[TCBuluoApi api] fetchGoodsOrderWrapper:self.currentStatus limitSize:self.limitSize sortSkip:nil result:^(TCGoodsOrderWrapper *goodsOrderWrapper, NSError *error) {
         [weakSelf.collectionView.mj_header endRefreshing];
         [weakSelf.collectionView.mj_footer endRefreshing];
@@ -114,6 +142,7 @@
             [weakSelf.dataList removeAllObjects];
             [weakSelf.dataList addObjectsFromArray:goodsOrderWrapper.content];
             [weakSelf.collectionView reloadData];
+            [weakSelf postHasReadmessage];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取订单数据失败，%@", reason]];

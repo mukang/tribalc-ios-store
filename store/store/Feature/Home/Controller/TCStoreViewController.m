@@ -69,6 +69,10 @@
 
 @property (weak, nonatomic) UIView *downLineView;
 
+@property (copy, nonatomic) NSDictionary *unreadNumDic;
+
+@property (weak, nonatomic) UILabel *unreadNumLabel;
+
 @end
 
 @implementation TCStoreViewController
@@ -77,9 +81,12 @@
     [super viewDidLoad];
     [self setupNavBar];
     [self setUpViews];
+    [self loadUnReadPushNumber];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWallatData) name:TCWalletPasswordDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWallatData) name:@"TCWalletBankCardDidChange" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateViews:) name:@"TCDidUpdateGoodsManageControl" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUpUnreadMessageNumber:) name:@"TCFetchUnReadMessageNumber" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subtractUnreadNum:) name:@"TCSubtractCurrentUnReadNum" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -350,6 +357,46 @@
 
 #pragma mark - Private Methods
 
+- (void)loadUnReadPushNumber {
+    @WeakObj(self)
+    [[TCBuluoApi api] fetchUnReadPushMessageNumberWithResult:^(NSDictionary *unreadNumDic, NSError *error) {
+        @StrongObj(self)
+        if ([unreadNumDic isKindOfClass:[NSDictionary class]]) {
+            self.unreadNumDic = unreadNumDic;
+        }
+    }];
+}
+
+- (void)subtractUnreadNum:(NSNotification *)noti {
+    NSDictionary *dic = noti.userInfo;
+    if ([dic isKindOfClass:[NSDictionary class]]) {
+        NSNumber *num = dic[@"unreadNum"];
+        NSString *type = dic[@"type"];
+        if ([num isKindOfClass:[NSNumber class]] && [type isKindOfClass:[NSString class]]) {
+            NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithDictionary:self.unreadNumDic];
+            NSDictionary *messageTypeCountDic = self.unreadNumDic[@"messageTypeCount"];
+            if ([messageTypeCountDic isKindOfClass:[NSDictionary class]]) {
+                NSMutableDictionary *mutableMessageTypeCountDic = [NSMutableDictionary dictionaryWithDictionary:messageTypeCountDic];
+                [mutableMessageTypeCountDic setObject:@0 forKey:type];
+                mutableDic[@"messageTypeCount"] = mutableMessageTypeCountDic;
+                self.unreadNumDic = mutableDic;
+            }
+        }
+    }
+}
+
+- (void)setUnreadNumDic:(NSDictionary *)unreadNumDic {
+    _unreadNumDic = unreadNumDic;
+    [self updateUnReadNumLabel];
+}
+
+- (void)setUpUnreadMessageNumber:(NSNotification *)noti {
+    NSDictionary *dic = noti.userInfo;
+    if ([dic isKindOfClass:[NSDictionary class]]) {
+        self.unreadNumDic = dic;
+    }
+}
+
 - (void)setupNavBar {
     self.hideOriginalNavBar = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -435,17 +482,20 @@
     }];
 }
 
-- (void)goods {
+- (void)handleClickGoods {
     TCGoodsViewController *goodVC = [[TCGoodsViewController alloc] init];
     [self.navigationController pushViewController:goodVC animated:YES];
 }
 
-- (void)order {
+- (void)handleClickOrder {
     TCGoodsOrderViewController *orderVC = [[TCGoodsOrderViewController alloc] init];
+    if (self.unreadNumDic) {
+        orderVC.unReadNumDictionary = self.unreadNumDic;
+    }
     [self.navigationController pushViewController:orderVC animated:YES];
 }
 
-- (void)col {
+- (void)handleClickCol {
     TCCollectViewController *collectVC = [[TCCollectViewController alloc] init];
     [self.navigationController pushViewController:collectVC animated:YES];
 }
@@ -454,23 +504,23 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)bill {
+- (void)handleClickBill {
     TCWalletBillViewController *billVC = [[TCWalletBillViewController alloc] init];
     [self.navigationController pushViewController:billVC animated:YES];
 }
 
-- (void)discount {
+- (void)handleClickDiscount {
     TCPrivilegeViewController *privilegeVC = [[TCPrivilegeViewController alloc] init];
     [self.navigationController pushViewController:privilegeVC animated:YES];
 }
 
-- (void)card {
+- (void)handleClickCard {
     TCBankCardViewController *bankCardVC = [[TCBankCardViewController alloc] init];
     bankCardVC.walletAccount = self.walletAccount;
     [self.navigationController pushViewController:bankCardVC animated:YES];
 }
 
-- (void)cash {
+- (void)handleClickCash {
     if (self.walletAccount) {
         
         if (![self.walletAccount.password isKindOfClass:[NSString class]]) {
@@ -504,7 +554,7 @@
         }
         
     }else {
-        
+        [self fetchWallatData];
     }
 }
 
@@ -523,6 +573,45 @@
         [self fetchWallatData];
     };
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)updateUnReadNumLabel {
+    NSDictionary *dic = self.unreadNumDic;
+    if ([dic isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *messageTypeCountDic = dic[@"messageTypeCount"];
+        if ([messageTypeCountDic isKindOfClass:[NSDictionary class]]) {
+            NSNumber *num = messageTypeCountDic[@"ORDER_SETTLE"];
+            if ([num isKindOfClass:[NSNumber class]]) {
+                NSInteger number = [num integerValue];
+                if (number) {
+                    self.unreadNumLabel.hidden = NO;
+                    self.unreadNumLabel.text = [NSString stringWithFormat:@"%d", number];
+                }else {
+                    self.unreadNumLabel.hidden = YES;
+                }
+            }
+        }
+    }
+}
+
+- (void)createUnReadNumLabelWithTargetView:(UIView *)view {
+    UILabel *unreadNumLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    [view addSubview:unreadNumLabel];
+    unreadNumLabel.backgroundColor = [UIColor redColor];
+    unreadNumLabel.textColor = [UIColor whiteColor];
+    unreadNumLabel.font = [UIFont systemFontOfSize:10];
+    unreadNumLabel.layer.cornerRadius = 8.0;
+    unreadNumLabel.clipsToBounds = YES;
+    unreadNumLabel.textAlignment = NSTextAlignmentCenter;
+    unreadNumLabel.hidden = YES;
+    [unreadNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(view).offset(-10);
+        make.top.equalTo(view).offset(5);
+        make.height.equalTo(@16);
+        make.width.mas_greaterThanOrEqualTo(@16);
+    }];
+    
+    self.unreadNumLabel = unreadNumLabel;
 }
 
 - (void)tap {
@@ -616,25 +705,29 @@
                 }
                 TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame)+TCRealValue(10), width, TCRealValue(78)) imageName:@"collection" title:@"收款"];
                 [headerView addSubview:colBtn];
-                [colBtn addTarget:self action:@selector(col) forControlEvents:UIControlEventTouchUpInside];
+                [colBtn addTarget:self action:@selector(handleClickCol) forControlEvents:UIControlEventTouchUpInside];
         
                 TCVerticalImageAndTitleBtn *billBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(colBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"bill" title:@"对账单"];
                 [headerView addSubview:billBtn];
-                [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
+                [billBtn addTarget:self action:@selector(handleClickBill) forControlEvents:UIControlEventTouchUpInside];
                 
                 TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"home_discount_manage" title:@"优惠策略"];
                 [headerView addSubview:discountBtn];
-                [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
+                [discountBtn addTarget:self action:@selector(handleClickDiscount) forControlEvents:UIControlEventTouchUpInside];
                 TCVerticalImageAndTitleBtn *goodsBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(discountBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"home_good_manage" title:@"商品管理"];
                 goodsBtn.hidden = YES;
                 [headerView addSubview:goodsBtn];
                 self.cardGoodManageBtn = goodsBtn;
-                [goodsBtn addTarget:self action:@selector(goods) forControlEvents:UIControlEventTouchUpInside];
+                [goodsBtn addTarget:self action:@selector(handleClickGoods) forControlEvents:UIControlEventTouchUpInside];
                 TCVerticalImageAndTitleBtn *orderBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(goodsBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"home_order_manage" title:@"我的订单"];
                 orderBtn.hidden = YES;
                 [headerView addSubview:orderBtn];
                 self.cardOrderManageBtn = orderBtn;
-                [orderBtn addTarget:self action:@selector(order) forControlEvents:UIControlEventTouchUpInside];
+                
+                [self createUnReadNumLabelWithTargetView:orderBtn];
+                [self updateUnReadNumLabel];
+                
+                [orderBtn addTarget:self action:@selector(handleClickOrder) forControlEvents:UIControlEventTouchUpInside];
                 if ([value isEqualToValue:@YES]) {
                     goodsBtn.hidden = NO;
                     orderBtn.hidden = NO;
@@ -646,23 +739,23 @@
                 CGFloat width = self.view.bounds.size.width / 5;
                 TCVerticalImageAndTitleBtn *colBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(topImageView.frame)+TCRealValue(10), width, TCRealValue(78)) imageName:@"collection" title:@"收款"];
                 [headerView addSubview:colBtn];
-                    [colBtn addTarget:self action:@selector(col) forControlEvents:UIControlEventTouchUpInside];
+                    [colBtn addTarget:self action:@selector(handleClickCol) forControlEvents:UIControlEventTouchUpInside];
 
                 TCVerticalImageAndTitleBtn *cashBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(colBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"cash" title:@"提现"];
                 [headerView addSubview:cashBtn];
-                [cashBtn addTarget:self action:@selector(cash) forControlEvents:UIControlEventTouchUpInside];
+                [cashBtn addTarget:self action:@selector(handleClickCash) forControlEvents:UIControlEventTouchUpInside];
 
                 TCVerticalImageAndTitleBtn *cardBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(cashBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"card" title:@"银行卡"];
                 [headerView addSubview:cardBtn];
-                [cardBtn addTarget:self action:@selector(card) forControlEvents:UIControlEventTouchUpInside];
+                [cardBtn addTarget:self action:@selector(handleClickCard) forControlEvents:UIControlEventTouchUpInside];
 
                 TCVerticalImageAndTitleBtn *billBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(cardBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"bill" title:@"对账单"];
                 [headerView addSubview:billBtn];
-                [billBtn addTarget:self action:@selector(bill) forControlEvents:UIControlEventTouchUpInside];
+                [billBtn addTarget:self action:@selector(handleClickBill) forControlEvents:UIControlEventTouchUpInside];
 
                 TCVerticalImageAndTitleBtn *discountBtn = [[TCVerticalImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(billBtn.frame), colBtn.frame.origin.y, width, colBtn.frame.size.height) imageName:@"home_discount_manage" title:@"优惠策略"];
                 [headerView addSubview:discountBtn];
-                [discountBtn addTarget:self action:@selector(discount) forControlEvents:UIControlEventTouchUpInside];
+                [discountBtn addTarget:self action:@selector(handleClickDiscount) forControlEvents:UIControlEventTouchUpInside];
                 
                 UIView *downView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(discountBtn.frame), TCScreenWidth, 59)];
                 downView.hidden = YES;
@@ -678,7 +771,7 @@
                 [goodsManageBtn setTitleColor:TCRGBColor(70, 70, 70) forState:UIControlStateNormal];
                 [goodsManageBtn setImage:[UIImage imageNamed:@"home_good_manage"] forState:UIControlStateNormal];
                 [downView addSubview:goodsManageBtn];
-                [goodsManageBtn addTarget:self action:@selector(goods) forControlEvents:UIControlEventTouchUpInside];
+                [goodsManageBtn addTarget:self action:@selector(handleClickGoods) forControlEvents:UIControlEventTouchUpInside];
                 goodsManageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
                 goodsManageBtn.frame = CGRectMake(0, CGRectGetMaxY(lineView.frame), TCScreenWidth/2, 58);
                 
@@ -691,9 +784,12 @@
                 [orderManageBtn setTitleColor:TCRGBColor(70, 70, 70) forState:UIControlStateNormal];
                 [orderManageBtn setImage:[UIImage imageNamed:@"home_order_manage"] forState:UIControlStateNormal];
                 [downView addSubview:orderManageBtn];
-                [orderManageBtn addTarget:self action:@selector(order) forControlEvents:UIControlEventTouchUpInside];
+                [orderManageBtn addTarget:self action:@selector(handleClickOrder) forControlEvents:UIControlEventTouchUpInside];
                 orderManageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
                 orderManageBtn.frame = CGRectMake(CGRectGetMaxX(goodsManageBtn.frame), goodsManageBtn.frame.origin.y, TCScreenWidth/2, goodsManageBtn.frame.size.height);
+                
+                [self createUnReadNumLabelWithTargetView:orderManageBtn];
+                [self updateUnReadNumLabel];
                 
                 if ([value isEqualToValue:@YES]) {
                     _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302-103+88+59), 0, 0, 0);

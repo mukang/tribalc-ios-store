@@ -19,6 +19,8 @@
 #import "TCNavigationController.h"
 #import "TCForceUpdateView.h"
 #import "TCUserDefaultsKeys.h"
+#import "TCWalletBillDetailViewController.h"
+#import "TCGoodsOrderDetailViewController.h"
 
 #import <CoreLocation/CoreLocation.h>
 #import <Bugly/Bugly.h>
@@ -97,6 +99,8 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     [[XGSetting getInstance] enableDebug:YES];
     [XGPush startApp:2200265540 appKey:@"IJ3Z6631AHGT"];
     [self registerAPNS];
+    //获取未读推送消息数
+    [self loadUnReadPushNumber];
 }
 
 - (void)deleteAPNS {
@@ -121,6 +125,57 @@ static NSString *const kBuglyAppID = @"9ed163958b";
         NSLog(@"[XGDemo] Handle launching success");
     } errorCallback:^{
         NSLog(@"[XGDemo] Handle launching error");
+    }];
+}
+
+- (void)handlePushMessage:(NSDictionary *)userInfo {
+    if ([[TCBuluoApi api] needLogin]) {
+        return;
+    }
+    if ([userInfo isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *messageDic = userInfo[@"message"];
+        if ([messageDic isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *typeDic = messageDic[@"messageBodyType"];
+            if ([typeDic isKindOfClass:[NSDictionary class]]) {
+                NSString *type = typeDic[@"name"];
+                if ([type isKindOfClass:[NSString class]]) {
+                    NSString *referenceId = messageDic[@"referenceId"];
+                    // 待发货
+                    if ([type isEqualToString:@"ORDER_SETTLE"]) {
+                        if ([referenceId isKindOfClass:[NSString class]]) {
+                            [self toOrderDetailWithReferenceId:referenceId];
+                        }
+                    }else if ([type isEqualToString:@"TENANT_WITHDRAW"]) {  // 提现
+                        if ([referenceId isKindOfClass:[NSString class]]) {
+                            [self toWithDrawDetailWithReferenceId:referenceId];
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (void)toOrderDetailWithReferenceId:(NSString *)referenceId {
+    [[TCBuluoApi api] fetchOrderDetailWithOrderID:referenceId result:^(TCGoodsOrder *order, NSError *error) {
+        if (order) {
+            TCGoodsOrderDetailViewController *vc = [[TCGoodsOrderDetailViewController alloc] init];
+            vc.goodsOrder = order;
+            TCNavigationController *nav = (TCNavigationController *)self.window.rootViewController;
+            [nav pushViewController:vc animated:YES];
+        }
+    }];
+}
+
+- (void)toWithDrawDetailWithReferenceId:(NSString *)referenceId {
+    [[TCBuluoApi api] fetchWithDrawRequestDetailWithRequestId:referenceId result:^(TCWithDrawRequest *withDrawRequest, NSError *error) {
+        if ([withDrawRequest isKindOfClass:[TCWithDrawRequest class]]) {
+            TCWalletBillDetailViewController *vc = [[TCWalletBillDetailViewController alloc] initWithNibName:@"TCWalletBillDetailViewController" bundle:[NSBundle mainBundle]];
+            vc.isWithDraw = YES;
+            vc.withDrawRequest = withDrawRequest;
+            TCNavigationController *nav = (TCNavigationController *)self.window.rootViewController;
+            [nav pushViewController:vc animated:YES];
+        }
     }];
 }
 
@@ -149,11 +204,14 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     NSLog(@"[XGDemo] receive Notification");
     [XGPush handleReceiveNotification:userInfo
                       successCallback:^{
+                          [self handlePushMessage:userInfo];
                           NSLog(@"[XGDemo] Handle receive success");
                       } errorCallback:^{
                           NSLog(@"[XGDemo] Handle receive error");
                       }];
 }
+
+
 
 
 /**
@@ -168,11 +226,14 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     NSLog(@"[XGDemo] userinfo %@", userInfo);
     [XGPush handleReceiveNotification:userInfo
                       successCallback:^{
+                          [self loadUnReadPushNumber];
+//                          [self handlePushMessage:userInfo];
                           NSLog(@"[XGDemo] Handle receive success");
                       } errorCallback:^{
                           NSLog(@"[XGDemo] Handle receive error");
                       }];
     
+    [self loadUnReadPushNumber];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -185,6 +246,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     NSLog(@"[XGDemo] click notification");
     [XGPush handleReceiveNotification:response.notification.request.content.userInfo
                       successCallback:^{
+                          [self handlePushMessage:response.notification.request.content.userInfo];
                           NSLog(@"[XGDemo] Handle receive success");
                       } errorCallback:^{
                           NSLog(@"[XGDemo] Handle receive error");
@@ -195,7 +257,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
 
 // App 在前台弹通知需要调用这个接口
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
-    
+    [self loadUnReadPushNumber];
     completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
 }
 #endif
@@ -330,6 +392,16 @@ static NSString *const kBuglyAppID = @"9ed163958b";
 - (void)handleLaunchWindowDidDisappear {
     self.launchWindow.rootViewController = nil;
     self.launchWindow = nil;
+}
+
+- (void)loadUnReadPushNumber {
+    if (![[TCBuluoApi api] needLogin]) {
+        [[TCBuluoApi api] fetchUnReadPushMessageNumberWithResult:^(NSDictionary *unreadNumDic, NSError *error) {
+            if ([unreadNumDic isKindOfClass:[NSDictionary class]]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"TCFetchUnReadMessageNumber" object:nil userInfo:unreadNumDic];
+            }
+        }];
+    }
 }
 
 #pragma mark - Notification
@@ -567,6 +639,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    [self loadUnReadPushNumber];
 }
 
 
