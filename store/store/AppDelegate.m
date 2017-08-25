@@ -135,9 +135,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     if ([userInfo isKindOfClass:[NSDictionary class]]) {
         NSDictionary *messageDic = userInfo[@"message"];
         if ([messageDic isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *typeDic = messageDic[@"messageBodyType"];
-            if ([typeDic isKindOfClass:[NSDictionary class]]) {
-                NSString *type = typeDic[@"name"];
+            NSString *type = messageDic[@"messageBodyType"];
                 if ([type isKindOfClass:[NSString class]]) {
                     NSString *referenceId = messageDic[@"referenceId"];
                     // 待发货
@@ -151,7 +149,6 @@ static NSString *const kBuglyAppID = @"9ed163958b";
                         }
                     }
                 }
-            }
         }
     }
 }

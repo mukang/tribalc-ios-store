@@ -103,10 +103,7 @@
     
     NSInteger i = btn.tag - 10000;
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    if (i == 3) {
-        [self clearUnReadNumWithBtn:btn type:@"ORDER_SETTLE"];
-    }
-    
+
     [UIView animateWithDuration:0.3 animations:^{
         _lineView.frame = CGRectMake(btn.frame.origin.x, CGRectGetMaxY(btn.frame), kBtnWidth, 2);
     }];
