@@ -452,9 +452,9 @@
             
         }else if ([storeInfo.accountType isEqualToString:@"PROTOCOL"]) {
             if ([value isEqualToValue:@YES]) {
-                _tableView.contentOffset = CGPointMake(0, -(TCRealValue(302-103+88+59)));
-                _headerView.frame = CGRectMake(0, -TCRealValue(302-103+88+59), self.view.bounds.size.width, TCRealValue(302-103+88+59));
-                _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302-103+88+59), 0, 0, 0);
+                _tableView.contentOffset = CGPointMake(0, -(TCRealValue(302-103+88+59+5)));
+                _headerView.frame = CGRectMake(0, -TCRealValue(302-103+88+59+5), self.view.bounds.size.width, TCRealValue(302-103+88+59+5));
+                _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302-103+88+59+5), 0, 0, 0);
                 self.protocolDownView.hidden = NO;
             }else {
                 self.protocolDownView.hidden = YES;
@@ -757,7 +757,7 @@
                 [headerView addSubview:discountBtn];
                 [discountBtn addTarget:self action:@selector(handleClickDiscount) forControlEvents:UIControlEventTouchUpInside];
                 
-                UIView *downView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(discountBtn.frame), TCScreenWidth, 59)];
+                UIView *downView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(discountBtn.frame)+TCRealValue(5), TCScreenWidth, TCRealValue(59))];
                 downView.hidden = YES;
                 [headerView addSubview:downView];
                 self.protocolDownView = downView;
@@ -773,9 +773,9 @@
                 [downView addSubview:goodsManageBtn];
                 [goodsManageBtn addTarget:self action:@selector(handleClickGoods) forControlEvents:UIControlEventTouchUpInside];
                 goodsManageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-                goodsManageBtn.frame = CGRectMake(0, CGRectGetMaxY(lineView.frame), TCScreenWidth/2, 58);
+                goodsManageBtn.frame = CGRectMake(0, CGRectGetMaxY(lineView.frame), TCScreenWidth/2, TCRealValue(58));
                 
-                UIView *speLineView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(goodsManageBtn.frame)-(1/scale), 7, 1/scale, 43)];
+                UIView *speLineView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(goodsManageBtn.frame)-(1/scale), 7, 1/scale, TCRealValue(43))];
                 speLineView.backgroundColor = TCSeparatorLineColor;
                 [goodsManageBtn addSubview:speLineView];
                 
@@ -792,8 +792,8 @@
                 [self updateUnReadNumLabel];
                 
                 if ([value isEqualToValue:@YES]) {
-                    _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302-103+88+59), 0, 0, 0);
-                    _headerView.frame = CGRectMake(0, -TCRealValue(302-103+88+59), self.view.bounds.size.width, TCRealValue(302-103+88+59));
+                    _tableView.contentInset = UIEdgeInsetsMake(TCRealValue(302-103+88+59+5), 0, 0, 0);
+                    _headerView.frame = CGRectMake(0, -TCRealValue(302-103+88+59+5), self.view.bounds.size.width, TCRealValue(302-103+88+59+5));
                     _protocolDownView.hidden = NO;
                 }
                 
