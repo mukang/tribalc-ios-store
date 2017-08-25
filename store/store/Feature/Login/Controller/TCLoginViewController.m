@@ -14,7 +14,6 @@
 #import "TCGetPasswordView.h"
 
 #import <YYText/YYText.h>
-#import <WechatOpenSDK/WXApi.h>
 
 #import "TCBuluoApi.h"
 #import "WXApiManager.h"
@@ -113,6 +112,11 @@
     noticeLabel.y = 200;
     [self.view addSubview:noticeLabel];
     self.noticeLabel = noticeLabel;
+    
+    if (![WXApi isWXAppInstalled]) {
+        self.wechatButton.hidden = YES;
+        self.otherLoginLabel.hidden = YES;
+    }
 }
 
 - (void)setupConstraints {
@@ -312,6 +316,19 @@
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"验证码发送失败，%@", reason]];
         }
     }];
+}
+
+#pragma mark - WXApiManagerDelegate
+
+- (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
+    if (response.errCode == WXSuccess) {
+        if ([response.state isEqualToString:self.wechatState]) {
+            self.wechatCode = response.code;
+            [self handleWechatLogin];
+        }
+    } else {
+        [MBProgressHUD showHUDWithMessage:response.errStr];
+    }
 }
 
 #pragma mark - Keyboard

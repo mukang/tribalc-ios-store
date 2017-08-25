@@ -28,11 +28,28 @@
 				<string>buluostore</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx9d6532f6628e8fe5</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>20</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>alipayauth</string>
+        <string>alipay</string>
+        <string>weixin</string>
+        <string>wechat</string>
+    </array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

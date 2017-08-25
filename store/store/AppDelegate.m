@@ -123,6 +123,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     
     [XGPush handleLaunching:launchOptions successCallback:^{
         NSLog(@"[XGDemo] Handle launching success");
+        [self handlePushMessage:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
     } errorCallback:^{
         NSLog(@"[XGDemo] Handle launching error");
     }];
@@ -651,6 +652,9 @@ static NSString *const kBuglyAppID = @"9ed163958b";
 
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    if ([url.absoluteString hasPrefix:@"wx"]) {
+        return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
     if ([url.absoluteString hasPrefix:@"buluostore"]) {
         [self pushUnitySetUpViewController];
         return YES;
@@ -659,7 +663,9 @@ static NSString *const kBuglyAppID = @"9ed163958b";
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
+    if ([url.absoluteString hasPrefix:@"wx"]) {
+        return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
     if ([url.absoluteString hasPrefix:@"buluostore"]) {
         [self pushUnitySetUpViewController];
         return YES;

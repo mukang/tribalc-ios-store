@@ -7,6 +7,7 @@
 //
 
 #import "TCBindPhoneViewController.h"
+#import "TCStoreViewController.h"
 
 #import "TCNumberTextField.h"
 
@@ -211,7 +212,7 @@
     [[TCBuluoApi api] bindWechatByWechatCode:self.wechatCode userID:userID result:^(BOOL success, NSError *error) {
         if (success) {
             [MBProgressHUD hideHUD:YES];
-            [weakSelf handleDismiss];
+            [weakSelf pushToStoreVC];
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"绑定失败，%@", reason]];
@@ -219,14 +220,14 @@
     }];
 }
 
+- (void)pushToStoreVC {
+    TCStoreViewController *storeVC = [[TCStoreViewController alloc] init];
+    [self.navigationController pushViewController:storeVC animated:YES];
+}
+
 - (void)handleClickBackButton:(UIBarButtonItem *)sender {
     [self hideKeyboard];
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)handleDismiss {
-    [self hideKeyboard];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Timer
