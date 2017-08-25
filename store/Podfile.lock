@@ -61,7 +61,7 @@ PODS:
     - AFNetworking
     - TCCommonLibs/Utility
   - UITableView+FDTemplateLayoutCell (1.6)
-  - WechatOpenSDK (1.8.0)
+  - WechatOpenSDK (1.7.9)
   - YYText (1.0.7)
 
 DEPENDENCIES:
@@ -75,7 +75,7 @@ DEPENDENCIES:
   - QQ_XGPush
   - TCCommonLibs
   - UITableView+FDTemplateLayoutCell
-  - WechatOpenSDK
+  - WechatOpenSDK (~> 1.7.9)
   - YYText
 
 SPEC CHECKSUMS:
@@ -95,9 +95,9 @@ SPEC CHECKSUMS:
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
   TCCommonLibs: 4d661a333fe9cda5a4a4f81d524a26c15d730099
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
-  WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
+  WechatOpenSDK: 1fe7e3b07db860d6a936c3ff4a5aba6b890958d9
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: c02e0f58583953314eeb5bb4665590b0a92bf424
+PODFILE CHECKSUM: a373aef1ae1c50c6bc5cf5e4e5870ffc3873d9ce
 
 COCOAPODS: 1.2.1
