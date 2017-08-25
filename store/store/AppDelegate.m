@@ -123,6 +123,7 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     
     [XGPush handleLaunching:launchOptions successCallback:^{
         NSLog(@"[XGDemo] Handle launching success");
+        [self handlePushMessage:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
     } errorCallback:^{
         NSLog(@"[XGDemo] Handle launching error");
     }];
