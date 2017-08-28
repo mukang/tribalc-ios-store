@@ -173,6 +173,32 @@
         logoImageView.layer.borderWidth = 3.0;
         NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:[TCBuluoApi api].currentUserSession.storeInfo.logo];
         [logoImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
+        [logoImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
+            [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+            UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                //写入图片到相册
+                [PHAssetChangeRequest creationRequestForAssetFromImage:viewImage];
+                
+                
+            } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                
+                NSLog(@"success = %d, error = %@", success, error);
+                if (success) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD showHUDWithMessage:@"保存成功"];
+                    });
+                }else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD showHUDWithMessage:@"保存失败"];
+                    });
+                }
+            }];
+
+        }];
         [qrImageView addSubview:logoImageView];
     }
     
@@ -182,31 +208,6 @@
     desLabel.textAlignment = NSTextAlignmentCenter;
     desLabel.text = [NSString stringWithFormat:@"向%@付款",[TCBuluoApi api].currentUserSession.storeInfo.name];
     [mainView addSubview:desLabel];
-    
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-        //写入图片到相册
-        [PHAssetChangeRequest creationRequestForAssetFromImage:viewImage];
-        
-        
-    } completionHandler:^(BOOL success, NSError * _Nullable error) {
-        
-        NSLog(@"success = %d, error = %@", success, error);
-        if (success) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showHUDWithMessage:@"保存成功"];
-            });
-        }else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showHUDWithMessage:@"保存失败"];
-            });
-        }
-    }];
-
 }
 
 
@@ -355,6 +356,10 @@
     CGContextRelease(bitmapRef);
     CGImageRelease(bitmapImage);
     return [UIImage imageWithCGImage:scaledImage];
+}
+
+- (void)dealloc {
+    NSLog(@"-- TCCollectViewController -- dealloc");
 }
 
 - (void)didReceiveMemoryWarning {

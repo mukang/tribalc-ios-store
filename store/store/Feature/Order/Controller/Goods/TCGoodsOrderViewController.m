@@ -118,10 +118,13 @@
 }
 
 - (void)postHasReadmessage {
-    if ([self.currentStatus isEqualToString:@"DELIVERY"]) {
+    if ([self.currentStatus isEqualToString:@"SETTLE"]) {
         @WeakObj(self)
-        [[TCBuluoApi api] postHasReadMessageType:self.currentStatus result:^(BOOL success, NSError *error) {
+        [[TCBuluoApi api] postHasReadMessageType:@"ORDER_SETTLE" result:^(BOOL success, NSError *error) {
             @StrongObj(self)
+            if (success) {
+                TCLog(@"已读");
+            }
         }];
     }
 }
@@ -129,8 +132,8 @@
 - (void)loadNewData {
     [MBProgressHUD showHUD:YES];
     
-    if ([self.currentStatus isEqualToString: @"DELIVERY"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TCClearUnreadNum" object:nil userInfo:@{@"index":@3,@"type":@"ORDER_SETTLE"}];
+    if ([self.currentStatus isEqualToString: @"SETTLE"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"TCClearUnreadNum" object:nil userInfo:@{@"index":@2,@"type":@"ORDER_SETTLE"}];
     }
     
     [[TCBuluoApi api] fetchGoodsOrderWrapper:self.currentStatus limitSize:self.limitSize sortSkip:nil result:^(TCGoodsOrderWrapper *goodsOrderWrapper, NSError *error) {
