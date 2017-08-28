@@ -553,7 +553,7 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  
  @param resultBlock 结果回调
  */
-- (void)postHasReadMessageType:(NSString *)type result:(void(^)(BOOL success, NSError *error))resultBlock;
+- (void)postHasReadMessageType:(NSString *)type referenceId:(NSString *)referenceId result:(void(^)(BOOL success, NSError *error))resultBlock;
 
 
 /**

@@ -1680,13 +1680,16 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
-- (void)postHasReadMessageType:(NSString *)type result:(void(^)(BOOL success, NSError *error))resultBlock {
+- (void)postHasReadMessageType:(NSString *)type referenceId:(NSString *)referenceId result:(void(^)(BOOL success, NSError *error))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"members/%@/xgMessages/read", self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodPost apiName:apiName];
         request.token = self.currentUserSession.token;
         if (type) {
-            [request setValue:type forKey:@"value"];
+            [request setValue:type forKey:@"messageBodyType"];
+        }
+        if (referenceId) {
+            [request setValue:referenceId forKey:@"referenceId"];
         }
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
             if (response.codeInResponse == 200) {

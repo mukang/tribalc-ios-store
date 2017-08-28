@@ -142,11 +142,11 @@ static NSString *const kBuglyAppID = @"9ed163958b";
                     // 待发货
                     if ([type isEqualToString:@"ORDER_SETTLE"]) {
                         if ([referenceId isKindOfClass:[NSString class]]) {
-                            [self toOrderDetailWithReferenceId:referenceId];
+                            [self toOrderDetailWithReferenceId:referenceId type:@"ORDER_SETTLE"];
                         }
                     }else if ([type isEqualToString:@"TENANT_WITHDRAW"]) {  // 提现
                         if ([referenceId isKindOfClass:[NSString class]]) {
-                            [self toWithDrawDetailWithReferenceId:referenceId];
+                            [self toWithDrawDetailWithReferenceId:referenceId type:@"TENANT_WITHDRAW"];
                         }
                     }
                 }
@@ -154,18 +154,19 @@ static NSString *const kBuglyAppID = @"9ed163958b";
     }
 }
 
-- (void)toOrderDetailWithReferenceId:(NSString *)referenceId {
+- (void)toOrderDetailWithReferenceId:(NSString *)referenceId type:(NSString *)type {
     [[TCBuluoApi api] fetchOrderDetailWithOrderID:referenceId result:^(TCGoodsOrder *order, NSError *error) {
         if (order) {
             TCGoodsOrderDetailViewController *vc = [[TCGoodsOrderDetailViewController alloc] init];
             vc.goodsOrder = order;
             TCNavigationController *nav = (TCNavigationController *)self.window.rootViewController;
             [nav pushViewController:vc animated:YES];
+            [self postHadReadMessageType:type referenceId:referenceId isNeedUpdate:YES];
         }
     }];
 }
 
-- (void)toWithDrawDetailWithReferenceId:(NSString *)referenceId {
+- (void)toWithDrawDetailWithReferenceId:(NSString *)referenceId type:(NSString *)type {
     [[TCBuluoApi api] fetchWithDrawRequestDetailWithRequestId:referenceId result:^(TCWithDrawRequest *withDrawRequest, NSError *error) {
         if ([withDrawRequest isKindOfClass:[TCWithDrawRequest class]]) {
             TCWalletBillDetailViewController *vc = [[TCWalletBillDetailViewController alloc] initWithNibName:@"TCWalletBillDetailViewController" bundle:[NSBundle mainBundle]];
@@ -173,6 +174,17 @@ static NSString *const kBuglyAppID = @"9ed163958b";
             vc.withDrawRequest = withDrawRequest;
             TCNavigationController *nav = (TCNavigationController *)self.window.rootViewController;
             [nav pushViewController:vc animated:YES];
+            [self postHadReadMessageType:type referenceId:referenceId isNeedUpdate:NO];
+        }
+    }];
+}
+
+- (void)postHadReadMessageType:(NSString *)type referenceId:(NSString *)referenceId isNeedUpdate:(BOOL)needUpdate {
+    [[TCBuluoApi api] postHasReadMessageType:type referenceId:referenceId result:^(BOOL success, NSError *error) {
+        if (success) {
+            if (needUpdate) {
+                [self loadUnReadPushNumber];
+            }
         }
     }];
 }
