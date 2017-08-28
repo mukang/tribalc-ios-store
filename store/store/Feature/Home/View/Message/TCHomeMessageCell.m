@@ -88,7 +88,7 @@
             self.titleIcon.image = [UIImage imageNamed:@"storeAssistantIcon"];
         }else if (type == TCMessageTypeCompaniesAdmin || type == TCMessageTypeCompaniesRentBillGeneration || type == TCMessageTypeCompaniesRentBillPayment) {
             self.titleIcon.image = [UIImage imageNamed:@"bussinessAssistantIcon"];
-        }else if (type == TCMessageTypeAccountRegister) {
+        }else {
             self.titleIcon.image = [UIImage imageNamed:@"accountAssistantIcon"];
         }
     }
