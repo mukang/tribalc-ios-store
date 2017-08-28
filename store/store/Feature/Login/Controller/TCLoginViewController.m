@@ -62,7 +62,7 @@
     [self setupConstraints];
     
     if (![[TCBuluoApi api] needLogin]) {
-        [self pushToStoreVC];
+        [self pushToStoreVCWithAnimated:NO];
     }
 }
 
@@ -231,7 +231,7 @@
         if (userSession) {
             [MBProgressHUD hideHUD:YES];
             if (weakSelf == [weakSelf.navigationController topViewController]) {
-                [weakSelf pushToStoreVC];
+                [weakSelf pushToStoreVCWithAnimated:YES];
             }
         } else {
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
@@ -240,9 +240,9 @@
     }];
 }
 
-- (void)pushToStoreVC {
+- (void)pushToStoreVCWithAnimated:(BOOL)animated {
     TCStoreViewController *storeVC = [[TCStoreViewController alloc] init];
-    [self.navigationController pushViewController:storeVC animated:YES];
+    [self.navigationController pushViewController:storeVC animated:animated];
 }
 
 - (IBAction)handleTapWechatButton:(UIButton *)sender {
@@ -265,7 +265,7 @@
             [MBProgressHUD hideHUD:YES];
             if (isBind) {
                 if (weakSelf == [weakSelf.navigationController topViewController]) {
-                    [weakSelf pushToStoreVC];
+                    [weakSelf pushToStoreVCWithAnimated:YES];
                 }
             } else {
                 [weakSelf handleShowBindPhoneViewController];
