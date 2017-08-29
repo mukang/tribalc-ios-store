@@ -119,9 +119,7 @@
 
 - (void)postHasReadmessage {
     if ([self.currentStatus isEqualToString:@"SETTLE"]) {
-        @WeakObj(self)
-        [[TCBuluoApi api] postHasReadMessageType:@"ORDER_SETTLE" result:^(BOOL success, NSError *error) {
-            @StrongObj(self)
+        [[TCBuluoApi api] postHasReadMessageType:@"ORDER_SETTLE" referenceId:nil result:^(BOOL success, NSError *error) {
             if (success) {
                 TCLog(@"已读");
             }

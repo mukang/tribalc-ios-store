@@ -46,12 +46,9 @@
     
     NSString *message = nil;
     NSArray *messageList = _versionInfo.releaseNote;
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:messageList.count];
-    for (int i=0; i<messageList.count; i++) {
-        NSString *messageItem = [[NSString stringWithFormat:@"%zd.", i+1] stringByAppendingString:messageList[i]];
-        [temp addObject:messageItem];
+    if (messageList.count) {
+        message = [messageList componentsJoinedByString:@"\n"];
     }
-    message = [temp componentsJoinedByString:@"\n"];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.paragraphSpacing = 10.0;
