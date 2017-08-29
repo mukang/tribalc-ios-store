@@ -165,42 +165,6 @@
     qrImageView.image = self.qrImageView.image;
     [imageBgView addSubview:qrImageView];
     
-    if ([TCBuluoApi api].currentUserSession.storeInfo.logo) {
-        UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((TCRealValue(210)-TCRealValue(57))/2, (TCRealValue(210)-TCRealValue(57))/2, TCRealValue(57), TCRealValue(57))];
-        logoImageView.layer.cornerRadius = TCRealValue(57)/2;
-        logoImageView.clipsToBounds = YES;
-        logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-        logoImageView.layer.borderWidth = 3.0;
-        NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:[TCBuluoApi api].currentUserSession.storeInfo.logo];
-        [logoImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
-        [logoImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
-            [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-            UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-            
-            [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                //写入图片到相册
-                [PHAssetChangeRequest creationRequestForAssetFromImage:viewImage];
-                
-                
-            } completionHandler:^(BOOL success, NSError * _Nullable error) {
-                
-                NSLog(@"success = %d, error = %@", success, error);
-                if (success) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD showHUDWithMessage:@"保存成功"];
-                    });
-                }else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD showHUDWithMessage:@"保存失败"];
-                    });
-                }
-            }];
-
-        }];
-        [qrImageView addSubview:logoImageView];
-    }
     
     UILabel *desLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageBgView.frame)+20, TCScreenWidth, 20)];
     desLabel.font = [UIFont systemFontOfSize:14];
@@ -208,6 +172,48 @@
     desLabel.textAlignment = NSTextAlignmentCenter;
     desLabel.text = [NSString stringWithFormat:@"向%@付款",[TCBuluoApi api].currentUserSession.storeInfo.name];
     [mainView addSubview:desLabel];
+    
+    if ([TCBuluoApi api].currentUserSession.storeInfo.logo) {
+        UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((TCRealValue(210)-TCRealValue(57))/2, (TCRealValue(210)-TCRealValue(57))/2, TCRealValue(57), TCRealValue(57))];
+        logoImageView.layer.cornerRadius = TCRealValue(57)/2;
+        logoImageView.clipsToBounds = YES;
+        logoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+        logoImageView.layer.borderWidth = 3.0;
+        [qrImageView addSubview:logoImageView];
+        NSURL *URL = [TCImageURLSynthesizer synthesizeImageURLWithPath:[TCBuluoApi api].currentUserSession.storeInfo.logo];
+        [logoImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [self saveImageWithView:view];
+        }];
+    }else {
+        [self saveImageWithView:view];
+    }
+}
+
+- (void)saveImageWithView:(UIView *)view {
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        //写入图片到相册
+        [PHAssetChangeRequest creationRequestForAssetFromImage:viewImage];
+        
+        
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        
+        NSLog(@"success = %d, error = %@", success, error);
+        if (success) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showHUDWithMessage:@"保存成功"];
+            });
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showHUDWithMessage:@"保存失败"];
+            });
+        }
+    }];
+
 }
 
 
