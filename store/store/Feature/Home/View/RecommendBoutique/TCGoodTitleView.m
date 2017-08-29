@@ -66,6 +66,7 @@
     
     NSString *priceIntegerStr = [NSString stringWithFormat:@"￥%i", (int)price];
     _priceIntegerLab.text = priceIntegerStr;
+    [_priceIntegerLab sizeToFit];
     _priceIntegerLab.origin = CGPointMake(TCRealValue(20), _titleLab.y + _titleLab.height + TCRealValue(16));
     [_priceDecimalLab setX:_priceIntegerLab.x + _priceIntegerLab.width];
     
@@ -75,7 +76,7 @@
     } else {
         _priceDecimalLab.text = [NSString stringWithFormat:@""];
     }
-    _priceDecimalLab.y = _priceIntegerLab.y + TCRealValue(17) - TCRealValue(12);
+    _priceDecimalLab.y = _priceIntegerLab.y;
     [_priceDecimalLab sizeToFit];
     [self setHeight:_priceIntegerLab.y + _priceIntegerLab.height + TCRealValue(16)];
 }
@@ -98,7 +99,7 @@
     
     _originPriceLab.attributedText = attrStr;
     _originPriceLab.x = _priceDecimalLab.x + _priceDecimalLab.width + TCRealValue(12);
-    _originPriceLab.y = _priceDecimalLab.y;
+    _originPriceLab.y = _priceDecimalLab.y + TCRealValue(5);
     [_originPriceLab sizeToFit];
 }
 
@@ -130,7 +131,7 @@
             tagImgView.hidden = NO;
             _tagLab.text = tagStr;
             [_tagLab sizeToFit];
-            [_tagLab setOrigin:CGPointMake(self.width - TCRealValue(20) - _tagLab.width, _priceDecimalLab.y)];
+            [_tagLab setOrigin:CGPointMake(self.width - TCRealValue(20) - _tagLab.width, _priceDecimalLab.y + TCRealValue(5))];
             tagImgView.origin = CGPointMake(_tagLab.x - TCRealValue(12), _tagLab.y);
             return;
         }
