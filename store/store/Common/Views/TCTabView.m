@@ -57,7 +57,7 @@
     if ([dic isKindOfClass:[NSDictionary class]]) {
         NSNumber *num = dic[@"ORDER_SETTLE"];
         if ([num isKindOfClass:[NSNumber class]]) {
-            TCTabButton *tabBtn = self.allButtons[3];
+            TCTabButton *tabBtn = self.allButtons[2];
             tabBtn.num = num;
         }
     }
