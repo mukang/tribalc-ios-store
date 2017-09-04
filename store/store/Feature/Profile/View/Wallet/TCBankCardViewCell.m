@@ -40,6 +40,12 @@
     NSString *lastNum = [bankCard.bankCardNum substringFromIndex:index];
     self.CardNumLabel.text = [NSString stringWithFormat:@"**** **** **** %@", lastNum];
     self.deleteButton.hidden = !bankCard.showDelete;
+    
+    if (!bankCard.personal) {
+        self.CardTypeLabel.text = bankCard.userName;
+    }else {
+        self.CardTypeLabel.text = @"储蓄卡";
+    }
 }
 
 - (IBAction)handleClickDeleteButton:(UIButton *)sender {

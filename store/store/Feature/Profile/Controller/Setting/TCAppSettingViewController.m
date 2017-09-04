@@ -63,17 +63,21 @@
     [tableView registerClass:[TCAppGoodsManageCell class] forCellReuseIdentifier:@"TCAppGoodsManageCell"];
     [self.view addSubview:tableView];
     
-    TCCommonButton *logouButton = [TCCommonButton buttonWithTitle:@"退出" target:self action:@selector(handleClickLogoutButton:)];
-    [self.view addSubview:logouButton];
-    
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(weakSelf.view);
     }];
     
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 120)];
+    tableView.tableFooterView = footerView;
+    
+    TCCommonButton *logouButton = [TCCommonButton buttonWithTitle:@"退出" target:self action:@selector(handleClickLogoutButton:)];
+    [footerView addSubview:logouButton];
+    
+    
     [logouButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.view.mas_left).with.offset(30);
-        make.right.equalTo(weakSelf.view.mas_right).with.offset(-30);
-        make.bottom.equalTo(weakSelf.view.mas_bottom).with.offset(TCRealValue(-71));
+        make.left.equalTo(footerView.mas_left).with.offset(30);
+        make.right.equalTo(footerView.mas_right).with.offset(-30);
+        make.top.equalTo(footerView).offset(40);
         make.height.mas_equalTo(40);
     }];
 }

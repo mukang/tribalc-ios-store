@@ -33,5 +33,7 @@
 @property (copy, nonatomic) NSString *bgImage;
 /** 显示删除按钮 */
 @property (nonatomic) BOOL showDelete;
+/** 是否为对公账户 */
+@property (assign, nonatomic) BOOL personal;
 
 @end
