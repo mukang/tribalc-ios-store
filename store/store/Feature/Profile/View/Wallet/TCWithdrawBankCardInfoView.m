@@ -80,9 +80,11 @@
     _bankCard = bankCard;
     
     self.logoImageView.image = [UIImage imageNamed:bankCard.logo];
-    
-    self.nameLabe.text = bankCard.bankName;
-    
+    if (bankCard.personal) {
+        self.nameLabe.text = bankCard.bankName;
+    }else {
+        self.nameLabe.text = bankCard.department;
+    }
     NSString *tailNum;
     NSString *bankCardNum = bankCard.bankCardNum;
     if (bankCardNum.length >= 4) {

@@ -32,7 +32,6 @@
     
     self.bgImageView.image = [UIImage imageNamed:bankCard.bgImage];
     self.logoImageView.image = [UIImage imageNamed:bankCard.logo];
-    self.bankNameLabel.text = bankCard.bankName;
     NSInteger index = bankCard.bankCardNum.length;
     if (index > 4) {
         index = index - 4;
@@ -43,8 +42,10 @@
     
     if (!bankCard.personal) {
         self.CardTypeLabel.text = bankCard.userName;
+        self.bankNameLabel.text = bankCard.department;
     }else {
         self.CardTypeLabel.text = @"储蓄卡";
+        self.bankNameLabel.text = bankCard.bankName;
     }
 }
 

@@ -71,6 +71,8 @@
             [weakSelf.dataList addObjectsFromArray:bankCardList];
             weakSelf.walletAccount.bankCards = [NSArray arrayWithArray:weakSelf.dataList];
             for (TCBankCard *bankCard in weakSelf.dataList) {
+                bankCard.logo = @"bank_logo_Default";
+                bankCard.bgImage = @"bank_bg_Default";
                 for (NSDictionary *bankInfo in weakSelf.bankInfoList) {
                     if ([bankInfo[@"code"] isEqualToString:bankCard.bankCode]) {
                         bankCard.logo = bankInfo[@"logo"];

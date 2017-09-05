@@ -35,5 +35,7 @@
 @property (nonatomic) BOOL showDelete;
 /** 是否为对公账户 */
 @property (assign, nonatomic) BOOL personal;
+/** 开户行 */
+@property (copy, nonatomic) NSString *department;
 
 @end

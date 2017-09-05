@@ -95,6 +95,8 @@
 - (void)updateBankCardList {
     if ([self.walletAccount.bankCards isKindOfClass:[NSArray class]] && self.walletAccount.bankCards.count > 0) {
         for (TCBankCard *bankCard in self.walletAccount.bankCards) {
+            bankCard.logo = @"bank_logo_Default";
+            bankCard.bgImage = @"bank_bg_Default";
             for (NSDictionary *bankInfo in self.bankInfoList) {
                 if ([bankInfo[@"code"] isEqualToString:bankCard.bankCode]) {
                     bankCard.logo = bankInfo[@"logo"];
