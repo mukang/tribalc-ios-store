@@ -32,6 +32,9 @@
 @property (assign, nonatomic) CGFloat balance;
 /** 优惠列表 */
 @property (copy, nonatomic) NSArray *discount;
-
+/** 姓名 */
+@property (copy, nonatomic) NSString *legalPersonName;
+/** 身份证号 */
+@property (copy, nonatomic) NSString *legalPersonIdNo;
 
 @end

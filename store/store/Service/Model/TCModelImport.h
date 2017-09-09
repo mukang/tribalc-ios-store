@@ -11,6 +11,7 @@
 /********** 用户相关 **********/
 #import "TCUserSession.h"
 #import "TCUserPhoneInfo.h"
+#import "TCUserIDAuthInfo.h"
 
 /********** 商品相关 **********/
 #import "TCGoods.h"

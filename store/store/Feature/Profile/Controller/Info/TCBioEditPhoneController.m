@@ -6,38 +6,33 @@
 //  Copyright © 2016年 杭州部落公社科技有限公司. All rights reserved.
 //
 
-#import "TCBioEditSMSViewController.h"
-#import "TCInfoViewController.h"
-//#import "TCWalletPasswordViewController.h"
+#import "TCBioEditPhoneController.h"
+#import "TCBioEditPhoneFailView.h"
+#import "TCIDAuthViewController.h"
 
 #import <TCCommonLibs/UIImage+Category.h>
 
 #import "TCBuluoApi.h"
 
-@interface TCBioEditSMSViewController () <UITextFieldDelegate>
+@interface TCBioEditPhoneController () <UITextFieldDelegate,TCBioEditPhoneFailViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *noticeLabel;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *resendButton;
 @property (weak, nonatomic) IBOutlet UILabel *countdownLabel;
 @property (weak, nonatomic) IBOutlet UIButton *commitButton;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) NSInteger timeCount;
+@property (weak, nonatomic) IBOutlet UILabel *phoneNumberLabel;
+@property (weak, nonatomic) IBOutlet UITextField *placePhoneNumberTextField;
+
+@property (copy, nonatomic) NSString *code;
 
 @end
 
-@implementation TCBioEditSMSViewController {
-    __weak TCBioEditSMSViewController *weakSelf;
+@implementation TCBioEditPhoneController {
+    __weak TCBioEditPhoneController *weakSelf;
 }
 
-- (instancetype)initWithMessageCodeType:(TCMessageCodeType)messageCodeType {
-    self = [super initWithNibName:@"TCBioEditSMSViewController" bundle:[NSBundle mainBundle]];
-    if (self) {
-        weakSelf = self;
-        _messageCodeType = messageCodeType;
-    }
-    return self;
-}
 
 #pragma mark - Life Cycle
 
@@ -47,11 +42,11 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapView:)];
     [self.view addGestureRecognizer:tapGesture];
-    
-    self.noticeLabel.text = [NSString stringWithFormat:@"请输入%@收到的短信校验码", self.phone];
+    self.title = @"修改手机号";
+    self.view.backgroundColor = TCRGBColor(241, 242, 243);
+    self.phoneNumberLabel.text = [TCBuluoApi api].currentUserSession.storeInfo.phone;
     [self setupNavBar];
     [self setupSubviews];
-    [self handleClickResendButton:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -75,22 +70,6 @@
 }
 
 - (void)setupSubviews {
-    NSString *buttonTitle;
-    NSString *navBarTitle;
-    if (self.messageCodeType == TCMessageCodeTypeFindPassword) {
-        buttonTitle = @"下一步";
-        navBarTitle = @"安全校验";
-    } else {
-        buttonTitle = @"提交";
-        navBarTitle = @"手机绑定";
-    }
-    
-    NSAttributedString *attStr = [[NSAttributedString alloc] initWithString:buttonTitle
-                                                                 attributes:@{
-                                                                              NSFontAttributeName: [UIFont systemFontOfSize:16],
-                                                                              NSForegroundColorAttributeName: [UIColor whiteColor]
-                                                                              }];
-    [self.commitButton setAttributedTitle:attStr forState:UIControlStateNormal];
     UIImage *normalImage = [UIImage imageWithColor:TCRGBColor(81, 199, 209)];
     UIImage *highlightedImage = [UIImage imageWithColor:TCRGBColor(10, 164, 177)];
     [self.commitButton setBackgroundImage:normalImage forState:UIControlStateNormal];
@@ -109,9 +88,39 @@
     return YES;
 }
 
+#pragma mark - TCBioEditPhoneFailViewDelegate
+
+- (void)didClickConfirmButton {
+    [self deletePersonalBankCards];
+}
+
 #pragma mark - Actions
 
+- (void)deletePersonalBankCards {
+    [MBProgressHUD showHUD:YES];
+    @WeakObj(self)
+    [[TCBuluoApi api] deleteAllPersonalBankCardResult:^(BOOL success, NSError *error) {
+        @StrongObj(self)
+        if (success) {
+            [MBProgressHUD hideHUD:YES];
+            [self handleChangeUserPhoneWithCode:self.code];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请重试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"删除个人全部银行卡失败，%@", reason]];
+        }
+    }];
+}
+
 - (IBAction)handleClickResendButton:(UIButton *)sender {
+    
+    NSString *newPhone = self.placePhoneNumberTextField.text;
+    if ([newPhone isKindOfClass:[NSString class]] && newPhone.length > 0) {
+        self.phone = newPhone;
+    }else {
+        [MBProgressHUD showHUDWithMessage:@"请输入手机号" afterDelay:0.5];
+        return;
+    }
+    
     [self startCountDown];
     
     [[TCBuluoApi api] fetchVerificationCodeWithPhone:self.phone result:^(BOOL success, NSError *error) {
@@ -124,35 +133,65 @@
 }
 
 - (IBAction)handleClickCommitButton:(UIButton *)sender {
+    
+    NSString *phone = self.placePhoneNumberTextField.text;
     NSString *code = self.textField.text;
+    
+    if ([phone isKindOfClass:[NSString class]] && phone.length > 0) {
+        self.phone = phone;
+    }else {
+        [MBProgressHUD showHUDWithMessage:@"请输入手机号"];
+        return;
+    }
+    
     if (code.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请输入验证码"];
         return;
     }
     
-    if (self.messageCodeType == TCMessageCodeTypeFindPassword) {
-//        TCWalletPasswordViewController *vc = [[TCWalletPasswordViewController alloc] initWithPasswordType:TCWalletPasswordTypeFindInputNewPassword];
-//        vc.messageCode = code;
-//        [self.navigationController pushViewController:vc animated:YES];
-    } else {
-        [self handleChangeUserPhoneWithCode:code];
+    if ([self.textField isFirstResponder]) {
+        [self.textField resignFirstResponder];
     }
+    
+    if ([self.placePhoneNumberTextField isFirstResponder]) {
+        [self.placePhoneNumberTextField resignFirstResponder];
+    }
+    
+    [self handleChangeUserPhoneWithCode:code];
 }
 
 - (void)handleChangeUserPhoneWithCode:(NSString *)code {
     TCUserPhoneInfo *phoneInfo = [[TCUserPhoneInfo alloc] init];
     phoneInfo.phone = self.phone;
     phoneInfo.verificationCode = code;
+    self.code = code;
     [MBProgressHUD showHUD:YES];
-    [[TCBuluoApi api] changePhone:phoneInfo result:^(BOOL success, NSError *error) {
+    @WeakObj(self)
+    [[TCBuluoApi api] changeUserPhone:phoneInfo result:^(BOOL success, NSError *error) {
+        @StrongObj(self)
+        [MBProgressHUD hideHUD:YES];
         if (success) {
-            [MBProgressHUD hideHUD:YES];
             if (self.editPhoneBlock) {
                 self.editPhoneBlock(YES);
             }
-            TCInfoViewController *vc = self.navigationController.viewControllers[1];
-            [self.navigationController popToViewController:vc animated:YES];
+            
+            if (error) {
+                // 跳到认证页
+                TCIDAuthViewController *vc = [[TCIDAuthViewController alloc] initWithNibName:@"TCIDAuthViewController" bundle:[NSBundle mainBundle]];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         } else {
+            if ([error isKindOfClass:[NSError class]]) {
+                NSInteger code = error.code;
+                if (code == 409) {
+                    TCBioEditPhoneFailView *failView = [[TCBioEditPhoneFailView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, TCScreenHeight)];
+                    failView.delegate = self;
+                    [self.navigationController.view addSubview:failView];
+                    return;
+                }
+            }
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"手机号修改失败，%@", reason]];
         }
@@ -160,8 +199,8 @@
 }
 
 - (void)handleCickBackButton:(UIBarButtonItem *)sender {
-    TCInfoViewController *vc = self.navigationController.viewControllers[1];
-    [self.navigationController popToViewController:vc animated:YES];
+//    TCBiographyViewController *bioVC = self.navigationController.viewControllers[1];
+//    [self.navigationController popToViewController:bioVC animated:YES];
 }
 
 - (void)handleTapView:(UITapGestureRecognizer *)sender {

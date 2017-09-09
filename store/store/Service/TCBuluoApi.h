@@ -78,6 +78,20 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  */
 - (void)logout:(void (^)(BOOL success, NSError *error))resultBlock;
 
+/**
+ 修改手机号
+ 
+ @param resultBlock 结果回调，success为NO时表示修改失败，失败原因见error的code和userInfo
+ */
+- (void)changeUserPhone:(TCUserPhoneInfo *)phoneInfo result:(void (^)(BOOL, NSError *))resultBlock;
+
+/**
+ 身份认证
+ 
+ @param resultBlock 结果回调
+ */
+- (void)authorizeUserIdentity:(TCUserIDAuthInfo *)userIDAuthInfo result:(void (^)(TCStoreInfo *, NSError *))resultBlock;
+
 #pragma mark - 验证资源
 
 /**
@@ -471,10 +485,17 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
 /**
  删除银行卡
  
+ @param resultBlock 结果回调，success为NO时表示删除失败，失败原因见error的code和userInfo
+ */
+- (void)deleteAllPersonalBankCardResult:(void (^)(BOOL, NSError *))resultBlock;
+
+/**
+ 删除所有个人银行卡
+ 
  @param bankCardID 银行卡ID
  @param resultBlock 结果回调，success为NO时表示删除失败，失败原因见error的code和userInfo
  */
-- (void)deleteBankCard:(NSString *)bankCardID result:(void (^)(BOOL success, NSError *error))resultBlock;
+- (void)deleteBankCard:(NSString *)bankCardID result:(void (^)(BOOL, NSError *))resultBlock;
 
 /**
  提交银行卡提现请求

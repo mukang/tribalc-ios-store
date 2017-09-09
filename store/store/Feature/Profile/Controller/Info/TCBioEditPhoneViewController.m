@@ -44,11 +44,6 @@
     self.nextButton.layer.masksToBounds = YES;
 }
 
-#pragma mark - Status Bar
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
 
 #pragma mark - UITextFieldDelegate
 

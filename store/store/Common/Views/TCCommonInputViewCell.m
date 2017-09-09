@@ -1,71 +1,87 @@
 //
 //  TCCommonInputViewCell.m
-//  store
+//  individual
 //
-//  Created by 穆康 on 2017/1/20.
-//  Copyright © 2017年 杭州部落公社科技有限公司. All rights reserved.
+//  Created by 穆康 on 2016/11/30.
+//  Copyright © 2016年 杭州部落公社科技有限公司. All rights reserved.
 //
 
 #import "TCCommonInputViewCell.h"
 
 @interface TCCommonInputViewCell () <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) UITapGestureRecognizer *tapGesture;
+
 @end
 
 @implementation TCCommonInputViewCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.separatorInset = UIEdgeInsetsMake(0, 20, 0, 20);
-        [self setupSubviews];
-        [self setupConstraints];
-    }
-    return self;
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+    
+    self.textField.delegate = self;
+    self.separatorView.hidden = YES;
 }
 
-- (void)setupSubviews {
-    UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.textColor = TCBlackColor;
-    titleLabel.font = [UIFont systemFontOfSize:16];
-    [self.contentView addSubview:titleLabel];
-    self.titleLabel = titleLabel;
+- (void)setTitle:(NSString *)title {
+    _title = title;
     
-    UITextField *textField = [[UITextField alloc] init];
-    textField.textAlignment = NSTextAlignmentLeft;
-    textField.textColor = TCBlackColor;
-    textField.font = [UIFont systemFontOfSize:14];
-    textField.returnKeyType = UIReturnKeyDone;
-    textField.delegate = self;
-    [self.contentView addSubview:textField];
-    self.textField = textField;
+    self.titleLabel.text = title;
 }
 
-- (void)setupConstraints {
-    __weak typeof(self) weakSelf = self;
+- (void)setContent:(NSString *)content {
+    _content = content;
     
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.contentView.mas_left).with.offset(20);
-        make.right.equalTo(weakSelf.textField.mas_left);
-        make.top.bottom.equalTo(weakSelf.contentView);
-    }];
-    [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.contentView.mas_left).with.offset(100);
-        make.right.equalTo(weakSelf.contentView.mas_right).with.offset(-20);
-        make.top.bottom.equalTo(weakSelf.contentView);
-    }];
+    self.textField.text = content;
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {
     _placeholder = placeholder;
     
-    self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
-                                                                           attributes:@{
-                                                                                        NSFontAttributeName: [UIFont systemFontOfSize:14],
-                                                                                        NSForegroundColorAttributeName: TCGrayColor
-                                                                                        }];
+    NSAttributedString *attStr = [[NSAttributedString alloc] initWithString:placeholder
+                                                                 attributes:@{
+                                                                              NSFontAttributeName: [UIFont systemFontOfSize:14],
+                                                                              NSForegroundColorAttributeName: TCGrayColor
+                                                                              }];
+    self.textField.attributedPlaceholder = attStr;
+}
+
+- (void)setKeyboardType:(UIKeyboardType)keyboardType {
+    _keyboardType = keyboardType;
+    
+    self.textField.keyboardType = keyboardType;
+}
+
+- (void)setAutocorrectionType:(UITextAutocorrectionType)autocorrectionType {
+    _autocorrectionType = autocorrectionType;
+    
+    self.textField.autocorrectionType = autocorrectionType;
+}
+
+- (void)setInputEnabled:(BOOL)inputEnabled {
+    _inputEnabled = inputEnabled;
+    
+    if (inputEnabled) {
+        self.textField.enabled = YES;
+        if (self.tapGesture) {
+            [self.containerView removeGestureRecognizer:self.tapGesture];
+            self.tapGesture = nil;
+        }
+    } else {
+        self.textField.enabled = NO;
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapContainerViewGesture:)];
+        [self.containerView addGestureRecognizer:tapGesture];
+        self.tapGesture = tapGesture;
+    }
+}
+
+- (void)setHideSeparatorView:(BOOL)hideSeparatorView {
+    _hideSeparatorView = hideSeparatorView;
+    
+    self.separatorView.hidden = hideSeparatorView;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -96,6 +112,20 @@
         return NO;
     }
     return YES;
+}
+
+#pragma mark - Actions
+
+- (void)handleTapContainerViewGesture:(UITapGestureRecognizer *)sender {
+    if ([self.delegate respondsToSelector:@selector(didTapContainerViewInCommonInputViewCell:)]) {
+        [self.delegate didTapContainerViewInCommonInputViewCell:self];
+    }
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
 }
 
 @end

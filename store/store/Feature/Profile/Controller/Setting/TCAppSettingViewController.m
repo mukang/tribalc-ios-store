@@ -10,19 +10,24 @@
 #import "TCSuggestionViewController.h"
 #import "TCAboutUSViewController.h"
 #import "TCMessageManagementViewController.h"
-
-#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
+#import "TCBankCardViewController.h"
+#import "TCStoreDetailViewController.h"
+#import "TCWalletPasswordViewController.h"
 #import "TCAppNotificationViewCell.h"
 #import "TCAppCacheViewCell.h"
-#import <TCCommonLibs/TCCommonButton.h>
-
 #import "TCBuluoApi.h"
-#import <SDImageCache.h>
-#import "TCStoreDetailViewController.h"
 #import "TCWalletAccount.h"
-#import "TCWalletPasswordViewController.h"
 #import "TCAppGoodsManageCell.h"
 #import "TCUserDefaultsKeys.h"
+#import "TCBioEditPhoneViewController.h"
+#import "TCBioEditPhoneController.h"
+#import "TCIDAuthDetailViewController.h"
+#import "TCIDAuthViewController.h"
+
+#import <TCCommonLibs/TCCommonIndicatorViewCell.h>
+#import <TCCommonLibs/TCCommonButton.h>
+#import <SDImageCache.h>
+
 
 @interface TCAppSettingViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -95,7 +100,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -121,6 +126,12 @@
             cell.titleLabel.text = @"关于我们";
         } else if (indexPath.row == 7) {
             cell.titleLabel.text = @"消息管理";
+        } else if (indexPath.row == 8) {
+            cell.titleLabel.text = @"修改手机号";
+            cell.subtitleLabel.text = [TCBuluoApi api].currentUserSession.storeInfo.phone;
+            cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
+        } else if (indexPath.row == 9) {
+            cell.titleLabel.text = @"身份认证";
         }
         return cell;
 
@@ -173,6 +184,15 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case 8:
+        {
+            [self handleSelectPhoneCell];
+        }
+            break;
+            case 9:
+        {
+            [self handleClickIdentityCell];
+        }
         default:
             break;
     }
@@ -180,6 +200,62 @@
 
 
 #pragma mark - Actions
+
+- (void)handleClickIdentityCell {
+    TCStoreInfo *storeInfo = [[TCBuluoApi api] currentUserSession].storeInfo;
+    UIViewController *currentVC;
+    if ([storeInfo.authenticationStatus isEqualToString:@"PROCESSING"]) {
+        TCIDAuthDetailViewController *vc = [[TCIDAuthDetailViewController alloc] initWithIDAuthStatus:TCIDAuthStatusProcessing];
+        currentVC = vc;
+    } else if ([storeInfo.authenticationStatus isEqualToString:@"SUCCESS"] || [storeInfo.authenticationStatus isEqualToString:@"FAILURE"]) {
+        TCIDAuthDetailViewController *vc = [[TCIDAuthDetailViewController alloc] initWithIDAuthStatus:TCIDAuthStatusFinished];
+        currentVC = vc;
+    } else {
+        TCIDAuthViewController *vc = [[TCIDAuthViewController alloc] initWithNibName:@"TCIDAuthViewController" bundle:[NSBundle mainBundle]];
+        currentVC = vc;
+    }
+    currentVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:currentVC animated:YES];
+}
+
+
+- (void)handleSelectPhoneCell {
+    TCBioEditPhoneController *editPhoneVC = [[TCBioEditPhoneController alloc] initWithNibName:@"TCBioEditPhoneController" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:editPhoneVC animated:YES];
+}
+
+- (void)fetchBankCardsList {
+    [MBProgressHUD showHUD:YES];
+    @WeakObj(self)
+    [[TCBuluoApi api] fetchBankCardList:^(NSArray *bankCardList, NSError *error) {
+        @StrongObj(self)
+        [MBProgressHUD hideHUD:YES];
+        if (!error) {
+            if ([bankCardList isKindOfClass:[NSArray class]] && bankCardList.count > 0) {
+                // 弹出解绑银行卡提示
+                [self tips];
+            }else {
+                //
+            }
+        }
+    }];
+}
+
+- (void)tips {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"请先解绑个人银行卡才能修改手机号" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"去解绑" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self toBankCardList];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:deleteAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)toBankCardList {
+    TCBankCardViewController *bankCardVC = [[TCBankCardViewController alloc] init];
+    [self.navigationController pushViewController:bankCardVC animated:YES];
+}
 
 - (void)handleClickPassword {
     if (!self.walletAccount) {
