@@ -212,6 +212,7 @@
 
 - (void)handleClickRecommitButton:(UIButton *)sender {
     TCIDAuthViewController *vc = [[TCIDAuthViewController alloc] initWithNibName:@"TCIDAuthViewController" bundle:[NSBundle mainBundle]];
+    vc.isFromEditPhone = NO;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
