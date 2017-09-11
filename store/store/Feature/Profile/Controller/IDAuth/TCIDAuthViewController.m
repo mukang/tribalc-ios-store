@@ -234,7 +234,7 @@ TCGenderPickerViewDelegate>
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] authorizeUserIdentity:self.authInfo result:^(TCStoreInfo *storeInfo, NSError *error) {
         if (storeInfo) {
-//            [MBProgressHUD showHUDWithMessage:@"认证申请已提交"];
+            [MBProgressHUD hideHUD:YES];
         // 认证成功 跳到认证详情页
             TCIDAuthDetailViewController *detailVc = [[TCIDAuthDetailViewController alloc] initWithIDAuthStatus:TCIDAuthStatusFinished];
             [weakSelf.navigationController pushViewController:detailVc animated:YES];
