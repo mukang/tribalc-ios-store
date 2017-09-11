@@ -93,7 +93,7 @@
     }];
     
     [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(cancleBtn).offset(10);
+        make.left.equalTo(cancleBtn.mas_right).offset(10);
         make.right.equalTo(centerView).offset(-10);
         make.top.height.width.equalTo(cancleBtn);
     }];
