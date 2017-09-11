@@ -199,11 +199,6 @@
     }];
 }
 
-- (void)handleCickBackButton:(UIBarButtonItem *)sender {
-//    TCBiographyViewController *bioVC = self.navigationController.viewControllers[1];
-//    [self.navigationController popToViewController:bioVC animated:YES];
-}
-
 - (void)handleTapView:(UITapGestureRecognizer *)sender {
     if ([self.textField isFirstResponder]) {
         [self.textField resignFirstResponder];
