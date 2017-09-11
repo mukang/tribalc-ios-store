@@ -31,6 +31,8 @@
 
 @interface TCAppSettingViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) UITableView *tableView;
+
 @end
 
 @implementation TCAppSettingViewController {
@@ -67,7 +69,7 @@
     [tableView registerClass:[TCCommonIndicatorViewCell class] forCellReuseIdentifier:@"TCCommonIndicatorViewCell"];
     [tableView registerClass:[TCAppGoodsManageCell class] forCellReuseIdentifier:@"TCAppGoodsManageCell"];
     [self.view addSubview:tableView];
-    
+    self.tableView = tableView;
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.equalTo(weakSelf.view);
     }];
@@ -221,6 +223,11 @@
 
 - (void)handleSelectPhoneCell {
     TCBioEditPhoneController *editPhoneVC = [[TCBioEditPhoneController alloc] initWithNibName:@"TCBioEditPhoneController" bundle:[NSBundle mainBundle]];
+    editPhoneVC.editPhoneBlock = ^(BOOL edited){
+        if (edited) {
+            [self.tableView reloadData];
+        }
+    };
     [self.navigationController pushViewController:editPhoneVC animated:YES];
 }
 

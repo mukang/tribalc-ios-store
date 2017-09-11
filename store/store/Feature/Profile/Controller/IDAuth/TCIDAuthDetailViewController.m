@@ -116,7 +116,7 @@
     [self.tableView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(116, 95));
-        make.top.equalTo(weakSelf.tableView.mas_top).with.offset(150);
+        make.top.equalTo(weakSelf.tableView.mas_top).with.offset(80);
         make.left.equalTo(weakSelf.tableView.mas_left).with.offset(TCScreenWidth - 116);
     }];
 }
@@ -126,7 +126,7 @@
     [self.tableView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(135, 65));
-        make.top.equalTo(weakSelf.tableView.mas_top).with.offset(170);
+        make.top.equalTo(weakSelf.tableView.mas_top).with.offset(100);
         make.left.equalTo(weakSelf.tableView.mas_left).with.offset(TCScreenWidth - 145);
     }];
     
