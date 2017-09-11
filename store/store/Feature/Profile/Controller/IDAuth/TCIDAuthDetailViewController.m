@@ -9,6 +9,7 @@
 #import "TCIDAuthDetailViewController.h"
 #import "TCIDAuthViewController.h"
 #import "TCAppSettingViewController.h"
+#import "TCNavigationController.h"
 
 #import <TCCommonLibs/TCCommonButton.h>
 #import "TCIDAuthDetailViewCell.h"
@@ -20,7 +21,7 @@
 @property (weak, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) TCStoreInfo *storeInfo;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-
+@property (assign, nonatomic) BOOL originalInteractivePopGestureEnabled;
 @end
 
 @implementation TCIDAuthDetailViewController {
@@ -48,6 +49,21 @@
         [self setupSubviewsWithFinished];
     }
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    self.originalInteractivePopGestureEnabled = nav.enableInteractivePopGesture;
+    nav.enableInteractivePopGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    nav.enableInteractivePopGesture = self.originalInteractivePopGestureEnabled;
 }
 
 - (void)setupNavBar {
