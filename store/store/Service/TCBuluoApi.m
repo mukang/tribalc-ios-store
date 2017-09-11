@@ -1157,7 +1157,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             } else {
                 TCAuthenticationInfo *detailInfo = [[TCAuthenticationInfo alloc] initWithObjectDictionary:response.data];
                 TCUserSession *userSession = self.currentUserSession;
-                userSession.storeInfo.authenticationStatus = detailInfo.authenticationStatus;
+                userSession.storeInfo.authorizedStatus = detailInfo.authenticationStatus;
                 [self setUserSession:userSession];
                 if (resultBlock) {
                     TC_CALL_ASYNC_MQ(resultBlock(detailInfo, nil));

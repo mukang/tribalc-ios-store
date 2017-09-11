@@ -150,7 +150,7 @@ TCStoreRecommendViewCellDelegate>
 }
 
 - (void)checkAuthenticationStatus {
-    NSString *authenticationStatus = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+    NSString *authenticationStatus = [TCBuluoApi api].currentUserSession.storeInfo.authorizedStatus;
     if ([authenticationStatus isEqualToString:@"SUCCESS"]) {
         [MBProgressHUD hideHUD:YES];
         [self setupSubviewsWithAuthenticationStatus:authenticationStatus];

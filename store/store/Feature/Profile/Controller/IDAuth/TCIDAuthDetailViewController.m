@@ -103,10 +103,10 @@
         make.top.left.bottom.right.equalTo(weakSelf.view);
     }];
     
-    if ([self.storeInfo.authenticationStatus isEqualToString:@"SUCCESS"]) {
+    if ([self.storeInfo.authorizedStatus isEqualToString:@"SUCCESS"]) {
         [self setupSuccessStatus];
     }
-    if ([self.storeInfo.authenticationStatus isEqualToString:@"FAILURE"]) {
+    if ([self.storeInfo.authorizedStatus isEqualToString:@"FAILURE"]) {
         [self setupFailuerStatus];
     }
 }
@@ -144,36 +144,21 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TCIDAuthDetailViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCIDAuthDetailViewCell" forIndexPath:indexPath];
     switch (indexPath.row) {
         case 0:
-            cell.titleLabel.text = @"真实姓名";
-            cell.subtitleLabel.text = self.storeInfo.legalPersonName;
+            cell.titleLabel.text = @"手机号:";
+            cell.subtitleLabel.text = self.storeInfo.phone;
             break;
         case 1:
-            cell.titleLabel.text = @"出生日期";
-//            if (self.userInfo.birthday) {
-//                NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.storeInfo.birthday / 1000];
-//                cell.subtitleLabel.text = [self.dateFormatter stringFromDate:date];
-//            } else {
-//                cell.subtitleLabel.text = @"";
-//            }
+            cell.titleLabel.text = @"姓名:";
+            cell.subtitleLabel.text = self.storeInfo.legalPersonName;
             break;
         case 2:
-//            cell.titleLabel.text = @"性别";
-//            if ([self.userInfo.sex isEqualToString:@"MALE"]) {
-//                cell.subtitleLabel.text = @"男";
-//            } else if ([self.userInfo.sex isEqualToString:@"FEMALE"]) {
-//                cell.subtitleLabel.text = @"女";
-//            } else {
-//                cell.subtitleLabel.text = @"";
-//            }
-            break;
-        case 3:
             cell.titleLabel.text = @"身份证号";
             cell.subtitleLabel.text = self.storeInfo.legalPersonIdNo;
             break;
@@ -188,7 +173,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        return 60;
+        return 50;
     } else {
         return 45;
     }

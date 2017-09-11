@@ -78,7 +78,7 @@
     }else {
         self.unCommonView.hidden = YES;
         self.btn.hidden = NO;
-        NSString *authS = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+        NSString *authS = [TCBuluoApi api].currentUserSession.storeInfo.authorizedStatus;
         if ([authS isEqualToString:@"SUCCESS"]) {
             [self loadDataIsMore:NO];
         }else {
@@ -454,7 +454,7 @@
 
 - (void)next {
     
-    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authenticationStatus;
+    NSString *storeState = [TCBuluoApi api].currentUserSession.storeInfo.authorizedStatus;
     if ([storeState isEqualToString:@"SUCCESS"]) {
         TCGoodsCategoryController *goodCVC = [[TCGoodsCategoryController alloc] init];
         goodCVC.hidesBottomBarWhenPushed = YES;

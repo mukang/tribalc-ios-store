@@ -20,9 +20,8 @@
 #import "TCNotificationNames.h"
 
 typedef NS_ENUM(NSInteger, TCInputCellType) {
-    TCInputCellTypeName = 0,
-    TCInputCellTypeBirthdate,
-    TCInputCellTypeGender,
+    TCInputCellTypePhone = 0,
+    TCInputCellTypeName,
     TCInputCellTypeIDNumber
 };
 
@@ -81,7 +80,7 @@ TCGenderPickerViewDelegate>
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -96,24 +95,9 @@ TCGenderPickerViewDelegate>
             cell.inputEnabled = YES;
             cell.autocorrectionType = UITextAutocorrectionTypeDefault;
             break;
-        case TCInputCellTypeBirthdate:
-            if (self.authInfo.birthday) {
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.authInfo.birthday / 1000];
-                cell.content = [self.dateFormatter stringFromDate:date];
-            } else {
-                cell.content = nil;
-            }
+        case TCInputCellTypePhone:
             cell.inputEnabled = NO;
-            break;
-        case TCInputCellTypeGender:
-            if ([self.authInfo.personSex isEqualToString:@"MALE"]) {
-                cell.content = @"男";
-            } else if ([self.authInfo.personSex isEqualToString:@"FEMALE"]) {
-                cell.content = @"女";
-            } else {
-                cell.content = nil;
-            }
-            cell.inputEnabled = NO;
+            cell.content = [TCBuluoApi api].currentUserSession.storeInfo.phone;
             break;
         case TCInputCellTypeIDNumber:
             cell.content = self.authInfo.idNo;
@@ -131,8 +115,8 @@ TCGenderPickerViewDelegate>
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == TCInputCellTypeName) {
-        return 60;
+    if (indexPath.row == TCInputCellTypePhone) {
+        return 50;
     } else {
         return 45;
     }
@@ -176,47 +160,46 @@ TCGenderPickerViewDelegate>
     }
 }
 
-- (void)didTapContainerViewInCommonInputViewCell:(TCCommonInputViewCell *)cell {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    if (indexPath.row == TCInputCellTypeBirthdate) {
-        TCDatePickerView *datePickerView = [[TCDatePickerView alloc] initWithController:self];
-        datePickerView.datePicker.datePickerMode = UIDatePickerModeDate;
-        datePickerView.datePicker.date = self.authInfo.birthday ? [NSDate dateWithTimeIntervalSince1970:self.authInfo.birthday/1000.0] : [self.dateFormatter dateFromString:@"1990年01月01日"];
-        datePickerView.datePicker.maximumDate = [NSDate date];
-        datePickerView.delegate = self;
-        [datePickerView show];
-    } else if (indexPath.row == TCInputCellTypeGender) {
-        TCGenderPickerView *genderPickerView = [[TCGenderPickerView alloc] initWithController:self];
-        genderPickerView.delegate = self;
-        [genderPickerView show];
-    }
-    
-    [self.tableView endEditing:YES];
-}
+//- (void)didTapContainerViewInCommonInputViewCell:(TCCommonInputViewCell *)cell {
+//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+//    if (indexPath.row == TCInputCellTypeBirthdate) {
+//        TCDatePickerView *datePickerView = [[TCDatePickerView alloc] initWithController:self];
+//        datePickerView.datePicker.datePickerMode = UIDatePickerModeDate;
+//        datePickerView.datePicker.date = self.authInfo.birthday ? [NSDate dateWithTimeIntervalSince1970:self.authInfo.birthday/1000.0] : [self.dateFormatter dateFromString:@"1990年01月01日"];
+//        datePickerView.datePicker.maximumDate = [NSDate date];
+//        datePickerView.delegate = self;
+//        [datePickerView show];
+//    } else if (indexPath.row == TCInputCellTypeGender) {
+//        TCGenderPickerView *genderPickerView = [[TCGenderPickerView alloc] initWithController:self];
+//        genderPickerView.delegate = self;
+//        [genderPickerView show];
+//    }
+//    
+//    [self.tableView endEditing:YES];
+//}
 
 #pragma mark - TCDatePickerViewDelegate
-
-- (void)didClickConfirmButtonInDatePickerView:(TCDatePickerView *)view {
-    NSTimeInterval timestamp = [view.datePicker.date timeIntervalSince1970];
-    self.authInfo.birthday = timestamp * 1000;
-    [self.tableView reloadData];
-}
+//
+//- (void)didClickConfirmButtonInDatePickerView:(TCDatePickerView *)view {
+//    NSTimeInterval timestamp = [view.datePicker.date timeIntervalSince1970];
+//    self.authInfo.birthday = timestamp * 1000;
+//    [self.tableView reloadData];
+//}
 
 #pragma mark - TCGenderPickerViewDelegate
 
-- (void)genderPickerView:(TCGenderPickerView *)view didClickConfirmButtonWithGender:(NSString *)gender {
-    if ([gender isEqualToString:@"男"]) {
-        self.authInfo.personSex = @"MALE";
-    } else {
-        self.authInfo.personSex = @"FEMALE";
-    }
-    [self.tableView reloadData];
-}
+//- (void)genderPickerView:(TCGenderPickerView *)view didClickConfirmButtonWithGender:(NSString *)gender {
+//    if ([gender isEqualToString:@"男"]) {
+//        self.authInfo.personSex = @"MALE";
+//    } else {
+//        self.authInfo.personSex = @"FEMALE";
+//    }
+//    [self.tableView reloadData];
+//}
 
 #pragma mark - Actions
 
 - (void)handleClickBackButton:(UIBarButtonItem *)sender {
-//    UIViewController *vc = self.navigationController.childViewControllers[0];
     TCAppSettingViewController *vc = self.navigationController.viewControllers[2];
     [self.navigationController popToViewController:vc animated:YES];
 }
@@ -226,14 +209,7 @@ TCGenderPickerViewDelegate>
         [MBProgressHUD showHUDWithMessage:@"请您输入真实姓名"];
         return;
     }
-    if (!self.authInfo.birthday) {
-        [MBProgressHUD showHUDWithMessage:@"请您选择出生日期"];
-        return;
-    }
-    if (!self.authInfo.personSex.length) {
-        [MBProgressHUD showHUDWithMessage:@"请您选择性别"];
-        return;
-    }
+
     if (!self.authInfo.idNo.length) {
         [MBProgressHUD showHUDWithMessage:@"请您输入身份证号"];
         return;
@@ -258,14 +234,14 @@ TCGenderPickerViewDelegate>
 
 - (NSArray *)titleArray {
     if (_titleArray == nil) {
-        _titleArray = @[@"真实姓名", @"出生日期", @"性别", @"身份证号"];
+        _titleArray = @[@"手机号:", @"输入姓名:", @"输入身份证号:"];
     }
     return _titleArray;
 }
 
 - (NSArray *)placeholderArray {
     if (_placeholderArray == nil) {
-        _placeholderArray = @[@"请输入真实姓名", @"请选择出生日期", @"请选择性别", @"请输入身份证号码"];
+        _placeholderArray = @[@"请输入手机号", @"请输入姓名", @"请输入身份证号码"];
     }
     return _placeholderArray;
 }
@@ -281,7 +257,6 @@ TCGenderPickerViewDelegate>
 - (TCUserIDAuthInfo *)authInfo {
     if (_authInfo == nil) {
         _authInfo = [[TCUserIDAuthInfo alloc] init];
-//        TCStoreInfo *storeInfo = [[TCBuluoApi api] currentUserSession].storeInfo;
         _authInfo.name = nil;
         _authInfo.birthday = 0;
         _authInfo.personSex = nil;

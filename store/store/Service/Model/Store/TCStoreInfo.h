@@ -25,7 +25,7 @@
 /** 店铺管理人手机号码 */
 @property (copy, nonatomic) NSString *phone;
 /** 店铺认证状态 - PROCESSING, FAILURE, SUCCESS */
-@property (copy, nonatomic) NSString *authenticationStatus;
+@property (copy, nonatomic) NSString *authorizedStatus;
 
 @property (copy, nonatomic) NSString *accountType;
 /** 余额 */

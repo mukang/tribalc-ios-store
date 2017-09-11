@@ -70,8 +70,8 @@
 }
 
 - (void)setupSubviews {
-    UIImage *normalImage = [UIImage imageWithColor:TCRGBColor(81, 199, 209)];
-    UIImage *highlightedImage = [UIImage imageWithColor:TCRGBColor(10, 164, 177)];
+    UIImage *normalImage = [UIImage imageWithColor:TCRGBColor(151, 171, 234)];
+    UIImage *highlightedImage = [UIImage imageWithColor:TCRGBColor(112, 139, 224)];
     [self.commitButton setBackgroundImage:normalImage forState:UIControlStateNormal];
     [self.commitButton setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
     
@@ -169,8 +169,8 @@
     @WeakObj(self)
     [[TCBuluoApi api] changeUserPhone:phoneInfo result:^(BOOL success, NSError *error) {
         @StrongObj(self)
-        [MBProgressHUD hideHUD:YES];
         if (success) {
+            [MBProgressHUD hideHUD:YES];
             if (self.editPhoneBlock) {
                 self.editPhoneBlock(YES);
             }
@@ -186,6 +186,7 @@
             if ([error isKindOfClass:[NSError class]]) {
                 NSInteger code = error.code;
                 if (code == 409) {
+                    [MBProgressHUD hideHUD:YES];
                     TCBioEditPhoneFailView *failView = [[TCBioEditPhoneFailView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, TCScreenHeight)];
                     failView.delegate = self;
                     [self.navigationController.view addSubview:failView];

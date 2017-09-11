@@ -51,7 +51,10 @@
     desLabel.font = [UIFont systemFontOfSize:11];
     [centerView addSubview:desLabel];
     
-    TCCommonButton *confirmBtn = [TCCommonButton buttonWithTitle:@"我知道了" color:TCCommonButtonColorPurple target:self action:@selector(confirm)];
+    TCCommonButton *cancleBtn = [TCCommonButton buttonWithTitle:@"取  消" color:TCCommonButtonColorPurple target:self action:@selector(delete)];
+    [centerView addSubview:cancleBtn];
+    
+    TCCommonButton *confirmBtn = [TCCommonButton buttonWithTitle:@"继  续" color:TCCommonButtonColorPurple target:self action:@selector(confirm)];
     [centerView addSubview:confirmBtn];
     
     [centerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,11 +85,17 @@
         make.top.equalTo(titleLabel.mas_bottom).offset(10);
     }];
     
-    [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(centerView).offset(20);
-        make.right.equalTo(centerView).offset(-20);
+    [cancleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(centerView).offset(10);
         make.top.equalTo(desLabel.mas_bottom).offset(20);
         make.height.equalTo(@40);
+        make.width.equalTo(confirmBtn);
+    }];
+    
+    [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cancleBtn).offset(10);
+        make.right.equalTo(centerView).offset(-10);
+        make.top.height.width.equalTo(cancleBtn);
     }];
 }
 

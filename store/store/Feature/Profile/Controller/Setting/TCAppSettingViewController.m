@@ -105,33 +105,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 1) {
+    if (indexPath.row == 3) {
         TCAppGoodsManageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppGoodsManageCell" forIndexPath:indexPath];
         return cell;
-    }else if (indexPath.row == 6) {
+    }else if (indexPath.row == 8) {
         TCAppNotificationViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppNotificationViewCell" forIndexPath:indexPath];
             return cell;
-    }else if(indexPath.row == 3) {
+    }else if(indexPath.row == 5) {
         TCAppCacheViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCAppCacheViewCell" forIndexPath:indexPath];
         return cell;
     }else{
         TCCommonIndicatorViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonIndicatorViewCell" forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"商户信息";
+        } else if (indexPath.row == 1) {
+            cell.titleLabel.text = @"商户认证";
         } else if (indexPath.row == 2) {
-            cell.titleLabel.text = @"支付密码";
-        } else if (indexPath.row == 4) {
-            cell.titleLabel.text = @"意见反馈";
-        } else if (indexPath.row == 5) {
-            cell.titleLabel.text = @"关于我们";
-        } else if (indexPath.row == 7) {
-            cell.titleLabel.text = @"消息管理";
-        } else if (indexPath.row == 8) {
             cell.titleLabel.text = @"修改手机号";
             cell.subtitleLabel.text = [TCBuluoApi api].currentUserSession.storeInfo.phone;
             cell.subtitleLabel.textAlignment = NSTextAlignmentRight;
+        } else if (indexPath.row == 4) {
+            cell.titleLabel.text = @"支付密码";
+        } else if (indexPath.row == 6) {
+            cell.titleLabel.text = @"意见反馈";
+        } else if (indexPath.row == 7) {
+            cell.titleLabel.text = @"关于我们";
         } else if (indexPath.row == 9) {
-            cell.titleLabel.text = @"身份认证";
+            cell.titleLabel.text = @"消息管理";
         }
         return cell;
 
@@ -159,37 +159,37 @@
                 [self.navigationController pushViewController:storeVC animated:YES];
             }
             break;
-        case 2:
+        case 4:
             //支付密码
             [self handleClickPassword];
             break;
         case 3:
             //清除缓存
             break;
-        case 4:
+        case 6:
         {
             TCSuggestionViewController *vc = [[TCSuggestionViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case 5:
+        case 7:
         {
             TCAboutUSViewController *aboutUs = [[TCAboutUSViewController alloc] init];
             [self.navigationController pushViewController:aboutUs animated:YES];
         }
             break;
-        case 7:
+        case 9:
         {
             TCMessageManagementViewController *vc = [[TCMessageManagementViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case 8:
+        case 2:
         {
             [self handleSelectPhoneCell];
         }
             break;
-            case 9:
+            case 1:
         {
             [self handleClickIdentityCell];
         }
@@ -204,10 +204,10 @@
 - (void)handleClickIdentityCell {
     TCStoreInfo *storeInfo = [[TCBuluoApi api] currentUserSession].storeInfo;
     UIViewController *currentVC;
-    if ([storeInfo.authenticationStatus isEqualToString:@"PROCESSING"]) {
+    if ([storeInfo.authorizedStatus isEqualToString:@"PROCESSING"]) {
         TCIDAuthDetailViewController *vc = [[TCIDAuthDetailViewController alloc] initWithIDAuthStatus:TCIDAuthStatusProcessing];
         currentVC = vc;
-    } else if ([storeInfo.authenticationStatus isEqualToString:@"SUCCESS"] || [storeInfo.authenticationStatus isEqualToString:@"FAILURE"]) {
+    } else if ([storeInfo.authorizedStatus isEqualToString:@"SUCCESS"] || [storeInfo.authorizedStatus isEqualToString:@"FAILURE"]) {
         TCIDAuthDetailViewController *vc = [[TCIDAuthDetailViewController alloc] initWithIDAuthStatus:TCIDAuthStatusFinished];
         currentVC = vc;
     } else {
