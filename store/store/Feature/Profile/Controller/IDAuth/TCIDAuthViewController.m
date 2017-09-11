@@ -9,6 +9,7 @@
 #import "TCIDAuthViewController.h"
 #import "TCIDAuthDetailViewController.h"
 #import "TCAppSettingViewController.h"
+#import "TCNavigationController.h"
 
 #import "TCCommonInputViewCell.h"
 
@@ -35,7 +36,7 @@ TCGenderPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) TCCommonButton *commitButton;
-
+@property (assign, nonatomic) BOOL originalInteractivePopGestureEnabled;
 @property (copy, nonatomic) NSArray *titleArray;
 @property (copy, nonatomic) NSArray *placeholderArray;
 
@@ -55,6 +56,21 @@ TCGenderPickerViewDelegate>
     
     [self setupNavBar];
     [self setupSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    self.originalInteractivePopGestureEnabled = nav.enableInteractivePopGesture;
+    nav.enableInteractivePopGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    nav.enableInteractivePopGesture = self.originalInteractivePopGestureEnabled;
 }
 
 - (void)setupNavBar {
@@ -218,7 +234,7 @@ TCGenderPickerViewDelegate>
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] authorizeUserIdentity:self.authInfo result:^(TCStoreInfo *storeInfo, NSError *error) {
         if (storeInfo) {
-            [MBProgressHUD showHUDWithMessage:@"认证申请已提交"];
+//            [MBProgressHUD showHUDWithMessage:@"认证申请已提交"];
         // 认证成功 跳到认证详情页
             TCIDAuthDetailViewController *detailVc = [[TCIDAuthDetailViewController alloc] initWithIDAuthStatus:TCIDAuthStatusFinished];
             [weakSelf.navigationController pushViewController:detailVc animated:YES];

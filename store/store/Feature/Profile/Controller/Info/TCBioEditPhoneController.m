@@ -63,10 +63,10 @@
 #pragma mark - Private Methods
 
 - (void)setupNavBar {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(handleCickBackButton:)];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
+//                                                                             style:UIBarButtonItemStylePlain
+//                                                                            target:self
+//                                                                            action:@selector(handleCickBackButton:)];
 }
 
 - (void)setupSubviews {
@@ -197,11 +197,6 @@
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"手机号修改失败，%@", reason]];
         }
     }];
-}
-
-- (void)handleCickBackButton:(UIBarButtonItem *)sender {
-//    TCBiographyViewController *bioVC = self.navigationController.viewControllers[1];
-//    [self.navigationController popToViewController:bioVC animated:YES];
 }
 
 - (void)handleTapView:(UITapGestureRecognizer *)sender {
