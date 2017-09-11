@@ -122,6 +122,7 @@
     bankCard.bankName = self.bankNameTextField.text;
     bankCard.bankCardNum = self.cardNumTextField.text;
     bankCard.phone = self.phoneTextField.text;
+    bankCard.personal = YES;
     [[TCBuluoApi api] prepareAddBankCard:bankCard walletID:self.walletID result:^(TCBankCard *card, NSError *error) {
         if (card) {
             weakSelf.bankCardID = card.ID;
