@@ -206,6 +206,8 @@
 #pragma mark - Actions
 
 - (void)handleClickBackButton:(id)sender {
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    nav.enableInteractivePopGesture = self.originalInteractivePopGestureEnabled;
     TCAppSettingViewController *vc = self.navigationController.viewControllers[2];
     [self.navigationController popToViewController:vc animated:YES];
 }

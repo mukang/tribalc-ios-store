@@ -197,46 +197,11 @@ TCGenderPickerViewDelegate>
     }
 }
 
-//- (void)didTapContainerViewInCommonInputViewCell:(TCCommonInputViewCell *)cell {
-//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//    if (indexPath.row == TCInputCellTypeBirthdate) {
-//        TCDatePickerView *datePickerView = [[TCDatePickerView alloc] initWithController:self];
-//        datePickerView.datePicker.datePickerMode = UIDatePickerModeDate;
-//        datePickerView.datePicker.date = self.authInfo.birthday ? [NSDate dateWithTimeIntervalSince1970:self.authInfo.birthday/1000.0] : [self.dateFormatter dateFromString:@"1990年01月01日"];
-//        datePickerView.datePicker.maximumDate = [NSDate date];
-//        datePickerView.delegate = self;
-//        [datePickerView show];
-//    } else if (indexPath.row == TCInputCellTypeGender) {
-//        TCGenderPickerView *genderPickerView = [[TCGenderPickerView alloc] initWithController:self];
-//        genderPickerView.delegate = self;
-//        [genderPickerView show];
-//    }
-//    
-//    [self.tableView endEditing:YES];
-//}
-
-#pragma mark - TCDatePickerViewDelegate
-//
-//- (void)didClickConfirmButtonInDatePickerView:(TCDatePickerView *)view {
-//    NSTimeInterval timestamp = [view.datePicker.date timeIntervalSince1970];
-//    self.authInfo.birthday = timestamp * 1000;
-//    [self.tableView reloadData];
-//}
-
-#pragma mark - TCGenderPickerViewDelegate
-
-//- (void)genderPickerView:(TCGenderPickerView *)view didClickConfirmButtonWithGender:(NSString *)gender {
-//    if ([gender isEqualToString:@"男"]) {
-//        self.authInfo.personSex = @"MALE";
-//    } else {
-//        self.authInfo.personSex = @"FEMALE";
-//    }
-//    [self.tableView reloadData];
-//}
-
 #pragma mark - Actions
 
 - (void)handleClickBackButton:(UIBarButtonItem *)sender {
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    nav.enableInteractivePopGesture = self.originalInteractivePopGestureEnabled;
     TCAppSettingViewController *vc = self.navigationController.viewControllers[2];
     [self.navigationController popToViewController:vc animated:YES];
 }
