@@ -214,6 +214,7 @@
         currentVC = vc;
     } else {
         TCIDAuthViewController *vc = [[TCIDAuthViewController alloc] initWithNibName:@"TCIDAuthViewController" bundle:[NSBundle mainBundle]];
+        vc.isFromEditPhone = NO;
         currentVC = vc;
     }
     currentVC.hidesBottomBarWhenPushed = YES;
@@ -229,39 +230,6 @@
         }
     };
     [self.navigationController pushViewController:editPhoneVC animated:YES];
-}
-
-- (void)fetchBankCardsList {
-    [MBProgressHUD showHUD:YES];
-    @WeakObj(self)
-    [[TCBuluoApi api] fetchBankCardList:^(NSArray *bankCardList, NSError *error) {
-        @StrongObj(self)
-        [MBProgressHUD hideHUD:YES];
-        if (!error) {
-            if ([bankCardList isKindOfClass:[NSArray class]] && bankCardList.count > 0) {
-                // 弹出解绑银行卡提示
-                [self tips];
-            }else {
-                //
-            }
-        }
-    }];
-}
-
-- (void)tips {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"请先解绑个人银行卡才能修改手机号" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"去解绑" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        [self toBankCardList];
-    }];
-    [alertController addAction:cancelAction];
-    [alertController addAction:deleteAction];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)toBankCardList {
-    TCBankCardViewController *bankCardVC = [[TCBankCardViewController alloc] init];
-    [self.navigationController pushViewController:bankCardVC animated:YES];
 }
 
 - (void)handleClickPassword {

@@ -166,6 +166,11 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
             if (response.codeInResponse == 200 || response.codeInResponse == 202) {
                 TCUserSession *userSession = self.currentUserSession;
                 userSession.storeInfo.phone = phoneInfo.phone;
+                if (response.codeInResponse == 202) {
+                    userSession.storeInfo.authorizedStatus = nil;
+                    userSession.storeInfo.legalPersonIdNo = nil;
+                    userSession.storeInfo.legalPersonName = nil;
+                }
                 [self setUserSession:userSession];
                 if (resultBlock) {
                     if (response.codeInResponse == 200) {

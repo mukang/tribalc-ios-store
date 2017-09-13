@@ -53,7 +53,7 @@ TCGenderPickerViewDelegate>
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     weakSelf = self;
-    
+    self.title = @"商户认证";
     [self setupNavBar];
     [self setupSubviews];
 }
@@ -74,7 +74,6 @@ TCGenderPickerViewDelegate>
 }
 
 - (void)setupNavBar {
-    self.navigationItem.title = @"身份认证";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back_item"]
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
@@ -82,7 +81,29 @@ TCGenderPickerViewDelegate>
 }
 
 - (void)setupSubviews {
-    
+    if (self.isFromEditPhone) {
+        self.tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
+        UILabel *label = [[UILabel alloc] init];
+        label.text = @"手机号修改成功，请进行实名认证";
+        label.textColor = TCLightGrayColor;
+        label.font = [UIFont systemFontOfSize:14];
+        [self.tableView addSubview:label];
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.tableView).offset(20);
+            make.right.equalTo(self.tableView).offset(-20);
+            make.top.equalTo(self.tableView).offset(-20);
+            make.height.equalTo(@20);
+        }];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:@"跳过" forState:UIControlStateNormal];
+        btn.frame = CGRectMake(0, 0, 30, 30);
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [btn addTarget:self action:@selector(handleClickBackButton:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:TCBlackColor forState:UIControlStateNormal];
+        UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithCustomView:btn];
+        self.navigationItem.rightBarButtonItem = rightBtn;
+    }
     TCCommonButton *commitButton = [TCCommonButton buttonWithTitle:@"认证" target:self action:@selector(handleClickCommitButton:)];
     commitButton.centerX = TCScreenWidth * 0.5;
     commitButton.y = TCScreenHeight - commitButton.height - TCRealValue(70) - 64;
@@ -176,46 +197,11 @@ TCGenderPickerViewDelegate>
     }
 }
 
-//- (void)didTapContainerViewInCommonInputViewCell:(TCCommonInputViewCell *)cell {
-//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//    if (indexPath.row == TCInputCellTypeBirthdate) {
-//        TCDatePickerView *datePickerView = [[TCDatePickerView alloc] initWithController:self];
-//        datePickerView.datePicker.datePickerMode = UIDatePickerModeDate;
-//        datePickerView.datePicker.date = self.authInfo.birthday ? [NSDate dateWithTimeIntervalSince1970:self.authInfo.birthday/1000.0] : [self.dateFormatter dateFromString:@"1990年01月01日"];
-//        datePickerView.datePicker.maximumDate = [NSDate date];
-//        datePickerView.delegate = self;
-//        [datePickerView show];
-//    } else if (indexPath.row == TCInputCellTypeGender) {
-//        TCGenderPickerView *genderPickerView = [[TCGenderPickerView alloc] initWithController:self];
-//        genderPickerView.delegate = self;
-//        [genderPickerView show];
-//    }
-//    
-//    [self.tableView endEditing:YES];
-//}
-
-#pragma mark - TCDatePickerViewDelegate
-//
-//- (void)didClickConfirmButtonInDatePickerView:(TCDatePickerView *)view {
-//    NSTimeInterval timestamp = [view.datePicker.date timeIntervalSince1970];
-//    self.authInfo.birthday = timestamp * 1000;
-//    [self.tableView reloadData];
-//}
-
-#pragma mark - TCGenderPickerViewDelegate
-
-//- (void)genderPickerView:(TCGenderPickerView *)view didClickConfirmButtonWithGender:(NSString *)gender {
-//    if ([gender isEqualToString:@"男"]) {
-//        self.authInfo.personSex = @"MALE";
-//    } else {
-//        self.authInfo.personSex = @"FEMALE";
-//    }
-//    [self.tableView reloadData];
-//}
-
 #pragma mark - Actions
 
 - (void)handleClickBackButton:(UIBarButtonItem *)sender {
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    nav.enableInteractivePopGesture = self.originalInteractivePopGestureEnabled;
     TCAppSettingViewController *vc = self.navigationController.viewControllers[2];
     [self.navigationController popToViewController:vc animated:YES];
 }

@@ -178,6 +178,7 @@
             if (error) {
                 // 跳到认证页
                 TCIDAuthViewController *vc = [[TCIDAuthViewController alloc] initWithNibName:@"TCIDAuthViewController" bundle:[NSBundle mainBundle]];
+                vc.isFromEditPhone = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }else {
                 [self.navigationController popViewControllerAnimated:YES];

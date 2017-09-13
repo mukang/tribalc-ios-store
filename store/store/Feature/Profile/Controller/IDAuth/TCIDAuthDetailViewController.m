@@ -206,12 +206,15 @@
 #pragma mark - Actions
 
 - (void)handleClickBackButton:(id)sender {
+    TCNavigationController *nav = (TCNavigationController *)self.navigationController;
+    nav.enableInteractivePopGesture = self.originalInteractivePopGestureEnabled;
     TCAppSettingViewController *vc = self.navigationController.viewControllers[2];
     [self.navigationController popToViewController:vc animated:YES];
 }
 
 - (void)handleClickRecommitButton:(UIButton *)sender {
     TCIDAuthViewController *vc = [[TCIDAuthViewController alloc] initWithNibName:@"TCIDAuthViewController" bundle:[NSBundle mainBundle]];
+    vc.isFromEditPhone = NO;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

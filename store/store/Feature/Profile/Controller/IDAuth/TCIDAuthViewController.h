@@ -11,4 +11,6 @@
 
 @interface TCIDAuthViewController : TCBaseViewController
 
+@property (assign, nonatomic) BOOL isFromEditPhone;
+
 @end
