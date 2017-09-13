@@ -7,19 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TCBankCard.h"
 
 @class TCBankPickerView;
 
 @protocol TCBankPickerViewDelegate <NSObject>
 
 @optional
-- (void)bankPickerView:(TCBankPickerView *)view didClickConfirmButtonWithBankName:(NSString *)bankName;
+- (void)bankPickerView:(TCBankPickerView *)view didClickConfirmButtonWithBankCard:(TCBankCard *)bankCard;
 - (void)didClickCancelButtonInBankPickerView:(TCBankPickerView *)view;
 
 @end
 
 @interface TCBankPickerView : UIView
 
+@property (strong, nonatomic) NSArray *banks;
 @property (weak, nonatomic) id<TCBankPickerViewDelegate> delegate;
 
 @end

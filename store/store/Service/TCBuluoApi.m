@@ -1394,6 +1394,36 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
     }
 }
 
+- (void)fetchReadyToBindBankCardList:(void (^)(NSArray *, NSError *))resultBlock {
+    if ([self isUserSessionValid]) {
+        NSString *apiName = [NSString stringWithFormat:@"wallets/banks?me=%@", self.currentUserSession.assigned];
+        TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
+        request.token = self.currentUserSession.token;
+        [[TCClient client] send:request finish:^(TCClientResponse *response) {
+            if (response.error) {
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
+                }
+            } else {
+                NSMutableArray *bankCardList = [NSMutableArray array];
+                NSArray *dics = response.data;
+                for (NSDictionary *dic in dics) {
+                    TCBankCard *bankCard = [[TCBankCard alloc] initWithObjectDictionary:dic];
+                    [bankCardList addObject:bankCard];
+                }
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock([bankCardList copy], nil));
+                }
+            }
+        }];
+    } else {
+        TCClientRequestError *sessionError = [TCClientRequestError errorWithCode:TCClientRequestErrorUserSessionInvalid andDescription:nil];
+        if (resultBlock) {
+            TC_CALL_ASYNC_MQ(resultBlock(nil, sessionError));
+        }
+    }
+}
+
 - (void)addBankCard:(TCBankCard *)bankCard withVerificationCode:(NSString *)verificationCode result:(void (^)(BOOL, NSError *))resultBlock {
     if ([self isUserSessionValid]) {
         NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bank_cards?me=%@&vcode=%@",self.currentUserSession.assigned, self.currentUserSession.assigned, verificationCode];

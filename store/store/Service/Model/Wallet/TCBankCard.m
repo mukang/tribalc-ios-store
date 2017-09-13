@@ -10,4 +10,14 @@
 
 @implementation TCBankCard
 
+- (void)setBindType:(NSString *)bindType {
+    _bindType = bindType;
+    
+    if ([bindType isEqualToString:@"NORMAL"]) {
+        self.type = TCBankCardTypeNormal;
+    } else if ([bindType isEqualToString:@"WITHDRAW"]) {
+        self.type = TCBankCardTypeWithdraw;
+    }
+}
+
 @end

@@ -11,7 +11,6 @@
 @interface TCBankPickerView () <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-@property (strong, nonatomic) NSArray *banks;
 
 @end
 
@@ -19,8 +18,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    [self loadData];
     
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
@@ -38,6 +35,38 @@
 
 #pragma mark - UIPickerViewDelegate
 
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 60;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
+    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TCScreenWidth, 60)];
+    
+    TCBankCard *bankCard = self.banks[row];
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = bankCard.bankName;
+    titleLabel.textColor = TCBlackColor;
+    titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    [containerView addSubview:titleLabel];
+    
+    UILabel *subTitleLabel = [[UILabel alloc] init];
+    subTitleLabel.text = @"该银行卡只能用于提现";
+    subTitleLabel.textColor = TCBlackColor;
+    subTitleLabel.font = [UIFont systemFontOfSize:12];
+    [containerView addSubview:subTitleLabel];
+    subTitleLabel.hidden = bankCard.maxPaymentAmount;
+    
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(containerView);
+    }];
+    [subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(containerView);
+        make.centerY.equalTo(containerView).offset(20);
+    }];
+    
+    return containerView;
+}
+
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString *title = self.banks[row];
     return [[NSAttributedString alloc] initWithString:title attributes:@{
@@ -48,9 +77,9 @@
 #pragma mark - Actions
 
 - (IBAction)handleClickConfirmButton:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(bankPickerView:didClickConfirmButtonWithBankName:)]) {
-        NSString *bankName = [self getCurrentSelectedInfo];
-        [self.delegate bankPickerView:self didClickConfirmButtonWithBankName:bankName];
+    if ([self.delegate respondsToSelector:@selector(bankPickerView:didClickConfirmButtonWithBankCard:)]) {
+        TCBankCard *bankCard = [self getCurrentSelectedInfo];
+        [self.delegate bankPickerView:self didClickConfirmButtonWithBankCard:bankCard];
     }
 }
 
@@ -62,21 +91,9 @@
 
 #pragma mark - Get Current Info
 
-- (NSString *)getCurrentSelectedInfo {
+- (TCBankCard *)getCurrentSelectedInfo {
     NSInteger currentIndex = [self.pickerView selectedRowInComponent:0];
     return self.banks[currentIndex];
-}
-
-#pragma mark - Load Data
-
-- (void)loadData {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"TCBankInfoList" ofType:@"plist"];
-    NSArray *bankInfoList = [NSArray arrayWithContentsOfFile:path];
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:bankInfoList.count];
-    for (NSDictionary *bankInfo in bankInfoList) {
-        [temp addObject:bankInfo[@"name"]];
-    }
-    self.banks = [temp copy];
 }
 
 @end

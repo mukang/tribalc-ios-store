@@ -20,8 +20,14 @@
 @property (weak, nonatomic) IBOutlet UIView *bankNameBgView;
 @property (weak, nonatomic) IBOutlet UITextField *cardNumTextField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *codeTitleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *codeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *codeButton;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *confirmButton;
 
 @property (nonatomic, strong) NSTimer *timer;
@@ -31,6 +37,8 @@
 @property (weak, nonatomic) TCBankPickerView *bankPickerView;
 
 @property (copy, nonatomic) NSString *bankCardID;
+
+@property (strong, nonatomic) TCBankCard *bankCard;
 
 @end
 
@@ -76,6 +84,14 @@
     [self.containerView addGestureRecognizer:tap];
 }
 
+- (void)reloadUI {
+    BOOL isHidden = (self.bankCard.maxPaymentAmount == 0) ? YES : NO;
+    self.codeTitleLabel.hidden = isHidden;
+    self.codeTextField.hidden = isHidden;
+    self.codeButton.hidden = isHidden;
+    self.lineView.hidden = isHidden;
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -87,9 +103,11 @@
 
 #pragma mark - TCBankPickerViewDelegate
 
-- (void)bankPickerView:(TCBankPickerView *)view didClickConfirmButtonWithBankName:(NSString *)bankName {
-    self.bankNameTextField.text = bankName;
+- (void)bankPickerView:(TCBankPickerView *)view didClickConfirmButtonWithBankCard:(TCBankCard *)bankCard {
+    self.bankNameTextField.text = bankCard.bankName;
+    self.bankCard = bankCard;
     [self dismissPickerView];
+    [self reloadUI];
 }
 
 - (void)didClickCancelButtonInBankPickerView:(TCBankPickerView *)view {
@@ -99,6 +117,18 @@
 #pragma mark - Actions
 
 - (IBAction)handleClickSendCodeButton:(UIButton *)sender {
+    [self prepareAddBankCard];
+}
+
+- (IBAction)handleClickConfirmButton:(UIButton *)sender {
+    if (self.bankCard.maxPaymentAmount == 0) {
+        [self prepareAddBankCard];
+    } else {
+        [self confirmAddBankCard];
+    }
+}
+
+- (void)prepareAddBankCard {
     if (self.nameTextField.text.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请输入开户名称"];
         return;
@@ -116,16 +146,25 @@
         return;
     }
     
-    [self startCountDown];
-    TCBankCard *bankCard = [[TCBankCard alloc] init];
-    bankCard.userName = self.nameTextField.text;
-    bankCard.bankName = self.bankNameTextField.text;
-    bankCard.bankCardNum = self.cardNumTextField.text;
-    bankCard.phone = self.phoneTextField.text;
-    bankCard.personal = YES;
-    [[TCBuluoApi api] prepareAddBankCard:bankCard walletID:self.walletID result:^(TCBankCard *card, NSError *error) {
+    self.bankCard.userName = self.nameTextField.text;
+    self.bankCard.bankCardNum = self.cardNumTextField.text;
+    self.bankCard.phone = self.phoneTextField.text;
+    self.bankCard.personal = YES;
+    self.bankCard.bindType = (self.bankCard.maxPaymentAmount == 0) ? @"WITHDRAW" : @"NORMAL";
+    
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] prepareAddBankCard:self.bankCard walletID:self.walletID result:^(TCBankCard *card, NSError *error) {
         if (card) {
-            weakSelf.bankCardID = card.ID;
+            [MBProgressHUD hideHUD:YES];
+            if (weakSelf.bankCard.type == TCBankCardTypeNormal) {
+                [weakSelf startCountDown];
+                weakSelf.bankCardID = card.ID;
+            } else {
+                if (weakSelf.bankCardAddBlock) {
+                    weakSelf.bankCardAddBlock();
+                }
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }
         } else {
             [weakSelf stopCountDown];
             NSString *reason = error.localizedDescription ?: @"请稍后再试";
@@ -134,7 +173,7 @@
     }];
 }
 
-- (IBAction)handleClickConfirmButton:(UIButton *)sender {
+- (void)confirmAddBankCard {
     if (self.nameTextField.text.length == 0) {
         [MBProgressHUD showHUDWithMessage:@"请输入开户名称"];
         return;
@@ -177,7 +216,17 @@
 
 - (void)handleTapBankNameBgView:(UITapGestureRecognizer *)sender {
     [self.containerView endEditing:YES];
-    [self showPickerView];
+    
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] fetchReadyToBindBankCardList:^(NSArray *bankCardList, NSError *error) {
+        if (bankCardList) {
+            [MBProgressHUD hideHUD:YES];
+            [self showPickerViewWithBankCardList:bankCardList];
+        } else {
+            NSString *message = error.localizedDescription ?: @"获取开户行名称失败，请稍后再试";
+            [MBProgressHUD showHUDWithMessage:message];
+        }
+    }];
 }
 
 - (void)handleTapPickerBgView:(UITapGestureRecognizer *)sender {
@@ -190,7 +239,7 @@
 
 #pragma mark - picker view
 
-- (void)showPickerView {
+- (void)showPickerViewWithBankCardList:(NSArray *)bankCardList {
     
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     UIView *superView = keyWindow;
@@ -202,6 +251,7 @@
     [pickerBgView addGestureRecognizer:tap];
     
     TCBankPickerView *bankPickerView = [[[NSBundle mainBundle] loadNibNamed:@"TCBankPickerView" owner:nil options:nil] firstObject];
+    bankPickerView.banks = bankCardList;
     bankPickerView.delegate = self;
     bankPickerView.frame = CGRectMake(0, TCScreenHeight, TCScreenWidth, 240);
     [superView addSubview:bankPickerView];

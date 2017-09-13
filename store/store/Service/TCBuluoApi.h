@@ -447,6 +447,13 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
 - (void)fetchBankCardList:(void (^)(NSArray *bankCardList, NSError *error))resultBlock;
 
 /**
+ 获取准备绑定的银行卡列表
+ 
+ @param resultBlock 结果回调，bankCardList为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchReadyToBindBankCardList:(void (^)(NSArray *bankCardList, NSError *error))resultBlock;
+
+/**
  添加银行卡（弃用接口）
  
  @param bankCard 银行卡信息
