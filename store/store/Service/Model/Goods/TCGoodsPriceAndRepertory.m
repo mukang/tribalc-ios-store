@@ -13,18 +13,23 @@
 - (void)setPfProfit:(double)pfProfit {
     _pfProfit = pfProfit;
     _realPfProfit = pfProfit;
+    _realSalePrice = _salePrice-pfProfit;
 }
 
 - (void)setSalePrice:(double)salePrice {
     _salePrice = salePrice;
+    _realSalePrice = salePrice-_pfProfit;
 }
 
 - (void)setRealSalePrice:(double)realSalePrice {
     _realSalePrice = realSalePrice;
+    _salePrice = realSalePrice+_pfProfit;
 }
 
 - (void)setRealPfProfit:(double)realPfProfit {
     _realPfProfit = realPfProfit;
+    _pfProfit = realPfProfit;
+    _salePrice = _realSalePrice+realPfProfit;
 }
 
 @end

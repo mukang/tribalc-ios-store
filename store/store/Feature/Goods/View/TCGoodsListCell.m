@@ -161,7 +161,7 @@
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:good.createTime/1000];
         _titleLabel.text = good.name;
         _storeLabel.text = [NSString stringWithFormat:@"库存  %ld份",(long)good.priceAndRepertory.repertory];
-        _priceLabel.text = [NSString stringWithFormat:@"单价  %.2f元",good.priceAndRepertory.salePrice];
+        _priceLabel.text = [NSString stringWithFormat:@"单价  %.2f元",good.priceAndRepertory.realSalePrice];
         _salesLabel.text = [NSString stringWithFormat:@"销量  %ld",(long)good.saleQuantity];
         _creatTimeLabel.text = [NSString stringWithFormat:@"创建时间  %@",[dateFormatter stringFromDate:date]];
         

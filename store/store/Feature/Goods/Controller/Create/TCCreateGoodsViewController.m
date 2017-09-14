@@ -42,6 +42,12 @@
 
 @property (copy, nonatomic) NSString *currentMainGoodsStandardKey;
 
+@property (copy, nonatomic) NSString *currentMoneyStr;
+
+@property (copy, nonatomic) NSString *firstStandard;
+
+@property (copy, nonatomic) NSString *secondStandard;
+
 @end
 
 @implementation TCCreateGoodsViewController
@@ -64,6 +70,23 @@
     [super viewWillDisappear:animated];
     
     [self removeNotifications];
+}
+
+- (void)setGoods:(TCGoodsMeta *)goods {
+    _goods = goods;
+    
+    if (goods.priceAndRepertory) {
+        _currentMoneyStr = [NSString stringWithFormat:@"%.2f",goods.priceAndRepertory.realSalePrice];
+    }
+    
+    if ([goods.standardKeys isKindOfClass:[NSArray class]]) {
+        if (goods.standardKeys.count == 1) {
+            self.firstStandard = goods.standardKeys[0];
+        }else if (goods.standardKeys.count == 2) {
+            self.firstStandard = goods.standardKeys[0];
+            self.secondStandard = goods.standardKeys[1];
+        }
+    }
 }
 
 - (void)setUpViews {
@@ -473,7 +496,7 @@
                 cell.delegate = self;
                 
                 if (self.goods.priceAndRepertory) {
-                    cell.textField.text = [NSString stringWithFormat:@"%.2f",(self.goods.priceAndRepertory.salePrice-self.goods.priceAndRepertory.pfProfit)];
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realSalePrice];
                 }
                 
                 return cell;
@@ -486,7 +509,7 @@
                     cell.delegate = self;
                     cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                     if (self.goods.priceAndRepertory) {
-                        cell.textField.text = [NSString stringWithFormat:@"%.2f",(self.goods.priceAndRepertory.salePrice-self.goods.priceAndRepertory.pfProfit)];
+                        cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realSalePrice];
                     }
                     return cell;
                 }
@@ -542,7 +565,7 @@
                 cell.delegate = self;
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory) {
-                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.pfProfit];
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realPfProfit];
                 }
                 return cell;
             }else {
@@ -553,7 +576,7 @@
                     cell.delegate = self;
                     cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                     if (self.goods.priceAndRepertory) {
-                        cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.pfProfit];
+                        cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realPfProfit];
                     }
                     return cell;
                 }else {
@@ -611,7 +634,7 @@
                 cell.delegate = self;
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory) {
-                    cell.textField.text = [NSString stringWithFormat:@"%.2f",(self.goods.priceAndRepertory.salePrice-self.goods.priceAndRepertory.pfProfit)];
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realSalePrice];
                 }
                 
                 return cell;
@@ -642,7 +665,7 @@
                 cell.delegate = self;
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory) {
-                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.pfProfit];
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realPfProfit];
                 }
                 return cell;
             }
@@ -653,6 +676,7 @@
         cell.titleLabel.text = @"原产国";
         cell.placeholder = @"请输入商品原产国";
         cell.delegate = self;
+        cell.textField.keyboardType = UIKeyboardTypeDefault;
         if ([self.goods.originCountry isKindOfClass:[NSString class]]) {
             cell.textField.text = self.goods.originCountry;
         }
@@ -736,12 +760,10 @@
             if (indexPath.row == 1) {
                 self.goods.brand = textField.text;
             }else if (indexPath.row == 2) {
-
+                self.firstStandard = textField.text;
             }else if (indexPath.row == 3) {
-                
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
-
-                    
+                    self.secondStandard = textField.text;
                 }else {
                     [self setGoodsSalePrice:textField.text];
                 }
@@ -793,14 +815,15 @@
     if (self.goods.priceAndRepertory == nil) {
         self.goods.priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
     }
-    self.goods.priceAndRepertory.pfProfit = [text doubleValue];
+    self.goods.priceAndRepertory.realPfProfit = [text doubleValue];
 }
 
 - (void)setGoodsSalePrice:(NSString *)text {
     if (self.goods.priceAndRepertory == nil) {
         self.goods.priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
     }
-    self.goods.priceAndRepertory.salePrice = [text doubleValue];
+    self.goods.priceAndRepertory.realSalePrice = [text doubleValue];
+    self.currentMoneyStr = text;
 }
 
 - (void)setGoodsOriginPrice:(NSString *)text {
@@ -877,9 +900,8 @@
     
     NSMutableArray *mutableArr = [NSMutableArray arrayWithCapacity:0];
     if (self.goods.standardId && self.currentGoodsStandardMate) {
-        TCCommonInputViewCell *cell = (TCCommonInputViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
-        if (cell.textField.text.length > 0) {
-            [mutableArr addObject:cell.textField.text];
+        if ([self.firstStandard isKindOfClass:[NSString class]] && self.firstStandard.length > 0) {
+            [mutableArr addObject:self.firstStandard];
         }else {
             [MBProgressHUD showHUDWithMessage:@"请输入一级规格"];
             return;
@@ -887,9 +909,8 @@
         
         
         if (self.currentGoodsStandardMate.descriptions.secondary) {
-            TCCommonInputViewCell *sCell = (TCCommonInputViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:1]];
-            if (sCell.textField.text.length > 0) {
-                [mutableArr addObject:sCell.textField.text];
+            if ([self.secondStandard isKindOfClass:[NSString class]] && self.secondStandard.length > 0) {
+                [mutableArr addObject:self.secondStandard];
             }else {
                 [MBProgressHUD showHUDWithMessage:@"请输入二级规格"];
                 return;
@@ -908,7 +929,11 @@
             [MBProgressHUD showHUDWithMessage:@"请输入价格库存信息"];
             return;
         }else {
-            if (!self.goods.priceAndRepertory.salePrice) {
+//            if (!self.goods.priceAndRepertory.salePrice) {
+//                [MBProgressHUD showHUDWithMessage:@"请输入价格"];
+//                return;
+//            }
+            if (!([self.currentMoneyStr isKindOfClass:[NSString class]] && self.currentMoneyStr.length > 0)) {
                 [MBProgressHUD showHUDWithMessage:@"请输入价格"];
                 return;
             }
@@ -921,7 +946,11 @@
     
     if (self.goods.standardId && self.currentGoodsStandardMate) {
         if (self.goods.priceAndRepertory) {
-            if (!self.goods.priceAndRepertory.salePrice) {
+//            if (!self.goods.priceAndRepertory.salePrice) {
+//                [MBProgressHUD showHUDWithMessage:@"请输入价格"];
+//                return;
+//            }
+            if (!([self.currentMoneyStr isKindOfClass:[NSString class]] && self.currentMoneyStr.length > 0)) {
                 [MBProgressHUD showHUDWithMessage:@"请输入价格"];
                 return;
             }
@@ -940,7 +969,13 @@
                 if ([mainP isKindOfClass:[NSString class]]) {
                     self.goods.mainPicture = mainP;
                 }
+            }else {
+                [MBProgressHUD showHUDWithMessage:@"请上传图片"];
+                return;
             }
+        }else {
+            [MBProgressHUD showHUDWithMessage:@"请上传图片"];
+            return;
         }
     }
     

@@ -208,8 +208,8 @@
                 if (cell.salePriceTextField.text.length && cell.repertoryTextField.text.length) {
                     TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
                     priceAndRepertory.originPrice = [cell.orignPriceTextField.text doubleValue];
-                    priceAndRepertory.pfProfit = [cell.platformProfitTextField.text doubleValue];
-                    priceAndRepertory.salePrice = [cell.salePriceTextField.text doubleValue];
+                    priceAndRepertory.realPfProfit = [cell.platformProfitTextField.text doubleValue];
+                    priceAndRepertory.realSalePrice = [cell.salePriceTextField.text doubleValue];
                     priceAndRepertory.repertory = [cell.repertoryTextField.text integerValue];
                     
                     
@@ -307,9 +307,9 @@
                     if ([key isEqualToString:priceAndRepertyCell.titleLabel.text]) {
                         TCGoodsPriceAndRepertory *priceAndReperoty = self.goodsStandardMate.priceAndRepertoryMap[key];
                         priceAndRepertyCell.orignPriceTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.originPrice];
-                        priceAndRepertyCell.salePriceTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.salePrice];
+                        priceAndRepertyCell.salePriceTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.realSalePrice];
                         priceAndRepertyCell.repertoryTextField.text = [NSString stringWithFormat:@"%ld",(long)priceAndReperoty.repertory];
-                        priceAndRepertyCell.platformProfitTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.pfProfit];
+                        priceAndRepertyCell.platformProfitTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.realPfProfit];
                     }
                 }
             }
@@ -416,11 +416,11 @@
         if ([subKey isEqualToString:@"originPrice"]) {
             priceAndRepertory.originPrice = [dic[subKey] doubleValue];
         }else if ([subKey isEqualToString:@"salePrice"]) {
-            priceAndRepertory.salePrice = [dic[subKey] doubleValue];
+            priceAndRepertory.realSalePrice = [dic[subKey] doubleValue];
         }else if ([subKey isEqualToString:@"repertory"]) {
             priceAndRepertory.repertory = [dic[subKey] integerValue];
         }else if ([subKey isEqualToString:@"pfProfit"]) {
-            priceAndRepertory.pfProfit = [dic[subKey] integerValue];
+            priceAndRepertory.realPfProfit = [dic[subKey] integerValue];
         }
     }
     
@@ -575,7 +575,7 @@
             priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
         }
         if ([price isKindOfClass:[NSString class]]) {
-            priceAndRepertory.salePrice = [price doubleValue];
+            priceAndRepertory.realSalePrice = [price doubleValue];
         }
         
         if ([repertory isKindOfClass:[NSString class]]) {

@@ -74,7 +74,7 @@
         cell = [[TCSetMainGoodListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCSetMainGoodListCell"];
     }
     
-    if (self.currentIndexPath == indexPath) {
+    if (self.currentIndexPath.row == indexPath.row) {
         cell.select = YES;
     }else {
         cell.select = NO;
