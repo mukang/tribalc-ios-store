@@ -15,7 +15,10 @@
 @interface TCMessageManagementViewController () <UITableViewDataSource, UITableViewDelegate, TCMessageManagementViewCellDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
-@property (copy, nonatomic) NSArray *messageManagementList;
+@property (strong, nonatomic) UIView *headerView;
+@property (weak, nonatomic) UILabel *headerTitleLabel;
+
+@property (strong, nonatomic) TCMessageManagementWrapper *messageManagementWrapper;
 
 @end
 
@@ -51,9 +54,9 @@
 }
 
 - (void)loadNetData {
-    [[TCBuluoApi api] fetchMessageManagementList:^(NSArray *messageManagementList, NSError *error) {
-        if (messageManagementList) {
-            weakSelf.messageManagementList = messageManagementList;
+    [[TCBuluoApi api] fetchMessageManagementWrapper:^(TCMessageManagementWrapper *messageManagementWrapper, NSError *error) {
+        if (messageManagementWrapper) {
+            weakSelf.messageManagementWrapper = messageManagementWrapper;
             [weakSelf.tableView reloadData];
         } else {
             NSString *reason = error.localizedDescription ?: @"请退出该页面重试";
@@ -64,13 +67,30 @@
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.messageManagementWrapper.additional.count) {
+        return 2;
+    }
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.messageManagementList.count;
+    if (section == 0) {
+        return self.messageManagementWrapper.primary.count;
+    } else {
+        return self.messageManagementWrapper.additional.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TCMessageManagementViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCMessageManagementViewCell" forIndexPath:indexPath];
-    cell.messageManagement = self.messageManagementList[indexPath.row];
+    TCMessageManagement *messageManagement = nil;
+    if (indexPath.section == 0) {
+        messageManagement = self.messageManagementWrapper.primary[indexPath.row];
+    } else {
+        messageManagement = self.messageManagementWrapper.additional[indexPath.row];
+    }
+    cell.messageManagement = messageManagement;
     cell.delegate = self;
     return cell;
 }
@@ -78,11 +98,41 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
+    if (self.messageManagementWrapper.additional.count == 0) {
+        return CGFLOAT_MIN;
+    }
+    
+    return 30;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return CGFLOAT_MIN;
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (self.messageManagementWrapper.additional.count == 0) {
+        return nil;
+    }
+    
+    UIView *containerView = [[UIView alloc] init];
+    containerView.frame = CGRectMake(0, 0, TCScreenWidth, 30);
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.textColor = TCBlackColor;
+    titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    [containerView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(containerView).offset(20);
+        make.centerY.equalTo(containerView);
+    }];
+    
+    if (section == 0) {
+        titleLabel.text = @"个人";
+    } else {
+        titleLabel.text = @"企业";
+    }
+    
+    return containerView;
 }
 
 #pragma mark - TCMessageManagementViewCellDelegate
@@ -101,6 +151,22 @@
             [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"修改失败，%@", reason]];
         }
     }];
+}
+
+- (UIView *)headerView {
+    if (_headerView == nil) {
+        _headerView = [[UIView alloc] init];
+        UILabel *headerTitleLabel = [[UILabel alloc] init];
+        headerTitleLabel.textColor = TCBlackColor;
+        headerTitleLabel.font = [UIFont boldSystemFontOfSize:14];
+        [_headerView addSubview:headerTitleLabel];
+        self.headerTitleLabel = headerTitleLabel;
+        [headerTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_headerView).offset(20);
+            make.centerY.equalTo(_headerView);
+        }];
+    }
+    return _headerView;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -70,7 +70,7 @@
 
 /*********** 消息服务 ***********/
 #import "TCHomeMessageWrapper.h"
-#import "TCMessageManagement.h"
+#import "TCMessageManagementWrapper.h"
 
 
 

@@ -605,7 +605,7 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  
  @param resultBlock 结果回调
  */
-- (void)fetchMessageManagementList:(void(^)(NSArray *messageManagementList, NSError *error))resultBlock;
+- (void)fetchMessageManagementWrapper:(void(^)(TCMessageManagementWrapper *messageManagementWrapper, NSError *error))resultBlock;
 
 /**
  修改用户消息类型开闭状态
