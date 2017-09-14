@@ -30,12 +30,17 @@
     if ([dict isKindOfClass:[NSDictionary class]]) {
         NSString *price = dict[@"price"];
         NSString *reperoty = dict[@"reperoty"];
+        NSString *pfProfit = dict[@"pfProfit"];
         if ([price isKindOfClass:[NSString class]]) {
             _salePriceTextField.text = price;
         }
         
         if ([reperoty isKindOfClass:[NSString class]]) {
             _repertoryTextField.text = reperoty;
+        }
+        
+        if ([pfProfit isKindOfClass:[NSString class]]) {
+            _platformProfitTextField.text = pfProfit;
         }
     }
 }
@@ -94,6 +99,18 @@
     _repertoryTextField.keyboardType = UIKeyboardTypeDecimalPad;
     [self.contentView addSubview:_repertoryTextField];
     
+    _platformProfitTextField = [[UITextField alloc] init];
+    _platformProfitTextField.font = [UIFont systemFontOfSize:14];
+    _platformProfitTextField.layer.cornerRadius = 3.0;
+    _platformProfitTextField.clipsToBounds = YES;
+    _platformProfitTextField.delegate = self;
+    _platformProfitTextField.placeholder = @"  平台利润";
+    _platformProfitTextField.layer.borderWidth = 0.5;
+    _platformProfitTextField.layer.borderColor =TCLightGrayColor.CGColor;
+    _platformProfitTextField.tag = 1004;
+    _platformProfitTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    [self.contentView addSubview:_platformProfitTextField];
+    
     [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView);
         make.right.equalTo(self.contentView);
@@ -114,7 +131,7 @@
         make.right.equalTo(self.contentView).offset(-15);
     }];
 
-    CGFloat w = (TCScreenWidth -30 - 20 * 2) / 3;
+    CGFloat w = (TCScreenWidth -30 - 20 * 3) / 4;
     
     [_orignPriceTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(15);
@@ -131,6 +148,11 @@
     [_repertoryTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_salePriceTextField.mas_right).offset(20);
         make.top.height.width.equalTo(_salePriceTextField);
+    }];
+    
+    [_platformProfitTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_repertoryTextField.mas_right).offset(20);
+        make.top.height.width.equalTo(_repertoryTextField);
     }];
 }
 
@@ -153,8 +175,10 @@
         subKey = @"originPrice";
     }else if (index == 1002) {
         subKey = @"salePrice";
-    }else {
+    }else if (index == 1003) {
         subKey = @"repertory";
+    }else {
+        subKey = @"pfProfit";
     }
     
     NSString *str = textField.text;

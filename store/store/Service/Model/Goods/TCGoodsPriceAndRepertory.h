@@ -16,4 +16,10 @@
 
 @property (assign, nonatomic) NSInteger repertory;
 
+@property (assign, nonatomic) double pfProfit;
+
+@property (assign, nonatomic) double realSalePrice;
+
+@property (assign, nonatomic) double realPfProfit;
+
 @end

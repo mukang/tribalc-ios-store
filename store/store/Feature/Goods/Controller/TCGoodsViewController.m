@@ -507,6 +507,10 @@
     return _tableView;
 }
 
+- (void)dealloc {
+    TCLog(@"TCGoodsViewController -- dealloc");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

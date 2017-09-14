@@ -28,6 +28,8 @@
 
 @property (strong, nonatomic) UITextField *repertoryTextField;
 
+@property (strong, nonatomic) UITextField *platformProfitTextField;
+
 @property (strong, nonatomic) id<TCCreatePriceAndRepertoryCellDelegate> delegate;
 
 - (CGFloat)cellHeight;

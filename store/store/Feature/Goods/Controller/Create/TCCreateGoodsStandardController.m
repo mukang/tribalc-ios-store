@@ -208,8 +208,10 @@
                 if (cell.salePriceTextField.text.length && cell.repertoryTextField.text.length) {
                     TCGoodsPriceAndRepertory *priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
                     priceAndRepertory.originPrice = [cell.orignPriceTextField.text doubleValue];
+                    priceAndRepertory.pfProfit = [cell.platformProfitTextField.text doubleValue];
                     priceAndRepertory.salePrice = [cell.salePriceTextField.text doubleValue];
                     priceAndRepertory.repertory = [cell.repertoryTextField.text integerValue];
+                    
                     
                     NSRange range = [str rangeOfString:@"-"];
                     if (range.location != NSNotFound) {
@@ -306,7 +308,8 @@
                         TCGoodsPriceAndRepertory *priceAndReperoty = self.goodsStandardMate.priceAndRepertoryMap[key];
                         priceAndRepertyCell.orignPriceTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.originPrice];
                         priceAndRepertyCell.salePriceTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.salePrice];
-                        priceAndRepertyCell.repertoryTextField.text = [NSString stringWithFormat:@"%ld",priceAndReperoty.repertory];
+                        priceAndRepertyCell.repertoryTextField.text = [NSString stringWithFormat:@"%ld",(long)priceAndReperoty.repertory];
+                        priceAndRepertyCell.platformProfitTextField.text = [NSString stringWithFormat:@"%.2f",priceAndReperoty.pfProfit];
                     }
                 }
             }
@@ -414,8 +417,10 @@
             priceAndRepertory.originPrice = [dic[subKey] doubleValue];
         }else if ([subKey isEqualToString:@"salePrice"]) {
             priceAndRepertory.salePrice = [dic[subKey] doubleValue];
-        }else {
+        }else if ([subKey isEqualToString:@"repertory"]) {
             priceAndRepertory.repertory = [dic[subKey] integerValue];
+        }else if ([subKey isEqualToString:@"pfProfit"]) {
+            priceAndRepertory.pfProfit = [dic[subKey] integerValue];
         }
     }
     

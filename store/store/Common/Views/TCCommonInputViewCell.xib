@@ -71,8 +71,8 @@
             <connections>
                 <outlet property="containerView" destination="nzs-Wr-pYP" id="Yxp-1f-VhS"/>
                 <outlet property="separatorView" destination="peY-Lx-krw" id="rbb-rj-p8w"/>
-                <outlet property="textField" destination="aPb-Ao-aOD" id="HfM-fC-5qs"/>
-                <outlet property="titleLabel" destination="TR2-VB-Qb1" id="MzP-tw-uM9"/>
+                <outlet property="textField" destination="aPb-Ao-aOD" id="uNJ-4D-Fa6"/>
+                <outlet property="titleLabel" destination="TR2-VB-Qb1" id="NTB-fi-COU"/>
             </connections>
             <point key="canvasLocation" x="-19" y="-2.5"/>
         </tableViewCell>

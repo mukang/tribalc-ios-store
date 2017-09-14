@@ -56,6 +56,8 @@
     tableView.sectionFooterHeight = 10.0;
     [self.view addSubview:tableView];
     _tableView = tableView;
+    UINib *nib = [UINib nibWithNibName:@"TCCommonInputViewCell" bundle:[NSBundle mainBundle]];
+    [_tableView registerNib:nib forCellReuseIdentifier:@"TCCommonInputViewCell"];
     
     UIButton *putInStoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [putInStoreBtn setTitle:@"放入仓库" forState:UIControlStateNormal];
@@ -195,7 +197,7 @@
     if (indexPath.section == 0) {
         
         if (indexPath.row == 0) {
-            TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+            TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
             cell.delegate = self;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.titleLabel.text = @"货号";
@@ -205,7 +207,7 @@
             }
             return cell;
         }else if (indexPath.row == 1) {
-            TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+            TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
             cell.delegate = self;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.titleLabel.text = @"运费";

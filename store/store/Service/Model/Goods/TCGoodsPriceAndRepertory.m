@@ -10,4 +10,21 @@
 
 @implementation TCGoodsPriceAndRepertory
 
+- (void)setPfProfit:(double)pfProfit {
+    _pfProfit = pfProfit;
+    _realPfProfit = pfProfit;
+}
+
+- (void)setSalePrice:(double)salePrice {
+    _salePrice = salePrice;
+}
+
+- (void)setRealSalePrice:(double)realSalePrice {
+    _realSalePrice = realSalePrice;
+}
+
+- (void)setRealPfProfit:(double)realPfProfit {
+    _realPfProfit = realPfProfit;
+}
+
 @end

@@ -72,6 +72,8 @@
     _tableView.sectionFooterHeight = 0.01;
     _tableView.sectionHeaderHeight = 9.0;
     _tableView.dataSource = self;
+    UINib *nib = [UINib nibWithNibName:@"TCCommonInputViewCell" bundle:[NSBundle mainBundle]];
+    [_tableView registerNib:nib forCellReuseIdentifier:@"TCCommonInputViewCell"];
     [self.view addSubview:_tableView];
     
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, TCRealValue(250))];
@@ -363,16 +365,16 @@
         
         if (self.goods.standardId && self.currentGoodsStandardMate) {
             if (self.currentGoodsStandardMate.descriptions.primary && self.currentGoodsStandardMate.descriptions.secondary) {
-                return 7;
+                return 8;
             }else if (self.currentGoodsStandardMate.descriptions.primary) {
-                return 6;
+                return 7;
             }
         }
         
         if (self.currentGoodsStandardMate) {
             return 3;
         }
-        return 6;
+        return 7;
     }else {
         return 1;
     }
@@ -389,13 +391,13 @@
             }
             return cell;
         }else {
-            TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+            TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
             cell.delegate = self;
             if (indexPath.row == 1) {
                 cell.titleLabel.text = @"列表标题";
                 cell.placeholder = @"例：现货包邮MAC魅可VIVA GLAM限量版";
                 if ([self.goods.name isKindOfClass:[NSString class]]) {
-                    cell.textField.text = self.goods.name;
+                    cell.content = self.goods.name;
                 }
             }else if (indexPath.row == 2) {
                 cell.titleLabel.text = @"简短说明";
@@ -436,7 +438,7 @@
                 
                 return cell;
             }else if (indexPath.row == 1) {
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"品牌";
                 cell.placeholder = @"请输入商品品牌";
                 cell.delegate = self;
@@ -445,7 +447,7 @@
                 }
                 return cell;
             }else if (indexPath.row == 2) {
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = self.currentGoodsStandardMate.descriptions.primary.label;
                 cell.placeholder = @"请输入商品一级规格";
                 cell.delegate = self;
@@ -455,7 +457,7 @@
                 return cell;
             }else if (indexPath.row == 3) {
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
-                    TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonIndicatorViewCell"];
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = self.currentGoodsStandardMate.descriptions.secondary.label;
                     cell.placeholder = @"请输入商品二级规格";
                     cell.delegate = self;
@@ -464,72 +466,94 @@
                     }
                     return cell;
                 }
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"销售价格";
                 cell.placeholder = @"请输入商品销售价格";
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 cell.delegate = self;
                 
-                if (self.goods.priceAndRepertory.salePrice) {
-                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.salePrice];
+                if (self.goods.priceAndRepertory) {
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",(self.goods.priceAndRepertory.salePrice-self.goods.priceAndRepertory.pfProfit)];
                 }
                 
                 return cell;
             }else if (indexPath.row == 4) {
                 
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
-                    TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"销售价格";
                     cell.placeholder = @"请输入商品销售价格";
                     cell.delegate = self;
                     cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
-                    if (self.goods.priceAndRepertory.salePrice) {
-                        cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.salePrice];
+                    if (self.goods.priceAndRepertory) {
+                        cell.textField.text = [NSString stringWithFormat:@"%.2f",(self.goods.priceAndRepertory.salePrice-self.goods.priceAndRepertory.pfProfit)];
                     }
                     return cell;
                 }
                 
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"原始价格";
                 cell.placeholder = @"请输入商品原始价格";
                 cell.delegate = self;
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
-                if (self.goods.priceAndRepertory.originPrice) {
+                if (self.goods.priceAndRepertory) {
                     cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
                 }
                 return cell;
             }else if (indexPath.row == 5) {
                 
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
-                    TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"原始价格";
                     cell.placeholder = @"请输入商品原始价格";
                     cell.delegate = self;
                     cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
-                    if (self.goods.priceAndRepertory.originPrice) {
+                    if (self.goods.priceAndRepertory) {
                         cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
                     }
                     return cell;
                 }
                 
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"库存量";
                 cell.placeholder = @"请输入商品库存量";
                 cell.delegate = self;
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
-                if (self.goods.priceAndRepertory.repertory) {
-                    cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
+                if (self.goods.priceAndRepertory) {
+                    cell.textField.text = [NSString stringWithFormat:@"%ld",(long)self.goods.priceAndRepertory.repertory];
                 }
                 return cell;
-            }else {
+            }else if (indexPath.row == 6) {
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
-                    TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"库存量";
                     cell.placeholder = @"请输入商品库存量";
                     cell.delegate = self;
                     cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
-                    if (self.goods.priceAndRepertory.repertory) {
-                        cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
+                    if (self.goods.priceAndRepertory) {
+                        cell.textField.text = [NSString stringWithFormat:@"%ld",(long)self.goods.priceAndRepertory.repertory];
+                    }
+                    return cell;
+                }
+                
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"平台利润";
+                cell.placeholder = @"请输入商品平台利润";
+                cell.delegate = self;
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
+                if (self.goods.priceAndRepertory) {
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.pfProfit];
+                }
+                return cell;
+            }else {
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                    cell.titleLabel.text = @"平台利润";
+                    cell.placeholder = @"请输入商品平台利润";
+                    cell.delegate = self;
+                    cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    if (self.goods.priceAndRepertory) {
+                        cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.pfProfit];
                     }
                     return cell;
                 }else {
@@ -564,7 +588,7 @@
                 }
                 return cell;
             }else if (indexPath.row == 1) {
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"品牌";
                 cell.placeholder = @"请输入商品品牌";
                 cell.delegate = self;
@@ -581,41 +605,51 @@
                 }
                 return cell;
             }else if (indexPath.row == 3) {
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"销售价格";
                 cell.placeholder = @"请输入商品销售价格";
                 cell.delegate = self;
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
-                if (self.goods.priceAndRepertory.salePrice) {
-                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.salePrice];
+                if (self.goods.priceAndRepertory) {
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",(self.goods.priceAndRepertory.salePrice-self.goods.priceAndRepertory.pfProfit)];
                 }
                 
                 return cell;
             }else if (indexPath.row == 4) {
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"原始价格";
                 cell.placeholder = @"请输入商品原始价格";
                 cell.delegate = self;
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
-                if (self.goods.priceAndRepertory.originPrice) {
+                if (self.goods.priceAndRepertory) {
                     cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.originPrice];
                 }
                 return cell;
-            }else {
-                TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+            }else if (indexPath.row == 5) {
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"库存量";
                 cell.placeholder = @"请输入商品库存量";
                 cell.delegate = self;
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
-                if (self.goods.priceAndRepertory.repertory) {
-                    cell.textField.text = [NSString stringWithFormat:@"%ld",self.goods.priceAndRepertory.repertory];
+                if (self.goods.priceAndRepertory) {
+                    cell.textField.text = [NSString stringWithFormat:@"%ld",(long)self.goods.priceAndRepertory.repertory];
+                }
+                return cell;
+            }else {
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"平台利润";
+                cell.placeholder = @"请输入商品平台利润";
+                cell.delegate = self;
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
+                if (self.goods.priceAndRepertory) {
+                    cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.pfProfit];
                 }
                 return cell;
             }
         }
         
     }else if (indexPath.section == 2) {
-        TCCommonInputViewCell *cell = [[TCCommonInputViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"TCCommonInputViewCell"];
+        TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
         cell.titleLabel.text = @"原产国";
         cell.placeholder = @"请输入商品原产国";
         cell.delegate = self;
@@ -725,9 +759,15 @@
                 }else {
                     [self setGoodsReperoty:textField.text];
                 }
-            }else {
+            }else if (indexPath.row == 6) {
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
                     [self setGoodsReperoty:textField.text];
+                }else {
+                    [self setGoodsPfprofit:textField.text];
+                }
+            }else {
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    [self setGoodsPfprofit:textField.text];
                 }
             }
         }else {
@@ -739,12 +779,21 @@
                 [self setGoodsOriginPrice:textField.text];
             }else if (indexPath.row == 5) {
                 [self setGoodsReperoty:textField.text];
+            }else if (indexPath.row == 6) {
+                [self setGoodsPfprofit:textField.text];
             }
         }
         
     }else {
         self.goods.originCountry = textField.text;
     }
+}
+
+- (void)setGoodsPfprofit:(NSString *)text {
+    if (self.goods.priceAndRepertory == nil) {
+        self.goods.priceAndRepertory = [[TCGoodsPriceAndRepertory alloc] init];
+    }
+    self.goods.priceAndRepertory.pfProfit = [text doubleValue];
 }
 
 - (void)setGoodsSalePrice:(NSString *)text {
@@ -895,7 +944,6 @@
         }
     }
     
-    
     TCGoodsIssueViewController *issueVC = [[TCGoodsIssueViewController alloc] init];
     TCGoodsMeta *goodMeta = self.goods;
     issueVC.goods = goodMeta;
@@ -913,7 +961,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"------ TCCreateGoodsViewController ------");
+    NSLog(@"------ TCCreateGoodsViewController ------ dealloc");
 }
 
 - (void)didReceiveMemoryWarning {
