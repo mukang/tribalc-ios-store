@@ -68,7 +68,7 @@
     _orignPriceTextField.layer.cornerRadius = 3.0;
     _orignPriceTextField.delegate = self;
     _orignPriceTextField.clipsToBounds = YES;
-    _orignPriceTextField.placeholder = @"  输入原价";
+    _orignPriceTextField.placeholder = @"  原价";
     _orignPriceTextField.layer.borderWidth = 0.5;
     _orignPriceTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _orignPriceTextField.tag = 1001;
@@ -80,7 +80,7 @@
     _salePriceTextField.layer.cornerRadius = 3.0;
     _salePriceTextField.clipsToBounds = YES;
     _salePriceTextField.delegate = self;
-    _salePriceTextField.placeholder = @"  输入现价";
+    _salePriceTextField.placeholder = @"  现价";
     _salePriceTextField.layer.borderWidth = 0.5;
     _salePriceTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _salePriceTextField.tag = 1002;
@@ -92,7 +92,7 @@
     _repertoryTextField.layer.cornerRadius = 3.0;
     _repertoryTextField.clipsToBounds = YES;
     _repertoryTextField.delegate = self;
-    _repertoryTextField.placeholder = @"  输入库存";
+    _repertoryTextField.placeholder = @"  库存";
     _repertoryTextField.layer.borderWidth = 0.5;
     _repertoryTextField.layer.borderColor =TCLightGrayColor.CGColor;
     _repertoryTextField.tag = 1003;
