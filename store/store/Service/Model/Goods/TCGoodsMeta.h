@@ -57,5 +57,7 @@
 @property (copy, nonatomic) NSString *number;
 /** 是否为主商品 */
 @property (assign, nonatomic) BOOL primary;
+/** 每日限量 */
+@property (assign, nonatomic) NSInteger dailyLimit;
 
 @end

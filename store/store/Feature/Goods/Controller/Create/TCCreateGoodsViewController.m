@@ -388,16 +388,16 @@
         
         if (self.goods.standardId && self.currentGoodsStandardMate) {
             if (self.currentGoodsStandardMate.descriptions.primary && self.currentGoodsStandardMate.descriptions.secondary) {
-                return 8;
+                return 9;
             }else if (self.currentGoodsStandardMate.descriptions.primary) {
-                return 7;
+                return 8;
             }
         }
         
         if (self.currentGoodsStandardMate) {
-            return 3;
+            return 4;
         }
-        return 7;
+        return 8;
     }else {
         return 1;
     }
@@ -568,7 +568,7 @@
                     cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realPfProfit];
                 }
                 return cell;
-            }else {
+            }else if (indexPath.row == 7) {
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
                     TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                     cell.titleLabel.text = @"平台利润";
@@ -577,6 +577,28 @@
                     cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                     if (self.goods.priceAndRepertory) {
                         cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realPfProfit];
+                    }
+                    return cell;
+                }else {
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                    cell.titleLabel.text = @"每日限量";
+                    cell.placeholder = @"请输入商品每日限量";
+                    cell.delegate = self;
+                    cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    if (self.goods.dailyLimit) {
+                        cell.textField.text = [NSString stringWithFormat:@"%ld",(long)self.goods.dailyLimit];
+                    }
+                    return cell;
+                }
+            }else {
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                    cell.titleLabel.text = @"每日限量";
+                    cell.placeholder = @"请输入商品每日限量";
+                    cell.delegate = self;
+                    cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    if (self.goods.dailyLimit) {
+                        cell.textField.text = [NSString stringWithFormat:@"%ld",(long)self.goods.dailyLimit];
                     }
                     return cell;
                 }else {
@@ -658,7 +680,7 @@
                     cell.textField.text = [NSString stringWithFormat:@"%ld",(long)self.goods.priceAndRepertory.repertory];
                 }
                 return cell;
-            }else {
+            }else if (indexPath.row == 6) {
                 TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"平台利润";
                 cell.placeholder = @"请输入商品平台利润";
@@ -666,6 +688,16 @@
                 cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
                 if (self.goods.priceAndRepertory) {
                     cell.textField.text = [NSString stringWithFormat:@"%.2f",self.goods.priceAndRepertory.realPfProfit];
+                }
+                return cell;
+            }else {
+                TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"每日限量";
+                cell.placeholder = @"请输入商品每日限量";
+                cell.delegate = self;
+                cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
+                if (self.goods.dailyLimit) {
+                    cell.textField.text = [NSString stringWithFormat:@"%ld",(long)self.goods.dailyLimit];
                 }
                 return cell;
             }
@@ -787,9 +819,15 @@
                 }else {
                     [self setGoodsPfprofit:textField.text];
                 }
-            }else {
+            }else if (indexPath.row == 7) {
                 if (self.currentGoodsStandardMate.descriptions.secondary) {
                     [self setGoodsPfprofit:textField.text];
+                }else {
+                    self.goods.dailyLimit = [textField.text integerValue];
+                }
+            }else if (indexPath.row == 8){
+                if (self.currentGoodsStandardMate.descriptions.secondary) {
+                    self.goods.dailyLimit = [textField.text integerValue];
                 }
             }
         }else {
@@ -803,6 +841,8 @@
                 [self setGoodsReperoty:textField.text];
             }else if (indexPath.row == 6) {
                 [self setGoodsPfprofit:textField.text];
+            }else if (indexPath.row == 7) {
+                self.goods.dailyLimit = [textField.text integerValue];
             }
         }
         
