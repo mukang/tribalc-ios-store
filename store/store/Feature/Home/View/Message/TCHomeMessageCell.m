@@ -94,6 +94,12 @@
     }
 }
 
+- (void)handleClickCheckBtn {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didClickCheckBtnWithHomeMessage:)]) {
+        [self.delegate didClickCheckBtnWithHomeMessage:self.homeMessage];
+    }
+}
+
 - (void)btnClick {
     if (self.delegate && [self.delegate respondsToSelector:@selector(didClickMoreActionBtnWithMessageCell:)]) {
         [self.delegate didClickMoreActionBtnWithMessageCell:self];
@@ -206,6 +212,7 @@
         [_checkBtn setTitle:@"立即查看" forState:UIControlStateNormal];
         [_checkBtn setTitleColor:TCGrayColor forState:UIControlStateNormal];
         _checkBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        [_checkBtn addTarget:self action:@selector(handleClickCheckBtn) forControlEvents:UIControlEventTouchUpInside];
     }
     return _checkBtn;
 }

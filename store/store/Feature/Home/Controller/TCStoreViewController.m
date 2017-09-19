@@ -9,33 +9,34 @@
 #import "TCStoreViewController.h"
 #import "TCNavigationController.h"
 #import "TCCollectViewController.h"
-#import "TCStoreInfo.h"
-#import "TCBuluoApi.h"
-#import "TCVerticalImageAndTitleBtn.h"
-#import <UIImage+Category.h>
-#import <TCCommonLibs/TCImageURLSynthesizer.h>
-#import <UIImageView+WebCache.h>
 #import "TCWalletBillViewController.h"
 #import "TCBankCardViewController.h"
-#import "TCWalletAccount.h"
 #import "TCWithdrawViewController.h"
 #import "TCAppSettingViewController.h"
 #import "TCPrivilegeViewController.h"
-#import "TCHomeMessageWrapper.h"
-#import "TCHomeMessageCell.h"
-#import <UITableView+FDTemplateLayoutCell.h>
-#import <TCCommonLibs/TCRefreshHeader.h>
-#import <TCCommonLibs/TCRefreshFooter.h>
-#import "TCHomeCoverView.h"
 #import "TCBankCardAddViewController.h"
+#import "TCWalletPasswordViewController.h"
+#import "TCGoodsViewController.h"
+#import "TCGoodsOrderViewController.h"
+#import "TCWalletBillDetailViewController.h"
+
+#import "TCHomeMessageCell.h"
+#import "TCVerticalImageAndTitleBtn.h"
+#import "TCHomeCoverView.h"
 #import "TCHomeMessageSubTitleCell.h"
 #import "TCHomeMessageMoneyMiddleCell.h"
 #import "TCHomeMessageExtendCreditMiddleCell.h"
 #import "TCHomeMessageOnlyMainTitleMiddleCell.h"
-#import "TCWalletPasswordViewController.h"
-#import "TCGoodsViewController.h"
-#import "TCGoodsOrderViewController.h"
+
+#import "TCBuluoApi.h"
 #import "TCUserDefaultsKeys.h"
+
+#import <UITableView+FDTemplateLayoutCell.h>
+#import <TCCommonLibs/TCRefreshHeader.h>
+#import <TCCommonLibs/TCRefreshFooter.h>
+#import <UIImage+Category.h>
+#import <TCCommonLibs/TCImageURLSynthesizer.h>
+#import <UIImageView+WebCache.h>
 
 @interface TCStoreViewController ()<UITableViewDelegate,UITableViewDataSource,TCHomeMessageCellDelegate,TCHomeCoverViewDelegate>
 
@@ -261,6 +262,33 @@
 
 #pragma mark TCHomeMessageCellDelegate
 
+- (void)didClickCheckBtnWithHomeMessage:(TCHomeMessage *)message {
+    if (!message) {
+        return;
+    }
+    
+    if (!message.messageBody.homeMessageType) {
+        return;
+    }
+    
+    if (![message.messageBody.homeMessageType.homeMessageTypeEnum isKindOfClass:[NSString class]]) {
+        return;
+    }
+    
+    if (message.messageBody.homeMessageType.type == TCMessageTypeOther) {
+        return;
+    }
+    
+    TCMessageType type = message.messageBody.homeMessageType.type;
+    if (type == TCMessageTypeTenantRecharge) {
+        // 对账单详情
+        [self getbillInfoWithHomeMessage:message];
+    }else if (type == TCMessageTypeTenantWithdraw) {
+        // 提现记录详情
+        [self getWithDrawRequestWithHomeMessage:message];
+    }
+}
+
 - (void)didClickMoreActionBtnWithMessageCell:(UITableViewCell *)cell {
     TCHomeMessageCell *messageCell = (TCHomeMessageCell *)cell;
     CGRect rect = [messageCell convertRect:messageCell.bounds toView:self.navigationController.view];
@@ -269,6 +297,43 @@
     self.coverView.currentCell = (TCHomeMessageCell *)cell;
     self.coverView.homeMessage = messageCell.homeMessage;
     self.coverView.hidden = NO;
+}
+
+- (void)getbillInfoWithHomeMessage:(TCHomeMessage *)message {
+    @WeakObj(self)
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] fetchWalletBillByBillID:message.messageBody.referenceId result:^(TCWalletBill *walletBill, NSError *error) {
+        @StrongObj(self)
+        if (walletBill) {
+            [MBProgressHUD hideHUD:YES];
+            TCWalletBillDetailViewController *walletBillDetailVC = [[TCWalletBillDetailViewController alloc] init];
+            walletBillDetailVC.walletBill = walletBill;
+            walletBillDetailVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:walletBillDetailVC animated:YES];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+        }
+    }];
+}
+
+- (void)getWithDrawRequestWithHomeMessage:(TCHomeMessage *)message {
+    @WeakObj(self)
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] fetchWithDrawRequestDetailWithRequestId:message.messageBody.referenceId result:^(TCWithDrawRequest *withDrawRequest, NSError *error) {
+        @StrongObj(self)
+        if (withDrawRequest) {
+            [MBProgressHUD hideHUD:YES];
+            TCWalletBillDetailViewController *walletBillDetailVC = [[TCWalletBillDetailViewController alloc] init];
+            walletBillDetailVC.withDrawRequest = withDrawRequest;
+            walletBillDetailVC.isWithDraw = YES;
+            walletBillDetailVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:walletBillDetailVC animated:YES];
+        }else {
+            NSString *reason = error.localizedDescription ?: @"请稍后再试";
+            [MBProgressHUD showHUDWithMessage:[NSString stringWithFormat:@"获取失败，%@", reason]];
+        }
+    }];
 }
 
 #pragma mark UITableViewDataSource

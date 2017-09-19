@@ -14,6 +14,8 @@
 
 - (void)didClickMoreActionBtnWithMessageCell:(UITableViewCell *)cell;
 
+- (void)didClickCheckBtnWithHomeMessage:(TCHomeMessage *)message;
+
 @end
 
 @interface TCHomeMessageCell : UITableViewCell

@@ -43,6 +43,8 @@
         _type = TCMessageTypeCompaniesRentBillPayment;
     }else if ([homeMessageTypeEnum isEqualToString:@"ACCOUNT_REGISTER"]) {
         _type = TCMessageTypeAccountRegister;
+    }else {
+        _type = TCMessageTypeOther;
     }
 }
 

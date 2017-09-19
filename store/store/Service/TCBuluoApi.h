@@ -419,6 +419,14 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
 - (void)fetchWalletAccountInfo:(void (^)(TCWalletAccount *walletAccount, NSError *error))resultBlock;
 
 /**
+ 获取用户钱包明细详情
+ 
+ @param billID 账单id
+ @param resultBlock 结果回调，walletBill为nil时表示获取失败，失败原因见error的code和userInfo
+ */
+- (void)fetchWalletBillByBillID:(NSString *)billID result:(void (^)(TCWalletBill *walletBill, NSError *error))resultBlock;
+
+/**
  获取钱包明细
  
  @param tradingType 交易类型，传nil表示获取全部类型的账单

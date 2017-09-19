@@ -29,4 +29,8 @@
 @property (copy, nonatomic) NSString *avatar;
 
 @property (assign, nonatomic) int64_t applicationTime;
+
+@property (assign, nonatomic) NSInteger dayTradingNumber;
+
+@property (assign, nonatomic) double dayTradingAmount;
 @end
