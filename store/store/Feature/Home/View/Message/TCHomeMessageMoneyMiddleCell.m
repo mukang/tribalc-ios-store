@@ -39,12 +39,17 @@
     [self.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"profile_default_avatar_icon"] options:SDWebImageRetryFailed];
     self.moneyLabel.text = homeMessage.messageBody.body;
     self.moneyDesLabel.text = homeMessage.messageBody.desc;
-    if (homeMessage.messageBody.applicationTime) {
-        self.moneySubTitleLabel.text = [NSString stringWithFormat:@"申请日期:%@",[self.dataFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:homeMessage.messageBody.applicationTime/1000]]];
+    if (homeMessage.messageBody.homeMessageType.type == TCMessageTypeTenantRecharge) {
+        self.moneySubTitleLabel.text = [NSString stringWithFormat:@"当日累计交易%ld笔，累计收入%.2f元",(long)homeMessage.messageBody.dayTradingNumber,homeMessage.messageBody.dayTradingAmount];
+        self.moneySubTitleLabel.textColor = self.moneyDesLabel.textColor;
     }else {
-        self.moneySubTitleLabel.text = nil;
+        self.moneySubTitleLabel.textColor = TCGrayColor;
+        if (homeMessage.messageBody.applicationTime) {
+            self.moneySubTitleLabel.text = [NSString stringWithFormat:@"申请日期:%@",[self.dataFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:homeMessage.messageBody.applicationTime/1000]]];
+        }else {
+            self.moneySubTitleLabel.text = nil;
+        }
     }
-
 }
 
 - (void)setUpSubViews {
@@ -99,7 +104,7 @@
         _moneyDesLabel = [[UILabel alloc] init];
         _moneyDesLabel.textColor = TCBlackColor;
         _moneyDesLabel.font = [UIFont systemFontOfSize:12];
-        _moneyDesLabel.numberOfLines = 0;
+        _moneyDesLabel.numberOfLines = 1;
     }
     return _moneyDesLabel;
 }
