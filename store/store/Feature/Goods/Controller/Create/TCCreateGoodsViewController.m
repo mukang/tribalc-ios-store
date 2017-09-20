@@ -489,6 +489,7 @@
                     }
                     return cell;
                 }
+                
                 TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"销售价格";
                 cell.placeholder = @"请输入商品销售价格";
@@ -650,6 +651,19 @@
                 }
                 return cell;
             }else if (indexPath.row == 3) {
+                
+                if (self.currentGoodsStandardMate) {
+                    TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
+                    cell.titleLabel.text = @"每日限量";
+                    cell.placeholder = @"请输入商品每日限量";
+                    cell.delegate = self;
+                    cell.textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    if (self.goods.dailyLimit) {
+                        cell.textField.text = [NSString stringWithFormat:@"%ld",(long)self.goods.dailyLimit];
+                    }
+                    return cell;
+                }
+                
                 TCCommonInputViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TCCommonInputViewCell" forIndexPath:indexPath];
                 cell.titleLabel.text = @"销售价格";
                 cell.placeholder = @"请输入商品销售价格";
@@ -834,7 +848,11 @@
             if (indexPath.row == 1) {
                 self.goods.brand = textField.text;
             }else if (indexPath.row == 3) {
-                [self setGoodsSalePrice:textField.text];
+                if (self.currentGoodsStandardMate) {
+                    self.goods.dailyLimit = [textField.text integerValue];
+                }else {
+                    [self setGoodsSalePrice:textField.text];
+                }
             }else if (indexPath.row == 4) {
                 [self setGoodsOriginPrice:textField.text];
             }else if (indexPath.row == 5) {
