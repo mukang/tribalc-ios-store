@@ -264,6 +264,7 @@
 		7AE92B801E2CB2280012B11E /* TCAboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B791E2CB2280012B11E /* TCAboutUSViewController.m */; };
 		7AE92B821E2CB2280012B11E /* TCSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE92B7D1E2CB2280012B11E /* TCSuggestionViewController.m */; };
 		7AF0B4851E64200B00B8F7D6 /* TCServiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0B4841E64200B00B8F7D6 /* TCServiceListViewController.m */; };
+		7AF2A78B1F7A048100F2571B /* TCGoodsRefundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2A78A1F7A048100F2571B /* TCGoodsRefundView.m */; };
 		7AFEC4131E51452400B0E754 /* TCGoodsDeliveryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4121E51452400B0E754 /* TCGoodsDeliveryView.m */; };
 		7AFEC4161E515DE800B0E754 /* TCDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC4151E515DE800B0E754 /* TCDropdownMenu.m */; };
 		7AFEC41C1E52E4D300B0E754 /* TCWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEC41A1E52E4D300B0E754 /* TCWalletViewController.m */; };
@@ -804,6 +805,8 @@
 		7AE92B7D1E2CB2280012B11E /* TCSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSuggestionViewController.m; sourceTree = "<group>"; };
 		7AF0B4831E64200B00B8F7D6 /* TCServiceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceListViewController.h; sourceTree = "<group>"; };
 		7AF0B4841E64200B00B8F7D6 /* TCServiceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCServiceListViewController.m; sourceTree = "<group>"; };
+		7AF2A7891F7A048100F2571B /* TCGoodsRefundView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TCGoodsRefundView.h; sourceTree = "<group>"; };
+		7AF2A78A1F7A048100F2571B /* TCGoodsRefundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TCGoodsRefundView.m; sourceTree = "<group>"; };
 		7AFEC4111E51452400B0E754 /* TCGoodsDeliveryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCGoodsDeliveryView.h; sourceTree = "<group>"; };
 		7AFEC4121E51452400B0E754 /* TCGoodsDeliveryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCGoodsDeliveryView.m; sourceTree = "<group>"; };
 		7AFEC4141E515DE800B0E754 /* TCDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCDropdownMenu.h; sourceTree = "<group>"; };
@@ -1106,6 +1109,8 @@
 				7AD866581E4C9A4700686AC2 /* TCGoodsOrderNoteViewCell.m */,
 				7A2BD12B1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.h */,
 				7A2BD12C1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m */,
+				7AF2A7891F7A048100F2571B /* TCGoodsRefundView.h */,
+				7AF2A78A1F7A048100F2571B /* TCGoodsRefundView.m */,
 			);
 			path = Goods;
 			sourceTree = "<group>";
@@ -2383,6 +2388,7 @@
 				7AD866531E4C828600686AC2 /* TCGoodsOrderGoodsViewCell.m in Sources */,
 				7A9988241E24EE4B006175CC /* TCUploadInfo.m in Sources */,
 				559E78061F1F4B3C00CDE11D /* TCHomeMessageWrapper.m in Sources */,
+				7AF2A78B1F7A048100F2571B /* TCGoodsRefundView.m in Sources */,
 				7AFEC4481E52E56000B0E754 /* TCWalletBillDetailHeaderView.m in Sources */,
 				55DB0CDE1F63A09800C5D50A /* TCCommonInputViewCell.m in Sources */,
 				7AFEC4261E52E4EF00B0E754 /* TCWalletBillViewController.m in Sources */,

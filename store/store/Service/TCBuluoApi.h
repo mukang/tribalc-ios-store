@@ -407,7 +407,7 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  @param orderID 订单id
  @param resultBlock 结果回调，order为nil时表示修改失败，失败原因见error的code和userInfo
  */
-- (void)fetchOrderDetailWithOrderID:(NSString *)orderID result:(void (^)(TCGoodsOrder *order, NSError *))resultBlock;
+- (void)fetchOrderDetailWithOrderID:(NSString *)orderID result:(void (^)(TCGoodsOrder *order, NSError *error))resultBlock;
 
 #pragma mark - 钱包资源
 
@@ -540,6 +540,15 @@ typedef NS_ENUM(NSInteger, TCUploadImageType) { // 上传图像类型
  @param resultBlock 结果回调
  */
 - (void)fetchWithDrawRequestDetailWithRequestId:(NSString *)requestId result:(void (^)(TCWithDrawRequest *withDrawRequest, NSError *error))resultBlock;
+
+/**
+ 退款
+
+ @param orderID 订单id
+ @param reason 退款原因
+ @param resultBlock 结果回调
+ */
+- (void)refundWithOrderID:(NSString *)orderID reason:(NSString *)reason result:(void (^)(BOOL success, NSError *error))resultBlock;
 
 #pragma mark - 系统初始化接口
 

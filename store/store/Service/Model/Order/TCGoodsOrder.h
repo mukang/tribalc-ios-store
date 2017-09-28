@@ -40,16 +40,20 @@
 @property (copy, nonatomic) NSString *note;
 /** 支付方式 Default BALANCE From { BALANCE, ALIPAY, WEICHAT, BANKCARD } */
 @property (copy, nonatomic) NSString *payChannel;
-/** 订单状态 Default NO_SETTLE From enum OrderStatus{ CANCEL, NO_SETTLE, SETTLE, DELIVERY, RECEIVED } */
+/** 订单状态 Default NO_SETTLE From enum OrderStatus{ CANCEL, NO_SETTLE, SETTLE, DELIVERY, RECEIVED, REFUNDED } */
 @property (copy, nonatomic) NSString *status;
 /** 创建时间 */
-@property (nonatomic) NSUInteger createTime;
+@property (nonatomic) int64_t createTime;
 /** 结算时间 */
-@property (nonatomic) NSUInteger settleTime;
+@property (nonatomic) int64_t settleTime;
+/** 退款时间 */
+@property (nonatomic) int64_t refundTime;
 /** 发货时间 */
-@property (nonatomic) NSUInteger deliveryTime;
+@property (nonatomic) int64_t deliveryTime;
 /** 收货时间 */
-@property (nonatomic) NSUInteger receivedTime;
+@property (nonatomic) int64_t receivedTime;
+/** 退款原因 */
+@property (copy, nonatomic) NSString *refundNote;
 /** 商铺简要信息 */
 @property (strong, nonatomic) TCStoreInfo *store;
 /** 关联的商品信息，TCGoodsOrderItem对象数组 */

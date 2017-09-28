@@ -8,7 +8,7 @@
 
 #import "TCGoodsOrderDetailViewController.h"
 
-#import <TCCommonLibs/TCCommonButton.h>
+#import "TCGoodsRefundView.h"
 #import "TCGoodsDeliveryView.h"
 #import "TCGoodsOrderAddressViewCell.h"
 #import "TCGoodsOrderPurchaserViewCell.h"
@@ -23,13 +23,12 @@
 #import <TCCommonLibs/UIImage+Category.h>
 #import <UIImageView+WebCache.h>
 
-@interface TCGoodsOrderDetailViewController () <UITableViewDataSource, UITableViewDelegate, TCGoodsDeliveryViewDelegate>
+@interface TCGoodsOrderDetailViewController () <UITableViewDataSource, UITableViewDelegate, TCGoodsDeliveryViewDelegate, TCGoodsRefundViewDelegate>
 
 @property (weak, nonatomic) UITableView *tableView;
-@property (weak, nonatomic) TCCommonButton *deliverButton;
+@property (weak, nonatomic) UIButton *refundButton;
+@property (weak, nonatomic) UIButton *deliverButton;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-
-@property (weak, nonatomic) TCGoodsDeliveryView *deliveryView;
 
 @end
 
@@ -57,6 +56,8 @@
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.backgroundColor = TCBackgroundColor;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.estimatedSectionHeaderHeight = 0;
+    tableView.estimatedSectionFooterHeight = 0;
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerClass:[TCGoodsOrderAddressViewCell class] forCellReuseIdentifier:@"TCGoodsOrderAddressViewCell"];
@@ -70,21 +71,62 @@
     
     CGFloat bottomMargin = 0;
     if ([self.goodsOrder.status isEqualToString:@"SETTLE"]) {
-        TCCommonButton *deliverButton = [TCCommonButton bottomButtonWithTitle:@"发  货"
-                                                                        color:TCCommonButtonColorBlue
-                                                                       target:self
-                                                                       action:@selector(handleClickDeliverButton:)];
+        UIButton *refundButton = [self creatButtonWithTitle:@"退  款"
+                                                normalImage:[UIImage imageWithColor:TCRGBColor(151, 171, 234)]
+                                           highlightedImage:[UIImage imageWithColor:TCRGBColor(125, 151, 234)]
+                                                     action:@selector(handleClickRefundButton:)];
+        [self.view addSubview:refundButton];
+        
+        UIButton *deliverButton = [self creatButtonWithTitle:@"发  货"
+                                                 normalImage:[UIImage imageWithColor:TCRGBColor(113, 130, 220)]
+                                            highlightedImage:[UIImage imageWithColor:TCRGBColor(90, 111, 220)]
+                                                      action:@selector(handleClickDeliverButton:)];
         [self.view addSubview:deliverButton];
         self.deliverButton = deliverButton;
-        [deliverButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        [refundButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(49);
-            make.left.bottom.right.equalTo(weakSelf.view);
+            make.left.bottom.equalTo(self.view);
+        }];
+        [deliverButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.equalTo(refundButton);
+            make.left.equalTo(refundButton.mas_right);
+            make.right.bottom.equalTo(self.view);
         }];
         bottomMargin = 49;
     }
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(weakSelf.view);
         make.bottom.equalTo(weakSelf.view).with.offset(-bottomMargin);
+    }];
+}
+
+- (UIButton *)creatButtonWithTitle:(NSString *)title normalImage:(UIImage *)normalImage highlightedImage:(UIImage *)highlightedImage action:(SEL)action {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:normalImage forState:UIControlStateNormal];
+    [button setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    button.titleLabel.font = [UIFont systemFontOfSize:16];
+    return button;
+}
+
+- (void)reloadGoodsOrder {
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] fetchOrderDetailWithOrderID:self.goodsOrder.ID result:^(TCGoodsOrder *order, NSError *error) {
+        if (order) {
+            [MBProgressHUD hideHUD:YES];
+            weakSelf.goodsOrder = order;
+            [weakSelf handleHideBottomButton];
+            [weakSelf.tableView reloadData];
+            if (weakSelf.statusChangeBlock) {
+                weakSelf.statusChangeBlock(order);
+            }
+        } else {
+            NSString *message = error.localizedDescription ?: @"获取数据失败，请稍后再试";
+            [MBProgressHUD showHUDWithMessage:message];
+        }
     }];
 }
 
@@ -226,6 +268,20 @@
     return 0.01;
 }
 
+#pragma mark - TCGoodsRefundViewDelegate
+
+- (void)goodsRefundView:(TCGoodsRefundView *)view didClickRefundButtonWithReason:(NSString *)reason {
+    [MBProgressHUD showHUD:YES];
+    [[TCBuluoApi api] refundWithOrderID:self.goodsOrder.ID reason:reason result:^(BOOL success, NSError *error) {
+        if (success) {
+            [weakSelf reloadGoodsOrder];
+        } else {
+            NSString *message = error.localizedDescription ?: @"退款失败，请稍后再试";
+            [MBProgressHUD showHUDWithMessage:message];
+        }
+    }];
+}
+
 #pragma mark - TCGoodsDeliveryViewDelegate
 
 - (void)goodsDeliveryView:(TCGoodsDeliveryView *)view didClickDeliveryButtonWithLogisticsCompany:(NSString *)company logisticsNum:(NSString *)num {
@@ -254,6 +310,12 @@
 
 #pragma mark - Actions
 
+- (void)handleClickRefundButton:(UIButton *)sender {
+    TCGoodsRefundView *refundView = [[TCGoodsRefundView alloc] initWithController:self];
+    refundView.delegate = self;
+    [refundView show];
+}
+
 - (void)handleClickDeliverButton:(UIButton *)sender {
     TCGoodsDeliveryView *deliveryView = [[TCGoodsDeliveryView alloc] initWithController:self];
     deliveryView.delegate = self;
@@ -261,6 +323,7 @@
 }
 
 - (void)handleHideBottomButton {
+    self.refundButton.hidden = YES;
     self.deliverButton.hidden = YES;
     [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.view.mas_bottom);
@@ -271,15 +334,19 @@
 - (NSArray *)handleCreateInfoArrayWithStatus:(NSString *)status {
     NSString *expressNum = [NSString stringWithFormat:@"物流编号：%@", self.goodsOrder.logisticsNum];
     NSString *orderNum = [NSString stringWithFormat:@"订单编号：%@", self.goodsOrder.orderNum];
-    NSString *createTime = [NSString stringWithFormat:@"创建时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.createTime / 1000]]];
-    NSString *settleTime = [NSString stringWithFormat:@"付款时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.settleTime / 1000]]];
-    NSString *deliveryTime = [NSString stringWithFormat:@"发货时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.deliveryTime / 1000]]];
-    NSString *receivedTime = [NSString stringWithFormat:@"收货时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.receivedTime / 1000]]];
+    NSString *createTime = [NSString stringWithFormat:@"创建时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.createTime / 1000.0]]];
+    NSString *settleTime = [NSString stringWithFormat:@"付款时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.settleTime / 1000.0]]];
+    NSString *deliveryTime = [NSString stringWithFormat:@"发货时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.deliveryTime / 1000.0]]];
+    NSString *receivedTime = [NSString stringWithFormat:@"收货时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.receivedTime / 1000.0]]];
+    NSString *refundTime = [NSString stringWithFormat:@"退款时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.refundTime / 1000.0]]];
+    NSString *refundReason = [NSString stringWithFormat:@"退款原因%@", self.goodsOrder.refundNote];
     
     if ([status isEqualToString:@"NO_SETTLE"]) {
         return @[orderNum, createTime];
     } else if ([status isEqualToString:@"SETTLE"]) {
         return @[orderNum, createTime, settleTime];
+    } else if ([status isEqualToString:@"REFUNDED"]) {
+        return @[orderNum, createTime, settleTime, refundTime, refundReason];
     } else if ([status isEqualToString:@"DELIVERY"]) {
         return @[expressNum, orderNum, createTime, settleTime, deliveryTime];
     } else {
