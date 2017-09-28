@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, TCMessageType) {
     TCMessageTypeCompaniesRentBillGeneration,       // "企业办公", "缴租提醒"
     TCMessageTypeCompaniesRentBillPayment,          // "企业办公", "租金缴纳"
     TCMessageTypeAccountRegister,                   // "账户推送", "欢迎登录"
+    TCMessageTypeOrderRefund,                       // "订单推送"
     TCMessageTypeOther
 };
 
