@@ -1311,7 +1311,7 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
 
 - (void)fetchWalletBillByBillID:(NSString *)billID result:(void (^)(TCWalletBill *walletBill, NSError *error))resultBlock {
     if ([self isUserSessionValid]) {
-        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bills/%@", self.currentUserSession.assigned,billID];
+        NSString *apiName = [NSString stringWithFormat:@"wallets/%@/bills/%@?me=%@", self.currentUserSession.assigned,billID,self.currentUserSession.assigned];
         TCClientRequest *request = [TCClientRequest requestWithHTTPMethod:TCClientHTTPMethodGet apiName:apiName];
         request.token = self.currentUserSession.token;
         [[TCClient client] send:request finish:^(TCClientResponse *response) {
@@ -1323,10 +1323,8 @@ NSString *const TCBuluoApiNotificationStoreDidCreated = @"TCBuluoApiNotification
                     }
                 }
             } else {
-                if (response.error) {
-                    if (resultBlock) {
-                        TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
-                    }
+                if (resultBlock) {
+                    TC_CALL_ASYNC_MQ(resultBlock(nil, response.error));
                 }
             }
         }];

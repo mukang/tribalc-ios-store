@@ -41,9 +41,11 @@
         _type = TCMessageTypeCompaniesRentBillGeneration;
     } else if ([homeMessageTypeEnum isEqualToString:@"COMPANIES_RENT_BILL_PAYMENT"]) {
         _type = TCMessageTypeCompaniesRentBillPayment;
-    }else if ([homeMessageTypeEnum isEqualToString:@"ACCOUNT_REGISTER"]) {
+    } else if ([homeMessageTypeEnum isEqualToString:@"ACCOUNT_REGISTER"]) {
         _type = TCMessageTypeAccountRegister;
-    }else {
+    } else if ([homeMessageTypeEnum isEqualToString:@"ORDER_REFUND"]) {
+        _type = TCMessageTypeOrderRefund;
+    } else {
         _type = TCMessageTypeOther;
     }
 }
