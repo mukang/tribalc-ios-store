@@ -93,6 +93,8 @@
             self.statusLabel.text = @"待付款";
         } else if ([order.status isEqualToString:@"SETTLE"]) {
             self.statusLabel.text = @"待发货";
+        } else if ([order.status isEqualToString:@"REFUNDED"]) {
+            self.statusLabel.text = @"已退款";
         } else if ([order.status isEqualToString:@"DELIVERY"]) {
             self.statusLabel.text = @"待收货";
         } else {

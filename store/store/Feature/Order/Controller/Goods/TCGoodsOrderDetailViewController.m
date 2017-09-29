@@ -341,7 +341,7 @@
     NSString *deliveryTime = [NSString stringWithFormat:@"发货时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.deliveryTime / 1000.0]]];
     NSString *receivedTime = [NSString stringWithFormat:@"收货时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.receivedTime / 1000.0]]];
     NSString *refundTime = [NSString stringWithFormat:@"退款时间：%@", [self.dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.goodsOrder.refundTime / 1000.0]]];
-    NSString *refundReason = [NSString stringWithFormat:@"退款原因%@", self.goodsOrder.refundNote];
+    NSString *refundReason = [NSString stringWithFormat:@"退款原因：%@", self.goodsOrder.refundNote];
     
     if ([status isEqualToString:@"NO_SETTLE"]) {
         return @[orderNum, createTime];
