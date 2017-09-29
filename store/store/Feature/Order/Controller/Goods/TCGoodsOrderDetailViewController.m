@@ -76,6 +76,7 @@
                                            highlightedImage:[UIImage imageWithColor:TCRGBColor(125, 151, 234)]
                                                      action:@selector(handleClickRefundButton:)];
         [self.view addSubview:refundButton];
+        self.refundButton = refundButton;
         
         UIButton *deliverButton = [self creatButtonWithTitle:@"发  货"
                                                  normalImage:[UIImage imageWithColor:TCRGBColor(113, 130, 220)]
@@ -274,6 +275,7 @@
     [MBProgressHUD showHUD:YES];
     [[TCBuluoApi api] refundWithOrderID:self.goodsOrder.ID reason:reason result:^(BOOL success, NSError *error) {
         if (success) {
+            [MBProgressHUD hideHUD:YES];
             [weakSelf reloadGoodsOrder];
         } else {
             NSString *message = error.localizedDescription ?: @"退款失败，请稍后再试";
