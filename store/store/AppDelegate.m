@@ -27,8 +27,8 @@
 #import <TCCommonLibs/TCFunctions.h>
 #import <EAIntroView/EAIntroView.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
-#import "XGPush.h"
-#import "XGSetting.h"
+#import <XGPush.h>
+#import <XGSetting.h>
 #import "WXApiManager.h"
 
 static NSString *const kAppVersion = @"kAppVersion";

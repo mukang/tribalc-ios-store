@@ -12,6 +12,6 @@ pod 'UITableView+FDTemplateLayoutCell'
 pod 'EAIntroView', '~> 2.10.0'
 pod 'FLEX', '~> 2.0', :configurations => ['Debug']
 pod 'Bugly'
-pod 'QQ_XGPush'
+pod 'QQ_XGPush', '~> 2.5.0'
 pod 'WechatOpenSDK', '~> 1.7.9'
 end

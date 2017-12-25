@@ -27,6 +27,7 @@
 #import "TCHomeMessageMoneyMiddleCell.h"
 #import "TCHomeMessageExtendCreditMiddleCell.h"
 #import "TCHomeMessageOnlyMainTitleMiddleCell.h"
+#import "TCNavigationBar.h"
 
 #import "TCBuluoApi.h"
 #import "TCUserDefaultsKeys.h"
@@ -40,7 +41,7 @@
 
 @interface TCStoreViewController ()<UITableViewDelegate,UITableViewDataSource,TCHomeMessageCellDelegate,TCHomeCoverViewDelegate>
 
-@property (weak, nonatomic) UINavigationBar *navBar;
+@property (weak, nonatomic) TCNavigationBar *navBar;
 
 @property (weak, nonatomic) UINavigationItem *navItem;
 
@@ -466,7 +467,7 @@
     self.hideOriginalNavBar = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
+    TCNavigationBar *navBar = [[TCNavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     [self.view addSubview:navBar];
     
     UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:[[TCBuluoApi api] currentUserSession].storeInfo.name];

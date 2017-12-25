@@ -12,6 +12,7 @@
 #import "TCImageURLSynthesizer.h"
 #import <UIImageView+WebCache.h>
 #import <Photos/Photos.h>
+#import "TCNavigationBar.h"
 
 #define TCQRWIDTH 180
 
@@ -21,7 +22,7 @@
 
 @property (strong, nonatomic) UIButton *btn;
 
-@property (weak, nonatomic) UINavigationBar *navBar;
+@property (weak, nonatomic) TCNavigationBar *navBar;
 
 @property (weak, nonatomic) UINavigationItem *navItem;
 
@@ -108,7 +109,7 @@
     self.hideOriginalNavBar = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
+    TCNavigationBar *navBar = [[TCNavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     navBar.titleTextAttributes = @{
                                    NSFontAttributeName : [UIFont systemFontOfSize:16],
                                    NSForegroundColorAttributeName : [UIColor whiteColor]

@@ -100,6 +100,7 @@
 		7A2BD12D1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BD12C1E4CAFFC00C3D977 /* TCGoodsOrderStatusViewCell.m */; };
 		7A3571E81E345B5C00E79C59 /* TCStoreAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3571E71E345B5C00E79C59 /* TCStoreAddressViewController.m */; };
 		7A3571EB1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3571EA1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m */; };
+		7A3E9FAB1FF09F47005737B6 /* TCNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3E9FA91FF09F46005737B6 /* TCNavigationBar.m */; };
 		7A40CE0B1E3851F20049A8EF /* TCStoreFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A40CE0A1E3851F20049A8EF /* TCStoreFeature.m */; };
 		7A41CD6D1E651BDB00645026 /* TCServiceTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD6C1E651BDB00645026 /* TCServiceTabBar.m */; };
 		7A41CD701E651F2900645026 /* TCServiceTabItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A41CD6F1E651F2900645026 /* TCServiceTabItemView.m */; };
@@ -493,6 +494,8 @@
 		7A3571E71E345B5C00E79C59 /* TCStoreAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreAddressViewController.m; sourceTree = "<group>"; };
 		7A3571E91E345E5000E79C59 /* TCStoreSearchAddressViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreSearchAddressViewCell.h; sourceTree = "<group>"; };
 		7A3571EA1E345E5000E79C59 /* TCStoreSearchAddressViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreSearchAddressViewCell.m; sourceTree = "<group>"; };
+		7A3E9FA91FF09F46005737B6 /* TCNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCNavigationBar.m; sourceTree = "<group>"; };
+		7A3E9FAA1FF09F46005737B6 /* TCNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCNavigationBar.h; sourceTree = "<group>"; };
 		7A40CE091E3851F20049A8EF /* TCStoreFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCStoreFeature.h; sourceTree = "<group>"; };
 		7A40CE0A1E3851F20049A8EF /* TCStoreFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCStoreFeature.m; sourceTree = "<group>"; };
 		7A41CD6B1E651BDB00645026 /* TCServiceTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCServiceTabBar.h; sourceTree = "<group>"; };
@@ -1509,6 +1512,8 @@
 				7AA117901F50109100903445 /* TCNumberTextField.m */,
 				55E6A3E51F4EC28300FB4404 /* TCTabButton.h */,
 				55E6A3E61F4EC28300FB4404 /* TCTabButton.m */,
+				7A3E9FAA1FF09F46005737B6 /* TCNavigationBar.h */,
+				7A3E9FA91FF09F46005737B6 /* TCNavigationBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2237,13 +2242,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-store-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7AAEAA181EF135B0004E7EF9 /* ShellScript */ = {
@@ -2265,9 +2273,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-store/Pods-store-resources.sh",
+				"${PODS_ROOT}/AMap2DMap-NO-IDFA/MAMapKit.framework/AMap.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/TCCommonLibs/TCCommonLibs.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2335,6 +2348,7 @@
 				5503194A1E35DDEE004522C7 /* TCCreateGoodsStandardController.m in Sources */,
 				7A1A85761E67CA1C00BB5EDB /* TCServiceFacilitiesViewController.m in Sources */,
 				7AE92B721E2CB1280012B11E /* TCScannerBorder.m in Sources */,
+				7A3E9FAB1FF09F47005737B6 /* TCNavigationBar.m in Sources */,
 				7A9988201E24EE3E006175CC /* TCServiceWrapper.m in Sources */,
 				7A9987711E24C820006175CC /* TCPhotoPicker.m in Sources */,
 				7AB568311E45714F0005814A /* TCBusinessHoursViewController.m in Sources */,
@@ -2705,7 +2719,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.buluo-gs.store";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0e8370b7-e0f5-4a2c-aac1-c82f3483a766";
+				PROVISIONING_PROFILE = "1463438e-6619-4ef0-aca9-f2934349c0e6";
 				PROVISIONING_PROFILE_SPECIFIER = "Store Development";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

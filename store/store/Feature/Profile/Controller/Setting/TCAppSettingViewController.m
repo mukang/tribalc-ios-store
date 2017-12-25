@@ -61,6 +61,8 @@
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.backgroundColor = TCBackgroundColor;
     tableView.separatorColor = TCSeparatorLineColor;
+    tableView.estimatedSectionHeaderHeight = 0;
+    tableView.estimatedSectionFooterHeight = 0;
     tableView.rowHeight = 54;
     tableView.dataSource = self;
     tableView.delegate = self;
